@@ -128,22 +128,21 @@ def report(ctx):
     print('│  ' * len(collections))
     query = db.query(tables.Package)
     query = query.order_by(func.lower(tables.Package.name))
-    query = query.options(eagerload(tables.Package.collection_packages))
+    query = query.options(eagerload(tables.Package.by_collection))
     query = query.options(subqueryload(tables.Package.requirements))
     for package in query:
         for collection in collections:
-            for cp in package.collection_packages:
-                if cp.collection is collection:
-                    state = cp.status_obj.term
-                    prio = cp.priority_obj.term
-                    click.echo('├{}{}'.format(state, prio), nl=False)
-                    break
+            cp = package.by_collection.get(collection.ident)
+            if cp:
+                state = cp.status_obj.term
+                prio = cp.priority_obj.term
+                click.echo('├{}{}'.format(state, prio), nl=False)
             else:
                 print('│  ', end='')
         print(' ' + package.name, end=' ')
         reqs = []
         for req in package.requirements:
-            for cp in req.collection_packages:
+            for cp in req.by_collection.values():
                 if cp.status != 'released':
                     reqs.append(req.name)
                     break

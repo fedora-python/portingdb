@@ -3,6 +3,7 @@ from sqlalchemy import UniqueConstraint
 from sqlalchemy.types import Boolean, Integer, Unicode, UnicodeText, Date, Time
 from sqlalchemy.types import Enum
 from sqlalchemy.orm import backref, relationship
+from sqlalchemy.orm.collections import mapped_collection
 from sqlalchemy.ext.declarative import declarative_base
 
 metadata = MetaData()
@@ -21,6 +22,10 @@ class Package(TableBase):
     name = Column(
         Unicode(), primary_key=True, nullable=False,
         doc=u"The package name")
+
+    by_collection = relationship(
+        'CollectionPackage',
+        collection_class=mapped_collection(lambda cp: cp.collection.ident))
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.name)
@@ -116,7 +121,8 @@ class CollectionPackage(TableBase):
         doc=u"Tentative porting deadline")
 
     package = relationship(
-        'Package', backref=backref('collection_packages'))
+        'Package',
+        backref=backref('collection_packages'))
     collection = relationship(
         'Collection', backref=backref('collection_packages'))
     status_obj = relationship(

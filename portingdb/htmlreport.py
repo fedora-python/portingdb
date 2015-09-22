@@ -2,6 +2,7 @@ from collections import OrderedDict
 
 from flask import Flask, render_template, current_app
 from sqlalchemy import func
+from sqlalchemy.orm import eagerload, subqueryload
 
 from . import tables
 
@@ -26,12 +27,19 @@ def hello():
             'data': data,
         }
 
+    query = db.query(tables.Package)
+    query = query.order_by(func.lower(tables.Package.name))
+    query = query.options(eagerload(tables.Package.collection_packages))
+    query = query.options(subqueryload(tables.Package.requirements))
+    packages = query
+
     return render_template(
         'index.html',
         collections=collections,
         coll_info=coll_info,
         statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
+        packages=packages,
     )
 
 
