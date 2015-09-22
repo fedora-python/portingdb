@@ -155,3 +155,14 @@ def report(ctx):
 
     for i, collection in enumerate(reversed(collections)):
         print('│  ' * (len(collections)-i-1) + '└╴' + collection.name)
+
+
+@cli.command()
+@click.option('--debug/--no-debug', help="Run in debug mode")
+@click.pass_context
+def serve(ctx, debug):
+    """Serve HTML reports via a HTTP server"""
+    db = ctx.obj['db']
+    from . import htmlreport
+
+    htmlreport.main(db, debug=debug)

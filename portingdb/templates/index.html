@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Python 3 Porting Database</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="col-md-12">
+                <h1>Python 3 Porting Database</h1>
+            </div>
+            <div class="col-md-9">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Collection</th>
+                            <th>Ported</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for col in collections %}
+                            {% set released = coll_info[col]['data'].get('released', 0) %}
+                            {% set total = coll_info[col]['total'] %}
+                            {% set percent = released / total * 100 %}
+                            <tr>
+                                <td>{{ col.name }}</td>
+                                <td>{{ released }}/{{ coll_info[col]['total'] }}</td>
+                                <td>
+                                    <div class="progress">
+                                        {% for status in statuses %}
+                                            {% set num = coll_info[col]['data'].get(status.ident, 0) %}
+                                            {% if num %}
+                                                <div
+                                                    class="progress-bar" role="progressbar"
+                                                    aria-valuenow="{{ percent }}"
+                                                    aria-valuemin="0" aria-valuemax="100"
+                                                    style="width: {{ 100 * num / total }}%;
+                                                           background-color: #{{ status.color }} !important;
+                                                           color: black;"
+                                                >
+                                                    {{ (100 * num / total) | round(1) }}%
+                                                    {{ status.abbrev }}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <h2>Legend</h2>
+                <h5>Status</h5>
+                <ul class="list-group">
+                    {% for status in statuses %}
+                        <li class="list-group-item">
+                            <span class="badge"
+                                style="background-color: #{{ status.color }} !important;
+                                       color: black;"
+                            >
+                                {{ status.abbrev }}
+                            </span>
+                            {{ status.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <h5>Priority</h5>
+                <ul class="list-group">
+                    {% for prio in priorities %}
+                        <li class="list-group-item">
+                            <span class="badge"
+                                style="background-color: #{{ prio.color }} !important;
+                                       color: black;"
+                            >
+                                {{ prio.abbrev }}
+                            </span>
+                            {{ prio.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
