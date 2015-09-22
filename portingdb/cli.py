@@ -51,6 +51,7 @@ def cli(ctx, datadir, db, verbose, quiet):
 @cli.command()
 @click.pass_context
 def status(ctx):
+    """Print database info and high-level stats"""
     print_status(ctx)
 
 def print_status(ctx):
@@ -97,6 +98,7 @@ def print_status(ctx):
 @cli.command()
 @click.pass_context
 def load(ctx):
+    """Load the database from JSON/YAML data"""
     if ctx.obj['verbose']:
         click.secho('Before load:', fg='cyan')
         print_status(ctx)
@@ -115,6 +117,7 @@ def load(ctx):
 @cli.command()
 @click.pass_context
 def report(ctx):
+    """Print out a report of all packages"""
     db = ctx.obj['db']
     columns, rows = click.get_terminal_size()
     collections = list(db.query(tables.Collection))
