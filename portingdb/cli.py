@@ -4,7 +4,7 @@ import urllib.parse
 
 import click
 from sqlalchemy import create_engine, func
-from sqlalchemy.orm import eagerload
+from sqlalchemy.orm import eagerload, subqueryload
 
 from portingdb import tables
 from portingdb.load import get_db, load_from_directory
@@ -126,6 +126,7 @@ def report(ctx):
     query = db.query(tables.Package)
     query = query.order_by(func.lower(tables.Package.name))
     query = query.options(eagerload(tables.Package.collection_packages))
+    query = query.options(subqueryload(tables.Package.requirements))
     for package in query:
         for collection in collections:
             for cp in package.collection_packages:
@@ -136,7 +137,16 @@ def report(ctx):
                     break
             else:
                 print('│  ', end='')
-        print(' ' + package.name)
+        print(' ' + package.name, end=' ')
+        reqs = []
+        for req in package.requirements:
+            for cp in req.collection_packages:
+                if cp.status != 'released':
+                    reqs.append(req.name)
+                    break
+        if reqs:
+            print('({})'.format(', '.join(reqs)), end='')
+        print()
 
     print('│  ' * len(collections))
 

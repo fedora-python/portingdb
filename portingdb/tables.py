@@ -215,3 +215,10 @@ class Contact(TableBase):
         return '<{} {} for {}: {}>'.format(type(self).__qualname__, self.role,
                                            self.collection_package.name,
                                            self.name)
+
+Package.requirements = relationship(
+    Package,
+    secondary=Dependency.__table__,
+    primaryjoin=Package.name == Dependency.requirer_name,
+    secondaryjoin=Package.name == Dependency.requirement_name,
+    backref="requirers")
