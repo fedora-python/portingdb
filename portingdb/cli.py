@@ -4,6 +4,7 @@ import urllib.parse
 
 import click
 from sqlalchemy import create_engine, func
+from sqlalchemy.orm import eagerload
 
 from portingdb import tables
 from portingdb.load import get_db, load_from_directory
@@ -109,3 +110,35 @@ def load(ctx):
     if ctx.obj['verbose']:
         click.secho('After load:', fg='cyan')
         print_status(ctx)
+
+
+@cli.command()
+@click.pass_context
+def report(ctx):
+    db = ctx.obj['db']
+    columns, rows = click.get_terminal_size()
+    collections = list(db.query(tables.Collection))
+
+    for i, collection in enumerate(collections):
+        print('│  ' * i + '┌╴' + collection.name)
+
+    print('│  ' * len(collections))
+    query = db.query(tables.Package)
+    query = query.order_by(func.lower(tables.Package.name))
+    query = query.options(eagerload(tables.Package.collection_packages))
+    for package in query:
+        for collection in collections:
+            for cp in package.collection_packages:
+                if cp.collection is collection:
+                    state = cp.status_obj.term
+                    prio = cp.priority_obj.term
+                    click.echo('├{}{}'.format(state, prio), nl=False)
+                    break
+            else:
+                print('│  ', end='')
+        print(' ' + package.name)
+
+    print('│  ' * len(collections))
+
+    for i, collection in enumerate(reversed(collections)):
+        print('│  ' * (len(collections)-i-1) + '└╴' + collection.name)

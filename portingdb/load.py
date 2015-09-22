@@ -61,19 +61,20 @@ def _get_repolink(name, col_package_map, collection, info, field_name, type_name
         'type': type_name,
     }
 
-def _add_order(rows):
+def _prepare_enum(rows):
     for i, row in enumerate(rows):
         row['order'] = i
+        row['term'] = row['term'].replace('\\e', '\x1b')
     return rows
 
 
 def load_from_directory(db, directory):
     """Add data from a directory to a database
     """
-    values = _add_order(data_from_file(directory, 'statuses'))
+    values = _prepare_enum(data_from_file(directory, 'statuses'))
     bulk_load(db, values, tables.Status.__table__, id_column="ident")
 
-    values = _add_order(data_from_file(directory, 'priorities'))
+    values = _prepare_enum(data_from_file(directory, 'priorities'))
     bulk_load(db, values, tables.Priority.__table__, id_column="ident")
 
     values = data_from_file(directory, 'collections')

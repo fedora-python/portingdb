@@ -58,6 +58,9 @@ class Status(TableBase):
     order = Column(
         Integer(), nullable=False,
         doc=u"Index for sorting")
+    term = Column(
+        Unicode(), nullable=False,
+        doc=u"Terminal representation")
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)
@@ -81,6 +84,9 @@ class Priority(TableBase):
     order = Column(
         Integer(), nullable=False,
         doc=u"Index for sorting")
+    term = Column(
+        Unicode(), nullable=False,
+        doc=u"Terminal representation")
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)
