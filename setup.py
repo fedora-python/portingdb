@@ -20,6 +20,7 @@ class PyTest(TestCommand):
 requires = [
     'sqlalchemy >= 1.0, < 2.0',
     'PyYAML >= 3.11, < 4.0',
+    'click >= 3.3, < 4.0',
 ]
 
 tests_require = ['pytest']

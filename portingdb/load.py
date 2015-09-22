@@ -30,6 +30,7 @@ def data_from_file(directory, basename):
         filename = os.path.join(directory, basename + ext)
         if os.path.exists(filename):
             return decode_file(filename)
+    raise FileNotFoundError(filename)
 
 
 def decode_file(filename):
@@ -60,14 +61,19 @@ def _get_repolink(name, col_package_map, collection, info, field_name, type_name
         'type': type_name,
     }
 
+def _add_order(rows):
+    for i, row in enumerate(rows):
+        row['order'] = i
+    return rows
+
 
 def load_from_directory(db, directory):
     """Add data from a directory to a database
     """
-    values = data_from_file(directory, 'statuses')
+    values = _add_order(data_from_file(directory, 'statuses'))
     bulk_load(db, values, tables.Status.__table__, id_column="ident")
 
-    values = data_from_file(directory, 'priorities')
+    values = _add_order(data_from_file(directory, 'priorities'))
     bulk_load(db, values, tables.Priority.__table__, id_column="ident")
 
     values = data_from_file(directory, 'collections')
@@ -187,7 +193,7 @@ def _check_entry(expected, got, ignored_keys=()):
 MAX_ADD_COUNT = 500
 
 def bulk_load(db, sources, table, key_columns=None, id_column='id',
-              no_existing=False, ignored_columns=(), initial=True):
+              no_existing=False, ignored_columns=(), initial=False):
     """Load data into the database
 
     :param db: The SQLAlchemy session
@@ -214,6 +220,10 @@ def bulk_load(db, sources, table, key_columns=None, id_column='id',
 
     if key_columns is None:
         key_columns = [id_column]
+    if id_column in key_columns:
+        id_columns = key_columns
+    else:
+        id_columns = key_columns + [id_column]
 
     # Get a dict of key -> source, while checking that sources with duplicate
     # keys also have duplicate data
@@ -230,7 +240,7 @@ def bulk_load(db, sources, table, key_columns=None, id_column='id',
     keys = set(source_dict)
 
     # List of column objects (key + id)
-    col_list = [table.c[k] for k in key_columns] + [table.c[id_column]]
+    col_list = [table.c[k] for k in id_columns]
 
     def get_whereclause(keys):
         """WHERE clause that selects all given keys
@@ -267,10 +277,10 @@ def bulk_load(db, sources, table, key_columns=None, id_column='id',
             for row in existing_rows:
                 key = tuple(row[:len(key_columns)])
                 source = source_dict[key]
-                for n, v in zip(check_columns, row[len(key_columns)+1:]):
+                for n, v in zip(check_columns, row[len(id_columns):]):
                     if n not in ignored_columns:
                         if source[n] != v:
-                            raise ValueError('Attempting to overwrite existing entry')
+                            raise ValueError('Attempting to overwrite existing entry: %s[%s]; %r!=%r' % (table, source, source[n], v))
 
     # Insert the missing rows into the DB; then select them back to read the IDs
     values = []

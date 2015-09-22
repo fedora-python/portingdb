@@ -22,6 +22,9 @@ class Package(TableBase):
         Unicode(), primary_key=True, nullable=False,
         doc=u"The package name")
 
+    def __repr__(self):
+        return '<{} {}>'.format(type(self).__qualname__, self.name)
+
 
 class Collection(TableBase):
     u"""A distro, or non-distro repository (e.g. "fedora" or "upstream")."""
@@ -33,10 +36,13 @@ class Collection(TableBase):
         Unicode(), nullable=False,
         doc=u"Display name")
 
+    def __repr__(self):
+        return '<{} {}>'.format(type(self).__qualname__, self.ident)
+
 
 class Status(TableBase):
     u"""State a package can be in."""
-    __tablename__ = 'states'
+    __tablename__ = 'statuses'
     ident = Column(
         Unicode(), primary_key=True, nullable=False,
         doc=u"Machine-friendly name")
@@ -49,6 +55,12 @@ class Status(TableBase):
     color = Column(
         Unicode(), nullable=False,
         doc=u"Color for reports (RRGGBB)")
+    order = Column(
+        Integer(), nullable=False,
+        doc=u"Index for sorting")
+
+    def __repr__(self):
+        return '<{} {}>'.format(type(self).__qualname__, self.ident)
 
 
 class Priority(TableBase):
@@ -66,6 +78,12 @@ class Priority(TableBase):
     color = Column(
         Unicode(), nullable=False,
         doc=u"Color for reports (RRGGBB)")
+    order = Column(
+        Integer(), nullable=False,
+        doc=u"Index for sorting")
+
+    def __repr__(self):
+        return '<{} {}>'.format(type(self).__qualname__, self.ident)
 
 
 class CollectionPackage(TableBase):
@@ -84,9 +102,9 @@ class CollectionPackage(TableBase):
         Unicode(), nullable=False,
         doc=u"The package name, as it appears in this collection")
     status = Column(
-        Unicode(), ForeignKey(Status.name), nullable=False)
+        Unicode(), ForeignKey(Status.ident), nullable=False)
     priority = Column(
-        Unicode(), ForeignKey(Priority.name), nullable=False)
+        Unicode(), ForeignKey(Priority.ident), nullable=False)
     deadline = Column(
         Date(), nullable=True,
         doc=u"Tentative porting deadline")
@@ -99,6 +117,10 @@ class CollectionPackage(TableBase):
         'Status', backref=backref('collection_packages'))
     priority_obj = relationship(
         'Priority', backref=backref('collection_packages'))
+
+    def __repr__(self):
+        return '<{} {} for {}>'.format(type(self).__qualname__, self.name,
+                                       self.collection.ident)
 
 
 class Dependency(TableBase):
@@ -120,6 +142,11 @@ class Dependency(TableBase):
         'Package', backref=backref('requirer_dependencies'),
         foreign_keys=[requirement_name])
 
+    def __repr__(self):
+        return '<{} {} on {}>'.format(type(self).__qualname__,
+                                      self.requirer_name,
+                                      self.requirement_name)
+
 
 class RPM(TableBase):
     u"""Package RPM."""
@@ -133,6 +160,11 @@ class RPM(TableBase):
 
     collection_package = relationship(
         'CollectionPackage', backref=backref('rpms'))
+
+    def __repr__(self):
+        return '<{} {} for {}>'.format(type(self).__qualname__,
+                                       self.rpm_name,
+                                       self.collection_package.name)
 
 
 class Link(TableBase):
@@ -151,6 +183,11 @@ class Link(TableBase):
     collection_package = relationship(
         'CollectionPackage', backref=backref('links'))
 
+    def __repr__(self):
+        return '<{} {} for {}: {}>'.format(type(self).__qualname__, self.type,
+                                           self.collection_package.name,
+                                           self.url)
+
 
 class Contact(TableBase):
     u"""Person associated with a package."""
@@ -167,3 +204,8 @@ class Contact(TableBase):
 
     collection_package = relationship(
         'CollectionPackage', backref=backref('contacts'))
+
+    def __repr__(self):
+        return '<{} {} for {}: {}>'.format(type(self).__qualname__, self.role,
+                                           self.collection_package.name,
+                                           self.name)
