@@ -129,50 +129,6 @@ def load_from_directory(db, directory):
         # TODO: Contacts
 
 
-def load_from_dicts(db, dicts):
-    load_statuses(db)
-    load_priorities(db)
-    for dct in dicts:
-        values = [{'name': k} for k in dct.keys()]
-        bulk_load(db, values, tables.Package.__table__, id_column="name")
-    for dct in dicts:
-        for name, info in dct.items():
-            pass#print(name)
-            #print()
-            #print(name)
-            #print(info)
-
-
-def load_statuses(db):
-    values = []
-    for ident, name, abbrev, color in (
-        ('dropped', 'Dropped', 'X', '888888'),
-        ('idle', 'Idle', 'I', 'FFFFFF'),
-        ('in-progress', 'In Progress', 'P', 'FFFF00'),
-        ('testing', 'Testing', 'T', '00FFFF'),
-        ('released', 'Released', 'OK', '00FF00'),
-        ('unknown', 'Unknown', '?', 'CCCCCC'),
-    ):
-        values.append({'ident': ident, 'name': name, 'abbrev': abbrev,
-                       'color': color})
-
-    bulk_load(db, values, tables.Status.__table__, id_column="ident")
-
-
-def load_priorities(db):
-    values = []
-    for ident, name, abbrev, color in (
-        ('low', 'Low', 'L', '00FFFF'),
-        ('medium', 'Medium', 'M', 'FFFF00'),
-        ('high', 'High', 'H', 'FF0000'),
-        ('unknown', 'Unknown', '?', 'CCCCCC'),
-    ):
-        values.append({'ident': ident, 'name': name, 'abbrev': abbrev,
-                       'color': color})
-
-    bulk_load(db, values, tables.Priority.__table__, id_column="ident")
-
-
 def _get_idmap(rows, key_columns, id_column, keys):
     key_col_count = len(key_columns)
 
