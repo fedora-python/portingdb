@@ -74,6 +74,16 @@ def _prepare_enum(rows):
     return rows
 
 
+def _merge_updates(base, updates):
+    for key, new_value in updates.items():
+        if (key in base and
+                isinstance(base[key], dict) and
+                isinstance(new_value, dict)):
+            _merge_updates(base[key], new_value)
+        else:
+            base[key] = new_value
+
+
 def load_from_directory(db, directory):
     """Add data from a directory to a database
     """
@@ -88,6 +98,12 @@ def load_from_directory(db, directory):
 
     for collection in col_map.values():
         package_infos = data_from_file(directory, collection)
+        try:
+            more_infos = data_from_file(directory, collection + '-update')
+        except FileNotFoundError:
+            pass
+        else:
+            _merge_updates(package_infos, more_infos)
 
         # Base packages
         values = [{
