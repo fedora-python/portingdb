@@ -1,2 +1,39 @@
 A database of packages that need porting to Python 3, and tools to manage it.
 
+
+# Installation
+
+This software is still in the initial phases of development, so it is not
+yet packaged. Install it directly from Git working directory:
+
+    $ python3 -m pip install --user -e.
+
+
+# Usage
+
+First, you will need to load a database.
+
+    $ python3 -m portingdb --datadir data/ load
+
+This will create a `portingdb.sqlite` file in the current directory.
+Currently, the database needs to be deleted and re-reloaded every time the
+data changes.
+
+To check the database, do:
+
+    $ python3 -m portingdb status
+
+To start a HTML report server, start:
+
+    $ python3 -m portingdb serve
+
+
+# Contribute
+
+- Issue Tracker: https://github.com/fedora-python/portingdb/issues
+- Source Code: https://github.com/fedora-python/portingdb
+
+
+# License
+
+This code is under the MIT license. May it serve you well.
