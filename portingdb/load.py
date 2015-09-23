@@ -46,18 +46,19 @@ def _get_pkg(name, collection, info):
         'package_name': name,
         'collection_ident': collection,
         'name': info.get('aka') or name,
-        'status': info['status'] or 'unknown',
-        'priority': info['priority'] or 'unknown',
-        'deadline': info['deadline'],
+        'status': info.get('status') or 'unknown',
+        'priority': info.get('priority') or 'unknown',
+        'deadline': info.get('deadline', None),
     }
 
 
 def _get_repolink(name, col_package_map, collection, info, field_name, type_name):
-    if info[field_name] is None:
+    url = info.get(field_name)
+    if url is None:
         return None
     return {
         'collection_package_id': col_package_map[name, collection],
-        'url': info[field_name],
+        'url': url,
         'type': type_name,
     }
 
@@ -91,7 +92,7 @@ def load_from_directory(db, directory):
 
         # Dependencies
         values = [{'requirer_name': a, 'requirement_name': b}
-                  for a, v in package_infos.items() for b in v['deps']]
+                  for a, v in package_infos.items() for b in v.get('deps', ())]
         bulk_load(db, values, tables.Dependency.__table__,
                   key_columns=['requirer_name', 'requirement_name'])
 
@@ -116,7 +117,7 @@ def load_from_directory(db, directory):
         # RPMs
         values = [{'collection_package_id': col_package_map[k, collection],
                    'rpm_name': n}
-                  for k, v in package_infos.items() for n in v['rpms']]
+                  for k, v in package_infos.items() for n in v.get('rpms', ())]
         bulk_load(db, values, tables.RPM.__table__,
                   key_columns=['collection_package_id', 'rpm_name'])
 
