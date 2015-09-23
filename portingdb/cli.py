@@ -165,3 +165,79 @@ def serve(ctx, debug):
     from . import htmlreport
 
     htmlreport.main(db, debug=debug)
+
+
+@cli.command()
+@click.option('-x', '-exclude', help="Package(s) to exclude ('-' to disable default filter)", multiple=True)
+@click.argument('package', nargs=-1)
+@click.pass_context
+def deps(ctx, package, exclude):
+    """Print a dependency graph of the given package(s)"""
+    db = ctx.obj['db']
+    query = db.query(tables.Package)
+
+    seen = set()
+    exclude = list(exclude)
+    if '-' not in exclude:
+        exclude.extend([
+            'python3',
+            'python',
+            #'python-setuptools',
+            #'dnf',
+            #'python-sphinx',
+            #'systemd',
+            #'dbus',
+        ])
+    else:
+        exclude.remove('-')
+    seen.update(query.get(n) for n in exclude)
+
+    print('[{}]'.format(','.join(package)))
+
+    pkgs = [query.get(n) for n in package]
+    while pkgs:
+        pkg = pkgs.pop()
+        if pkg is None:
+            continue
+        if pkg in seen:
+            reqs = []
+            e = '*'
+        else:
+            seen.add(pkg)
+            reqs = [p for p in pkg.requirements
+                    if p is not pkg]
+            e = ''
+        if reqs:
+            c = '┬'
+        else:
+            c = '─'
+        lines = []
+        found = False
+        for p in pkgs:
+            if p is None:
+                if found:
+                    lines.append('─')
+                else:
+                    lines.append(' ')
+            elif p is pkg:
+                if found:
+                    lines.append('┴')
+                else:
+                    lines.append('└')
+                found = True
+            else:
+                if found:
+                    lines.append('┼')
+                else:
+                    lines.append('│')
+        if found:
+            l = '┴'
+        else:
+            l = '└'
+        print(''.join(lines) + l + '╴' + pkg.name + e)
+        pkgs = [None if p is pkg else p for p in pkgs]
+        if len(reqs) > 1:
+            print(''.join('│' if n else ' ' for n in pkgs), end='  ')
+            print('├' + '┬' * (len(reqs) - 2) + '┐')
+        pkgs.extend([None, None])
+        pkgs.extend(reqs)
