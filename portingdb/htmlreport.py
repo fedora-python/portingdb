@@ -29,7 +29,7 @@ def hello():
 
     query = db.query(tables.Package)
     query = query.order_by(func.lower(tables.Package.name))
-    query = query.options(eagerload(tables.Package.collection_packages))
+    query = query.options(eagerload(tables.Package.by_collection))
     query = query.options(subqueryload(tables.Package.requirements))
     packages = query
 
