@@ -11,6 +11,11 @@
     <head>
         <title>Python 3 Porting Database</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        <style>
+            .badge {
+                min-width: 2em;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -109,12 +114,7 @@
                 <ul class="list-group">
                     {% for prio in priorities %}
                         <li class="list-group-item">
-                            <span class="badge"
-                                style="background-color: #{{ prio.color }} !important;
-                                       color: black;"
-                            >
-                                {{ prio.abbrev }}
-                            </span>
+                            {{ badge(prio) }}
                             {{ prio.name }}
                         </li>
                     {% endfor %}
