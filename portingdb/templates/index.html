@@ -26,9 +26,9 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Collection</th>
-                            <th>Ported</th>
-                            <th>Progress</th>
+                            <th class="col-sm-2">Collection</th>
+                            <th class="col-sm-2">Ported</th>
+                            <th class="col-sm-8">Progress</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +56,7 @@
                                                                background-color: #{{ status.color }} !important;
                                                                color: black;"
                                                     >
-                                                        {{ (100 * num / total) | round(1) }}%
+                                                        {{ num }}
                                                         {{ status.abbrev }}
                                                     </div>
                                                 {% endif %}
