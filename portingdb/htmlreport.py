@@ -27,7 +27,18 @@ def hello():
             'data': data,
         }
 
+    subquery = db.query(
+        tables.CollectionPackage,
+        (func.sum(tables.Status.weight) + func.sum(tables.Priority.weight)).label('weight')
+    )
+    subquery = subquery.join(tables.CollectionPackage.status_obj)
+    subquery = subquery.join(tables.CollectionPackage.priority_obj)
+    subquery = subquery.group_by(tables.CollectionPackage.package_name)
+    subquery = subquery.subquery()
+
     query = db.query(tables.Package)
+    query = query.join(subquery, subquery.c.package_name == tables.Package.name)
+    query = query.order_by(-subquery.c.weight)
     query = query.order_by(func.lower(tables.Package.name))
     query = query.options(eagerload(tables.Package.by_collection))
     query = query.options(subqueryload(tables.Package.requirements))

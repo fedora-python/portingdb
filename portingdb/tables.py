@@ -66,6 +66,9 @@ class Status(TableBase):
     order = Column(
         Integer(), nullable=False,
         doc=u"Index for sorting")
+    weight = Column(
+        Integer(), nullable=False,
+        doc=u"Weight for sorting packages")
     term = Column(
         Unicode(), nullable=False,
         doc=u"Terminal representation")
@@ -92,6 +95,9 @@ class Priority(TableBase):
     order = Column(
         Integer(), nullable=False,
         doc=u"Index for sorting")
+    weight = Column(
+        Integer(), nullable=False,
+        doc=u"Weight for sorting packages")
     term = Column(
         Unicode(), nullable=False,
         doc=u"Terminal representation")
