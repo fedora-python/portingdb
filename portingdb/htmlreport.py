@@ -10,7 +10,7 @@ from . import tables
 def hello():
     db = current_app.config['DB']
 
-    collections = list(db.query(tables.Collection))
+    collections = list(db.query(tables.Collection).order_by(tables.Collection.order))
 
     coll_info = {}
     for i, collection in enumerate(collections):

@@ -40,6 +40,9 @@ class Collection(TableBase):
     name = Column(
         Unicode(), nullable=False,
         doc=u"Display name")
+    order = Column(
+        Integer(), nullable=False,
+        doc=u"Index for sorting")
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)

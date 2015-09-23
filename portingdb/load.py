@@ -62,9 +62,14 @@ def _get_repolink(name, col_package_map, collection, info, field_name, type_name
         'type': type_name,
     }
 
-def _prepare_enum(rows):
+def _add_order(rows):
     for i, row in enumerate(rows):
         row['order'] = i
+    return rows
+
+def _prepare_enum(rows):
+    _add_order(rows)
+    for row in rows:
         row['term'] = row['term'].replace('\\e', '\x1b')
     return rows
 
@@ -78,7 +83,7 @@ def load_from_directory(db, directory):
     values = _prepare_enum(data_from_file(directory, 'priorities'))
     bulk_load(db, values, tables.Priority.__table__, id_column="ident")
 
-    values = data_from_file(directory, 'collections')
+    values = _add_order(data_from_file(directory, 'collections'))
     col_map = bulk_load(db, values, tables.Collection.__table__, id_column="ident")
 
     for collection in col_map.values():

@@ -68,7 +68,7 @@ def print_status(ctx):
     if not pkg_count:
         click.secho('Database not filled; please run portingdb load', fg='red')
 
-    collections = list(db.query(tables.Collection))
+    collections = list(db.query(tables.Collection).order_by(tables.Collection.order))
     if collections:
         max_name_len = max(len(c.name) for c in collections)
         for i, collection in enumerate(collections):
@@ -120,7 +120,7 @@ def report(ctx):
     """Print out a report of all packages"""
     db = ctx.obj['db']
     columns, rows = click.get_terminal_size()
-    collections = list(db.query(tables.Collection))
+    collections = list(db.query(tables.Collection).order_by(tables.Collection.order))
 
     for i, collection in enumerate(collections):
         print('│  ' * i + '┌╴' + collection.name)
