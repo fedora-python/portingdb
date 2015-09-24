@@ -18,14 +18,6 @@
                             {{ badge(pc.priority_obj) }}
                         </small>
                     </h3>
-                    <!--
-                    {% if pc.status != 'unknown' %}
-                        {{ pc.status_obj.name }}{% if pc.priority != 'unknown' %},{% endif %}
-                    {% endif %}
-                    {% if pc.priority != 'unknown' %}
-                        {{ pc.priority_obj.name }} priority
-                    {% endif %}
-                    -->
                     {% if pc.rpms %}
                         <div>
                             <strong>RPMs</strong>
@@ -55,14 +47,14 @@
             {% endfor %}
             <h3>Dependent packages</h3>
             <table class="table table-striped table-condensed table-hovered dependents">
-               {{ pkglist_table_content(pkg.requirers, collections) }}
+               {{ pkglist_table_content(dependencies, collections) }}
             </table>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-8">
             <h2>Dependencies</h2>
             <table class="table table-striped table-condensed table-hovered">
-               {{ pkglist_table_content(pkg.requirements, collections) }}
+               {{ pkglist_table_content(dependents, collections) }}
             </table>
         </div>
     </div>

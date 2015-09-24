@@ -2,16 +2,15 @@ from collections import OrderedDict
 
 from flask import Flask, render_template, current_app
 from sqlalchemy import func
-from sqlalchemy.orm import eagerload, subqueryload
 from jinja2 import StrictUndefined
 
 from . import tables
+from . import queries
 
 
 def hello():
     db = current_app.config['DB']
-
-    collections = list(db.query(tables.Collection).order_by(tables.Collection.order))
+    collections = list(queries.collections(db))
 
     coll_info = {}
     for i, collection in enumerate(collections):
@@ -28,44 +27,27 @@ def hello():
             'data': data,
         }
 
-    subquery = db.query(
-        tables.CollectionPackage,
-        (func.sum(tables.Status.weight) + func.sum(tables.Priority.weight)).label('weight')
-    )
-    subquery = subquery.join(tables.CollectionPackage.status_obj)
-    subquery = subquery.join(tables.CollectionPackage.priority_obj)
-    subquery = subquery.group_by(tables.CollectionPackage.package_name)
-    subquery = subquery.subquery()
-
-    query = db.query(tables.Package)
-    query = query.join(subquery, subquery.c.package_name == tables.Package.name)
-    query = query.order_by(-subquery.c.weight)
-    query = query.order_by(func.lower(tables.Package.name))
-    query = query.options(eagerload(tables.Package.by_collection))
-    query = query.options(subqueryload(tables.Package.requirements))
-    packages = query
-
     return render_template(
         'index.html',
         collections=collections,
         coll_info=coll_info,
         statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
-        packages=packages,
+        packages=queries.packages(db),
     )
 
 def package(pkg):
     db = current_app.config['DB']
+    collections = list(queries.collections(db))
 
-    collections = list(db.query(tables.Collection).order_by(tables.Collection.order))
     package = db.query(tables.Package).get(pkg)
 
     return render_template(
         'package.html',
         collections=collections,
         pkg=package,
-        statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
-        priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
+        dependencies=queries.dependencies(db, package),
+        dependents=queries.dependents(db, package),
     )
 
 
