@@ -15,7 +15,7 @@
     </span>
 {%- endmacro %}
 
-{% macro pkglist_table_content(packages, collections) -%}
+{% macro pkglist_table_head(collections) -%}
     <thead>
         <tr>
             <th>Package</th>
@@ -24,34 +24,51 @@
             {% endfor %}
         </tr>
     </thead>
+{%- endmacro %}
+
+{% macro pkglist_table_content(package_groups, collections) -%}
+    <thead>
+        <tr>
+            <th></th>
+            <th>Package</th>
+            {% for col in collections %}
+                <th colspan="2" class="th-collection">{{col.name}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
     <tbody>
-        {% for pkg in packages %}
-            {{ package_tr(pkg, collections) }}
+        {% for cname, packages in package_groups.items() %}
+            {% for pkg in packages %}
+                <tr>
+                    <td>
+                        <span class="pkgstatus-icon pkgstatus-{{ cname }}">&nbsp;</span>
+                    </td>
+                    {{ package_tr_content(pkg, collections) }}
+                </tr>
+            {% endfor %}
         {% endfor %}
     </tbody>
 {%- endmacro %}
 
-{% macro package_tr(pkg, collections) -%}
-    <tr>
-        <td>
-            <a href="{{ url_for('package', pkg=pkg.name) }}">
-                {{ pkg.name }}
-            </a>
-        </td>
-        {% for col in collections %}
-            {% set cp = pkg.by_collection.get(col.ident) %}
-            {% if cp %}
-                <td>
-                    {{ badge(cp.status_obj) }}
-                </td>
-                <td>
-                    {{ badge(cp.priority_obj) }}
-                </td>
-            {% else %}
-                <td colspan="2">&nbsp;</td>
-            {% endif %}
-        {% endfor %}
-    </tr>
+{% macro package_tr_content(pkg, collections) -%}
+    <td>
+        <a href="{{ url_for('package', pkg=pkg.name) }}">
+            {{ pkg.name }}
+        </a>
+    </td>
+    {% for col in collections %}
+        {% set cp = pkg.by_collection.get(col.ident) %}
+        {% if cp %}
+            <td>
+                {{ badge(cp.status_obj) }}
+            </td>
+            <td>
+                {{ badge(cp.priority_obj) }}
+            </td>
+        {% else %}
+            <td colspan="2">&nbsp;</td>
+        {% endif %}
+    {% endfor %}
 {%- endmacro %}
 
 <html>
@@ -76,6 +93,22 @@
             }
             .dependents .th-collection {
                 font-size: 70%;
+            }
+            .pkgstatus-icon {
+                padding: 0;
+                min-width: 3px;
+            }
+            .pkgstatus-active {
+                background-color: #F0AD4E;
+            }
+            .pkgstatus-ready {
+                background-color: #5BC0DE;
+            }
+            .pkgstatus-blocked {
+                background-color: #D9534F;
+            }
+            .pkgstatus-done {
+                background-color: #5CB85C;
             }
         </style>
     </head>

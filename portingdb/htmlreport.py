@@ -33,7 +33,7 @@ def hello():
         coll_info=coll_info,
         statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
-        packages=queries.packages(db),
+        packages=queries.split_packages(db, queries.packages(db)),
     )
 
 def package(pkg):
@@ -42,12 +42,14 @@ def package(pkg):
 
     package = db.query(tables.Package).get(pkg)
 
+    dependencies = queries.dependencies(db, package)
+
     return render_template(
         'package.html',
         collections=collections,
         pkg=package,
-        dependencies=queries.dependencies(db, package),
-        dependents=queries.dependents(db, package),
+        dependencies=queries.split_packages(db, queries.dependencies(db, package)),
+        dependents=queries.split_packages(db, queries.dependents(db, package)),
     )
 
 

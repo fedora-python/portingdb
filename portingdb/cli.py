@@ -28,8 +28,12 @@ def cli(ctx, datadir, db, verbose, quiet):
     verbose -= quiet
     ctx.obj['verbose'] = verbose
     if verbose >= 2:
-        logging.basicConfig(level=logging.INFO)
-        logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+        if verbose >= 3:
+            level = logging.DEBUG
+        else:
+            level = logging.INFO
+        logging.basicConfig(level=level)
+        logging.getLogger('sqlalchemy.engine').setLevel(level)
     ctx.obj['datadirs'] = [os.path.abspath(d) for d in datadir]
 
     if 'db' in ctx.obj:

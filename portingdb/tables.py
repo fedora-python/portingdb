@@ -124,7 +124,7 @@ class CollectionPackage(TableBase):
     )
     id = IDColumn()
     package_name = Column(
-        Unicode(), ForeignKey(Package.name), nullable=False)
+        Unicode(), ForeignKey(Package.name), index=True, nullable=False)
     collection_ident = Column(
         Unicode(), ForeignKey(Collection.ident), nullable=False)
     name = Column(

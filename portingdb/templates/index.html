@@ -1,31 +1,5 @@
 {% extends "_base.html" %}
 
-{% macro legend() -%}
-        <div class="col-md-3" style="position:sticky !important; top:0px;">
-            <h2>Legend</h2>
-            <h5>Status</h5>
-            <ul class="list-group">
-                {% for status in statuses %}
-                    <li class="list-group-item">
-                        {{ badge(status) }}
-                        {{ status.name }}
-                        <div><small>{{ status.description }}</small></div>
-                    </li>
-                {% endfor %}
-            </ul>
-            <h5>Priority</h5>
-            <ul class="list-group">
-                {% for prio in priorities %}
-                    <li class="list-group-item">
-                        {{ badge(prio) }}
-                        {{ prio.name }}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-{%- endmacro %}
-
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
@@ -43,15 +17,17 @@
                 <tbody>
                     {% for col in collections %}
                         {% set released = coll_info[col]['data'].get('released', 0) %}
+                        {% set dropped = coll_info[col]['data'].get('dropped', 0) %}
+                        {% set done = released + dropped %}
                         {% set total = coll_info[col]['total'] %}
                         <tr>
                             <td>{{ col.name }}</td>
                             {% if total == 0 %}
-                                <td>{{ released }}/{{ total }}</td>
+                                <td>{{ done }}/{{ total }}</td>
                                 <td></td>
                             {% else %}
-                                {% set percent = released / total * 100 %}
-                                <td>{{ released }}/{{ total }}</td>
+                                {% set percent = done / total * 100 %}
+                                <td>{{ done }}/{{ total }}</td>
                                 <td>
                                     <div class="progress">
                                         {% for status in statuses %}
@@ -81,5 +57,52 @@
                {{ pkglist_table_content(packages, collections) }}
             </table>
         </div>
-        {{ legend() }}
+        <div class="col-md-3" style="position:sticky !important; top:0px;">
+            <h2>Legend</h2>
+            <h5>Status</h5>
+            <ul class="list-group">
+                {% for status in statuses %}
+                    <li class="list-group-item">
+                        {{ badge(status) }}
+                        {{ status.name }}
+                        <div><small>{{ status.description }}</small></div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <h5>Priority</h5>
+            <ul class="list-group">
+                {% for prio in priorities %}
+                    <li class="list-group-item">
+                        {{ badge(prio) }}
+                        {{ prio.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <!--
+            <h5>Package</h5>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="pkgstatus-icon pkgstatus-active"></span>
+                    Active
+                    <div><small>Worked on</small></div>
+                </li>
+                <li class="list-group-item">
+                    <span class="pkgstatus-icon pkgstatus-idle"></span>
+                    Waiting
+                    <div><small>Ready for someone to start porting</small></div>
+                </li>
+                <li class="list-group-item">
+                    <span class="pkgstatus-icon pkgstatus-blocked"></span>
+                    Blocked
+                    <div><small>Blocked by unported dependencies</small></div>
+                </li>
+                <li class="list-group-item">
+                    <span class="pkgstatus-icon pkgstatus-done"></span>
+                    Done
+                    <div><small>Done (released or dropped)</small></div>
+                </li>
+            </ul>
+            -->
+        </div>
+    </div>
 {% endblock bodycontent %}
