@@ -15,31 +15,6 @@
     </span>
 {%- endmacro %}
 
-{% macro legend() -%}
-        <div class="col-md-3" style="position:sticky !important; top:0px;">
-            <h2>Legend</h2>
-            <h5>Status</h5>
-            <ul class="list-group">
-                {% for status in statuses %}
-                    <li class="list-group-item">
-                        {{ badge(status) }}
-                        {{ status.name }}
-                    </li>
-                {% endfor %}
-            </ul>
-            <h5>Priority</h5>
-            <ul class="list-group">
-                {% for prio in priorities %}
-                    <li class="list-group-item">
-                        {{ badge(prio) }}
-                        {{ prio.name }}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-{%- endmacro %}
-
 {% macro pkglist_table_content(packages, collections) -%}
     <thead>
         <tr>
@@ -81,7 +56,7 @@
 
 <html>
     <head>
-        <title>Python 3 Porting Database</title>
+        <title>{% block titlecontent %}Python 3 Porting Database{% endblock titlecontent %}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
         <style>
             .badge {

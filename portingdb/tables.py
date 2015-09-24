@@ -72,6 +72,9 @@ class Status(TableBase):
     term = Column(
         Unicode(), nullable=False,
         doc=u"Terminal representation")
+    description = Column(
+        Unicode(), nullable=False,
+        doc=u"Textual description of the status")
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)
