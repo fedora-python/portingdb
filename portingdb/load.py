@@ -113,7 +113,8 @@ def load_from_directory(db, directory):
 
         # Dependencies
         values = [{'requirer_name': a, 'requirement_name': b}
-                  for a, v in package_infos.items() for b in v.get('deps', ())]
+                  for a, v in package_infos.items() for b in v.get('deps', ())
+                  if a != b]
         bulk_load(db, values, tables.Dependency.__table__,
                   key_columns=['requirer_name', 'requirement_name'])
 
