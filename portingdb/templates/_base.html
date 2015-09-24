@@ -40,6 +40,22 @@
     </div>
 {%- endmacro %}
 
+{% macro pkglist_table_content(packages, collections) -%}
+    <thead>
+        <tr>
+            <th>Package</th>
+            {% for col in collections %}
+                <th colspan="2" class="th-collection">{{col.name}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for pkg in packages %}
+            {{ package_tr(pkg, collections) }}
+        {% endfor %}
+    </tbody>
+{%- endmacro %}
+
 {% macro package_tr(pkg, collections) -%}
     <tr>
         <td>
@@ -80,8 +96,10 @@
                 padding: 0.75rem;
                 margin-left: 0 !important;
             }
-            .dependents .th-collection {
+            .dependents th {
                 font-weight: normal;
+            }
+            .dependents .th-collection {
                 font-size: 70%;
             }
         </style>

@@ -53,38 +53,14 @@
             {% endfor %}
             <h3>Dependent packages</h3>
             <table class="table table-striped table-condensed table-hovered dependents">
-                <thead>
-                    </tr>
-                        <th>Package</th>
-                        {% for col in collections %}
-                            <th colspan="2" class="th-collection">{{col.name}}</th>
-                        {% endfor %}
-                    <tr>
-                </thead>
-                <tbody>
-                    {% for dep in pkg.requirers %}
-                        {{ package_tr(dep, collections) }}
-                    {% endfor %}
-                </tbody>
+               {{ pkglist_table_content(pkg.requirers, collections) }}
             </table>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-8">
             <h2>Dependencies</h2>
             <table class="table table-striped table-condensed table-hovered">
-                <thead>
-                    </tr>
-                        <th>Package</th>
-                        {% for col in collections %}
-                            <th colspan="2">{{col.name}}</th>
-                        {% endfor %}
-                    <tr>
-                </thead>
-                <tbody>
-                    {% for dep in pkg.requirements %}
-                        {{ package_tr(dep, collections) }}
-                    {% endfor %}
-                </tbody>
+               {{ pkglist_table_content(pkg.requirements, collections) }}
             </table>
         </div>
     </div>
