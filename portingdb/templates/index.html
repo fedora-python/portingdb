@@ -1,125 +1,90 @@
-{% macro badge(thing) -%}
-    <span class="badge"
-        style="background-color: #{{ thing.color }} !important;
-               color: black;"
-    >
-        {{ thing.abbrev }}
-    </span>
-{%- endmacro %}
+{% extends "_base.html" %}
 
-<html>
-    <head>
-        <title>Python 3 Porting Database</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
-        <style>
-            .badge {
-                min-width: 2em;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="col-md-12">
-                <h1>Python 3 Porting Database</h1>
-            </div>
-            <div class="col-md-9">
-                <table class="table">
-                    <thead>
+{% block bodycontent %}
+    <div class="container">
+        <div class="col-md-12">
+            <h1>Python 3 Porting Database</h1>
+        </div>
+        <div class="col-md-9">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2">Place</th>
+                        <th class="col-sm-2">Ported</th>
+                        <th class="col-sm-8">Progress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for col in collections %}
+                        {% set released = coll_info[col]['data'].get('released', 0) %}
+                        {% set total = coll_info[col]['total'] %}
                         <tr>
-                            <th class="col-sm-2">Collection</th>
-                            <th class="col-sm-2">Ported</th>
-                            <th class="col-sm-8">Progress</th>
+                            <td>{{ col.name }}</td>
+                            {% if total == 0 %}
+                                <td>{{ released }}/{{ total }}</td>
+                                <td></td>
+                            {% else %}
+                                {% set percent = released / total * 100 %}
+                                <td>{{ released }}/{{ total }}</td>
+                                <td>
+                                    <div class="progress">
+                                        {% for status in statuses %}
+                                            {% set num = coll_info[col]['data'].get(status.ident, 0) %}
+                                            {% if num %}
+                                                <div
+                                                    class="progress-bar" role="progressbar"
+                                                    aria-valuenow="{{ percent }}"
+                                                    aria-valuemin="0" aria-valuemax="100"
+                                                    style="width: {{ 100 * num / total }}%;
+                                                           background-color: #{{ status.color }} !important;
+                                                           color: black;"
+                                                >
+                                                    {{ num }}
+                                                    {{ status.abbrev }}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                            {% endif %}
                         </tr>
-                    </thead>
-                    <tbody>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="table table-striped table-condensed table-hovered" style="position:relative;">
+                <thead style="position:sticky !important; top:0px;">
+                    <tr>
+                        <th>Package</th>
                         {% for col in collections %}
-                            {% set released = coll_info[col]['data'].get('released', 0) %}
-                            {% set total = coll_info[col]['total'] %}
-                            <tr>
-                                <td>{{ col.name }}</td>
-                                {% if total == 0 %}
-                                    <td>{{ released }}/{{ total }}</td>
-                                    <td></td>
-                                {% else %}
-                                    {% set percent = released / total * 100 %}
-                                    <td>{{ released }}/{{ total }}</td>
-                                    <td>
-                                        <div class="progress">
-                                            {% for status in statuses %}
-                                                {% set num = coll_info[col]['data'].get(status.ident, 0) %}
-                                                {% if num %}
-                                                    <div
-                                                        class="progress-bar" role="progressbar"
-                                                        aria-valuenow="{{ percent }}"
-                                                        aria-valuemin="0" aria-valuemax="100"
-                                                        style="width: {{ 100 * num / total }}%;
-                                                               background-color: #{{ status.color }} !important;
-                                                               color: black;"
-                                                    >
-                                                        {{ num }}
-                                                        {{ status.abbrev }}
-                                                    </div>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                    </td>
-                                {% endif %}
-                            </tr>
+                            <th colspan="2">{{col.name}}</th>
                         {% endfor %}
-                    </tbody>
-                </table>
-                <table class="table table-striped table-condensed table-hovered" style="position:relative;">
-                    <thead style="position:sticky !important; top:0px;">
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pkg in packages %}
                         <tr>
-                            <th>Package</th>
+                            <td>
+                                <a href="{{ url_for('package', pkg=pkg.name) }}">
+                                    {{ pkg.name }}
+                                </a>
+                            </td>
                             {% for col in collections %}
-                                <th colspan="2">{{col.name}}</th>
+                                {% set cp = pkg.by_collection.get(col.ident) %}
+                                {% if cp %}
+                                    <td>
+                                        {{ badge(cp.status_obj) }}
+                                    </td>
+                                    <td>
+                                        {{ badge(cp.priority_obj) }}
+                                    </td>
+                                {% else %}
+                                    <td colspan="2">—</td>
+                                {% endif %}
                             {% endfor %}
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for pkg in packages %}
-                            <tr>
-                                <td>{{ pkg.name }}</td>
-                                {% for col in collections %}
-                                    {% set cp = pkg.by_collection[col.ident] %}
-                                    {% if cp %}
-                                        <td>
-                                            {{ badge(cp.status_obj) }}
-                                        </td>
-                                        <td>
-                                            {{ badge(cp.priority_obj) }}
-                                        </td>
-                                    {% else %}
-                                        <td colspan="2">—</td>
-                                    {% endif %}
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-3" style="position:sticky !important; top:0px;">
-                <h2>Legend</h2>
-                <h5>Status</h5>
-                <ul class="list-group">
-                    {% for status in statuses %}
-                        <li class="list-group-item">
-                            {{ badge(status) }}
-                            {{ status.name }}
-                        </li>
                     {% endfor %}
-                </ul>
-                <h5>Priority</h5>
-                <ul class="list-group">
-                    {% for prio in priorities %}
-                        <li class="list-group-item">
-                            {{ badge(prio) }}
-                            {{ prio.name }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+                </tbody>
+            </table>
         </div>
-    </body>
-</html>
+        {{ legend() }}
+{% endblock bodycontent %}

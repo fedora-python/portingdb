@@ -1,0 +1,52 @@
+{% macro badge(thing) -%}
+    <span class="badge"
+        style="background-color: #{{ thing.color }} !important;
+               color: black;
+               margin-left: 0.5ex;
+        "
+        title="{{ thing }}"
+    >
+        {{ thing.abbrev }}
+    </span>
+{%- endmacro %}
+
+{% macro legend() -%}
+        <div class="col-md-3" style="position:sticky !important; top:0px;">
+            <h2>Legend</h2>
+            <h5>Status</h5>
+            <ul class="list-group">
+                {% for status in statuses %}
+                    <li class="list-group-item">
+                        {{ badge(status) }}
+                        {{ status.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <h5>Priority</h5>
+            <ul class="list-group">
+                {% for prio in priorities %}
+                    <li class="list-group-item">
+                        {{ badge(prio) }}
+                        {{ prio.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{%- endmacro %}
+
+<html>
+    <head>
+        <title>Python 3 Porting Database</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        <style>
+            .badge {
+                min-width: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        {% block bodycontent %}
+        {% endblock bodycontent %}
+    </body>
+</html>

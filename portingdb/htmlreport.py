@@ -3,6 +3,7 @@ from collections import OrderedDict
 from flask import Flask, render_template, current_app
 from sqlalchemy import func
 from sqlalchemy.orm import eagerload, subqueryload
+from jinja2 import StrictUndefined
 
 from . import tables
 
@@ -53,12 +54,28 @@ def hello():
         packages=packages,
     )
 
+def package(pkg):
+    db = current_app.config['DB']
+
+    collections = list(db.query(tables.Collection).order_by(tables.Collection.order))
+    package = db.query(tables.Package).get(pkg)
+
+    return render_template(
+        'package.html',
+        collections=collections,
+        pkg=package,
+        statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
+        priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
+    )
+
 
 def create_app(db):
     app = Flask(__name__)
     app.config['DB'] = db
     app.add_template_global(db, name='db')
     app.route("/")(hello)
+    app.route("/pkg/<pkg>/")(package)
+    app.jinja_env.undefined = StrictUndefined
 
     return app
 

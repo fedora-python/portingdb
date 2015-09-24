@@ -76,6 +76,9 @@ class Status(TableBase):
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)
 
+    def __str__(self):
+        return 'Status: {}'.format(self.name)
+
 
 class Priority(TableBase):
     u"""Priority a package can have."""
@@ -104,6 +107,9 @@ class Priority(TableBase):
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)
+
+    def __str__(self):
+        return '{} priority'.format(self.name)
 
 
 class CollectionPackage(TableBase):
@@ -180,7 +186,7 @@ class RPM(TableBase):
         Unicode(), index=True, nullable=False)
 
     collection_package = relationship(
-        'CollectionPackage', backref=backref('rpms'))
+        'CollectionPackage', backref=backref('rpms', order_by=rpm_name))
 
     def __repr__(self):
         return '<{} {} for {}>'.format(type(self).__qualname__,
