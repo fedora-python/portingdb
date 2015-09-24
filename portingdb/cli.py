@@ -182,7 +182,7 @@ def serve(ctx, debug):
 
 
 @cli.command()
-@click.option('-x', '-exclude', help="Package(s) to exclude ('-' to disable default filter)", multiple=True)
+@click.option('-x', '-exclude', help="Package(s) to exclude", multiple=True)
 @click.option('-t/-T', '--trim/--no-trim', help="Don't recurse into ported packages (default: on)", default=True)
 @click.option('-s/-S', '--skip/--no-skip', help="Don't show ported packages at all")
 @click.option('-g/-G', '--graph/--no-graph', help="Show graph (default: on)", default=True)
@@ -198,13 +198,6 @@ def deps(ctx, package, exclude, trim, skip, graph):
 
     seen = set()
     exclude = set(exclude)
-    if '-' not in exclude:
-        exclude.update([
-            'python3',
-            'python',
-        ])
-    else:
-        exclude.remove('-')
     seen.update(query.get(n) for n in exclude)
 
     print_collection_header(collections)
@@ -220,7 +213,7 @@ def deps(ctx, package, exclude, trim, skip, graph):
         for col in collections:
             cp = pkg.by_collection.get(col.ident)
             if cp:
-                if cp.status not in ('released', 'unknown'):
+                if cp.status not in ('released', 'dropped'):
                     return False
                 result = True
         return result
