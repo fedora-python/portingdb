@@ -62,26 +62,7 @@
                 </thead>
                 <tbody>
                     {% for pkg in packages %}
-                        <tr>
-                            <td>
-                                <a href="{{ url_for('package', pkg=pkg.name) }}">
-                                    {{ pkg.name }}
-                                </a>
-                            </td>
-                            {% for col in collections %}
-                                {% set cp = pkg.by_collection.get(col.ident) %}
-                                {% if cp %}
-                                    <td>
-                                        {{ badge(cp.status_obj) }}
-                                    </td>
-                                    <td>
-                                        {{ badge(cp.priority_obj) }}
-                                    </td>
-                                {% else %}
-                                    <td colspan="2">—</td>
-                                {% endif %}
-                            {% endfor %}
-                        </tr>
+                        {{ package_tr(pkg, collections) }}
                     {% endfor %}
                 </tbody>
             </table>
