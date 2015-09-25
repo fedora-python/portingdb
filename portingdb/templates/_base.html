@@ -15,6 +15,10 @@
     </span>
 {%- endmacro %}
 
+{% macro pkglink(pkg) -%}
+    <a href="{{ url_for('package', pkg=pkg.name) }}">{{ pkg.name }}</a>
+{%- endmacro %}
+
 {% macro pkglist_table_head(collections) -%}
     <thead>
         <tr>
@@ -27,34 +31,22 @@
 {%- endmacro %}
 
 {% macro pkglist_table_content(package_groups, collections) -%}
-    <thead>
-        <tr>
-            <th></th>
-            <th>Package</th>
-            {% for col in collections %}
-                <th colspan="2" class="th-collection">{{col.name}}</th>
-            {% endfor %}
-        </tr>
-    </thead>
+    {{ pkglist_table_head(collections) }}
     <tbody>
         {% for cname, packages in package_groups.items() %}
             {% for pkg in packages %}
                 <tr>
-                    <td>
-                        <span class="pkgstatus-icon pkgstatus-{{ cname }}">&nbsp;</span>
-                    </td>
-                    {{ package_tr_content(pkg, collections) }}
+                    {{ package_tr_content(cname, pkg, collections) }}
                 </tr>
             {% endfor %}
         {% endfor %}
     </tbody>
 {%- endmacro %}
 
-{% macro package_tr_content(pkg, collections) -%}
+{% macro package_tr_content(category_name, pkg, collections) -%}
     <td>
-        <a href="{{ url_for('package', pkg=pkg.name) }}">
-            {{ pkg.name }}
-        </a>
+        <span class="pkgstatus-icon pkgstatus-{{ category_name }}">&nbsp;</span>
+        {{ pkglink(pkg) }}
     </td>
     {% for col in collections %}
         {% set cp = pkg.by_collection.get(col.ident) %}
@@ -80,6 +72,10 @@
                 min-width: 2em;
                 color: black;
                 margin-left: 0.5ex;
+            }
+            .simple-pkg-list {
+                list-style-type: none;
+                padding-left: 1em;
             }
             .dependents .badge {
                 min-width: 1ex;

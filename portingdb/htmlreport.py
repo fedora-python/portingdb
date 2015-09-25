@@ -27,13 +27,18 @@ def hello():
             'data': data,
         }
 
+    packages=queries.split_packages(db, queries.packages(db))
+
     return render_template(
         'index.html',
         collections=collections,
         coll_info=coll_info,
         statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
-        packages=queries.split_packages(db, queries.packages(db)),
+        active_packages=packages['active'],
+        ready_packages=packages['ready'],
+        blocked_packages=packages['blocked'],
+        done_packages=packages['done'],
     )
 
 def package(pkg):

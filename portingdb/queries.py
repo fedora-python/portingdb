@@ -119,7 +119,7 @@ def split_packages(db, query):
     blocked = query
 
     blocked = blocked.order_by(subquery.c.total - subquery.c.done)
-    blocked = blocked.order_by(-subquery.c.total)
+    blocked = blocked.order_by(subquery.c.total)
     blocked = _order_by_name(blocked)
 
     rv = OrderedDict([
