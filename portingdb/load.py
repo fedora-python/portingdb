@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql.expression import select, and_
 
 from . import tables
+from . import queries
 
 try:
     SafeLoader = yaml.CSafeLoader
@@ -108,6 +109,7 @@ def load_from_directory(db, directory):
         # Base packages
         values = [{
             'name': k,
+            'status': 'unknown',
         } for k, v in package_infos.items()]
         bulk_load(db, values, tables.Package.__table__, id_column="name")
 
@@ -144,6 +146,9 @@ def load_from_directory(db, directory):
                   key_columns=['collection_package_id', 'rpm_name'])
 
         # TODO: Contacts
+
+    queries.update_status_summaries(db)
+    db.commit()
 
 
 def _get_idmap(rows, key_columns, id_column, keys):

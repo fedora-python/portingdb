@@ -46,9 +46,11 @@
                 {% endif %}
             {% endfor %}
             <h3>Dependent packages</h3>
-            <table class="table table-striped table-condensed table-hovered dependents">
-                {{ pkglist_table_content(dependents, collections) }}
-            </table>
+            <ul class="simple-pkg-list">
+                {% for pkg in dependents %}
+                    <li>{{ pkglink(pkg) }}</li>
+                {% endfor %}
+            </ul>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-8">

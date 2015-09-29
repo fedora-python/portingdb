@@ -1,7 +1,8 @@
 from collections import OrderedDict
 
 from flask import Flask, render_template, current_app
-from sqlalchemy import func
+from sqlalchemy import func, or_
+from sqlalchemy.orm import subqueryload
 from jinja2 import StrictUndefined
 
 from . import tables
@@ -27,7 +28,27 @@ def hello():
             'data': data,
         }
 
-    packages=queries.split_packages(db, queries.packages(db))
+    query = queries.packages(db)
+
+    active, query = queries.split(query, tables.Package.status == 'in-progress')
+    active = queries.order_by_weight(db, active)
+    active = queries.order_by_name(db, active)
+
+    done, query = queries.split(query, tables.Package.status == 'released')
+    done = queries.order_by_name(db, done)
+
+    dropped, query = queries.split(query, tables.Package.status == 'dropped')
+    dropped = queries.order_by_name(db, dropped)
+
+    blocked, query = queries.split(query, tables.Package.status == 'blocked')
+    blocked = blocked.options(subqueryload('requirements'))
+    blocked = queries.order_by_name(db, blocked)
+
+    ready, query = queries.split(query, tables.Package.status == 'idle')
+    ready = ready.options(subqueryload('requirers'))
+    ready = queries.order_by_name(db, ready)
+
+    assert query.count() == 0
 
     return render_template(
         'index.html',
@@ -35,10 +56,11 @@ def hello():
         coll_info=coll_info,
         statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
-        active_packages=packages['active'],
-        ready_packages=packages['ready'],
-        blocked_packages=packages['blocked'],
-        done_packages=packages['done'],
+        active_packages=active,
+        ready_packages=ready,
+        blocked_packages=blocked,
+        done_packages=done,
+        dropped_packages=dropped,
     )
 
 def package(pkg):
@@ -49,12 +71,14 @@ def package(pkg):
 
     dependencies = queries.dependencies(db, package)
 
+    dependents = queries.dependents(db, package)
+
     return render_template(
         'package.html',
         collections=collections,
         pkg=package,
-        dependencies=queries.split_packages(db, queries.dependencies(db, package)),
-        dependents=queries.split_packages(db, queries.dependents(db, package)),
+        dependencies=dependencies,
+        dependents=dependents,
     )
 
 

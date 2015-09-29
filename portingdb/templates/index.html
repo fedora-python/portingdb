@@ -59,56 +59,62 @@
                 or which are waiting for review.
             </div>
             <table class="table table-striped table-condensed table-hovered">
-               {{ pkglist_table_content({'active': active_packages}, collections) }}
+               {{ pkglist_table_content(active_packages, collections) }}
             </table>
             <h2>Waiting packages</h2>
             <div>
-                These packages are waiting for someone to pick them up.
+                {{ ready_packages.count() }} packages are waiting for someone to pick them up.
                 Grab your favorite, and go port it!
             </div>
             <div>
                 If you're not sure which one to pick, or if you just want to help,
-                choose one with lots of dependencies.
+                choose one on which lots of other stuff depends.
             </div>
             <ul class="simple-pkg-list">
                {% for pkg in ready_packages %}
                    <li>
-                        <span class="pkgstatus-icon pkgstatus-ready">&nbsp;</span>
-                       {{ pkglink(pkg) }}
-                       {% if pkg.requirers %}
+                        {{ pkglink(pkg) }}
+                        {% if pkg.pending_requirers %}
                            (needed for
-                               {% for req in pkg.requirers %}
-                                   {{ pkglink(req) }}{% if not loop.last %},{% endif %}
-                               {% endfor %}
-                           )
-                       {% endif %}
+                               {% for req in pkg.pending_requirers %}
+                                   {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
+                        {% endif %}
                    </li>
                {% endfor %}
             </ul>
             <h2>Blocked packages</h2>
             <div>
-                These packages don't have all dependencies ported yet.
+                {{ blocked_packages.count() }}  packages don't have all dependencies ported yet.
             </div>
             <ul class="simple-pkg-list">
                {% for pkg in blocked_packages %}
                    <li>
-                        <span class="pkgstatus-icon pkgstatus-blocked">&nbsp;</span>
-                       {{ pkglink(pkg) }}
-                       {% if pkg.requirements %}
+                        {{ pkglink(pkg) }}
+                        {% if pkg.pending_requirements %}
                            (needs
-                               {% for req in pkg.requirements %}
-                                   {{ pkglink(req) }}{% if not loop.last %},{% endif %}{% endfor %})
-                       {% endif %}
+                               {% for req in pkg.pending_requirements %}
+                                   {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
+                        {% endif %}
                    </li>
                {% endfor %}
             </ul>
             <h2>Done packages</h2>
             <div>
-                These packages are ready – either they're ported, or we decided to drop them.
+                {{ done_packages.count() }}  packages are already ported. Yipee!
             </div>
             <div>
                {% for pkg in done_packages %}
-                    <span class="pkgstatus-icon pkgstatus-done">&nbsp;</span>&nbsp;{{ pkglink(pkg) }}
+                    {{ pkglink(pkg) }}
+               {% endfor %}
+            </div>
+            <h2>Dropped packages</h2>
+            <div>
+                {{ dropped_packages.count() }}  packages will not be ported to Python 3.
+                Anything that needs them will need to switch to an alternative.
+            </div>
+            <div>
+               {% for pkg in dropped_packages %}
+                    {{ pkglink(pkg) }}
                {% endfor %}
             </div>
         </div>

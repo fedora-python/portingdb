@@ -3,6 +3,7 @@ from collections import OrderedDict
 from sqlalchemy import func, not_, or_
 from sqlalchemy.types import Integer
 from sqlalchemy.orm import eagerload, subqueryload, lazyload, aliased, join
+from sqlalchemy.sql import select
 from sqlalchemy.sql.expression import cast
 
 from . import tables
@@ -21,7 +22,7 @@ def packages(db):
     return query
 
 
-def _order_by_weight(db, query):
+def order_by_weight(db, query):
     subquery = db.query(
         tables.CollectionPackage,
         (func.sum(tables.Status.weight) + func.sum(tables.Priority.weight)).label('weight')
@@ -48,9 +49,11 @@ def _deps(db, package, forward=True):
         col_a = tables.Dependency.requirer_name
         col_b = tables.Dependency.requirement_name
     query = query.outerjoin(tables.Dependency, col_a == tables.Package.name)
-    query = query.outerjoin(package_table, col_b == package_table.name)
+    query = query.filter(col_b == package.name)
 
-    query = query.filter(package_table.name == package.name)
+    query = query.join(tables.Status, tables.Status.ident == tables.Package.status)
+    query = query.order_by(-tables.Status.rank)
+    query = order_by_name(db, query)
 
     return query
 
@@ -63,69 +66,58 @@ def dependents(db, package):
     return _deps(db, package, False)
 
 
-def _split(query, condition):
-   return query.filter(condition), query.filter(or_(not_(condition), condition == None))
+def split(query, condition):
+   return query.filter(condition), query.filter(not_(condition))
 
 
-def _status_cols(db):
-    cp = aliased(tables.CollectionPackage)
-
-    def _st_cmps(val):
-        return func.sum(cast(cp.status == val, Integer))
-
-    cols = [
-        func.count(cp.id).label('total'),
-        (_st_cmps('dropped')).label('dropped'),
-        (_st_cmps('dropped') + _st_cmps('released')).label('done'),
-        _st_cmps('idle').label('idle'),
-    ]
-    return cp, cols
-
-
-def _order_by_name(query):
+def order_by_name(db, query):
     return query.order_by(func.lower(tables.Package.name))
 
-def split_packages(db, query):
-    parent_query = query
 
-    cp, cols = _status_cols(db)
-    subquery = db.query(*cols)
+def update_status_summaries(db):
+    """Update per-package status"""
+    main_update = tables.Package.__table__.update()
+
+    cp = tables.CollectionPackage
+    sti = aliased(tables.Status)
+    sto = aliased(tables.Status)
+    subquery = db.query(func.max(sti.rank).label('max'))
+    subquery = subquery.join(cp)
     subquery = subquery.add_column(cp.package_name.label('package_name'))
-    subquery = subquery.group_by(cp.package_name).subquery()
-
-    query = query.outerjoin(subquery, subquery.c.package_name == tables.Package.name)
-
-    done, query = _split(query, subquery.c.done == subquery.c.total)
-    done = done.order_by(subquery.c.dropped)
-    done = _order_by_name(done)
-
-    query, active = _split(query, subquery.c.done + subquery.c.idle == subquery.c.total)
-    active = _order_by_weight(db, active)
-
-    cp, cols = _status_cols(db)
-    dt = aliased(tables.Dependency)
-    q = db.query(dt)
-    req_name = dt.requirer_name.label('requirer_name')
-    subquery = q.outerjoin(cp, dt.requirement_name == cp.package_name)
-    subquery = subquery.add_columns(req_name, *cols)
-    subquery = subquery.group_by(req_name)
+    subquery = subquery.group_by('package_name')
     subquery = subquery.subquery()
-    query = query.outerjoin(subquery, subquery.c.requirer_name == tables.Package.name)
 
-    query, ready = _split(query, subquery.c.done != subquery.c.total)
-    ready = ready.order_by(-subquery.c.total)
-    ready = _order_by_name(ready)
+    query = db.query(tables.Package.name.label('package_name'))
+    query = query.outerjoin(subquery, subquery.c.package_name == tables.Package.name)
+    query = query.filter(subquery.c.max == sto.rank)
+    query = query.add_column(sto.ident.label('status'))
+    query = query.order_by(subquery.c.max)
+    query = query.subquery()
 
-    blocked = query
+    update = main_update.values(
+        status=select([query.c.status]).where(query.c.package_name == tables.Package.name))
+    db.execute(update)
 
-    blocked = blocked.order_by(subquery.c.total - subquery.c.done)
-    blocked = blocked.order_by(subquery.c.total)
-    blocked = _order_by_name(blocked)
+    # Get rid of "unknown" status
 
-    rv = OrderedDict([
-        ("active", active),
-        ("ready", ready),
-        ("blocked", blocked),
-        ("done", done),
-    ])
-    return rv
+    update = main_update.values(
+        status='idle').where(tables.Package.status == 'unknown')
+    db.execute(update)
+
+    # Convert "idle" packages with un-ported dependencies to "blocked"
+
+    dep = aliased(tables.Package)
+    depcp = aliased(tables.CollectionPackage)
+    subquery = db.query(depcp)
+    subquery = subquery.join(dep, depcp.package_name == dep.name)
+    subquery = subquery.filter(depcp.status != 'released')
+    subquery = subquery.filter(depcp.status != 'dropped')
+    subquery = subquery.join(tables.Dependency, tables.Dependency.requirement_name == dep.name)
+    subquery = subquery.filter(tables.Dependency.requirer_name == tables.Package.name)
+
+    update = main_update
+    update = update.where(subquery.exists())
+    update = update.where(tables.Package.status == 'idle')
+    update = update.values(status='blocked')
+    rv = db.execute(update)
+    print(update, rv.rowcount)

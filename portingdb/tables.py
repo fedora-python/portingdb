@@ -16,38 +16,6 @@ def IDColumn():
         doc=u"An internal numeric ID")
 
 
-class Package(TableBase):
-    u"""An abstract "package", for grouping similar packages in different Collections"""
-    __tablename__ = 'packages'
-    name = Column(
-        Unicode(), primary_key=True, nullable=False,
-        doc=u"The package name")
-
-    by_collection = relationship(
-        'CollectionPackage',
-        collection_class=mapped_collection(lambda cp: cp.collection.ident))
-
-    def __repr__(self):
-        return '<{} {}>'.format(type(self).__qualname__, self.name)
-
-
-class Collection(TableBase):
-    u"""A distro, or non-distro repository (e.g. "fedora" or "upstream")."""
-    __tablename__ = 'collections'
-    ident = Column(
-        Unicode(), primary_key=True, nullable=False,
-        doc=u"Machine-friendly name")
-    name = Column(
-        Unicode(), nullable=False,
-        doc=u"Display name")
-    order = Column(
-        Integer(), nullable=False,
-        doc=u"Index for sorting")
-
-    def __repr__(self):
-        return '<{} {}>'.format(type(self).__qualname__, self.ident)
-
-
 class Status(TableBase):
     u"""State a package can be in."""
     __tablename__ = 'statuses'
@@ -75,6 +43,9 @@ class Status(TableBase):
     description = Column(
         Unicode(), nullable=False,
         doc=u"Textual description of the status")
+    rank = Column(
+        Integer(), nullable=False,
+        doc=u"Rank for summarizing package state across collections. Higher rank trumps a lower one")
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)
@@ -113,6 +84,53 @@ class Priority(TableBase):
 
     def __str__(self):
         return '{} priority'.format(self.name)
+
+
+class Package(TableBase):
+    u"""An abstract "package", for grouping similar packages in different Collections"""
+    __tablename__ = 'packages'
+    name = Column(
+        Unicode(), primary_key=True, nullable=False,
+        doc=u"The package name")
+    status = Column(
+        Unicode(), ForeignKey(Status.ident), nullable=False,
+        doc=u"Summarized status")
+
+    by_collection = relationship(
+        'CollectionPackage',
+        collection_class=mapped_collection(lambda cp: cp.collection.ident))
+    status_obj = relationship(
+        'Status', backref=backref('packages'))
+
+    def __repr__(self):
+        return '<{} {}>'.format(type(self).__qualname__, self.name)
+
+    @property
+    def pending_requirements(self):
+        return [r for r in self.requirements
+                if r.status not in ('released', 'dropped')]
+
+    @property
+    def pending_requirers(self):
+        return [r for r in self.requirers
+                if r.status not in ('released', 'dropped')]
+
+
+class Collection(TableBase):
+    u"""A distro, or non-distro repository (e.g. "fedora" or "upstream")."""
+    __tablename__ = 'collections'
+    ident = Column(
+        Unicode(), primary_key=True, nullable=False,
+        doc=u"Machine-friendly name")
+    name = Column(
+        Unicode(), nullable=False,
+        doc=u"Display name")
+    order = Column(
+        Integer(), nullable=False,
+        doc=u"Index for sorting")
+
+    def __repr__(self):
+        return '<{} {}>'.format(type(self).__qualname__, self.ident)
 
 
 class CollectionPackage(TableBase):

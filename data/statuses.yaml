@@ -3,8 +3,17 @@
   abbrev: X
   color: '888888'
   term: X
-  weight: 0
+  weight: 1
   description: Package will not be ported; dependents must use an alternative
+  rank: 1
+- ident: blocked
+  name: Blocked
+  abbrev: B
+  color: 'D9534F'
+  term: 'B'
+  weight: 3
+  description: Depends on work on another package
+  rank: 3
 - ident: idle
   name: Idle
   abbrev: I
@@ -12,6 +21,7 @@
   term: ' '
   weight: 3
   description: No current activity is recorded
+  rank: 4
 - ident: in-progress
   name: In Progress
   abbrev: P
@@ -19,13 +29,7 @@
   term: '\e[33;7mP\e[0m'
   weight: 5
   description: Actively worked on
-- ident: review
-  name: Review
-  abbrev: R
-  color: '5BC0DE'
-  term: '\e[36;7mT\e[0m'
-  weight: 4
-  description: Patches are being reviewed/tested
+  rank: 5
 - ident: released
   name: Released
   abbrev: ✔
@@ -33,6 +37,7 @@
   term: '\e[32;7m✔\e[0m'
   weight: 1
   description: Version with Python 3 support is officially released
+  rank: 2
 - ident: unknown
   name: Unknown
   abbrev: '?'
@@ -40,3 +45,4 @@
   term: '?'
   weight: 0
   description: No information
+  rank: 0

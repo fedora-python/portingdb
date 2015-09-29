@@ -1,21 +1,27 @@
 {% macro badge(thing) -%}
-    <span class="badge"
-        style="
-               {% if thing.ident == 'unknown' %}
-                   border: 1px solid #{{ thing.color }};
-                   background-color: transparent;
-                   color: #{{ thing.color }};
-               {% else %}
-                   background-color: #{{ thing.color }} !important;
-               {% endif %}
-        "
-        title="{{ thing }}"
-    >
-        {{ thing.abbrev }}
-    </span>
+    {% if not thing or thing.ident == 'unknown' %}
+        <span class="badge"
+            style="border: 1px solid #CCCCCC; background-color: transparent; color: #CCCCCC;"
+            title="Unknown"
+        >
+            ?
+        </span>
+    {% else %}
+        <span class="badge"
+            style="background-color: #{{ thing.color }} !important;"
+            title="{{ thing }}"
+        >
+            {{ thing.abbrev }}
+        </span>
+    {% endif %}
 {%- endmacro %}
 
 {% macro pkglink(pkg) -%}
+    <span class="pkgstatus-icon" style="background-color: {{ pkg.status_obj.color }}">&nbsp;</span
+    >&nbsp;<a href="{{ url_for('package', pkg=pkg.name) }}">{{ pkglink_text(pkg) }}</a>
+{%- endmacro %}
+
+{% macro pkglink_text(pkg) -%}
     <a href="{{ url_for('package', pkg=pkg.name) }}">{{ pkg.name }}</a>
 {%- endmacro %}
 
@@ -30,22 +36,19 @@
     </thead>
 {%- endmacro %}
 
-{% macro pkglist_table_content(package_groups, collections) -%}
+{% macro pkglist_table_content(packages, collections) -%}
     {{ pkglist_table_head(collections) }}
     <tbody>
-        {% for cname, packages in package_groups.items() %}
-            {% for pkg in packages %}
-                <tr>
-                    {{ package_tr_content(cname, pkg, collections) }}
-                </tr>
-            {% endfor %}
+        {% for pkg in packages %}
+            <tr>
+                {{ package_tr_content(cname, pkg, collections) }}
+            </tr>
         {% endfor %}
     </tbody>
 {%- endmacro %}
 
 {% macro package_tr_content(category_name, pkg, collections) -%}
     <td>
-        <span class="pkgstatus-icon pkgstatus-{{ category_name }}">&nbsp;</span>
         {{ pkglink(pkg) }}
     </td>
     {% for col in collections %}
@@ -105,6 +108,9 @@
             }
             .pkgstatus-done {
                 background-color: #5CB85C;
+            }
+            .pkgstatus-dropped {
+                background-color: #888888;
             }
         </style>
     </head>
