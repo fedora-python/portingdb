@@ -30,7 +30,7 @@
         <tr>
             <th>Package</th>
             {% for col in collections %}
-                <th colspan="2" class="th-collection">{{col.name}}</th>
+                <th data-x-colspan="2" class="th-collection">{{col.name}}</th>
             {% endfor %}
         </tr>
     </thead>
@@ -57,11 +57,13 @@
             <td>
                 {{ badge(cp.status_obj) }}
             </td>
+            <!--
             <td>
                 {{ badge(cp.priority_obj) }}
             </td>
+            -->
         {% else %}
-            <td colspan="2">&nbsp;</td>
+            <td data-x-colspan="2">&nbsp;</td>
         {% endif %}
     {% endfor %}
 {%- endmacro %}
@@ -97,20 +99,8 @@
                 padding: 0;
                 min-width: 3px;
             }
-            .pkgstatus-active {
-                background-color: #F0AD4E;
-            }
-            .pkgstatus-ready {
-                background-color: #5BC0DE;
-            }
-            .pkgstatus-blocked {
-                background-color: #D9534F;
-            }
-            .pkgstatus-done {
-                background-color: #5CB85C;
-            }
-            .pkgstatus-dropped {
-                background-color: #888888;
+            .note {
+                font-style: italic;
             }
         </style>
     </head>

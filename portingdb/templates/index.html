@@ -5,58 +5,31 @@
         <div class="col-md-12">
             <h1>Python 3 Porting Database</h1>
         </div>
-        <div class="col-md-9">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="col-sm-2">Place</th>
-                        <th class="col-sm-2">Ported</th>
-                        <th class="col-sm-8">Progress</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for col in collections %}
-                        {% set released = coll_info[col]['data'].get('released', 0) %}
-                        {% set dropped = coll_info[col]['data'].get('dropped', 0) %}
-                        {% set done = released + dropped %}
-                        {% set total = coll_info[col]['total'] %}
-                        <tr>
-                            <td>{{ col.name }}</td>
-                            {% if total == 0 %}
-                                <td>{{ done }}/{{ total }}</td>
-                                <td></td>
-                            {% else %}
-                                {% set percent = done / total * 100 %}
-                                <td>{{ done }}/{{ total }}</td>
-                                <td>
-                                    <div class="progress">
-                                        {% for status in statuses %}
-                                            {% set num = coll_info[col]['data'].get(status.ident, 0) %}
-                                            {% if num %}
-                                                <div
-                                                    class="progress-bar" role="progressbar"
-                                                    aria-valuenow="{{ percent }}"
-                                                    aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: {{ 100 * num / total }}%;
-                                                           background-color: #{{ status.color }} !important;
-                                                           color: black;"
-                                                >
-                                                    {{ num }}
-                                                    {{ status.abbrev }}
-                                                </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="col-md-12">
+            <div class="progress">
+                {% for status, num in status_summary %}
+                    {% set total = all_pkg_query.count() %}
+                    {% if num %}
+                        <div
+                            class="progress-bar" role="progressbar"
+                            aria-valuenow="{{ num }}"
+                            aria-valuemin="0" aria-valuemax="{{ total }}"
+                            style="width: {{ 100 * num / total }}%;
+                                   background-color: #{{ status.color }} !important;
+                                   color: black;"
+                        >
+                            {{ num }}
+                            {{ status.abbrev }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-8">
             <h2>Active packages</h2>
             <div>
-                These are packages someone is actively porting,
-                or which are waiting for review.
+                We know about {{ active_packages.count() }} packages that
+                someone is actively porting, or which are waiting for review.
             </div>
             <table class="table table-striped table-condensed table-hovered">
                {{ pkglist_table_content(active_packages, collections) }}
@@ -86,6 +59,9 @@
             <div>
                 {{ blocked_packages.count() }}  packages don't have all dependencies ported yet.
             </div>
+            <div>
+                (Or they could be false positives – check the package before giving up on it!)
+            </div>
             <ul class="simple-pkg-list">
                {% for pkg in blocked_packages %}
                    <li>
@@ -110,7 +86,7 @@
             <h2>Dropped packages</h2>
             <div>
                 {{ dropped_packages.count() }}  packages will not be ported to Python 3.
-                Anything that needs them will need to switch to an alternative.
+                Anything that requires them will need to switch to an alternative.
             </div>
             <div>
                {% for pkg in dropped_packages %}
@@ -118,7 +94,50 @@
                {% endfor %}
             </div>
         </div>
-        <div class="col-md-3" style="position:sticky !important; top:0px;">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-3">
+            <h2>Where Porting Happens</h2>
+            {% for col in collections %}
+                {% set total = coll_info[col]['total'] %}
+                <h3>{{ col.name }}</h3>
+                <div class="progress">
+                    {% for status in statuses %}
+                        {% set num = coll_info[col]['data'].get(status.ident, 0) %}
+                        {% if num %}
+                            <div
+                                class="progress-bar" role="progressbar"
+                                aria-valuenow="{{ num }}"
+                                aria-valuemin="0" aria-valuemax="{{ total }}"
+                                style="width: {{ 100 * num / total }}%;
+                                       background-color: #{{ status.color }} !important;
+                                       color: black;"
+                            >
+                                {{ num }}
+                                {{ status.abbrev }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div>{{ col.description }}</div>
+                <ul class="list-group">
+                    {% for status in statuses %}
+                        {% set num = coll_info[col]['data'].get(status.ident, 0) %}
+                        {% if num %}
+                            <li class="list-group-item">
+                                {{ num }}
+                                {{ badge(status) }}
+                                <strong>{{ status.name }}</strong>
+                                <div class="note">
+                                    {{ col.status_description(status) }}
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+
+            <!--
             <h2>Legend</h2>
             <h5>Status</h5>
             <ul class="list-group">
@@ -139,7 +158,6 @@
                     </li>
                 {% endfor %}
             </ul>
-            <!--
             <h5>Package</h5>
             <ul class="list-group">
                 <li class="list-group-item">

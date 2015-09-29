@@ -11,7 +11,10 @@ from . import queries
 
 def hello():
     db = current_app.config['DB']
-    collections = list(queries.collections(db))
+
+    query = queries.collections(db)
+    query = query.options(subqueryload('collection_statuses'))
+    collections = list(query)
 
     coll_info = {}
     for i, collection in enumerate(collections):
@@ -27,6 +30,10 @@ def hello():
             'total': total,
             'data': data,
         }
+
+    all_pkg_query = queries.packages(db)
+
+    # Main package query
 
     query = queries.packages(db)
 
@@ -50,12 +57,23 @@ def hello():
 
     assert query.count() == 0
 
+    # Summary query
+
+    query = db.query(tables.Status)
+    query = query.join(tables.Package, tables.Status.packages)
+    query = query.add_column(func.count(tables.Package.name))
+    query = query.group_by(tables.Package.status)
+    query = query.order_by(-tables.Status.rank)
+    status_summary = query
+
     return render_template(
         'index.html',
         collections=collections,
         coll_info=coll_info,
         statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
+        all_pkg_query=all_pkg_query,
+        status_summary=status_summary,
         active_packages=active,
         ready_packages=ready,
         blocked_packages=blocked,
@@ -77,8 +95,8 @@ def package(pkg):
         'package.html',
         collections=collections,
         pkg=package,
-        dependencies=dependencies,
-        dependents=dependents,
+        dependencies=list(dependencies),
+        dependents=list(dependents),
     )
 
 

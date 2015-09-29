@@ -128,9 +128,34 @@ class Collection(TableBase):
     order = Column(
         Integer(), nullable=False,
         doc=u"Index for sorting")
+    description = Column(
+        Unicode())
+
+    def status_description(self, status):
+        for cs in self.collection_statuses:
+            if cs.status == status.ident:
+                return cs.description
+        return status.description
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)
+
+
+class CollectionStatus(TableBase):
+    """Information about what a status means in a particular collection"""
+    __tablename__ = 'collection_statuses'
+    id = IDColumn()
+    collection_ident = Column(
+        Unicode(), ForeignKey(Collection.ident), nullable=False)
+    status = Column(
+        Unicode(), ForeignKey(Status.ident), nullable=False)
+    description = Column(
+        Unicode())
+
+    collection = relationship(
+        Collection, backref=backref('collection_statuses'))
+    status_obj = relationship(
+        Status, backref=backref('collection_statuses'))
 
 
 class CollectionPackage(TableBase):
@@ -155,6 +180,8 @@ class CollectionPackage(TableBase):
     deadline = Column(
         Date(), nullable=True,
         doc=u"Tentative porting deadline")
+    note = Column(
+        Unicode())
 
     package = relationship(
         'Package',

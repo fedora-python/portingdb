@@ -85,6 +85,15 @@ def _merge_updates(base, updates):
             base[key] = new_value
 
 
+def _strip_key(values, key):
+    def gen():
+        for value in values:
+            value = dict(value)
+            del value[key]
+            yield value
+    return list(gen())
+
+
 def load_from_directory(db, directory):
     """Add data from a directory to a database
     """
@@ -94,8 +103,17 @@ def load_from_directory(db, directory):
     values = _prepare_enum(data_from_file(directory, 'priorities'))
     bulk_load(db, values, tables.Priority.__table__, id_column="ident")
 
-    values = _add_order(data_from_file(directory, 'collections'))
+    col_values = _add_order(data_from_file(directory, 'collections'))
+    values = _strip_key(col_values, 'statuses')
     col_map = bulk_load(db, values, tables.Collection.__table__, id_column="ident")
+
+    values = [{
+        'collection_ident': c['ident'],
+        'status': s,
+        'description': d,
+    } for c in col_values for s, d in c['statuses'].items()]
+    bulk_load(db, values, tables.CollectionStatus.__table__,
+              key_columns=["collection_ident", "status"])
 
     for collection in col_map.values():
         package_infos = data_from_file(directory, collection)
