@@ -18,9 +18,15 @@
                             <!--{{ badge(pc.priority_obj) }}-->
                         </small>
                     </h3>
-                    <div class="note">
-                        {{ col.status_description(pc.status_obj) }}
-                    </div>
+                    {% if pc.note %}
+                        <div>
+                            {{ pc.note }}
+                        </div>
+                    {% else %}
+                        <div class="note">
+                            {{ col.status_description(pc.status_obj) }}
+                        </div>
+                    {% endif %}
                     {% if pc.rpms %}
                         <div>
                             <strong>RPMs</strong>

@@ -50,6 +50,7 @@ def _get_pkg(name, collection, info):
         'status': info.get('status') or 'unknown',
         'priority': info.get('priority') or 'unknown',
         'deadline': info.get('deadline', None),
+        'note': info.get('note', None),
     }
 
 
