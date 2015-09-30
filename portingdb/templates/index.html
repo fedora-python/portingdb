@@ -49,6 +49,32 @@
                     </li>
                 </ul>
             </div>
+            {% if products %}
+                <h2>Products</h2>
+                {% for prod, statuses in products.items() %}
+                    <h3>
+                        <a href="{{ url_for('product', prod=prod.ident) }}">
+                            {{ prod.name }}
+                        </a>
+                    </h3>
+                    <div class="progress">
+                        {% set total = len(prod.packages) %}
+                        {% for status, num in statuses.items() %}
+                            <div
+                                class="progress-bar" role="progressbar"
+                                aria-valuenow="{{ num }}"
+                                aria-valuemin="0" aria-valuemax="{{ total }}"
+                                style="width: {{ 100 * num / total }}%;
+                                       background-color: #{{ status.color }} !important;
+                                       color: black;"
+                            >
+                                {{ num }}
+                                {{ status.abbrev }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endif %}
             <h2>Active packages</h2>
             <div>
                 We know about {{ active_packages.count() }} packages that

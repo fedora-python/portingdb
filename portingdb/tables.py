@@ -288,9 +288,52 @@ class Contact(TableBase):
                                            self.collection_package.name,
                                            self.name)
 
+
+class Product(TableBase):
+    __tablename__ = 'products'
+    ident = Column(
+        Unicode(), primary_key=True, nullable=False,
+        doc=u"Machine-friendly name")
+    name = Column(
+        Unicode(), nullable=False,
+        doc=u"Display name")
+
+    def __repr__(self):
+        return '<{} {}>'.format(type(self).__qualname__, self.ident)
+
+
+class ProductPackage(TableBase):
+    __tablename__ = 'product_packages'
+    id = IDColumn()
+    __table_args__ = (UniqueConstraint('product_ident', 'package_name'), )
+    product_ident = Column(
+        ForeignKey(Product.ident), nullable=False)
+    package_name = Column(
+        ForeignKey(Package.name), nullable=False)
+    is_seed = Column(
+        Boolean(), nullable=False, default=False)
+
+    product = relationship(
+        'Product', backref=backref('product_packages'))
+    package = relationship(
+        'Package', backref=backref('product_packages'))
+
+    def __repr__(self):
+        return '<{} {} for {}: {}>'.format(type(self).__qualname__, self.type,
+                                           self.collection_package.name,
+                                           self.url)
+
+
 Package.requirements = relationship(
     Package,
     secondary=Dependency.__table__,
     primaryjoin=Package.name == Dependency.requirer_name,
     secondaryjoin=Package.name == Dependency.requirement_name,
     backref="requirers")
+
+Package.products = relationship(
+    Product,
+    secondary=ProductPackage.__table__,
+    primaryjoin=Package.name == ProductPackage.package_name,
+    secondaryjoin=Product.ident == ProductPackage.product_ident,
+    backref="packages")

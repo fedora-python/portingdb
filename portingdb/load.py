@@ -166,7 +166,23 @@ def load_from_directory(db, directory):
 
         # TODO: Contacts
 
+    prod_values = data_from_file(directory, 'products')
+    values = [{
+        'ident': k,
+        'name': v['name'],
+    } for k, v in prod_values.items()]
+    bulk_load(db, values, tables.Product.__table__, id_column='ident')
+
+    values = [{
+        'product_ident': k,
+        'package_name': p,
+        'is_seed': True,
+    } for k, v in prod_values.items() for p in v['packages']]
+    bulk_load(db, values, tables.ProductPackage.__table__,
+              key_columns=['product_ident', 'package_name'])
+
     queries.update_status_summaries(db)
+    queries.update_product_closures(db)
     db.commit()
 
 

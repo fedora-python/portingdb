@@ -1,7 +1,7 @@
 from collections import OrderedDict
 import random
 
-from flask import Flask, render_template, current_app, Markup
+from flask import Flask, render_template, current_app, Markup, abort
 from sqlalchemy import func, or_
 from sqlalchemy.orm import subqueryload
 from jinja2 import StrictUndefined
@@ -71,6 +71,23 @@ def hello():
     query = query.order_by(-tables.Status.rank)
     status_summary = query
 
+    # Product query
+
+    query = db.query(tables.Product)
+    query = query.join(tables.Product.packages)
+    query = query.join(tables.Package.status_obj)
+    query = query.group_by(tables.Product.ident)
+    query = query.group_by(tables.Package.status)
+    query = query.order_by(-tables.Status.rank)
+    query = query.order_by(tables.Product.name)
+    query = query.add_columns(tables.Package.status,
+                              func.count(tables.Package.name))
+    products = {}
+    for product, status_ident, count in query:
+        status = db.query(tables.Status).get(status_ident)
+        pd = products.setdefault(product, OrderedDict())
+        pd[status] = pd.get(status, 0) + count
+
     return render_template(
         'index.html',
         collections=collections,
@@ -86,6 +103,7 @@ def hello():
         dropped_packages=dropped,
         random_ready=random_ready,
         len=len,
+        products=products,
     )
 
 def package(pkg):
@@ -93,6 +111,8 @@ def package(pkg):
     collections = list(queries.collections(db))
 
     package = db.query(tables.Package).get(pkg)
+    if package is None:
+        abort(404)
 
     dependencies = queries.dependencies(db, package)
 
@@ -106,6 +126,34 @@ def package(pkg):
         dependents=list(dependents),
     )
 
+def product(prod):
+    db = current_app.config['DB']
+    collections = list(queries.collections(db))
+
+    product = db.query(tables.Product).get(prod)
+    if product is None:
+        abort(404)
+
+    query = db.query(tables.Package)
+    query = query.join(tables.Package.product_packages)
+    query = query.join(tables.ProductPackage.product)
+    query = query.join(tables.Package.status_obj)
+    query = query.filter(tables.Product.ident == prod)
+    query = query.order_by(-tables.Status.rank)
+    query = queries.order_by_name(db, query)
+    packages = query
+
+    query = query.filter(tables.ProductPackage.is_seed)
+    seed_packages = query
+
+    return render_template(
+        'product.html',
+        collections=collections,
+        prod=product,
+        packages=packages,
+        seed_packages=seed_packages,
+    )
+
 
 def markdown_filter(text):
     return Markup(markdown.markdown(text))
@@ -115,10 +163,11 @@ def create_app(db):
     app = Flask(__name__)
     app.config['DB'] = db
     app.add_template_global(db, name='db')
-    app.route("/")(hello)
-    app.route("/pkg/<pkg>/")(package)
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
+    app.route("/")(hello)
+    app.route("/pkg/<pkg>/")(package)
+    app.route("/prod/<prod>/")(product)
 
     return app
 

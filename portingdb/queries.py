@@ -121,3 +121,22 @@ def update_status_summaries(db):
     update = update.values(status='blocked')
     rv = db.execute(update)
     print(update, rv.rowcount)
+
+
+def update_product_closures(db):
+    values = []
+    for product in db.query(tables.Product):
+        waiting = set(product.packages)
+        pkgs = set()
+        while waiting:
+            pkg = waiting.pop()
+            if pkg not in pkgs:
+                pkgs.add(pkg)
+                if pkg.status not in ('dropped', 'released'):
+                    waiting.update(pkg.requirements)
+        pkgs.difference_update(product.packages)
+        values.extend({'product_ident': product.ident, 'package_name': p.name}
+                      for p in pkgs)
+
+    update = tables.ProductPackage.__table__.insert()
+    db.execute(update, values)

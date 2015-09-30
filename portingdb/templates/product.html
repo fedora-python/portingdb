@@ -1,0 +1,34 @@
+{% extends "_base.html" %}
+
+{% block titlecontent %}{{prod.name }} – {{ super() }} {% endblock titlecontent %}
+
+{% block bodycontent %}
+    <div class="container">
+        <div class="col-md-12">
+            <h1>Product {{ prod.name }} </h1>
+        </div>
+        <div class="col-md-8">
+            <h2>All Needed Packages</h2>
+            {% if packages %}
+                <table class="table table-striped table-condensed table-hovered">
+                    {{ pkglist_table_content(packages, collections) }}
+                </table>
+            {% else %}
+                None.
+            {% endif %}
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <h2>Main Packages</h2>
+            {% if seed_packages %}
+                <ul class="simple-pkg-list">
+                    {% for pkg in seed_packages %}
+                        <li>{{ pkglink(pkg) }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                None.
+            {% endif %}
+        </div>
+    </div>
+{% endblock bodycontent %}

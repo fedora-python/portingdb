@@ -284,3 +284,13 @@ def deps(ctx, package, exclude, trim, skip, graph):
         pkgs.extend(reqs)
 
     print_collection_header(collections, foot=True)
+
+
+@cli.command()
+@click.pass_context
+def update(ctx):
+    """Print a dependency graph of the given package(s)"""
+    db = ctx.obj['db']
+
+    from . import queries
+    queries.update_product_closures(db)
