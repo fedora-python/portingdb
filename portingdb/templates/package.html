@@ -7,7 +7,14 @@
         <div class="col-md-12">
             <h1>Package {{ pkg.name }} </h1>
             <div style="border-left: 4px solid #{{pkg.status_obj.color}}; padding-left: 4px; ">
-            {{ pkg.status_obj.instructions | md }}
+                {{ pkg.status_obj.instructions | md }}
+            </div>
+            <div>
+                <img src="https://fedoraproject.org/static/images/favicon.ico">
+                See
+                <a href="https://admin.fedoraproject.org/pkgdb/package/{{ pkg.name }}/">
+                    {{ pkg.name }}</a>
+                in the Fedora Package Database
             </div>
         </div>
         <div class="col-md-3">
