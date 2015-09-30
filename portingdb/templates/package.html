@@ -6,6 +6,9 @@
     <div class="container">
         <div class="col-md-12">
             <h1>Package {{ pkg.name }} </h1>
+            <div style="border-left: 4px solid #{{pkg.status_obj.color}}; padding-left: 4px; ">
+            {{ pkg.status_obj.instructions | md }}
+            </div>
         </div>
         <div class="col-md-3">
             {% for col in collections %}
@@ -20,11 +23,11 @@
                     </h3>
                     {% if pc.note %}
                         <div>
-                            {{ pc.note }}
+                            {{ pc.note | md }}
                         </div>
                     {% else %}
                         <div class="note">
-                            {{ col.status_description(pc.status_obj) }}
+                            {{ col.status_description(pc.status_obj) | md }}
                         </div>
                     {% endif %}
                     {% if pc.rpms %}

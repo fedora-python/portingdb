@@ -6,6 +6,11 @@
   weight: 1
   description: Package will not be ported; dependents must use an alternative
   rank: 1
+  instructions: |
+    This package will not be ported to Python 3. We can do without it – see
+    if there is an alternative listed in the notes.
+
+    If you think it would be good to port it anyway, get in touch with the upstream!
 - ident: blocked
   name: Blocked
   abbrev: B
@@ -14,6 +19,13 @@
   weight: 3
   description: Depends on work on another package
   rank: 3
+  instructions: |
+    This package has some dependencies that do not support Python 3 yet.
+    They need to be ported first.
+    Take a look at the list, and choose one.
+
+    (Note that there might be false positives; if you spot one, please
+    [file a bug](https://github.com/fedora-python/portingdb/issues))
 - ident: idle
   name: Idle
   abbrev: I
@@ -22,6 +34,13 @@
   weight: 3
   description: No current activity is recorded
   rank: 4
+  instructions: |
+    No one is working on this package now. You can visit pkgdb for links to the
+    upstream project.
+    Ask for Python 3 status, and coordinate work with the upstream to port.
+
+    If upstream has Python 3 support but it is not yet in Fedora,
+    get in touch with the Fedora maintainer (also visible in pkgdb).
 - ident: in-progress
   name: In Progress
   abbrev: P
@@ -30,6 +49,11 @@
   weight: 5
   description: Actively worked on
   rank: 5
+  instructions:
+    Someone is working on this package. Please coordinate with them.
+
+    (If you cannot find contacts here, please
+    [file a bug](https://github.com/fedora-python/portingdb/issues))
 - ident: released
   name: Released
   abbrev: ✔
@@ -38,6 +62,9 @@
   weight: 1
   description: Version with Python 3 support is officially released
   rank: 2
+  instructions:
+    We are done! This package is released with Python 3 support, and
+    all is good in the world.
 - ident: unknown
   name: Unknown
   abbrev: '?'
@@ -46,3 +73,9 @@
   weight: 0
   description: No information
   rank: 0
+  instructions:
+    Status unknown. You will need to investigate yourself.
+
+    Please
+    [file a portingdb bug](https://github.com/fedora-python/portingdb/issues)
+    if you see this message.

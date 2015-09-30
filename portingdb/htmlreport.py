@@ -1,9 +1,11 @@
 from collections import OrderedDict
+import random
 
-from flask import Flask, render_template, current_app
+from flask import Flask, render_template, current_app, Markup
 from sqlalchemy import func, or_
 from sqlalchemy.orm import subqueryload
 from jinja2 import StrictUndefined
+import markdown
 
 from . import tables
 from . import queries
@@ -57,6 +59,9 @@ def hello():
 
     assert query.count() == 0
 
+    ready = list(ready)
+    random_ready = random.choice(ready)
+
     # Summary query
 
     query = db.query(tables.Status)
@@ -79,6 +84,8 @@ def hello():
         blocked_packages=blocked,
         done_packages=done,
         dropped_packages=dropped,
+        random_ready=random_ready,
+        len=len,
     )
 
 def package(pkg):
@@ -100,6 +107,10 @@ def package(pkg):
     )
 
 
+def markdown_filter(text):
+    return Markup(markdown.markdown(text))
+
+
 def create_app(db):
     app = Flask(__name__)
     app.config['DB'] = db
@@ -107,6 +118,7 @@ def create_app(db):
     app.route("/")(hello)
     app.route("/pkg/<pkg>/")(package)
     app.jinja_env.undefined = StrictUndefined
+    app.jinja_env.filters['md'] = markdown_filter
 
     return app
 

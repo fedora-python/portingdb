@@ -17,8 +17,11 @@
 {%- endmacro %}
 
 {% macro pkglink(pkg) -%}
-    <span class="pkgstatus-icon" style="background-color: {{ pkg.status_obj.color }}">&nbsp;</span
-    >&nbsp;<a href="{{ url_for('package', pkg=pkg.name) }}">{{ pkglink_text(pkg) }}</a>
+    {{ pkglink_icon(pkg) }}&nbsp;{{ pkglink_text(pkg) }}
+{%- endmacro %}
+
+{% macro pkglink_icon(pkg) -%}
+    <span class="pkgstatus-icon" style="background-color: {{ pkg.status_obj.color }}">&nbsp;</span>
 {%- endmacro %}
 
 {% macro pkglink_text(pkg) -%}

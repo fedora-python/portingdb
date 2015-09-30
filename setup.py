@@ -22,6 +22,7 @@ requires = [
     'PyYAML >= 3.11, < 4.0',
     'click >= 3.3, < 4.0',
     'flask >= 0.10, < 1.0',
+    'markdown >= 2.4, < 3.0',
 ]
 
 tests_require = ['pytest']

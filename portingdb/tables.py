@@ -46,6 +46,9 @@ class Status(TableBase):
     rank = Column(
         Integer(), nullable=False,
         doc=u"Rank for summarizing package state across collections. Higher rank trumps a lower one")
+    instructions = Column(
+        Unicode(), nullable=False,
+        doc=u"Description on what to do with a package in this status")
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)
