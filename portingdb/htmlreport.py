@@ -114,9 +114,9 @@ def package(pkg):
     if package is None:
         abort(404)
 
-    dependencies = queries.dependencies(db, package)
+    dependencies = list(queries.dependencies(db, package))
 
-    dependents = queries.dependents(db, package)
+    dependents = list(queries.dependents(db, package))
 
     return render_template(
         'package.html',
@@ -124,6 +124,7 @@ def package(pkg):
         pkg=package,
         dependencies=list(dependencies),
         dependents=list(dependents),
+        deptree=[(package, gen_deptree(dependencies))],
     )
 
 def product(prod):
@@ -141,7 +142,7 @@ def product(prod):
     query = query.filter(tables.Product.ident == prod)
     query = query.order_by(-tables.Status.rank)
     query = queries.order_by_name(db, query)
-    packages = query
+    packages = list(query)
 
     query = query.filter(tables.ProductPackage.is_seed)
     seed_packages = query
@@ -151,8 +152,21 @@ def product(prod):
         collections=collections,
         prod=product,
         packages=packages,
-        seed_packages=seed_packages,
+        deptree=list(gen_deptree(seed_packages)),
     )
+
+
+def gen_deptree(base, *, seen=None):
+    seen = seen or set()
+    base = tuple(base)
+    for pkg in base:
+        if pkg in seen or pkg.status in ('released', 'dropped', 'idle'):
+            yield pkg, []
+        else:
+            reqs = sorted(pkg.requirements,
+                          key=lambda p: (-p.status_obj.rank, p.name))
+            yield pkg, gen_deptree(reqs, seen=seen)
+        seen.add(pkg)
 
 
 def markdown_filter(text):

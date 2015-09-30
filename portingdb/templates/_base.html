@@ -28,6 +28,23 @@
     <a href="{{ url_for('package', pkg=pkg.name) }}">{{ pkg.name }}</a>
 {%- endmacro %}
 
+{% macro print_deptree(pkgs) -%}
+    <ul class="simple-pkg-list">
+        {{ sub_deptree(pkgs) }}
+    </ul>
+{%- endmacro %}
+
+{% macro sub_deptree(pkgs) -%}
+    {% for pkg, subtree in pkgs %}
+        <li>
+            {{ pkglink(pkg) }}
+            <ul class="simple-pkg-list" style="border-left: 1px solid #EEE">
+                {{ sub_deptree(subtree) }}
+            </ul>
+        </li>
+    {% endfor %}
+{%- endmacro %}
+
 {% macro pkglist_table_head(collections) -%}
     <thead>
         <tr>

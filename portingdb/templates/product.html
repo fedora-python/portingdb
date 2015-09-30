@@ -5,7 +5,7 @@
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
-            <h1>Product {{ prod.name }} </h1>
+            <h1>{{ prod.name }} <small>Product</small></h1>
         </div>
         <div class="col-md-8">
             <h2>All Needed Packages</h2>
@@ -19,16 +19,8 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-3">
-            <h2>Main Packages</h2>
-            {% if seed_packages %}
-                <ul class="simple-pkg-list">
-                    {% for pkg in seed_packages %}
-                        <li>{{ pkglink(pkg) }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                None.
-            {% endif %}
+            <h2>Dependency Tree</h2>
+            {{ print_deptree(deptree) }}
         </div>
     </div>
 {% endblock bodycontent %}
