@@ -50,7 +50,11 @@
                 </ul>
             </div>
             {% if groups %}
-                <h2>Groups</h2>
+                <h2>Package Groups</h2>
+                <div>
+                    If you're interested in porting a bigger, self-contained piece of Fedora,
+                    choose one of these:
+                </div>
                 {% for grp, statuses in groups.items() %}
                     <h3>
                         <a href="{{ url_for('group', grp=grp.ident) }}">
