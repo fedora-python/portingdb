@@ -293,4 +293,4 @@ def update(ctx):
     db = ctx.obj['db']
 
     from . import queries
-    queries.update_product_closures(db)
+    queries.update_group_closures(db)

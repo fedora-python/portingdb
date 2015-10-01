@@ -289,8 +289,8 @@ class Contact(TableBase):
                                            self.name)
 
 
-class Product(TableBase):
-    __tablename__ = 'products'
+class Group(TableBase):
+    __tablename__ = 'groups'
     ident = Column(
         Unicode(), primary_key=True, nullable=False,
         doc=u"Machine-friendly name")
@@ -302,21 +302,21 @@ class Product(TableBase):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)
 
 
-class ProductPackage(TableBase):
-    __tablename__ = 'product_packages'
+class GroupPackage(TableBase):
+    __tablename__ = 'group_packages'
     id = IDColumn()
-    __table_args__ = (UniqueConstraint('product_ident', 'package_name'), )
-    product_ident = Column(
-        ForeignKey(Product.ident), nullable=False)
+    __table_args__ = (UniqueConstraint('group_ident', 'package_name'), )
+    group_ident = Column(
+        ForeignKey(Group.ident), nullable=False)
     package_name = Column(
         ForeignKey(Package.name), nullable=False)
     is_seed = Column(
         Boolean(), nullable=False, default=False)
 
-    product = relationship(
-        'Product', backref=backref('product_packages'))
+    group = relationship(
+        'Group', backref=backref('group_packages'))
     package = relationship(
-        'Package', backref=backref('product_packages'))
+        'Package', backref=backref('group_packages'))
 
     def __repr__(self):
         return '<{} {} for {}: {}>'.format(type(self).__qualname__, self.type,
@@ -331,9 +331,9 @@ Package.requirements = relationship(
     secondaryjoin=Package.name == Dependency.requirement_name,
     backref="requirers")
 
-Package.products = relationship(
-    Product,
-    secondary=ProductPackage.__table__,
-    primaryjoin=Package.name == ProductPackage.package_name,
-    secondaryjoin=Product.ident == ProductPackage.product_ident,
+Package.groups = relationship(
+    Group,
+    secondary=GroupPackage.__table__,
+    primaryjoin=Package.name == GroupPackage.package_name,
+    secondaryjoin=Group.ident == GroupPackage.group_ident,
     backref="packages")

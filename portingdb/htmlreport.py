@@ -71,21 +71,21 @@ def hello():
     query = query.order_by(tables.Status.order)
     status_summary = query
 
-    # Product query
+    # Group query
 
-    query = db.query(tables.Product)
-    query = query.join(tables.Product.packages)
+    query = db.query(tables.Group)
+    query = query.join(tables.Group.packages)
     query = query.join(tables.Package.status_obj)
-    query = query.group_by(tables.Product.ident)
+    query = query.group_by(tables.Group.ident)
     query = query.group_by(tables.Package.status)
     query = query.order_by(tables.Status.order)
-    query = query.order_by(tables.Product.name)
+    query = query.order_by(tables.Group.name)
     query = query.add_columns(tables.Package.status,
                               func.count(tables.Package.name))
-    products = {}
-    for product, status_ident, count in query:
+    groups = {}
+    for group, status_ident, count in query:
         status = db.query(tables.Status).get(status_ident)
-        pd = products.setdefault(product, OrderedDict())
+        pd = groups.setdefault(group, OrderedDict())
         pd[status] = pd.get(status, 0) + count
 
     return render_template(
@@ -103,7 +103,7 @@ def hello():
         dropped_packages=dropped,
         random_ready=random_ready,
         len=len,
-        products=products,
+        groups=groups,
     )
 
 def package(pkg):
@@ -127,32 +127,32 @@ def package(pkg):
         deptree=[(package, gen_deptree(dependencies))],
     )
 
-def product(prod):
+def group(grp):
     db = current_app.config['DB']
     collections = list(queries.collections(db))
 
-    product = db.query(tables.Product).get(prod)
-    if product is None:
+    group = db.query(tables.Group).get(grp)
+    if group is None:
         abort(404)
 
     query = db.query(tables.Package)
-    query = query.join(tables.Package.product_packages)
-    query = query.join(tables.ProductPackage.product)
+    query = query.join(tables.Package.group_packages)
+    query = query.join(tables.GroupPackage.group)
     query = query.join(tables.Package.status_obj)
-    query = query.filter(tables.Product.ident == prod)
+    query = query.filter(tables.Group.ident == grp)
     query = query.order_by(tables.Status.order)
     query = queries.order_by_name(db, query)
     packages = list(query)
 
-    query = query.filter(tables.ProductPackage.is_seed)
-    seed_packages = query
+    query = query.filter(tables.GroupPackage.is_seed)
+    seed_groups = query
 
     return render_template(
-        'product.html',
+        'group.html',
         collections=collections,
-        prod=product,
+        grp=group,
         packages=packages,
-        deptree=list(gen_deptree(seed_packages)),
+        deptree=list(gen_deptree(seed_groups)),
     )
 
 
@@ -181,7 +181,7 @@ def create_app(db):
     app.jinja_env.filters['md'] = markdown_filter
     app.route("/")(hello)
     app.route("/pkg/<pkg>/")(package)
-    app.route("/prod/<prod>/")(product)
+    app.route("/grp/<grp>/")(group)
 
     return app
 

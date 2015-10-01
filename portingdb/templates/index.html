@@ -49,16 +49,16 @@
                     </li>
                 </ul>
             </div>
-            {% if products %}
-                <h2>Products</h2>
-                {% for prod, statuses in products.items() %}
+            {% if groups %}
+                <h2>Groups</h2>
+                {% for grp, statuses in groups.items() %}
                     <h3>
-                        <a href="{{ url_for('product', prod=prod.ident) }}">
-                            {{ prod.name }}
+                        <a href="{{ url_for('group', grp=grp.ident) }}">
+                            {{ grp.name }}
                         </a>
                     </h3>
                     <div class="progress">
-                        {% set total = len(prod.packages) %}
+                        {% set total = len(grp.packages) %}
                         {% for status, num in statuses.items() %}
                             <div
                                 class="progress-bar" role="progressbar"
