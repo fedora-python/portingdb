@@ -68,7 +68,7 @@ def hello():
     query = query.join(tables.Package, tables.Status.packages)
     query = query.add_column(func.count(tables.Package.name))
     query = query.group_by(tables.Package.status)
-    query = query.order_by(-tables.Status.rank)
+    query = query.order_by(tables.Status.order)
     status_summary = query
 
     # Product query
@@ -78,7 +78,7 @@ def hello():
     query = query.join(tables.Package.status_obj)
     query = query.group_by(tables.Product.ident)
     query = query.group_by(tables.Package.status)
-    query = query.order_by(-tables.Status.rank)
+    query = query.order_by(tables.Status.order)
     query = query.order_by(tables.Product.name)
     query = query.add_columns(tables.Package.status,
                               func.count(tables.Package.name))
@@ -140,7 +140,7 @@ def product(prod):
     query = query.join(tables.ProductPackage.product)
     query = query.join(tables.Package.status_obj)
     query = query.filter(tables.Product.ident == prod)
-    query = query.order_by(-tables.Status.rank)
+    query = query.order_by(tables.Status.order)
     query = queries.order_by_name(db, query)
     packages = list(query)
 
