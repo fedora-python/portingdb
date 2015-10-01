@@ -153,6 +153,11 @@ def load_from_directory(db, directory):
         values.extend(
             [_get_repolink(k, col_package_map, collection, v, 'link_to_bug', 'bug')
             for k, v in package_infos.items()])
+        values.extend({
+            'collection_package_id': col_package_map[n, collection],
+            'url': v,
+            'type': k,
+        } for n, m in package_infos.items() for k, v in m.get('links', {}).items())
         values = [v for v in values if v]
         bulk_load(db, values, tables.Link.__table__,
                   key_columns=['collection_package_id', 'url'])
