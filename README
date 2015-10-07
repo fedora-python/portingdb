@@ -16,8 +16,9 @@ First, you will need to load a database.
     $ python3 -m portingdb --datadir data/ load
 
 This will create a `portingdb.sqlite` file in the current directory.
-Currently, the database needs to be deleted and re-reloaded every time the
-data changes.
+Currently, the database needs re-loaded every time the data changes.
+(If the schema changes, you will need to delete the `portingdb.sqlite` file
+before re-loading data.)
 
 To check the database, do:
 

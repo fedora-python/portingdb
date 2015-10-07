@@ -3,6 +3,4 @@
 export LC_ALL="en_US.utf8"
 export LANG="en_US.UTF-8"
 
-rm -f $OPENSHIFT_TMP_DIR/portingdb.sqlite
-
 python3 -m portingdb --datadir $OPENSHIFT_REPO_DIR/data --db $OPENSHIFT_TMP_DIR/portingdb.sqlite -vv load

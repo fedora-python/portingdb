@@ -103,12 +103,18 @@ def print_status(ctx):
 @click.pass_context
 def load(ctx):
     """Load the database from JSON/YAML data"""
+    datadirs = ctx.obj['datadirs']
+    db = ctx.obj['db']
+
+    db.execute('PRAGMA journal_mode=WAL')
+
     if ctx.obj['verbose']:
         click.secho('Before load:', fg='cyan')
         print_status(ctx)
 
-    datadirs = ctx.obj['datadirs']
-    db = ctx.obj['db']
+    for table in tables.metadata.sorted_tables:
+        db.execute(table.delete())
+
     for datadir in datadirs:
         load_from_directory(db, datadir)
     db.commit()
