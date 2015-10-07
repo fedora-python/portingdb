@@ -82,7 +82,7 @@ def hello():
     query = query.order_by(tables.Group.name)
     query = query.add_columns(tables.Package.status,
                               func.count(tables.Package.name))
-    groups = {}
+    groups = OrderedDict()
     for group, status_ident, count in query:
         status = db.query(tables.Status).get(status_ident)
         pd = groups.setdefault(group, OrderedDict())
