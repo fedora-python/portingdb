@@ -18,6 +18,9 @@ db_url = 'sqlite:///' + sqlite_path
 
 application = htmlreport.create_app(db_url=db_url)
 
+import pprint
+pprint.pprint(os.environ)
+
 # For testing only
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
