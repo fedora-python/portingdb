@@ -1,6 +1,7 @@
 import logging
 import os
 import urllib.parse
+import json
 
 import click
 from sqlalchemy import create_engine, func
@@ -182,13 +183,20 @@ def report(ctx):
 
 @cli.command()
 @click.option('--debug/--no-debug', help="Run in debug mode")
+@click.option('--cache',
+              help="""JSON-formatted dogpile.cache configuration, for example '{"backend": "'dogpile.cache.memory'"}'""")
 @click.pass_context
-def serve(ctx, debug):
+def serve(ctx, debug, cache):
     """Serve HTML reports via a HTTP server"""
     db_url = ctx.obj['db_url']
     from . import htmlreport
 
-    htmlreport.main(db_url=db_url, debug=debug)
+    if cache is None:
+        cache_config = None
+    else:
+        cache_config = json.loads(cache)
+
+    htmlreport.main(db_url=db_url, debug=debug, cache_config=cache_config)
 
 
 @cli.command()

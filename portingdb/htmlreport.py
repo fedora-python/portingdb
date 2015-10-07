@@ -1,11 +1,15 @@
 from collections import OrderedDict
 import random
+import functools
+import json
 
 from flask import Flask, render_template, current_app, Markup, abort
 from sqlalchemy import func, or_, create_engine
 from sqlalchemy.orm import subqueryload, sessionmaker
 from jinja2 import StrictUndefined
 import markdown
+from dogpile.cache import make_region
+from dogpile.cache.api import NO_VALUE
 
 from . import tables
 from . import queries
@@ -173,18 +177,34 @@ def markdown_filter(text):
     return Markup(markdown.markdown(text))
 
 
-def create_app(db_url):
+
+
+def create_app(db_url, cache_config=None):
+    if cache_config is None:
+        cache_config = {'backend': 'dogpile.cache.null'}
+    cache = make_region().configure(**cache_config)
     app = Flask(__name__)
     app.config['DB'] = sessionmaker(bind=create_engine(db_url))
+    app.config['Cache'] = cache
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
-    app.route("/")(hello)
-    app.route("/pkg/<pkg>/")(package)
-    app.route("/grp/<grp>/")(group)
+
+    def _add_route(url, func):
+        @functools.wraps(func)
+        def decorated(*args, **kwargs):
+            creator = functools.partial(func, *args, **kwargs)
+            key = json.dumps({'url': url, 'args': args, 'kwargs': kwargs})
+            print(key)
+            return cache.get_or_create(key, creator)
+        app.route(url)(decorated)
+
+    _add_route("/", hello)
+    _add_route("/pkg/<pkg>/", package)
+    _add_route("/grp/<grp>/", group)
 
     return app
 
 
-def main(db_url, debug=False):
-    app = create_app(db_url)
+def main(db_url, cache_config=None, debug=False):
+    app = create_app(db_url, cache_config=cache_config)
     app.run(debug=debug)

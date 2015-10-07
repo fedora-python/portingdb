@@ -29,6 +29,18 @@ To start a HTML report server, start:
     $ python3 -m portingdb serve
 
 
+# Deployment
+
+Configuration for OpenShift deployment is included in the repository.
+As configured, the app will need a Redis server for caching, which can be
+added using:
+    $ rhc cartridge add "http://cartreflect-claytondev.rhcloud.com/reflect?github=smarterclayton/openshift-redis-cart"
+Otherwise it's a standard OpenShift app.
+Hot deployment is configured, so the app will continue working while
+being deployed. But if the database schema changes between
+deployments, the DB file needs to be removed before deploy.
+
+
 # Contribute
 
 - Issue Tracker: https://github.com/fedora-python/portingdb/issues
