@@ -179,10 +179,10 @@ def report(ctx):
 @click.pass_context
 def serve(ctx, debug):
     """Serve HTML reports via a HTTP server"""
-    db = ctx.obj['db']
+    db_url = ctx.obj['db_url']
     from . import htmlreport
 
-    htmlreport.main(db, debug=debug)
+    htmlreport.main(db_url=db_url, debug=debug)
 
 
 @cli.command()

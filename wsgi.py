@@ -14,10 +14,9 @@ logging.getLogger('sqlalchemy.engine').setLevel(level)
 
 sqlite_path = os.path.join(os.environ['OPENSHIFT_TMP_DIR'], 'portingdb.sqlite')
 
-engine = create_engine('sqlite:///' + sqlite_path)
-db = load.get_db(None, engine=engine)
+db_url = 'sqlite:///' + sqlite_path
 
-application = htmlreport.create_app(db)
+application = htmlreport.create_app(db_url=db_url)
 
 # For testing only
 if __name__ == '__main__':

@@ -2,8 +2,8 @@ from collections import OrderedDict
 import random
 
 from flask import Flask, render_template, current_app, Markup, abort
-from sqlalchemy import func, or_
-from sqlalchemy.orm import subqueryload
+from sqlalchemy import func, or_, create_engine
+from sqlalchemy.orm import subqueryload, sessionmaker
 from jinja2 import StrictUndefined
 import markdown
 
@@ -12,7 +12,7 @@ from . import queries
 
 
 def hello():
-    db = current_app.config['DB']
+    db = current_app.config['DB']()
 
     query = queries.collections(db)
     query = query.options(subqueryload('collection_statuses'))
@@ -107,7 +107,7 @@ def hello():
     )
 
 def package(pkg):
-    db = current_app.config['DB']
+    db = current_app.config['DB']()
     collections = list(queries.collections(db))
 
     package = db.query(tables.Package).get(pkg)
@@ -128,7 +128,7 @@ def package(pkg):
     )
 
 def group(grp):
-    db = current_app.config['DB']
+    db = current_app.config['DB']()
     collections = list(queries.collections(db))
 
     group = db.query(tables.Group).get(grp)
@@ -173,10 +173,9 @@ def markdown_filter(text):
     return Markup(markdown.markdown(text))
 
 
-def create_app(db):
+def create_app(db_url):
     app = Flask(__name__)
-    app.config['DB'] = db
-    app.add_template_global(db, name='db')
+    app.config['DB'] = sessionmaker(bind=create_engine(db_url))
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
     app.route("/")(hello)
@@ -186,6 +185,6 @@ def create_app(db):
     return app
 
 
-def main(db, debug=False):
-    app = create_app(db)
+def main(db_url, debug=False):
+    app = create_app(db_url)
     app.run(debug=debug)
