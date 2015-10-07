@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from portingdb import load
 from portingdb import htmlreport
 
-level = logging.DEBUG
+level = logging.INFO
 logging.basicConfig(level=level)
 logging.getLogger('sqlalchemy.engine').setLevel(level)
 
