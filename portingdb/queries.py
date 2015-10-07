@@ -52,7 +52,7 @@ def _deps(db, package, forward=True):
     query = query.filter(col_b == package.name)
 
     query = query.join(tables.Status, tables.Status.ident == tables.Package.status)
-    query = query.order_by(-tables.Status.rank)
+    query = query.order_by(-tables.Status.weight)
     query = order_by_name(db, query)
 
     return query

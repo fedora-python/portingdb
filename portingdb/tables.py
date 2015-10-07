@@ -33,10 +33,10 @@ class Status(TableBase):
         doc=u"Color for reports (RRGGBB)")
     order = Column(
         Integer(), nullable=False,
-        doc=u"Index for sorting")
+        doc=u"Index for sorting (for progress bars)")
     weight = Column(
         Integer(), nullable=False,
-        doc=u"Weight for sorting packages")
+        doc=u"Weight for sorting packages (for package lists)")
     term = Column(
         Unicode(), nullable=False,
         doc=u"Terminal representation")

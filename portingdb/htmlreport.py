@@ -140,7 +140,7 @@ def group(grp):
     query = query.join(tables.GroupPackage.group)
     query = query.join(tables.Package.status_obj)
     query = query.filter(tables.Group.ident == grp)
-    query = query.order_by(tables.Status.order)
+    query = query.order_by(-tables.Status.weight)
     query = queries.order_by_name(db, query)
     packages = list(query)
 
@@ -164,7 +164,7 @@ def gen_deptree(base, *, seen=None):
             yield pkg, []
         else:
             reqs = sorted(pkg.requirements,
-                          key=lambda p: (-p.status_obj.rank, p.name))
+                          key=lambda p: (-p.status_obj.weight, p.name))
             yield pkg, gen_deptree(reqs, seen=seen)
         seen.add(pkg)
 
