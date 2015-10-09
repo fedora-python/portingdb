@@ -3,7 +3,7 @@ import random
 import functools
 import json
 
-from flask import Flask, render_template, current_app, Markup, abort
+from flask import Flask, render_template, current_app, Markup, abort, url_for
 from sqlalchemy import func, or_, create_engine
 from sqlalchemy.orm import subqueryload, sessionmaker
 from jinja2 import StrictUndefined
@@ -96,6 +96,9 @@ def hello():
 
     return render_template(
         'index.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+        ),
         collections=collections,
         coll_info=coll_info,
         statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
@@ -131,6 +134,10 @@ def package(pkg):
 
     return render_template(
         'package.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('package', pkg=pkg), pkg),
+        ),
         collections=collections,
         pkg=package,
         dependencies=list(dependencies),
@@ -163,6 +170,10 @@ def group(grp):
 
     return render_template(
         'group.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('group', grp=grp), group.name),
+        ),
         collections=collections,
         grp=group,
         packages=packages,

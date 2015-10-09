@@ -143,9 +143,30 @@
             .iconlink span.type-alt {
                 font-size: 0;
             }
+            nav, nav ol {
+                margin-bottom: 0 !important;
+                background-color: #F5F5F5;
+            }
         </style>
     </head>
     <body>
+        {% block breadcrumbs %}
+            <nav>
+                <div class="container">
+                    <ol class="breadcrumb">
+                        {% for url, name in breadcrumbs %}
+                            {% if loop.last %}
+                                <li class="active">{{ name }}</li>
+                            {% else %}
+                                <li>
+                                    <a href="{{ url }}">{{ name }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                </div>
+            </nav>
+        {% endblock breadcrumbs %}
         {% block bodycontent %}
         {% endblock bodycontent %}
     </body>
