@@ -76,10 +76,12 @@
         {% if cp %}
             <td>
                 {{ badge(cp.status_obj) }}
+                {% for link in cp.links %}
+                    {{ iconlink(link) }}
+                {% endfor %}
             </td>
             <!--
             <td>
-                {{ badge(cp.priority_obj) }}
             </td>
             -->
         {% else %}
@@ -88,10 +90,23 @@
     {% endfor %}
 {%- endmacro %}
 
+{% macro iconlink(link) -%}
+    <a href="{{ link.url }}" title="{{ link.type }}" class="
+        {% if link.type == 'repo' %}
+            iconlink fa fa-code
+        {% elif link.type == 'bug' %}
+            iconlink fa fa-bug
+        {% elif link.type == 'homepage' %}
+            iconlink fa fa-home
+        {% endif %}
+    "><span>{{ link.type }}</span></a>
+{%- endmacro %}
+
 <html>
     <head>
         <title>{% block titlecontent %}Python 3 Porting Database{% endblock titlecontent %}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
         <style>
             .badge {
                 min-width: 2em;
@@ -121,6 +136,9 @@
             }
             .note {
                 font-style: italic;
+            }
+            .iconlink span {
+                font-size: 0;
             }
         </style>
     </head>

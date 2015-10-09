@@ -46,6 +46,8 @@ def hello():
     active, query = queries.split(query, tables.Package.status == 'in-progress')
     active = queries.order_by_weight(db, active)
     active = queries.order_by_name(db, active)
+    active = active.options(subqueryload('collection_packages'))
+    active = active.options(subqueryload('collection_packages.links'))
 
     done, query = queries.split(query, tables.Package.status == 'released')
     done = queries.order_by_name(db, done)
