@@ -120,7 +120,10 @@ def package(pkg):
     if package is None:
         abort(404)
 
-    dependencies = list(queries.dependencies(db, package))
+    query = queries.dependencies(db, package)
+    query = query.options(subqueryload('collection_packages'))
+    query = query.options(subqueryload('collection_packages.links'))
+    dependencies = list(query)
 
     dependents = list(queries.dependents(db, package))
 
@@ -151,6 +154,8 @@ def group(grp):
     query = query.filter(tables.Group.ident == grp)
     query = query.order_by(-tables.Status.weight)
     query = queries.order_by_name(db, query)
+    query = query.options(subqueryload('collection_packages'))
+    query = query.options(subqueryload('collection_packages.links'))
     packages = list(query)
 
     query = query.filter(tables.GroupPackage.is_seed)
