@@ -214,7 +214,8 @@ def create_app(db_url, cache_config=None):
         @functools.wraps(func)
         def decorated(*args, **kwargs):
             creator = functools.partial(func, *args, **kwargs)
-            key = json.dumps({'url': url, 'args': args, 'kwargs': kwargs})
+            key = json.dumps({'url': url, 'args': args, 'kwargs': kwargs},
+                             sort_keys=True)
             print(key)
             return cache.get_or_create(key, creator)
         app.route(url)(decorated)
