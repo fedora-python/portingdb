@@ -9,6 +9,16 @@
             <div style="border-left: 4px solid #{{pkg.status_obj.color}}; padding-left: 4px; ">
                 {{ pkg.status_obj.instructions | md }}
             </div>
+            {% if in_progress_deps and pkg.status != 'in-progress' %}
+                <div style="border-left: 4px solid #F0AD4E; padding-left: 4px; ">
+                    Some projects this package depends on are currently being,
+                    ported, so you might need to use their development versions.
+                    Please coordinate with
+                    {% for p in in_progress_deps %}
+                        {{ pkglink_text(p) }}{% endfor %}.
+                </div>
+            {% endif %}
+            <br>
             <div>
                 <img src="https://fedoraproject.org/static/images/favicon.ico">
                 See

@@ -122,6 +122,8 @@ def package(pkg):
 
     dependents = list(queries.dependents(db, package))
 
+    in_progress_deps = [p for p in dependencies if p.status == 'in-progress']
+
     return render_template(
         'package.html',
         collections=collections,
@@ -129,6 +131,7 @@ def package(pkg):
         dependencies=list(dependencies),
         dependents=list(dependents),
         deptree=[(package, gen_deptree(dependencies))],
+        in_progress_deps=in_progress_deps,
     )
 
 def group(grp):

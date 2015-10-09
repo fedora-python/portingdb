@@ -112,6 +112,7 @@ def update_status_summaries(db):
     subquery = subquery.join(dep, depcp.package_name == dep.name)
     subquery = subquery.filter(depcp.status != 'released')
     subquery = subquery.filter(depcp.status != 'dropped')
+    subquery = subquery.filter(depcp.status != 'in-progress')
     subquery = subquery.join(tables.Dependency, tables.Dependency.requirement_name == dep.name)
     subquery = subquery.filter(tables.Dependency.requirer_name == tables.Package.name)
 
