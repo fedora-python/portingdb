@@ -190,7 +190,7 @@ def gen_deptree(base, *, seen=None):
         else:
             reqs = sorted(pkg.requirements,
                           key=lambda p: (-p.status_obj.weight, p.name))
-            yield pkg, gen_deptree(reqs, seen=seen)
+            yield pkg, gen_deptree(reqs, seen=seen|{pkg})
         seen.add(pkg)
 
 
