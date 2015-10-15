@@ -1,4 +1,4 @@
-from collections import OrderedDict
+from collections import OrderedDict, Counter
 import random
 import functools
 import json
@@ -115,6 +115,14 @@ def hello():
         groups=groups,
     )
 
+
+def get_status_counts(pkgs):
+    counted = Counter(p.status_obj for p in pkgs)
+    ordered = OrderedDict(sorted(counted.items(),
+                                 key=lambda s_n: s_n[0].order))
+    return ordered
+
+
 def package(pkg):
     db = current_app.config['DB']()
     collections = list(queries.collections(db))
@@ -140,10 +148,12 @@ def package(pkg):
         ),
         collections=collections,
         pkg=package,
-        dependencies=list(dependencies),
-        dependents=list(dependents),
+        dependencies=dependencies,
+        dependents=dependents,
         deptree=[(package, gen_deptree(dependencies))],
         in_progress_deps=in_progress_deps,
+        len_dependencies=len(dependencies),
+        dependencies_status_counts=get_status_counts(dependencies),
     )
 
 def group(grp):
@@ -177,7 +187,9 @@ def group(grp):
         collections=collections,
         grp=group,
         packages=packages,
+        len_packages=len(packages),
         deptree=list(gen_deptree(seed_groups)),
+        status_counts=get_status_counts(packages),
     )
 
 

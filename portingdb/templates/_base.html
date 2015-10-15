@@ -126,7 +126,15 @@
                 {% endif %}
             {% endfor %}
         </div>
-        {{ total }} packages:
+        {{ progress_summary_legend(status_counts, total) }}
+    </div>
+{%- endmacro %}
+
+{% macro progress_summary_legend(status_counts, total=None) -%}
+    <div>
+        {% if total != None %}
+            {{ total }} packages:
+        {% endif %}
         {% for status, num in status_counts %}
             {{ badge(status) }}
             {{ num }} {{ status.name }}{% if not loop.last %};{% endif %}

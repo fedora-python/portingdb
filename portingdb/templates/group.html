@@ -7,6 +7,9 @@
         <div class="col-md-12">
             <h1>{{ grp.name }} <small>Group</small></h1>
         </div>
+        <div class="col-md-12">
+            {{ progress_summary(status_counts.items(), len_packages) }}
+        </div>
         <div class="col-md-8">
             <h2>All Needed Packages</h2>
             {% if packages %}
