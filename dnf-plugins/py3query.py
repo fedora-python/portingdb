@@ -95,12 +95,18 @@ def progressbar(seq, text, namegetter=str):
 
 
 def is_ported(pkgs, python_versions):
-    num_all = len(pkgs)
-    num2 = len([p for p in pkgs if python_versions[p] == {2}])
-    num3 = len([p for p in pkgs if python_versions[p] == {3}])
-    if num2 + num3 != num_all:
+    # Look at the Python dependencies of given packages, based on the
+    # name only (this means different arches are grouped into one)
+    name_by_version = collections.defaultdict(set)
+    for p in pkgs:
+        for v in python_versions[p]:
+            name_by_version[v].add(p.name)
+    if name_by_version[2] & name_by_version[3]:
+        # If a package depends on *both* py2 and py3, it's not ported
         return False
-    return num3 >= num2
+    # Otherwise, a srpm isn't ported if it has more packages that need py2
+    # than those that need py3
+    return len(name_by_version[3]) >= len(name_by_version[2])
 
 
 def format_rpm_name(pkg):
@@ -137,7 +143,6 @@ class Py3QueryCommand(dnf.cli.Command):
         self.base_query = self.base.sack.query()
         self.pkg_query = self.base_query.filter(reponame='rawhide')
         self.src_query = self.base_query.filter(reponame='rawhide-source').filter(arch=['src'])
-
 
         # python_versions: {package: set of Python versions}
         python_versions = collections.defaultdict(set)
@@ -177,7 +182,7 @@ class Py3QueryCommand(dnf.cli.Command):
                 r['status'] = 'released'
             else:
                 r['status'] = 'idle'
-            r['rpms'] = sorted(format_rpm_name(p) for p in pkgs)
+            r['rpms'] = sorted(set(format_rpm_name(p) for p in pkgs))
             r['deps'] = sorted(set(srpm_names[d]
                                    for p in pkgs
                                    for d in deps_of_pkg.get(p, '')
