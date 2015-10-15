@@ -9,24 +9,7 @@
             <h1>Python 3 Porting Database</h1>
         </div>
         <div class="col-md-12">
-            <div class="progress">
-                {% for status, num in status_summary %}
-                    {% set total = all_pkg_query.count() %}
-                    {% if num %}
-                        <div
-                            class="progress-bar" role="progressbar"
-                            aria-valuenow="{{ num }}"
-                            aria-valuemin="0" aria-valuemax="{{ total }}"
-                            style="width: {{ 100 * num / total }}%;
-                                   background-color: #{{ status.color }} !important;
-                                   color: black;"
-                        >
-                            {{ num }}
-                            {{ status.abbrev }}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+            {{ progress_summary(status_summary, all_pkg_query.count()) }}
         </div>
         <div class="col-md-8">
             <div>
@@ -69,22 +52,7 @@
                             {{ grp.name }}
                         </a>
                     </h3>
-                    <div class="progress">
-                        {% set total = len(grp.packages) %}
-                        {% for status, num in statuses.items() %}
-                            <div
-                                class="progress-bar" role="progressbar"
-                                aria-valuenow="{{ num }}"
-                                aria-valuemin="0" aria-valuemax="{{ total }}"
-                                style="width: {{ 100 * num / total }}%;
-                                       background-color: #{{ status.color }} !important;
-                                       color: black;"
-                            >
-                                {{ num }}
-                                {{ status.abbrev }}
-                            </div>
-                        {% endfor %}
-                    </div>
+                    {{ progress_summary(statuses.items(), len(grp.packages)) }}
                 {% endfor %}
             {% endif %}
             <h2>Active packages</h2>

@@ -105,6 +105,35 @@
         <span class="type-alt">{{ link.type }}</span></a>
 {%- endmacro %}
 
+{% macro progress_summary(status_counts, total) -%}
+    <div class="progress-with-legend">
+        <div class="progress">
+            {% for status, num in status_counts %}
+                {% if num %}
+                    <div
+                        class="progress-bar" role="progressbar"
+                        aria-valuenow="{{ num }}"
+                        aria-valuemin="0" aria-valuemax="{{ total }}"
+                        style="width: {{ 100 * num / total }}%;
+                               background-color: #{{ status.color }} !important;
+                               color: black;"
+                    >
+                        <!--
+                        {{ num }}
+                        -->
+                        {{ status.abbrev }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {{ total }} packages:
+        {% for status, num in status_counts %}
+            {{ badge(status) }}
+            {{ num }} {{ status.name }}{% if not loop.last %};{% endif %}
+        {% endfor %}
+    </div>
+{%- endmacro %}
+
 <html>
     <head>
         <title>{% block titlecontent %}Python 3 Porting Database{% endblock titlecontent %}</title>
@@ -146,6 +175,9 @@
             nav, nav ol {
                 margin-bottom: 0 !important;
                 background-color: #F5F5F5;
+            }
+            .progress-with-legend {
+                margin-bottom: 1em;
             }
         </style>
     </head>
