@@ -130,6 +130,16 @@
         <div class="col-md-1">
         </div>
         <div class="col-md-3">
+            <h2>Status Legend</h2>
+            <ul class="list-group">
+                {% for status in statuses %}
+                    <li class="list-group-item">
+                        {{ minibadge(status) }}
+                        {{ status.name }}
+                        <div><small>{{ status.description }}</small></div>
+                    </li>
+                {% endfor %}
+            </ul>
             <h2>Where Porting Happens</h2>
             {% for col in collections %}
                 {% set total = coll_info[col]['total'] %}
@@ -161,9 +171,9 @@
                                 {{ num }}
                                 {{ badge(status) }}
                                 <strong>{{ status.name }}</strong>
-                                <div class="note">
+                                <div><small>
                                     {{ col.status_description(status) }}
-                                </div>
+                                </small></div>
                             </li>
                         {% endif %}
                     {% endfor %}
@@ -172,16 +182,6 @@
 
             <!--
             <h2>Legend</h2>
-            <h5>Status</h5>
-            <ul class="list-group">
-                {% for status in statuses %}
-                    <li class="list-group-item">
-                        {{ badge(status) }}
-                        {{ status.name }}
-                        <div><small>{{ status.description }}</small></div>
-                    </li>
-                {% endfor %}
-            </ul>
             <h5>Priority</h5>
             <ul class="list-group">
                 {% for prio in priorities %}

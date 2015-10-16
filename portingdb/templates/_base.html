@@ -16,6 +16,22 @@
     {% endif %}
 {%- endmacro %}
 
+{% macro minibadge(thing) -%}
+    {% if not thing or thing.ident == 'unknown' %}
+        <span class="minibadge"
+            style="border: 1px solid #CCCCCC; background-color: transparent; color: #CCCCCC;"
+            title="Unknown"
+        >
+        </span>
+    {% else %}
+        <span class="minibadge"
+            style="background-color: #{{ thing.color }} !important;"
+            title="{{ thing }}"
+        >
+        </span>
+    {% endif %}
+{%- endmacro %}
+
 {% macro pkglink(pkg) -%}
     {{ pkglink_icon(pkg) }}&nbsp;{{ pkglink_text(pkg) }}
 {%- endmacro %}
@@ -117,11 +133,8 @@
                         style="width: {{ 100 * num / total }}%;
                                background-color: #{{ status.color }} !important;
                                color: black;"
+                        title="{{ num }} {{ status.name }}"
                     >
-                        <!--
-                        {{ num }}
-                        -->
-                        {{ status.abbrev }}
                     </div>
                 {% endif %}
             {% endfor %}
@@ -136,7 +149,11 @@
             {{ total }} packages:
         {% endif %}
         {% for status, num in status_counts %}
-            {{ badge(status) }}
+            <span class="minibadge"
+                style="background-color: #{{ status.color }} !important;"
+                title="{{ status }}"
+            >
+            </span>
             {{ num }} {{ status.name }}{% if not loop.last %};{% endif %}
         {% endfor %}
     </div>
@@ -186,6 +203,18 @@
             }
             .progress-with-legend {
                 margin-bottom: 1em;
+            }
+            .minibadge {
+                display: inline-block;
+                position: relative;
+                top: 2px;
+                min-height: 1em;
+                min-width: 1em;
+                border-radius: 3px;
+                padding: 2px;
+            }
+            .list-group .minibadge {
+                float: right;
             }
         </style>
     </head>
