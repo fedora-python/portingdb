@@ -68,6 +68,12 @@ def hello():
     ready = list(ready)
     random_ready = random.choice(ready)
 
+    # Nonbolocking set query
+    query = db.query(tables.Package)
+    query = query.outerjoin(tables.Package.collection_packages)
+    query = query.filter(tables.CollectionPackage.nonblocking)
+    nonblocking = set(query)
+
     # Summary query
 
     query = db.query(tables.Status)
@@ -113,6 +119,7 @@ def hello():
         random_ready=random_ready,
         len=len,
         groups=groups,
+        nonblocking=nonblocking,
     )
 
 

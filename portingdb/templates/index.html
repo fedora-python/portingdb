@@ -73,16 +73,16 @@
                 choose one on which lots of other stuff depends.
             </div>
             <ul class="simple-pkg-list">
-               {% for pkg in ready_packages %}
+                {% for pkg in ready_packages %}
                    <li>
                         {{ pkglink(pkg) }}
-                        {% if pkg.pending_requirers %}
+                        {% if pkg not in nonblocking and pkg.pending_requirers %}
                            (needed for
                                {% for req in pkg.pending_requirers %}
                                    {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
                         {% endif %}
                    </li>
-               {% endfor %}
+                {% endfor %}
             </ul>
             <h2>Blocked packages</h2>
             <div>

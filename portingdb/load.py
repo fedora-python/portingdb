@@ -51,6 +51,7 @@ def _get_pkg(name, collection, info):
         'priority': info.get('priority') or 'unknown',
         'deadline': info.get('deadline', None),
         'note': info.get('note', None),
+        'nonblocking': info.get('nonblocking', False),
     }
 
 

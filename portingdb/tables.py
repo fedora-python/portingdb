@@ -185,6 +185,9 @@ class CollectionPackage(TableBase):
         doc=u"Tentative porting deadline")
     note = Column(
         Unicode())
+    nonblocking = Column(
+        Boolean(), default=False,
+        doc=u"If true, does not block dependent packages (even if it's marked as unported)")
 
     package = relationship(
         'Package',
