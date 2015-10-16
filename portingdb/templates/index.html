@@ -140,6 +140,14 @@
                     </li>
                 {% endfor %}
             </ul>
+            <div>
+                Package status is retreived periodically, so it might be
+                slightly out of date.
+            </div>
+            <div>
+                Individual package pages list the RPM
+                versions this report is based on.
+            </div>
             <h2>Where Porting Happens</h2>
             {% for col in collections %}
                 {% set total = coll_info[col]['total'] %}
