@@ -63,3 +63,34 @@ babel:
     nonblocking: true
     note: |
         Ported, but the binary still uses Python 2.
+pyserial:
+    nonblocking: true
+    links:
+        bug:
+            https://bugzilla.redhat.com/show_bug.cgi?id=1187837
+    note: |
+        Bug 1187837 - A file in the python2 backage requires python3.
+pygame:
+    nonblocking: true
+    note: |
+        No `python3-pygame-devel` equivalent
+libxml2:
+    nonblocking: true
+    note: |
+        Ported, but the devel package ships a py2 script for building docs
+python-backports:
+    status: dropped
+    note: |
+        By definition, the new Python version does not need backports!
+python-backports-lzma:
+    status: dropped
+    note: |
+        Included in Python 3.3
+python-backports-ssl_match_hostname:
+    status: dropped
+    note: |
+        Included in Python 3.2
+python-mutagen:
+    nonblocking: true
+    note: |
+        Ported, but the devel package needs py3
