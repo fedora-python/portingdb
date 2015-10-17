@@ -1,68 +1,38 @@
-python:
-    status: dropped
-    note: |
-      This is the Python 2 package.
-      Please port to Python 3.
-python-kerberos:
-    status: dropped
-    note: |
-      Suggested replacement: `python-gssapi`
-python-krbV:
-    status: dropped
-    note: |
-      Suggested replacement: `python-gssapi`
-m2crypto:
-    status: dropped
-    note: |
-      Suggested replacement: `python-cryptography`
-pygtk2:
-    status: dropped
-    note: |
-      Suggested replacement: `python-gobject`
-pygobject2:
-    status: dropped
-    note: |
-      Suggested replacement: `python-gobject`
-python-ldap:
-    status: dropped
-    note: |
-      Suggested replacement: `python-pyldap` (drop-in, provides the `ldap` module)
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1243127
-pycairo:
-    status: dropped
-    note: |
-      Suggested replacement: `python3-cairo`
-python-cherrypy:
-    status: dropped
-    note: |
-      Replacement: `python3-cherrypy`
-python-memcached:
-    status: dropped
-    note: |
-      Replacement: `python3-memcached`
-python-openid:
-    status: dropped
-    note: |
-      Replacement: `python3-openid`
-python-nss:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=985290
-samba:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1014589
-gstreamer-python:
-    status: dropped
-    note: |
-      Replacement: `python-gstreamer1`
-python-matplotlib:
-    nonblocking: true
-    note: |
-        Ported except for the wx backend, which depends on xwPython.
+
+# This file is alphabetized; please keep it that way.
+
 babel:
     nonblocking: true
     note: |
         Ported, but the binary still uses Python 2.
+gstreamer-python:
+    status: dropped
+    note: |
+      Replacement: `python-gstreamer1`
+libxml2:
+    nonblocking: true
+    note: |
+        Ported, but the devel package ships a py2 script for building docs
+m2crypto:
+    status: dropped
+    note: |
+      Suggested replacement: `python-cryptography`
+pycairo:
+    status: dropped
+    note: |
+      Suggested replacement: `python3-cairo`
+pygame:
+    nonblocking: true
+    note: |
+        No `python3-pygame-devel` equivalent
+pygobject2:
+    status: dropped
+    note: |
+      Suggested replacement: `python-gobject`
+pygtk2:
+    status: dropped
+    note: |
+      Suggested replacement: `python-gobject`
 pyserial:
     nonblocking: true
     links:
@@ -70,14 +40,11 @@ pyserial:
             https://bugzilla.redhat.com/show_bug.cgi?id=1187837
     note: |
         Bug 1187837 - A file in the python2 backage requires python3.
-pygame:
-    nonblocking: true
+python:
+    status: dropped
     note: |
-        No `python3-pygame-devel` equivalent
-libxml2:
-    nonblocking: true
-    note: |
-        Ported, but the devel package ships a py2 script for building docs
+      This is the Python 2 package.
+      Please port to Python 3.
 python-backports:
     status: dropped
     note: |
@@ -90,7 +57,43 @@ python-backports-ssl_match_hostname:
     status: dropped
     note: |
         Included in Python 3.2
+python-cherrypy:
+    status: dropped
+    note: |
+      Replacement: `python3-cherrypy`
+python-kerberos:
+    status: dropped
+    note: |
+      Suggested replacement: `python-gssapi`
+python-krbV:
+    status: dropped
+    note: |
+      Suggested replacement: `python-gssapi`
+python-ldap:
+    status: dropped
+    note: |
+      Suggested replacement: `python-pyldap` (drop-in, provides the `ldap` module)
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1243127
+python-matplotlib:
+    nonblocking: true
+    note: |
+        Ported except for the wx backend, which depends on xwPython.
+python-memcached:
+    status: dropped
+    note: |
+      Replacement: `python3-memcached`
 python-mutagen:
     nonblocking: true
     note: |
         Ported, but the devel package needs py3
+python-nss:
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=985290
+python-openid:
+    status: dropped
+    note: |
+      Replacement: `python3-openid`
+samba:
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1014589
