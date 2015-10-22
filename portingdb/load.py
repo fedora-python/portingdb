@@ -167,8 +167,26 @@ def load_from_directory(db, directory):
         values = [{'collection_package_id': col_package_map[k, collection],
                    'rpm_name': n}
                   for k, v in package_infos.items() for n in v.get('rpms', ())]
-        bulk_load(db, values, tables.RPM.__table__,
+        rpm_ids = bulk_load(db, values, tables.RPM.__table__,
                   key_columns=['collection_package_id', 'rpm_name'])
+
+        # PyDependencies
+        values = [(('name', n), ('py_version', p))
+                  for k, v in package_infos.items()
+                  for r in v.get('rpms', {}).values()
+                  for n, p in r.items()]
+        values = list(dict(p) for p in set(values))
+        bulk_load(db, values, tables.PyDependency.__table__,
+                  id_column='name')
+
+        # RPMPyDependencies
+        values = [{'rpm_id': rpm_ids[col_package_map[k, collection], rn],
+                   'py_dependency_name': n}
+                  for k, v in package_infos.items()
+                  for rn, r in v.get('rpms', {}).items()
+                  for n in r]
+        bulk_load(db, values, tables.RPMPyDependency.__table__,
+                  key_columns=['rpm_id', 'py_dependency_name'])
 
         # TODO: Contacts
 

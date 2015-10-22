@@ -5,7 +5,7 @@ import json
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
 from sqlalchemy import func, or_, create_engine
-from sqlalchemy.orm import subqueryload, sessionmaker
+from sqlalchemy.orm import subqueryload, eagerload, sessionmaker
 from jinja2 import StrictUndefined
 import markdown
 from dogpile.cache import make_region
@@ -134,13 +134,22 @@ def package(pkg):
     db = current_app.config['DB']()
     collections = list(queries.collections(db))
 
-    package = db.query(tables.Package).get(pkg)
+    query = db.query(tables.Package)
+    query = query.options(eagerload('status_obj'))
+    query = query.options(subqueryload('collection_packages'))
+    query = query.options(subqueryload('collection_packages.links'))
+    query = query.options(eagerload('collection_packages.status_obj'))
+    query = query.options(subqueryload('collection_packages.rpms'))
+    query = query.options(eagerload('collection_packages.rpms.py_dependencies'))
+    package = query.get(pkg)
     if package is None:
         abort(404)
 
     query = queries.dependencies(db, package)
+    query = query.options(eagerload('status_obj'))
     query = query.options(subqueryload('collection_packages'))
     query = query.options(subqueryload('collection_packages.links'))
+    query = query.options(eagerload('collection_packages.status_obj'))
     dependencies = list(query)
 
     dependents = list(queries.dependents(db, package))
@@ -216,6 +225,10 @@ def gen_deptree(base, *, seen=None):
 def markdown_filter(text):
     return Markup(markdown.markdown(text))
 
+def format_rpm_name(text):
+    name, version, release = text.rsplit('-', 2)
+    return Markup('<span class="rpm-name">{}</span>-{}-{}'.format(
+        name, version, release))
 
 
 
@@ -228,6 +241,7 @@ def create_app(db_url, cache_config=None):
     app.config['Cache'] = cache
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
+    app.jinja_env.filters['format_rpm_name'] = format_rpm_name
 
     def _add_route(url, func):
         @functools.wraps(func)

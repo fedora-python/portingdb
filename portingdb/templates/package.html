@@ -50,10 +50,22 @@
                     {% if pc.rpms %}
                         <div>
                             <strong>RPMs</strong>
-                            <ul>
+                            <ul class="rpm-list">
                             {% for rpm in pc.rpms %}
                                 <li>
-                                    {{ rpm.rpm_name }}
+                                    {{ rpm.rpm_name | format_rpm_name }}
+                                    <ul class="fa-ul">
+                                        {% for pydep in rpm.py_dependencies %}
+                                            <li>
+                                                {% if pydep.py_version == 3 %}
+                                                    <span class="fa fa-li">✔</span>
+                                                {% else %}
+                                                    <span class="fa fa-li">×</span>
+                                                {% endif %}
+                                                {{ pydep.name }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
                                 </li>
                             {% endfor %}
                             </ul>

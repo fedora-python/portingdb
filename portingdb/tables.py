@@ -321,10 +321,32 @@ class GroupPackage(TableBase):
     package = relationship(
         'Package', backref=backref('group_packages'))
 
+
+class PyDependency(TableBase):
+    __tablename__ = 'py_dependencies'
+    name = Column(
+        Unicode(), primary_key=True, nullable=False)
+    py_version = Column(
+        Integer(), nullable=False)
+
     def __repr__(self):
-        return '<{} {} for {}: {}>'.format(type(self).__qualname__, self.type,
-                                           self.collection_package.name,
-                                           self.url)
+        return '<{} {} ( py{})>'.format(type(self).__qualname__, self.name,
+                                        self.py_version)
+
+
+class RPMPyDependency(TableBase):
+    __tablename__ = 'rpm_py_dependencies'
+    id = IDColumn()
+    __table_args__ = (UniqueConstraint('py_dependency_name', 'rpm_id'), )
+    py_dependency_name = Column(
+        ForeignKey(PyDependency.name), nullable=False)
+    rpm_id = Column(
+        ForeignKey(RPM.id), nullable=False)
+
+    py_dependency = relationship(
+        'PyDependency', backref=backref('rpm_py_dependencies'))
+    rpm = relationship(
+        'RPM', backref=backref('rpm_py_dependencies'))
 
 
 Package.requirements = relationship(
@@ -340,3 +362,10 @@ Package.groups = relationship(
     primaryjoin=Package.name == GroupPackage.package_name,
     secondaryjoin=Group.ident == GroupPackage.group_ident,
     backref="packages")
+
+RPM.py_dependencies = relationship(
+    PyDependency,
+    secondary=RPMPyDependency.__table__,
+    primaryjoin=RPM.id == RPMPyDependency.rpm_id,
+    secondaryjoin=PyDependency.name == RPMPyDependency.py_dependency_name,
+    backref="rpms")
