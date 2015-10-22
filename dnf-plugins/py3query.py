@@ -146,11 +146,17 @@ class Py3QueryCommand(dnf.cli.Command):
 
         # python_versions: {package: set of Python versions}
         python_versions = collections.defaultdict(set)
+        # rpm_pydeps: {package: set of dep names}
+        rpm_pydeps = collections.defaultdict(set)
+        # dep_versions: {dep name: Python version}
+        dep_versions = collections.defaultdict(set)
         for n, seeds in SEED_PACKAGES.items():
             provides = sorted(self.all_provides(seeds), key=str)
             for dep in progressbar(provides, 'Getting py{} requires'.format(n)):
+                dep_versions[str(dep)] = n
                 for pkg in self.whatrequires(dep):
                     python_versions[pkg].add(n)
+                    rpm_pydeps[pkg].add(str(dep))
 
         # srpm_names: {package: srpm name}
         # by_srpm_name: {srpm name: set of packages}
@@ -182,7 +188,9 @@ class Py3QueryCommand(dnf.cli.Command):
                 r['status'] = 'released'
             else:
                 r['status'] = 'idle'
-            r['rpms'] = sorted(set(format_rpm_name(p) for p in pkgs))
+            r['rpms'] = {format_rpm_name(p):
+                         {str(d): dep_versions[d] for d in rpm_pydeps[p]}
+                        for p in pkgs}
             r['deps'] = sorted(set(srpm_names[d]
                                    for p in pkgs
                                    for d in deps_of_pkg.get(p, '')
