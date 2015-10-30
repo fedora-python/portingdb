@@ -65,10 +65,21 @@ python-backports-ssl_match_hostname:
     status: dropped
     note: |
         Included in Python 3.2
+python-bunch:
+    status: dropped
+    note: |
+        Replacement: `python-munch` (Same API)
 python-cherrypy:
     status: dropped
     note: |
       Replacement: `python3-cherrypy`
+python-irclib:
+    note: |
+        Update with python3 support has been packaged in copr:
+        https://copr-fe.cloud.fedoraproject.org/coprs/toshio/python-irclib-update/
+        Requires additional packages to build (which are present in the copr repository)
+        Copr packager doesn't have time to maintain the package so needs Fedora maintainers
+        to take over maintenance.
 python-kerberos:
     status: dropped
     note: |
