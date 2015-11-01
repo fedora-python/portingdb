@@ -43,9 +43,9 @@ pygtk2:
       Suggested replacement: `python-gobject`
 pylibzma:
     note: |
-      Upstream may be dead.  recommend porting to the lzma library in the stdlib
-      https://docs.python.org/3/library/lzma.html (with python2 code using
-      python-backports-lzma)
+      Upstream may be dead.
+      Recommend porting to the [lzma library in the stdlib](https://docs.python.org/3/library/lzma.html)
+      (with python2 code using `python-backports-lzma`)
 pyserial:
     nonblocking: true
     links:
@@ -80,11 +80,13 @@ python-cherrypy:
       Replacement: `python3-cherrypy`
 python-irclib:
     note: |
-        Update with python3 support has been packaged in copr:
-        https://copr-fe.cloud.fedoraproject.org/coprs/toshio/python-irclib-update/
-        Requires additional packages to build (which are present in the copr repository)
+        Update with python3 support has been [packaged in copr](https://copr-fe.cloud.fedoraproject.org/coprs/toshio/python-irclib-update/).
+        Requires additional packages to build (which are present in the copr repository).
+
         Copr packager doesn't have time to maintain the package so needs Fedora maintainers
         to take over maintenance.
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=813736
 python-kerberos:
     status: dropped
     note: |
@@ -117,8 +119,8 @@ python-nss:
 python-odict:
     status: dropped
     note: |
-      Included in Python 2.7 / 3.1
-      Use https://docs.python.org/3/library/collections.html#collections.OrderedDict
+      Included in Python 2.7 / 3.1 standard library as
+      [`collections.OrderedDict`](https://docs.python.org/3/library/collections.html#collections.OrderedDict).
 python-openid:
     status: dropped
     note: |
