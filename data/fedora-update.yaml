@@ -78,6 +78,16 @@ python-cherrypy:
     status: dropped
     note: |
       Replacement: `python3-cherrypy`
+python-cherrypy2:
+    status: dropped
+    note: |
+      This is a backwards compatibility package.  Code that needs to be run on
+      python3 needs to be ported to a current version of this framework.
+      Replacement: `python3-cherrypy`
+python-docs:
+    status: dropped
+    note: |
+        Replacement: `python3-docs`
 python-irclib:
     note: |
         Update with python3 support has been [packaged in copr](https://copr-fe.cloud.fedoraproject.org/coprs/toshio/python-irclib-update/).
@@ -125,6 +135,25 @@ python-openid:
     status: dropped
     note: |
       Replacement: `python3-openid`
+python-subprocess32:
+    status: dropped
+    note: |
+      This is a backport of the subprocess module in python-3.2 to python2.
+      For python3 code, just use subprocess from the stdlib.
+python-webob1.1:
+    status: dropped
+    note: |
+      This is a backwards compatibility package.  Code that uses this should be
+      ported to the current version of the library as part of porting to
+      python3.
+      Replacement: `python-webob`
+python-webtest1.3:
+    status: dropped
+    note: |
+      This is a backwards compatibility package.  Code that uses this should be
+      ported to the current version of the library as part of porting to
+      python3.
+      Replacement: `python-webtest`
 samba:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1014589
