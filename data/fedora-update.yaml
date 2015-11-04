@@ -167,6 +167,14 @@ python-webtest1.3:
 samba:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1014589
+will-crash:
+    status: released
+    note: |
+        will-crash tests that abrt will detect a crash and report properly.
+        It contains a crashing program for both python2 and python3 so that
+        it can test that abrt handles both python2 and python3 tracebacks.
+
+        So, the RPM requires both /usr/bin/python2 and /usr/bin/python3.
 yum:
     status: dropped
     note: |
