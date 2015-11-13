@@ -1,10 +1,6 @@
 
 # This file is alphabetized; please keep it that way.
 
-babel:
-    nonblocking: true
-    note: |
-        Ported, but the binary still uses Python 2.
 boost:
     nonblocking: true
     note: |
@@ -23,10 +19,6 @@ gstreamer-python:
     status: dropped
     note: |
       Replacement: `python-gstreamer1`
-libxml2:
-    nonblocking: true
-    note: |
-        Ported, but the devel package ships a py2 script for building docs
 m2crypto:
     status: dropped
     note: |
@@ -121,6 +113,10 @@ python-ldap:
       Suggested replacement: `python-pyldap` (drop-in, provides the `ldap` module)
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1243127
+python-lzo:
+    note: |
+            A new upstream maintainer has appeared and [merged python3 support](https://github.com/jd-boyd/python-lzo/pull/8) to their
+            tree but still needs to [make a new release](https://github.com/jd-boyd/python-lzo/issues/9).
 python-matplotlib:
     nonblocking: true
     note: |
@@ -175,6 +171,10 @@ subunit:
     note: |
         A Python 3 subpackage exists, but isn't packaged well yet.
         Also the plugins aren't ported.
+tracer:
+    note: |
+      Upstream seems to have support for python3.
+      The fedora packager is also upstream.
 will-crash:
     status: released
     note: |
