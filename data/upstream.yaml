@@ -1,5 +1,10 @@
-
 # This file is alphabetized; please keep it that way.
+
+# These are out of order because they define an alias that is used later in the file
+obnam: &obnam
+  note: |
+    Author is "not really ready to accept patches".
+    See the [mailing list post](http://listmaster.pepperfish.net/pipermail/obnam-dev-obnam.org/2015-October/000238.html).
 
 autotrash:
   status: released
@@ -33,8 +38,8 @@ freeipa:
     homepage: https://www.freeipa.org
     repo: https://git.fedorahosted.org/cgit/freeipa.git
 genbackupdata: *obnam
- python-larch: *obnam
- python-tracing: *obnam
+python-larch: *obnam
+python-tracing: *obnam
 gdal:
   status: released
 libldb:
@@ -48,11 +53,6 @@ libtevent:
   note: Ported in tevent 0.9.25
 lorem-ipsum-generator:
   status: idle
-obnam: &obnam
-  status: dropped
-  note: |
-    Author is "not really ready to accept patches".
-    See the [mailing list post](http://listmaster.pepperfish.net/pipermail/obnam-dev-obnam.org/2015-October/000238.html).
 pki-core:
   status: in-progress
 py-radix:
@@ -87,11 +87,9 @@ python-peewee:
   status: released
   links:
     repo: https://github.com/coleifer/peewee
-    travis-ci: https://travis-ci.org/coleifer/peewee
   note:
     Since the version 2.1.0, upstream supports Python 3. Also, the code base is
-    actively tested against Python 3.2 and later (follow the 'travis-ci' link
-    for details).
+    actively [tested against Python 3.2](https://travis-ci.org/coleifer/peewee) and later.
 python-pyldap:
   status: in-progress
   links:
