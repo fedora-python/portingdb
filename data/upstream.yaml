@@ -6,6 +6,8 @@ obnam: &obnam
     Author is "not really ready to accept patches".
     See the [mailing list post](http://listmaster.pepperfish.net/pipermail/obnam-dev-obnam.org/2015-October/000238.html).
 
+# Please keep everything from here on akphabetized
+
 autotrash:
   status: released
   note: |
@@ -26,35 +28,21 @@ boom:
     upstream seems to be unresponsive.  The last commit was well over a year
     ago and there are a couple pending pull-requests. Fitoria started to work
     on porting this to Python3
+cmdtest: *obnam
+copr-cli:
+  status: in-progress
 createrepo_c:
   status: in-progress
   links:
     bug: https://github.com/rpm-software-management/createrepo_c/issues/41
   note: |
     [threebean](http://threebean.org) started working on a port.  Help appreciated!
-cmdtest: *obnam
-copr-cli:
-  status: in-progress
-tweepy:
-  status: released
-  links:
-      homepage: https://pypi.python.org/pypi/tweepy/
-      repo: https://github.com/tweepy/tweepy
-  note: "reported with <3 by decause"
-python-flask-mako:
-  status: released
-  links:
-      homepage: https://pypi.python.org/pypi/Flask-Mako/
-      repo: https://github.com/benselme/flask-mako
-  note: "reported with <3 by decause"
 freeipa:
   status: in-progress
   links:
       homepage: https://www.freeipa.org
       repo: https://git.fedorahosted.org/cgit/freeipa.git
 genbackupdata: *obnam
-python-larch: *obnam
-python-tracing: *obnam
 gdal:
   status: released
 libldb:
@@ -72,6 +60,12 @@ pki-core:
   status: in-progress
 py-radix:
   status: released
+pysysbot:
+  status: in-progress
+  note: |
+    Being ported by me, [Fabian Affolter](http://fabian-affolter.ch/).
+  links:
+    homepage: http://affolter-engineering.ch/pysysbot/
 python-atfork:
   status: in-progress
   note:
@@ -80,10 +74,18 @@ python-atfork:
   repo: https://github.com/google/python-atfork
 python-coverage-test-runner: *obnam
 python-cliapp: *obnam
+python-django-registration:
+  status: released
 python-flask-debugtoolbar:
   status: released
   links:
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282082
+python-flask-mako:
+  status: released
+  links:
+      homepage: https://pypi.python.org/pypi/Flask-Mako/
+      repo: https://github.com/benselme/flask-mako
+  note: "reported with <3 by decause"
 python-genmsg:
   status: released
   repo: https://github.com/ros/genmsg
@@ -128,6 +130,8 @@ python-printr:
   note: |
     Upstream is not maintained and every URL is broken; sourcecode could be
     easily ported to Python 3 using 2to3.
+python-retask:
+  status: released
 python-sexy:
     status: idle
     note: |
@@ -164,15 +168,11 @@ samba:
   status: in-progress
 seivot: *obnam
 summain: *obnam
+tweepy:
+  status: released
+  links:
+      homepage: https://pypi.python.org/pypi/tweepy/
+      repo: https://github.com/tweepy/tweepy
+  note: "reported with <3 by decause"
 xapian-bindings:
   status: released
-python-retask:
-  status: released
-python-django-registration:
-  status: released
-pysysbot:
-  status: in-progress
-  note: |
-    Being ported by me, [Fabian Affolter](http://fabian-affolter.ch/).
-  links:
-    homepage: http://affolter-engineering.ch/pysysbot/
