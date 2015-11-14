@@ -1,85 +1,14 @@
-freeipa:
-  status: in-progress
+
+# This file is alphabetized; please keep it that way.
+
+autotrash:
+  status: released
+  note: |
+    Upstream does support python3; Fedora package needs to be updated
   links:
-    homepage: https://www.freeipa.org
-    repo: https://git.fedorahosted.org/cgit/freeipa.git
-samba:
-  status: in-progress
-copr-cli:
-  status: in-progress
-libtalloc:
-  status: released
-libtevent:
-  status: released
-  note: Ported in tevent 0.9.25
-libtdb:
-  status: released
-libldb:
-  status: in-progress
-obnam: &obnam
-  status: dropped
-  note: |
-    Author is "not really ready to accept patches".
-    See the [mailing list post](http://listmaster.pepperfish.net/pipermail/obnam-dev-obnam.org/2015-October/000238.html).
-cmdtest: *obnam
-genbackupdata: *obnam
-python-cliapp: *obnam
-python-coverage-test-runner: *obnam
-python-larch: *obnam
-python-tracing: *obnam
-python-ttystatus: *obnam
-seivot: *obnam
-summain: *obnam
-lorem-ipsum-generator:
-  status: idle
-python-yubico:
-  status: released
-python-ldap:
-  status: in-progress
-  note: |
-    Working on `python-pyldap`, which should always be ready to merge back
-    into python-ldap.
-python-pyldap:
-  status: in-progress
-  links:
-    repo: https://github.com/pyldap/pyldap
-  note: |
-    Should eventually be merged back into python-ldap.
-python-atfork:
-  status: idle
-py-radix:
-  status: released
-python-nss:
-  status: in-progress
-pki-core:
-  status: in-progress
+    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282044
+    repo: https://github.com/bneijt/autotrash/
 babel:
-  status: released
-python-irclib:
-  status: released
-python-gnupg:
-  status: released
-python-martian:
-  status: released
-python-mechanize:
-  status: idle
-python-genmsg:
-  status: released
-  repo: https://github.com/ros/genmsg
-python-glue:
- status: released
- repo: https://github.com/jorgebastida/glue
-gdal:
-  status: released
-rapid-photo-downloader:
-  status: in-progress
-  note: |
-    Being ported by the developer, [Damon Lynch](http://www.damonlynch.net/).
-  links:
-    bug: https://bugs.launchpad.net/rapid/+bug/1074028
-    homepage: http://damonlynch.net/rapid/
-    repo: https://code.launchpad.net/rapid
-python-shove:
   status: released
 boom:
   links:
@@ -95,13 +24,65 @@ createrepo_c:
     bug: https://github.com/rpm-software-management/createrepo_c/issues/41
   note: |
     [threebean](http://threebean.org) started working on a port.  Help appreciated!
-autotrash:
-  status: released
-  note: |
-    Upstream does support python3; Fedora package needs to be updated
+cmdtest: *obnam
+copr-cli:
+  status: in-progress
+freeipa:
+  status: in-progress
   links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282044
-    repo: https://github.com/bneijt/autotrash/
+    homepage: https://www.freeipa.org
+    repo: https://git.fedorahosted.org/cgit/freeipa.git
+genbackupdata: *obnam
+ python-larch: *obnam
+ python-tracing: *obnam
+gdal:
+  status: released
+libldb:
+  status: in-progress
+libtalloc:
+  status: released
+libtdb:
+  status: released
+libtevent:
+  status: released
+  note: Ported in tevent 0.9.25
+lorem-ipsum-generator:
+  status: idle
+obnam: &obnam
+  status: dropped
+  note: |
+    Author is "not really ready to accept patches".
+    See the [mailing list post](http://listmaster.pepperfish.net/pipermail/obnam-dev-obnam.org/2015-October/000238.html).
+pki-core:
+  status: in-progress
+py-radix:
+  status: released
+python-atfork:
+  status: idle
+python-coverage-test-runner: *obnam
+python-cliapp: *obnam
+python-genmsg:
+  status: released
+  repo: https://github.com/ros/genmsg
+python-glue:
+ status: released
+ repo: https://github.com/jorgebastida/glue
+python-gnupg:
+  status: released
+python-irclib:
+  status: released
+python-larch: *obnam
+python-ldap:
+  status: in-progress
+  note: |
+    Working on `python-pyldap`, which should always be ready to merge back
+    into python-ldap.
+python-martian:
+  status: released
+python-mechanize:
+  status: idle
+python-nss:
+  status: in-progress
 python-peewee:
   status: released
   links:
@@ -111,3 +92,27 @@ python-peewee:
     Since the version 2.1.0, upstream supports Python 3. Also, the code base is
     actively tested against Python 3.2 and later (follow the 'travis-ci' link
     for details).
+python-pyldap:
+  status: in-progress
+  links:
+    repo: https://github.com/pyldap/pyldap
+  note: |
+    Should eventually be merged back into python-ldap.
+python-shove:
+  status: released
+python-tracing: *obnam
+python-ttystatus: *obnam
+python-yubico:
+  status: released
+rapid-photo-downloader:
+  status: in-progress
+  note: |
+    Being ported by the developer, [Damon Lynch](http://www.damonlynch.net/).
+  links:
+    bug: https://bugs.launchpad.net/rapid/+bug/1074028
+    homepage: http://damonlynch.net/rapid/
+    repo: https://code.launchpad.net/rapid
+samba:
+  status: in-progress
+seivot: *obnam
+summain: *obnam
