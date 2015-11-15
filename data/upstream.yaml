@@ -76,6 +76,11 @@ iotop:
     http://guichaz.free.fr/iotop/NEWS
 libldb:
   status: in-progress
+libfreenect:
+  status: in-progress
+  note: Claimed fixed in 0.5.2, but build system is not updated to search for Python 3
+  links:
+    bug: https://github.com/OpenKinect/libfreenect/issues/429
 libtalloc:
   status: released
 libtdb:
@@ -85,22 +90,57 @@ libtevent:
   note: Ported in tevent 0.9.25
 lorem-ipsum-generator:
   status: idle
+mypaint:
+  status: in-progress
+  note: Porting efforts partially underway by [Elliott Sales de Andrade](https://github.com/QuLogic)
+  links:
+    bug: https://github.com/mypaint/mypaint/issues/392
+opencv:
+  status: released
+  note: Available since 3.0 release
 pki-core:
   status: in-progress
+psi4:
+  status: in-progress
+  links:
+    bug: https://github.com/psi4/psi4public/pull/160
 py-radix:
   status: released
+pygsl:
+  status: released
+  note: See [release message](http://sourceforge.net/p/pygsl/mailman/message/34494662/)
+PyQuante:
+  status: in-progress
+  note: Part of re-write, may not finish any time soon
+  links:
+    commit: https://github.com/rpmuller/pyquante2/commit/b6ea11bb9c9ab977f4a113735ffdc39773e66cc5
+    repo: https://github.com/rpmuller/pyquante2
+pysb:
+  status: in-progress
+  links:
+    bug: https://github.com/pysb/pysb/pull/124
 pysysbot:
   status: in-progress
   note: |
     Being ported by me, [Fabian Affolter](http://fabian-affolter.ch/).
   links:
     homepage: http://affolter-engineering.ch/pysysbot/
+python-AppTools:
+  status: in-progress
+  links:
+    bugs: https://github.com/enthought/apptools/pull/54
+python-anfft:
+  status: dropped
+  note: Authors recommend using [pyFFTW](https://hgomersall.github.io/pyFFTW/) instead
 python-atfork:
   status: in-progress
   note:
     Fork url https://github.com/fitoria/python-atfork
   bug: https://github.com/google/python-atfork/pull/1
   repo: https://github.com/google/python-atfork
+python-biopython:
+  status: released
+  note: Python 3.4 supported since 1.64
 python-coverage-test-runner: *obnam
 python-cliapp: *obnam
 python-django-admin-honeypot:
@@ -234,6 +274,11 @@ python-sexy:
         Upstream has not maintained this project in almost 10 years (Sept 2006). They are also the authors of libsexy which has not been maintained in 7 years. Refer to the [python-sexy](http://osiris.chipx86.com/svn/osiris-misc/trunk/sexy-python/ChangeLog) and [libsexy](http://osiris.chipx86.com/svn/osiris-misc/trunk/libsexy/ChangeLog) changelogs.
 python-shove:
   status: released
+python-SimpleCV:
+  status: in-progress
+  note: Also blocked by need to port to opencv3 (since opencv2 doesn't support Python 3)
+  links:
+    bug: https://github.com/sightmachine/SimpleCV/pull/677
 python-fedmsg-meta-fedora-infrastructure:
   status: released
 python-statsd:
@@ -276,5 +321,18 @@ tweepy:
       homepage: https://pypi.python.org/pypi/tweepy/
       repo: https://github.com/tweepy/tweepy
   note: "reported with <3 by decause"
+veusz:
+  status: released
+  note: Available since 1.19 release
+ViTables:
+  status: in-progress
+  links:
+    repo: https://github.com/uvemas/ViTables/tree/develop
+  note: See explanation in https://github.com/uvemas/ViTables/issues/29#issuecomment-95507605
 xapian-bindings:
   status: released
+xpra:
+  status: in-progress
+  note: Tied with a GTK3 port as well, so may be delayed
+  links:
+    bug: https://www.xpra.org/trac/ticket/640
