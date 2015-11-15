@@ -6,6 +6,8 @@ obnam: &obnam
     Author is "not really ready to accept patches".
     See the [mailing list post](http://listmaster.pepperfish.net/pipermail/obnam-dev-obnam.org/2015-October/000238.html).
 
+# Please keep everything from here on akphabetized
+
 autotrash:
   status: released
   note: |
@@ -19,36 +21,35 @@ boom:
   status: in-progress
   links:
     bug: https://github.com/tarekziade/boom/pull/52
-    bug: https://github.com/tarekziade/boom/issues/49
     repo: https://github.com/tarekziade/boom
   note: |
     Upstream doesn't support python3 yet, and needs to be ported, but note that
     upstream seems to be unresponsive.  The last commit was well over a year
     ago and there are a couple pending pull-requests. Fitoria started to work
     on porting this to Python3
+cmdtest: *obnam
+copr-cli:
+  status: in-progress
 createrepo_c:
   status: in-progress
   links:
     bug: https://github.com/rpm-software-management/createrepo_c/issues/41
   note: |
-    [threebean](http://threebean.org) started working on a port.  Help appreciated!
-cmdtest: *obnam
-copr-cli:
-  status: in-progress
-python-flask-mako:
+    [threebean](http://threebean.org) and
+    [damnedfacts](https://github.com/damnedfacts) started working on a port.
+    Help appreciated!
+fail2ban:
   status: released
   links:
-      homepage: https://pypi.python.org/pypi/Flask-Mako/
-      repo: https://github.com/benselme/flask-mako
-  note: "reported with <3 by decause"
+      repo: https://github.com/fail2ban/fail2ban
+  note: |
+      Upstream claims support of python-3.2+
 freeipa:
   status: in-progress
   links:
       homepage: https://www.freeipa.org
       repo: https://git.fedorahosted.org/cgit/freeipa.git
 genbackupdata: *obnam
-python-larch: *obnam
-python-tracing: *obnam
 gdal:
   status: released
 libldb:
@@ -66,10 +67,56 @@ pki-core:
   status: in-progress
 py-radix:
   status: released
+pysysbot:
+  status: in-progress
+  note: |
+    Being ported by me, [Fabian Affolter](http://fabian-affolter.ch/).
+  links:
+    homepage: http://affolter-engineering.ch/pysysbot/
 python-atfork:
-  status: idle
+  status: in-progress
+  note:
+    Fork url https://github.com/fitoria/python-atfork
+  bug: https://github.com/google/python-atfork/pull/1
+  repo: https://github.com/google/python-atfork
 python-coverage-test-runner: *obnam
 python-cliapp: *obnam
+python-django-admin-honeypot:
+  status: released
+  links:
+    repo: https://github.com/dmpayton/django-admin-honeypot
+    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282099
+python-django-annoying:
+  status: released
+  links:
+    repo: https://github.com/dmpayton/django-admin-honeypot
+    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282106
+python-django-avatar:
+  status: released
+  links:
+    repo: https://github.com/grantmcconnaughey/django-avatar/
+    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282108
+python-django-celery:
+  status: released
+  links:
+    repo: https://github.com/celery/celery
+    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282109 
+python-django-extra-form-fields:
+  status: released
+  links:
+    bug: https://github.com/ASKBOT/django-extra-form-fields/pull/1
+python-django-registration:
+  status: released
+python-flask-debugtoolbar:
+  status: released
+  links:
+    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282082
+python-flask-mako:
+  status: released
+  links:
+      homepage: https://pypi.python.org/pypi/Flask-Mako/
+      repo: https://github.com/benselme/flask-mako
+  note: "reported with <3 by decause"
 python-genmsg:
   status: released
   repo: https://github.com/ros/genmsg
@@ -92,6 +139,14 @@ python-martian:
   status: released
 python-mechanize:
   status: idle
+python-mwclient:
+  status: in-progress
+  links:
+    repo: https://github.com/mwclient/mwclient
+  note: |
+    Upstream git has support for py3.3, py3.4, and py3.5 with tox and travis
+    checking this.  However, they haven't cut a new release with it yet.  It
+    should be included in mwclient-0.8 when its finally out.
 python-nss:
   status: in-progress
 python-peewee:
@@ -101,21 +156,38 @@ python-peewee:
   note:
     Since the version 2.1.0, upstream supports Python 3. Also, the code base is
     actively [tested against Python 3.2](https://travis-ci.org/coleifer/peewee) and later.
+python-progressbar:
+  status: released
 python-pyldap:
   status: in-progress
   links:
     repo: https://github.com/pyldap/pyldap
   note: |
     Should eventually be merged back into python-ldap.
-python-printr:
-  status: idle
+python-pyprintr:
+  status: in-progress
   links:
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282069
+    repo: https://github.com/fitoria/pyprintr
   note: |
     Upstream is not maintained and every URL is broken; sourcecode could be
-    easily ported to Python 3 using 2to3.
+    easily ported to Python 3 using 2to3. Ported via [github fork](https://github.com/fitoria/pyprintr)
+python-progressbar:
+  status: released
+  links:
+    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282094
+python-retask:
+  status: released
+python-sexy:
+    status: idle
+    note: |
+        Upstream has not maintained this project in almost 10 years (Sept 2006). They are also the authors of libsexy which has not been maintained in 7 years. Refer to the [python-sexy](http://osiris.chipx86.com/svn/osiris-misc/trunk/sexy-python/ChangeLog) and [libsexy](http://osiris.chipx86.com/svn/osiris-misc/trunk/libsexy/ChangeLog) changelogs.
 python-shove:
   status: released
+python-fedmsg-meta-fedora-infrastructure:
+  status: in-progress
+  links:
+      bug: https://github.com/fedora-infra/fedmsg_meta_fedora_infrastructure/commit/0948044b57c0e0103f07c6d6b3a7deee31d13024
 python-statsd:
   status: released
   links:
@@ -135,11 +207,18 @@ rapid-photo-downloader:
     bug: https://bugs.launchpad.net/rapid/+bug/1074028
     homepage: http://damonlynch.net/rapid/
     repo: https://code.launchpad.net/rapid
+rb_libtorrent:
+  status: idle
+  note: The code is written for Python2 and upstream work is needed to port it to Python3
 samba:
   status: in-progress
 seivot: *obnam
 summain: *obnam
-xapian-bindings:
+tweepy:
   status: released
-python-retask:
+  links:
+      homepage: https://pypi.python.org/pypi/tweepy/
+      repo: https://github.com/tweepy/tweepy
+  note: "reported with <3 by decause"
+xapian-bindings:
   status: released

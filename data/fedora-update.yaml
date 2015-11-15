@@ -36,6 +36,17 @@ gstreamer-python:
     status: dropped
     note: |
       Replacement: `python-gstreamer1`
+lorem-ipsum-generator:
+    status: in-progress
+    links:
+        repo: https://github.com/Riamse/lorem-ipsum-generator/
+    note: |
+        Riamse is doing it.
+lunatic-python:
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282088
+    note: |
+        There is a better alternative which supports Python3, Lupa.
 m2crypto:
     status: dropped
     note: |
@@ -143,6 +154,12 @@ python-memcached:
     status: dropped
     note: |
       Replacement: `python3-memcached`
+python-mpd:
+    status: in-progress
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282097
+    note: |
+        [threebean](http://threebean.org) submitted a patch for this.
 python-mutagen:
     nonblocking: true
     note: |
@@ -150,6 +167,10 @@ python-mutagen:
 python-nss:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=985290
+python-progressbar:
+    status: in-progress
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282094
 python-odict:
     status: dropped
     note: |
@@ -167,6 +188,12 @@ python-subprocess32:
     note: |
       This is a backport of the subprocess module in python-3.2 to python2.
       For python3 code, just use subprocess from the stdlib.
+python-twiggy:
+    status: in-progress
+    note: |
+        It's already Python 3 compatible upstream.
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282112
 python-webob1.1:
     status: dropped
     note: |
@@ -205,6 +232,10 @@ python-flask-mako:
     status: released
     note: |
       spec file updated and built in rawhide by [threebean](http://threebean.org).
+python-flask-admin:
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282084
+    status: in-progress
 yum:
     status: dropped
     note: |
@@ -221,7 +252,10 @@ youtube-dl:
         spec file contains version-specific code and needs to be updated
     links:
         repo: https://github.com/rg3/youtube-dl/
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282086
 python-retask:
     status: in-progress
     note: |
         [sayanchowdhury](https://github.com/sayanchowdhury) is working on this.
+        version 4.0 has a broken import so the build fails. There is a pending
+        [PR](https://github.com/kushaldas/retask/pull/9)
