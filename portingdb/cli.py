@@ -117,7 +117,9 @@ def load(ctx):
         db.execute(table.delete())
 
     for datadir in datadirs:
-        load_from_directory(db, datadir)
+        warnings = load_from_directory(db, datadir)
+        for warning in warnings:
+            click.secho(warning, fg='red')
     db.commit()
 
     if ctx.obj['verbose']:

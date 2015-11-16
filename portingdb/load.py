@@ -77,13 +77,20 @@ def _prepare_enum(rows):
     return rows
 
 
-def _merge_updates(base, updates):
+def _merge_updates(base, updates, warnings=None, parent_keys=()):
     for key, new_value in updates.items():
         if (key in base and
                 isinstance(base[key], dict) and
                 isinstance(new_value, dict)):
-            _merge_updates(base[key], new_value)
+            _merge_updates(base[key], new_value, warnings,
+                           parent_keys + (key, ))
         else:
+            if (warnings is not None and
+                        key == 'status' and
+                        base.get(key) == 'released'):
+                warnings.append(
+                    'overriding "released" status: ' + ': '.join(parent_keys))
+
             base[key] = new_value
 
 
@@ -99,6 +106,8 @@ def _strip_key(values, key):
 def load_from_directory(db, directory):
     """Add data from a directory to a database
     """
+    warnings = []
+
     values = _prepare_enum(data_from_file(directory, 'statuses'))
     bulk_load(db, values, tables.Status.__table__, id_column="ident")
 
@@ -124,7 +133,7 @@ def load_from_directory(db, directory):
         except FileNotFoundError:
             pass
         else:
-            _merge_updates(package_infos, more_infos)
+            _merge_updates(package_infos, more_infos, warnings, (collection, ))
 
         # Base packages
         values = [{
@@ -208,6 +217,8 @@ def load_from_directory(db, directory):
     queries.update_status_summaries(db)
     queries.update_group_closures(db)
     db.commit()
+
+    return warnings
 
 
 def _get_idmap(rows, key_columns, id_column, keys):
