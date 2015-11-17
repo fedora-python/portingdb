@@ -8,8 +8,13 @@
 }
 
 .link {
-  stroke: #999;
-  stroke-opacity: .6;
+  stroke: #bbb;
+  stroke-opacity: 1;
+}
+
+.marker {
+  fill: #bbb;
+  fill-opacity: 1;
 }
 
 </style>
@@ -37,10 +42,25 @@ d3.json("portingdb.json", function(error, graph) {
       .links(graph.links)
       .start();
 
+svg.append("svg:defs").selectAll("marker")
+    .data(["end"])      // Different link/path types can be defined here
+  .enter().append("svg:marker")    // This section adds in the arrows
+    .attr("id", String)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+    .attr("class", "marker")
+  .append("svg:path")
+    .attr("d", "M0,-5L10,0L0,5");
+
   var link = svg.selectAll(".link")
       .data(graph.links)
     .enter().append("line")
       .attr("class", "link")
+    .attr("marker-end", "url(#end)")
       .style("stroke-width", 1);
 
   var node = svg.selectAll(".node")
