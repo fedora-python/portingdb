@@ -4,6 +4,7 @@ import functools
 import json
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
+from flask.json import jsonify
 from sqlalchemy import func, or_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker
 from jinja2 import StrictUndefined
@@ -231,6 +232,25 @@ def format_rpm_name(text):
         name, version, release))
 
 
+def graph_json():
+    db = current_app.config['DB']()
+    query = queries.packages(db)
+    query = query.filter(tables.Package.status != 'released')
+    query = query.filter(tables.Package.status != 'dropped')
+    packages = list(query)
+    nodes = [{'name': p.name, 'status': p.status, 'color': p.status_obj.color}
+             for p in packages]
+    names = [p.name for p in packages]
+
+    query = db.query(tables.Dependency)
+
+    links = [{"source": names.index(d.requirer_name),
+              "target": names.index(d.requirement_name),
+             }
+             for d in query
+             if d.requirer_name in names and d.requirement_name in names]
+    return jsonify(nodes=nodes, links=links)
+
 
 def create_app(db_url, cache_config=None):
     if cache_config is None:
@@ -256,6 +276,8 @@ def create_app(db_url, cache_config=None):
     _add_route("/", hello)
     _add_route("/pkg/<pkg>/", package)
     _add_route("/grp/<grp>/", group)
+    _add_route("/graph/", lambda: render_template('graph.html'))
+    _add_route("/graph/portingdb.json", graph_json)
 
     return app
 
