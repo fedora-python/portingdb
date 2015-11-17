@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:xlink="http://www.w3.org/1999/xlink">
 <meta charset="utf-8">
 <style>
 
@@ -82,7 +83,9 @@ svg.append("svg:defs").selectAll("marker")
 
   var node = svg.selectAll(".node")
       .data(graph.nodes)
-    .enter().append("circle")
+    .enter().append("svg:a")
+      .attr("xlink:href", function(d) { return "/pkg/" + d.name + "/"; })
+    .append("circle")
       .attr("class", "node")
       .attr("r", 5)
       .style("fill", function(d) { return '#' + d.color; })
@@ -104,3 +107,5 @@ svg.append("svg:defs").selectAll("marker")
 });
 
 </script>
+</body>
+</html>
