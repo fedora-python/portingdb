@@ -305,7 +305,7 @@ def deps(ctx, package, exclude, trim, skip, graph):
 @cli.command()
 @click.pass_context
 def update(ctx):
-    """Print a dependency graph of the given package(s)"""
+    """Update the calculated data in thre database"""
     db = ctx.obj['db']
 
     from . import queries
