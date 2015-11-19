@@ -188,7 +188,7 @@ class Py3QueryCommand(dnf.cli.Command):
         # deps_of_pkg: {srpm name: info}
         json_output = dict()
         for name in progressbar(by_srpm_name, 'Generating output'):
-            pkgs = by_srpm_name[name]
+            pkgs = sorted(by_srpm_name[name])
             r = json_output[name] = {}
             if is_ported(pkgs, python_versions):
                 r['status'] = 'released'
