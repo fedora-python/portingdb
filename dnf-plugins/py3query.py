@@ -27,12 +27,13 @@ SEED_PACKAGES = {
         'python-devel', 'python2-devel', 'python', 'python-libs',
         'python(abi) = 2.7', '/usr/bin/python', '/usr/bin/python2',
         '/usr/bin/python2.7', 'libpython2.7.so.1.0',
-        'pygtk2', 'pygobject2', 'pycairo', 'pygobject3',
+        'pygtk2', 'pygobject2', 'pycairo',
     ],
     3: [
         'python3-devel', 'python3', 'python3-libs', 'python(abi) = 3.4',
         '/usr/bin/python3', '/usr/bin/python3.4', 'libpython3.4m.so.1.0',
         'libpython3.so', 'python3-cairo',
+        'python(abi) = 3.5', '/usr/bin/python3.5', 'libpython3.5m.so.1.0',
     ]
 }
 
@@ -152,6 +153,11 @@ class Py3QueryCommand(dnf.cli.Command):
         dep_versions = collections.defaultdict(set)
         for n, seeds in SEED_PACKAGES.items():
             provides = sorted(self.all_provides(seeds), key=str)
+
+            # This effectively includes packages that still need
+            # Python 3.4 while Rawhide only provides Python 3.5
+            provides += sorted(seeds)
+
             for dep in progressbar(provides, 'Getting py{} requires'.format(n)):
                 dep_versions[str(dep)] = n
                 for pkg in self.whatrequires(dep):
