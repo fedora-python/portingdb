@@ -80,6 +80,9 @@
                                         <i class="fa-li {{ iconlink_class(link) }}"></i>
                                         {{ link.type }}:
                                         <a href="{{ link.url }}">{{ link.url }}</a>
+                                        {% if link.note %}
+                                            ({{ link.note }})
+                                        {% endif %}
                                     </li>
                                 {% endfor %}
                             </ul>
