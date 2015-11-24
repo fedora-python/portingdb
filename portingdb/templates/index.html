@@ -3,13 +3,17 @@
 {% block breadcrumbs %}
 {% endblock breadcrumbs %}
 
+{% block titlecontent -%}
+    {{ (the_score * 100) | round(1) }}% – {{ super() }}
+{%- endblock titlecontent %}
+
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
             <h1>Python 3 Porting Database <small>for Fedora</small></h1>
         </div>
         <div class="col-md-12">
-            {{ progress_summary(status_summary, all_pkg_query.count()) }}
+            {{ progress_summary(status_summary, total_pkg_count) }}
         </div>
         <div class="col-md-8">
             <div>
@@ -114,7 +118,7 @@
             </div>
             <h2>Dropped packages</h2>
             <div>
-                {{ dropped_packages.count() }}  packages will not be ported to Python 3.
+                {{ len(dropped_packages) }}  packages will not be ported to Python 3.
                 Anything that requires them will need to switch to an alternative.
             </div>
             <div>

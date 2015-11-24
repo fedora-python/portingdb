@@ -38,7 +38,7 @@ def hello():
             'data': data,
         }
 
-    all_pkg_query = queries.packages(db)
+    total_pkg_count = queries.packages(db).count()
 
     # Main package query
 
@@ -67,7 +67,10 @@ def hello():
     assert query.count() == 0
 
     ready = list(ready)
+    dropped = list(dropped)
     random_ready = random.choice(ready)
+
+    the_score = (len(ready) + len(dropped)) / total_pkg_count
 
     # Nonbolocking set query
     query = db.query(tables.Package)
@@ -82,7 +85,7 @@ def hello():
     query = query.add_column(func.count(tables.Package.name))
     query = query.group_by(tables.Package.status)
     query = query.order_by(tables.Status.order)
-    status_summary = query
+    status_summary = list(query)
 
     # Group query
 
@@ -110,7 +113,7 @@ def hello():
         coll_info=coll_info,
         statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
-        all_pkg_query=all_pkg_query,
+        total_pkg_count=total_pkg_count,
         status_summary=status_summary,
         active_packages=active,
         ready_packages=ready,
@@ -121,6 +124,7 @@ def hello():
         len=len,
         groups=groups,
         nonblocking=nonblocking,
+        the_score=the_score,
     )
 
 
