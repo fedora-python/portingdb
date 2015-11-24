@@ -2,6 +2,10 @@
 
 {% block titlecontent %}{{pkg.name }} – {{ super() }} {% endblock titlecontent %}
 
+{% block favicon_url -%}
+    {{ url_for('piechart_pkg', pkg=pkg.name) }}?{{ cache_tag }}
+{% endblock favicon_url %}
+
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">

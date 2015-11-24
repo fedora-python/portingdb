@@ -2,8 +2,11 @@ from collections import OrderedDict, Counter
 import random
 import functools
 import json
+import math
+import uuid
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
+from flask import make_response
 from flask.json import jsonify
 from sqlalchemy import func, or_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker
@@ -14,6 +17,8 @@ from dogpile.cache.api import NO_VALUE
 
 from . import tables
 from . import queries
+
+tau = 2 * math.pi
 
 
 def hello():
@@ -78,15 +83,6 @@ def hello():
     query = query.filter(tables.CollectionPackage.nonblocking)
     nonblocking = set(query)
 
-    # Summary query
-
-    query = db.query(tables.Status)
-    query = query.join(tables.Package, tables.Status.packages)
-    query = query.add_column(func.count(tables.Package.name))
-    query = query.group_by(tables.Package.status)
-    query = query.order_by(tables.Status.order)
-    status_summary = list(query)
-
     # Group query
 
     query = db.query(tables.Group)
@@ -114,7 +110,7 @@ def hello():
         statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
         total_pkg_count=total_pkg_count,
-        status_summary=status_summary,
+        status_summary=get_status_summary(db),
         active_packages=active,
         ready_packages=ready,
         blocked_packages=blocked,
@@ -126,6 +122,17 @@ def hello():
         nonblocking=nonblocking,
         the_score=the_score,
     )
+
+
+def get_status_summary(db, filter=None):
+    query = db.query(tables.Status)
+    query = query.join(tables.Package, tables.Status.packages)
+    query = query.add_column(func.count(tables.Package.name))
+    if filter:
+        query = filter(query)
+    query = query.group_by(tables.Package.status)
+    query = query.order_by(tables.Status.order)
+    return list(query)
 
 
 def get_status_counts(pkgs):
@@ -256,6 +263,51 @@ def graph_json():
     return jsonify(nodes=nodes, links=links)
 
 
+def _piechart(status_summary, bg=None):
+    total_pkg_count = sum(c for s, c in status_summary)
+    resp = make_response(render_template(
+        'piechart.svg',
+        status_summary=status_summary,
+        total_pkg_count=total_pkg_count or 1,
+        sin=math.sin, cos=math.cos, tau=tau,
+        bg=bg,
+    ))
+    resp.headers['Content-type'] = 'image/svg+xml'
+    return resp
+
+
+def piechart_svg():
+    db = current_app.config['DB']()
+
+    return _piechart(get_status_summary(db))
+
+
+def piechart_grp(grp):
+    db = current_app.config['DB']()
+
+    group = db.query(tables.Group).get(grp)
+    if group is None:
+        abort(404)
+
+    def filter(query):
+        query = query.join(tables.Package.group_packages)
+        query = query.join(tables.GroupPackage.group)
+        query = query.filter(tables.Group.ident == grp)
+        return query
+
+    return _piechart(get_status_summary(db, filter=filter))
+
+
+def piechart_pkg(pkg):
+    db = current_app.config['DB']()
+
+    package = db.query(tables.Package).get(pkg)
+    if package is None:
+        abort(404)
+
+    return _piechart([], package.status_obj)
+
+
 def create_app(db_url, cache_config=None):
     if cache_config is None:
         cache_config = {'backend': 'dogpile.cache.null'}
@@ -266,6 +318,10 @@ def create_app(db_url, cache_config=None):
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
     app.jinja_env.filters['format_rpm_name'] = format_rpm_name
+
+    @app.context_processor
+    def add_cache_tag():
+        return {'cache_tag': uuid.uuid4()}
 
     def _add_route(url, func):
         @functools.wraps(func)
@@ -282,6 +338,9 @@ def create_app(db_url, cache_config=None):
     _add_route("/grp/<grp>/", group)
     _add_route("/graph/", lambda: render_template('graph.html'))
     _add_route("/graph/portingdb.json", graph_json)
+    _add_route("/piechart.svg", piechart_svg)
+    _add_route("/grp/<grp>/piechart.svg", piechart_grp)
+    _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
 
     return app
 

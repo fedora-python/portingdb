@@ -7,6 +7,10 @@
     {{ (the_score * 100) | round(1) }}% – {{ super() }}
 {%- endblock titlecontent %}
 
+{% block favicon_url -%}
+    {{ url_for('piechart_svg') }}?{{ cache_tag }}
+{% endblock favicon_url %}
+
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
