@@ -88,7 +88,7 @@ svg.append("svg:defs").selectAll("marker")
     .append("circle")
       .attr("class", "node")
       .attr("r", 5)
-      .style("fill", function(d) { return '#' + d.color; })
+      .style("fill", function(d) { return d.color; })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
       .call(force.drag);

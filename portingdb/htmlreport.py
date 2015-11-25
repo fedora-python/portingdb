@@ -252,7 +252,8 @@ def graph_json():
     query = query.filter(tables.Package.status != 'released')
     query = query.filter(tables.Package.status != 'dropped')
     packages = list(query)
-    nodes = [{'name': p.name, 'status': p.status, 'color': p.status_obj.color}
+    get_color = lambda p: "#{0:02x}{0:02x}{0:02x}".format(max(225 - 10*len(p.pending_requirers), 0))
+    nodes = [{'name': p.name, 'status': p.status, 'color': get_color(p)}
              for p in packages]
     names = [p.name for p in packages]
 
