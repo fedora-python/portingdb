@@ -81,6 +81,11 @@ svg.append("svg:defs").selectAll("marker")
         return d.name;
       })
 
+  function colors(n) {
+    var colors = ["#CCCCCC", "#B2B2B2","#999999", "#7F7F7F", "666666", "#4C4C4C", "#333333", "#191919", "#000000"];
+    return colors[Math.min(n, 8)];
+}
+
   var node = svg.selectAll(".node")
       .data(graph.nodes)
     .enter().append("svg:a")
@@ -88,7 +93,7 @@ svg.append("svg:defs").selectAll("marker")
     .append("circle")
       .attr("class", "node")
       .attr("r", 5)
-      .style("fill", function(d) { return '#' + d.color; })
+      .style("fill", function(d) { return colors(d.pending_requirers); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
       .call(force.drag);
