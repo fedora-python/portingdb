@@ -87,11 +87,13 @@ def print_status(ctx):
             total = sum(v for k, v in data.items())
             detail = ', '.join('{1} {0}'.format(k, v) for k, v in data.items())
             if total:
-                print('{percent_released:5.1f}% {name}  ({detail})'.format(
+                num_done = data.get('released', 0) + data.get('dropped', 0)
+                print('{score:5.1f}% {name}  ({detail}) / {total}'.format(
                     name=collection.name,
                     max_name_len=max_name_len,
-                    percent_released=data.get('released', 0) / total * 100,
+                    score=num_done / total * 100,
                     detail=detail,
+                    total=total
                 ))
             else:
                 print('  ???% {name:>{max_name_len}}'.format(

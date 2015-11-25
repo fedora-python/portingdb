@@ -71,11 +71,14 @@ def hello():
 
     assert query.count() == 0
 
+    active = list(active)
+    done = list(done)
     ready = list(ready)
+    blocked = list(blocked)
     dropped = list(dropped)
     random_ready = random.choice(ready)
 
-    the_score = (len(ready) + len(dropped)) / total_pkg_count
+    the_score = (len(done) + len(dropped)) / total_pkg_count
 
     # Nonbolocking set query
     query = db.query(tables.Package)

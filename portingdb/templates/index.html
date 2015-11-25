@@ -65,7 +65,7 @@
             {% endif %}
             <h2>Active packages</h2>
             <div>
-                We know about {{ active_packages.count() }} packages that
+                We know about {{ len(active_packages) }} packages that
                 someone is actively porting, or which are waiting for review.
             </div>
             <table class="table table-striped table-condensed table-hovered">
@@ -94,7 +94,7 @@
             </ul>
             <h2>Blocked packages</h2>
             <div>
-                {{ blocked_packages.count() }}  packages don't have all dependencies ported yet.
+                {{ len(blocked_packages) }}  packages don't have all dependencies ported yet.
             </div>
             <div>
                 (Or they could be false positives – check the package before giving up on it!)
@@ -113,7 +113,7 @@
             </ul>
             <h2>Done packages</h2>
             <div>
-                {{ done_packages.count() }}  packages are already ported. Yipee!
+                {{ len(done_packages) }}  packages are already ported. Yipee!
             </div>
             <div>
                {% for pkg in done_packages %}
