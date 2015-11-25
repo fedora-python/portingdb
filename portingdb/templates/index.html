@@ -187,42 +187,67 @@
                     {% endfor %}
                 </ul>
             {% endfor %}
-
-            <!--
-            <h2>Legend</h2>
-            <h5>Priority</h5>
-            <ul class="list-group">
-                {% for prio in priorities %}
+            <h2>Entomology</h2>
+            <div>
+                <p>
+                    The Python 3 tracking bugs <!-- TODO -->
+                    on Bugzilla are queried regularly.
+                    Bugs for individual packages are linked, and the
+                    links are color-coded according to bug status:
+                </p>
+                <ul class="list-group">
                     <li class="list-group-item">
-                        {{ badge(prio) }}
-                        {{ prio.name }}
+                        <div>
+                            <i class="fa fa-bug iconlink-bug-NEW"></i>
+                            <strong>No activity</strong>
+                        </div>
+                        <small>
+                            NEW; CLOSED (DEFERRED)
+                        </small>
                     </li>
-                {% endfor %}
-            </ul>
-            <h5>Package</h5>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <span class="pkgstatus-icon pkgstatus-active"></span>
-                    Active
-                    <div><small>Worked on</small></div>
-                </li>
-                <li class="list-group-item">
-                    <span class="pkgstatus-icon pkgstatus-idle"></span>
-                    Waiting
-                    <div><small>Ready for someone to start porting</small></div>
-                </li>
-                <li class="list-group-item">
-                    <span class="pkgstatus-icon pkgstatus-blocked"></span>
-                    Blocked
-                    <div><small>Blocked by unported dependencies</small></div>
-                </li>
-                <li class="list-group-item">
-                    <span class="pkgstatus-icon pkgstatus-done"></span>
-                    Done
-                    <div><small>Done (released or dropped)</small></div>
-                </li>
-            </ul>
-            -->
+                    <li class="list-group-item">
+                        <div>
+                            <i class="fa fa-bug iconlink-bug-ASSIGNED"></i>
+                            <strong>Open</strong>
+                        </div>
+                        <small>
+                            ASSIGNED; POST; MODIFIED; ON_QA; VERIFIED;
+                            RELEASE_PENDING
+                        </small>
+                    </li>
+                    <li class="list-group-item">
+                        <div>
+                            <i class="fa fa-bug iconlink-bug-CLOSED-WONTFIX"></i>
+                            <strong>Problematic</strong>
+                        </div>
+                        <small>
+                            CLOSED (NOTABUG, WONTFIX, WORKSFORME, DUPLICATE,
+                                    UPSTREAM, CANTFIX, INSUFFICIENT_DATA, EOL)
+                        </small>
+                    </li>
+                    <li class="list-group-item">
+                        <div>
+                            <i class="fa fa-bug iconlink-bug-CLOSED-RAWHIDE"></i>
+                            <strong>Fixed</strong>
+                        </div>
+                        <small>
+                            CLOSED (CURRENTRELEASE, RAWHIDE, ERRATA,
+                                    NEXTRELEASE)
+                        </small>
+                    </li>
+                    <li class="list-group-item">
+                        <div>
+                            <a href="#"><i class="fa fa-bug"></i></a>
+                            <strong>Unknown</strong>
+                        </div>
+                        Links to bugs that were entered manually are not
+                        color-coded (they use the color of regular links).
+                    </li>
+                </ul>
+                <p>
+                    As with RPM info, bug status may be slightly out of sate.
+                </p>
+            </div>
         </div>
     </div>
 {% endblock bodycontent %}
