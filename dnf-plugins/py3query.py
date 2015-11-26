@@ -28,6 +28,7 @@ TRACKER_BUG_IDS = [
     1014209,  # (F23PYTHON3) Replace Python 2 with Python 3 in default installation
     1024796,  # (PY3PACKAGER) fedora-packager: Use Python 3 instead of Python 2
     1282146,  # Packages with outdated spec (not using python-provides macro, not python2 subpackages)
+    1285816,  # The Python 3 tracking bug
 ]
 
 SEED_PACKAGES = {
