@@ -21,6 +21,15 @@ import dnf.cli
 import dnf.subject
 import dnfpluginscore
 from dnfpluginscore import _
+import bugzilla  # python-bugzilla
+
+BUGZILLA_URL = 'bugzilla.redhat.com'
+TRACKER_BUG_IDS = [
+    1014209,  # (F23PYTHON3) Replace Python 2 with Python 3 in default installation
+    1024796,  # (PY3PACKAGER) fedora-packager: Use Python 3 instead of Python 2
+    1282146,  # Packages with outdated spec (not using python-provides macro, not python2 subpackages)
+    1285816,  # The Python 3 tracking bug
+]
 
 SEED_PACKAGES = {
     2: [
@@ -61,6 +70,9 @@ def parse_arguments(args):
     parser.add_argument('--output', '-o', metavar='FILE', action='store',
                         help=_('write output to the given file'))
 
+    parser.add_argument('--no-bz', dest='fetch_bugzilla', action='store_false',
+                        default=True, help=_("Don't get Bugzilla links"))
+
     return parser.parse_args(args), parser
 
 
@@ -86,13 +98,15 @@ def progressbar(seq, text, namegetter=str):
         for i, item in enumerate(seq):
             prev_len = printer(i, str(namegetter(item)))
             yield item
+    except GeneratorExit:
+        pass
     except:
         printer(i, 'Error!')
         print(file=sys.stderr)
         raise
-    else:
-        printer(total, 'Done!')
-        print(file=sys.stderr)
+
+    printer(total, 'Done!')
+    print(file=sys.stderr)
 
 
 def is_ported(pkgs, python_versions):
@@ -201,6 +215,44 @@ class Py3QueryCommand(dnf.cli.Command):
                                    for p in pkgs
                                    for d in deps_of_pkg.get(p, '')
                                    if srpm_names[d] != name))
+
+        # add Bugzilla links
+        if self.opts.fetch_bugzilla:
+            bar = iter(progressbar(['connecting', 'tracker', 'individual'],
+                                   'Getting bugs'))
+
+            next(bar)
+            bz = bugzilla.RHBugzilla(BUGZILLA_URL)
+
+            next(bar)
+            include_fields = ['id', 'depends_on', 'component', 'status',
+                              'resolution']
+            trackers = bz.getbugs(TRACKER_BUG_IDS,
+                                  include_fields=include_fields)
+            all_ids = [b for t in trackers for b in t.depends_on]
+
+            next(bar)
+            bugs = bz.getbugs(all_ids, include_fields=include_fields)
+            bar.close()
+
+            def bug_namegetter(bug):
+                return '{bug.id} {bug.status} {bug.component}'.format(bug=bug)
+
+            for bug in progressbar(bugs, 'Merging bugs',
+                                   namegetter=bug_namegetter):
+                r = json_output.get(bug.component, {})
+                url = '{bug.weburl}#{bug.status}'.format(bug=bug)
+                status = bug.status
+                if bug.resolution:
+                    status += ' ' + bug.resolution
+                r.setdefault('links', {})['bug'] = [bug.weburl, status]
+                inprogress_statuses = ('ASSIGNED', 'POST', 'MODIFIED', 'ON_QA')
+                inprogress_resolutions = ('CURRENTRELEASE', 'RAWHIDE',
+                                          'ERRATA', 'NEXTRELEASE')
+                if r.get('status') == 'idle' and bug.status != 'NEW':
+                    r['status'] = 'in-progress'
+
+        # Print out output
 
         if self.opts.output:
             with open(self.opts.output, 'w') as f:

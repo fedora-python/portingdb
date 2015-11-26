@@ -111,14 +111,26 @@
         iconlink fa fa-code
     {% elif link.type == 'bug' %}
         iconlink fa fa-bug
+        {% if link.note %}
+            iconlink-bug-{{ link.note.partition(' ')[0] }}
+            iconlink-bug-{{ link.note | replace(' ', '-') }}
+        {% endif %}
     {% elif link.type == 'homepage' %}
         iconlink fa fa-home
     {% endif %}
 {%- endmacro %}
 
+{% macro iconlink_alt(link) -%}
+    {{ link.type }}
+    {%- if link.note -%}
+        {{" "}}({{ link.note }})
+    {%- endif -%}
+{%- endmacro %}
+
 {% macro iconlink(link) -%}
-    <a href="{{ link.url }}" title="{{ link.type }}" class="{{ iconlink_class(link) }}">
-        <span class="type-alt">{{ link.type }}</span></a>
+    <a href="{{ link.url }}" title="{{ iconlink_alt(link) }}" class="{{ iconlink_class(link) }}">
+        <span class="type-alt">{{ iconlink_alt(link) }}</span>
+    </a>
 {%- endmacro %}
 
 {% macro progress_summary(status_counts, total) -%}
@@ -226,6 +238,31 @@
             .rpm-list li .rpm-name {
                 font-weight: bold;
             }
+            .iconlink-bug-NEW,
+            .iconlink-bug-CLOSED-DEFERRED
+                { color: #AAAAAA !important; } /* ~idle */
+            .iconlink-bug-ASSIGNED,
+            .iconlink-bug-POST,
+            .iconlink-bug-MODIFIED,
+            .iconlink-bug-ON_QA,
+            .iconlink-bug-VERIFIED,
+            .iconlink-bug-RELEASE_PENDING,
+            .iconlink-bug-CLOSED
+                { color: #F0AD4E !important; } /* ~in-progress */
+            .iconlink-bug-CLOSED-NOTABUG,
+            .iconlink-bug-CLOSED-WONTFIX,
+            .iconlink-bug-CLOSED-WORKSFORME,
+            .iconlink-bug-CLOSED-DUPLICATE,
+            .iconlink-bug-CLOSED-UPSTREAM
+            .iconlink-bug-CLOSED-CANTFIX,
+            .iconlink-bug-CLOSED-INSUFFICIENT_DATA,
+            .iconlink-bug-CLOSED-EOL
+                 { color: #D9534F !important; } /* ~blocked */
+            .iconlink-bug-CLOSED-CURRENTRELEASE,
+            .iconlink-bug-CLOSED-RAWHIDE,
+            .iconlink-bug-CLOSED-ERRATA,
+            .iconlink-bug-CLOSED-NEXTRELEASE
+                { color: #5CB85C !important; } /* ~released */
         </style>
     </head>
     <body>

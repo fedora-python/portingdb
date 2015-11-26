@@ -55,15 +55,18 @@ def _get_pkg(name, collection, info):
     }
 
 
-def _get_repolink(name, col_package_map, collection, info, field_name, type_name):
-    url = info.get(field_name)
-    if url is None:
-        return None
-    return {
-        'collection_package_id': col_package_map[name, collection],
-        'url': url,
+def _get_repolink(col_package_id, url, type_name):
+    result = {
+        'collection_package_id': col_package_id,
         'type': type_name,
     }
+    if isinstance(url, str):
+        result['url'] = url
+        result['note'] = None
+    else:
+        result['url'] = url[0]
+        result['note'] = url[1]
+    return result
 
 def _add_order(rows):
     for i, row in enumerate(rows):
@@ -90,6 +93,12 @@ def _merge_updates(base, updates, warnings=None, parent_keys=()):
                         base.get(key) == 'released'):
                 warnings.append(
                     'overriding "released" status: ' + ': '.join(parent_keys))
+            if (warnings is not None and
+                        key == 'bug' and
+                        base.get(key)):
+                warnings.append(
+                    'overriding bug: {}: {}->{}'.format(
+                        ': '.join(parent_keys), base.get(key), new_value))
 
             base[key] = new_value
 
@@ -158,16 +167,9 @@ def load_from_directory(db, directory):
         # Repo links
         values = []
         values.extend(
-            [_get_repolink(k, col_package_map, collection, v, 'link_to_repo', 'repo')
-            for k, v in package_infos.items()])
-        values.extend(
-            [_get_repolink(k, col_package_map, collection, v, 'link_to_bug', 'bug')
-            for k, v in package_infos.items()])
-        values.extend({
-            'collection_package_id': col_package_map[n, collection],
-            'url': v,
-            'type': k,
-        } for n, m in package_infos.items() for k, v in m.get('links', {}).items())
+            _get_repolink(col_package_map[n, collection], v, k)
+            for n, m in package_infos.items()
+            for k, v in m.get('links', {}).items())
         values = [v for v in values if v]
         bulk_load(db, values, tables.Link.__table__,
                   key_columns=['collection_package_id', 'url'])

@@ -260,6 +260,9 @@ class Link(TableBase):
         Unicode(), nullable=False)
     type = Column(
         Enum('homepage', 'bug', 'repo'), nullable=False)
+    note = Column(
+        Unicode(), nullable=True,
+        doc='Type-specific note about the link')
 
     collection_package = relationship(
         'CollectionPackage', backref=backref('links'))
