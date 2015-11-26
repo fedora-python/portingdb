@@ -38,9 +38,6 @@ exo:
     status: in-progress
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282165
-gdal:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1213629
 kernel-tests:
     status: in-progress
     links:
@@ -61,16 +58,12 @@ libssh2-python:
         Code is old, but it's just a binding: it seems to work with Python 3.4
         Should it be renamed python{2,3}-libssh2?
 lorem-ipsum-generator:
-    status: in-progress
     links:
         repo: https://github.com/Riamse/lorem-ipsum-generator/
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282272
     note: |
         Riamse is doing it.
         This has been ported. All we're waiting for is for upstream to point the sources to this repo.
 lunatic-python:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282088
     note: |
         There is a better alternative which supports Python3, Lupa.
 m2crypto:
@@ -105,24 +98,13 @@ pyPdf:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=991102
     note: |
         Suggested replacement: `python-PyPDF2`, which has official py3+ support on v1.20 onwards.
-pysendfile:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282243
 pyserial:
     nonblocking: true
-    links:
-        bug:
-            https://bugzilla.redhat.com/show_bug.cgi?id=1187837
     note: |
         Bug 1187837 - A file in the python2 backage requires python3.
 pysnmp:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282245
     note: |
         Current build version should support Python 3.
-pssh:
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282544
 python:
     status: dropped
     note: |
@@ -172,8 +154,6 @@ python-irclib:
 
         Copr packager doesn't have time to maintain the package so needs Fedora maintainers
         to take over maintenance.
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=813736
 python-kerberos:
     status: dropped
     note: |
@@ -186,8 +166,6 @@ python-ldap:
     status: dropped
     note: |
       Suggested replacement: `python-pyldap` (drop-in, provides the `ldap` module)
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1243127
 python-lzo:
     note: |
             A new upstream maintainer has appeared and [merged python3 support](https://github.com/jd-boyd/python-lzo/pull/8) to their
@@ -201,9 +179,6 @@ python-memcached:
     note: |
       Replacement: `python3-memcached`
 python-mpd:
-    status: in-progress
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282097
     note: |
         [threebean](http://threebean.org) submitted a patch for this.
 python-mutagen:
@@ -228,10 +203,6 @@ python-os-testr:
 python-pdfrw:
   links:
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282219
-python-progressbar:
-    status: in-progress
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282094
 python-subprocess32:
     status: dropped
     note: |
@@ -271,20 +242,13 @@ will-crash:
         it can test that abrt handles both python2 and python3 tracebacks.
 
         So, the RPM requires both /usr/bin/python2 and /usr/bin/python3.
-python-flask-admin:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282084
-    status: in-progress
 yum:
     status: dropped
     note: |
       Replacement: `-dnf`
 python-shove:
-    status: in-progress
     note: |
         [threebean](http://threebean.org) is working on this.
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1281992
 youtube-dl:
     note: |
         spec updated and built for Rawhide
