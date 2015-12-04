@@ -377,6 +377,6 @@ def create_app(db_url, cache_config=None):
     return app
 
 
-def main(db_url, cache_config=None, debug=False):
+def main(db_url, cache_config=None, debug=False, port=5000):
     app = create_app(db_url, cache_config=cache_config)
-    app.run(debug=debug)
+    app.run(debug=debug, port=port)

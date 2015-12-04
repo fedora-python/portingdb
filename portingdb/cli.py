@@ -191,8 +191,10 @@ def report(ctx):
 @click.option('--debug/--no-debug', help="Run in debug mode")
 @click.option('--cache',
               help="""JSON-formatted dogpile.cache configuration, for example '{"backend": "'dogpile.cache.memory'"}'""")
+@click.option('--port', type=int, default=5000,
+              help="""Port to listen on (default: 5000)'""")
 @click.pass_context
-def serve(ctx, debug, cache):
+def serve(ctx, debug, cache, port):
     """Serve HTML reports via a HTTP server"""
     db_url = ctx.obj['db_url']
     from . import htmlreport
@@ -202,7 +204,8 @@ def serve(ctx, debug, cache):
     else:
         cache_config = json.loads(cache)
 
-    htmlreport.main(db_url=db_url, debug=debug, cache_config=cache_config)
+    htmlreport.main(db_url=db_url, debug=debug, cache_config=cache_config,
+                    port=port)
 
 
 @cli.command()
