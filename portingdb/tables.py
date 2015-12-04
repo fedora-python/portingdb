@@ -135,6 +135,8 @@ class Collection(TableBase):
         Unicode())
 
     def status_description(self, status):
+        if status is None:
+            return 'Unknown'
         for cs in self.collection_statuses:
             if cs.status == status.ident:
                 return cs.description
