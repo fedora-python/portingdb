@@ -14,15 +14,20 @@
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
-            <h1>Python 3 Porting Database <small>for Fedora</small></h1>
+            <h1>
+                Python 3 Porting Database
+                {% if 'name' in config %}
+                    <small>for {{ config['name'] }}</small>
+                {% endif %}
+            </h1>
         </div>
         <div class="col-md-12">
             {{ progress_summary(status_summary, total_pkg_count) }}
         </div>
         <div class="col-md-8">
             <div>
-                This is a dashboard to track progress of porting Fedora packages
-                to Python 3.
+                This is a dashboard to track progress of porting
+                {{ config.get('name', 'some') }} packages to Python 3.
             </div>
             <div>
                 If you would like to jump in and help port, do this:
@@ -46,7 +51,12 @@
             {% if groups %}
                 <h2>Package Groups</h2>
                 <div>
-                    If you're interested in porting a bigger, self-contained piece of Fedora,
+                    If you're interested in porting a bigger, self-contained
+                    {% if 'name' in config %}
+                        piece of {{ config['name'] }},
+                    {% else %}
+                        set of poackages,
+                    {% endif %}
                     choose one of these.
                 </div>
                 <div>

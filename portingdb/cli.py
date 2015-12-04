@@ -186,6 +186,9 @@ def report(ctx):
 
     print_collection_header(collections, foot=True)
 
+    for c in db.query(tables.Config):
+        print('{c.key} :{c.value}'.format(c=c))
+
 
 @cli.command()
 @click.option('--debug/--no-debug', help="Run in debug mode")

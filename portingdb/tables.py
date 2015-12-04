@@ -352,6 +352,16 @@ class RPMPyDependency(TableBase):
         'RPM', backref=backref('rpm_py_dependencies'))
 
 
+class Config(TableBase):
+    u"""Stores configuration."""
+    # This is here so that the database has all the required data.
+    __tablename__ = 'config'
+    key = Column(
+        Unicode(), primary_key=True, nullable=False)
+    value = Column(
+        Unicode(), nullable=False)
+
+
 Package.requirements = relationship(
     Package,
     secondary=Dependency.__table__,

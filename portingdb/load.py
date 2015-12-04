@@ -122,6 +122,14 @@ def load_from_directories(db, directories):
     """
     warnings = []
 
+    try:
+        config = data_from_file(directories, 'config')
+    except FileNotFoundError:
+        config = {}
+
+    values = [{'key': k, 'value': json.dumps(v)} for k, v in config.items()]
+    bulk_load(db, values, tables.Config.__table__, id_column="key")
+
     values = _prepare_enum(data_from_file(directories, 'statuses'))
     bulk_load(db, values, tables.Status.__table__, id_column="ident")
 
