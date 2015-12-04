@@ -231,6 +231,7 @@ def load_from_directories(db, directories):
 
     queries.update_status_summaries(db)
     queries.update_group_closures(db)
+
     db.commit()
 
     return warnings
