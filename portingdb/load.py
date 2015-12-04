@@ -232,6 +232,14 @@ def load_from_directories(db, directories):
     queries.update_status_summaries(db)
     queries.update_group_closures(db)
 
+    if 'limit' in config:
+        db.flush()
+        query = db.query(tables.GroupPackage)
+        query = query.filter(tables.GroupPackage.package_name == tables.Package.name)
+        query = query.filter(tables.GroupPackage.group_ident == config['limit'])
+        query = db.query(tables.Package).filter(~query.exists())
+        query.delete(synchronize_session='fetch')
+
     db.commit()
 
     return warnings
@@ -347,7 +355,10 @@ def bulk_load(db, sources, table, key_columns=None, id_column='id',
         if check_columns:
             for row in existing_rows:
                 key = tuple(row[:len(key_columns)])
-                source = source_dict[key]
+                try:
+                    source = source_dict[key]
+                except KeyError:
+                    continue
                 for n, v in zip(check_columns, row[len(id_columns):]):
                     if n not in ignored_columns:
                         if source[n] != v:
