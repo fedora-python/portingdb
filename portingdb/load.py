@@ -15,22 +15,23 @@ except AttributeError:
     SafeLoader = yaml.SafeLoader
 
 
-def get_db(directory, engine=None):
+def get_db(*directories, engine=None):
     if engine is None:
         engine = create_engine('sqlite://')
     tables.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     db = Session()
-    if directory is not None:
-        load_from_directory(db, directory)
+    if any(directories):
+        load_from_directories(db, directories)
     return db
 
 
-def data_from_file(directory, basename):
-    for ext in '.yaml', '.json':
-        filename = os.path.join(directory, basename + ext)
-        if os.path.exists(filename):
-            return decode_file(filename)
+def data_from_file(directories, basename):
+    for directory in directories:
+        for ext in '.yaml', '.json':
+            filename = os.path.join(directory, basename + ext)
+            if os.path.exists(filename):
+                return decode_file(filename)
     raise FileNotFoundError(filename)
 
 
@@ -113,17 +114,21 @@ def _strip_key(values, key):
 
 
 def load_from_directory(db, directory):
+    load_from_directories(db, [directory])
+
+
+def load_from_directories(db, directories):
     """Add data from a directory to a database
     """
     warnings = []
 
-    values = _prepare_enum(data_from_file(directory, 'statuses'))
+    values = _prepare_enum(data_from_file(directories, 'statuses'))
     bulk_load(db, values, tables.Status.__table__, id_column="ident")
 
-    values = _prepare_enum(data_from_file(directory, 'priorities'))
+    values = _prepare_enum(data_from_file(directories, 'priorities'))
     bulk_load(db, values, tables.Priority.__table__, id_column="ident")
 
-    col_values = _add_order(data_from_file(directory, 'collections'))
+    col_values = _add_order(data_from_file(directories, 'collections'))
     values = _strip_key(col_values, 'statuses')
     col_map = bulk_load(db, values, tables.Collection.__table__, id_column="ident")
 
@@ -136,9 +141,9 @@ def load_from_directory(db, directory):
               key_columns=["collection_ident", "status"])
 
     for collection in col_map.values():
-        package_infos = data_from_file(directory, collection)
+        package_infos = data_from_file(directories, collection)
         try:
-            more_infos = data_from_file(directory, collection + '-update')
+            more_infos = data_from_file(directories, collection + '-update')
         except FileNotFoundError:
             pass
         else:
@@ -201,7 +206,7 @@ def load_from_directory(db, directory):
 
         # TODO: Contacts
 
-    group_values = data_from_file(directory, 'groups')
+    group_values = data_from_file(directories, 'groups')
     values = [{
         'ident': k,
         'name': v['name'],
