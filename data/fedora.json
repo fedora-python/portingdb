@@ -800,6 +800,12 @@
     "deps": [
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1288802",
+        "NEW"
+      ]
+    },
     "rpms": {
       "python-abiword-1:3.0.1-4.fc23": {
         "python(abi) = 2.7": 2
@@ -2754,6 +2760,18 @@
       "catkin-0.4.5-11.gitd4f1f24.fc23": {
         "python(abi) = 2.7": 2,
         "python-argparse = 2.7.10-11.fc24": 2
+      }
+    },
+    "status": "idle"
+  },
+  "ccnet": {
+    "deps": [
+      "libsearpc",
+      "python"
+    ],
+    "rpms": {
+      "ccnet-5.0.0-1.fc24": {
+        "python(abi) = 2.7": 2
       }
     },
     "status": "idle"
@@ -4898,6 +4916,28 @@
     },
     "status": "idle"
   },
+  "enki": {
+    "deps": [
+      "PyQt4",
+      "pyparsing",
+      "python",
+      "python-docutils",
+      "python-markdown",
+      "python-qutepart",
+      "python-regex"
+    ],
+    "rpms": {
+      "enki-15.11.0-1.fc24": {
+        "/usr/bin/python2": 2,
+        "python(abi) = 2.7": 2,
+        "python2 = 2.7.10": 2
+      },
+      "enki-plugins-15.11.0-1.fc24": {
+        "python(abi) = 2.7": 2
+      }
+    },
+    "status": "idle"
+  },
   "environment-modules": {
     "deps": [],
     "rpms": {
@@ -6880,7 +6920,7 @@
   "glibc": {
     "deps": [],
     "rpms": {
-      "glibc-benchtests-2.22.90-22.fc24": {
+      "glibc-benchtests-2.22.90-24.fc24": {
         "/usr/bin/python": 2
       }
     },
@@ -9401,14 +9441,18 @@
   },
   "isomd5sum": {
     "deps": [
-      "python"
+      "python",
+      "python3"
     ],
     "rpms": {
-      "python-isomd5sum-1:1.0.12-6.fc24": {
+      "python-isomd5sum-1:1.1.0-1.fc24": {
         "python(abi) = 2.7": 2
+      },
+      "python3-isomd5sum-1:1.1.0-1.fc24": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "isrcsubmit": {
     "deps": [
@@ -9417,11 +9461,11 @@
       "python-musicbrainzngs"
     ],
     "rpms": {
-      "isrcsubmit-2.0.1-2.fc23": {
-        "/usr/bin/python2": 2
+      "isrcsubmit-2.0.1-3.fc24": {
+        "/usr/bin/python3": 3
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "itstool": {
     "deps": [
@@ -9616,12 +9660,12 @@
       "python"
     ],
     "rpms": {
-      "perf-4.4.0-0.rc3.git3.1.fc24": {
+      "perf-4.4.0-0.rc3.git4.1.fc24": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.4.0-0.rc3.git3.1.fc24": {
+      "python-perf-4.4.0-0.rc3.git4.1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -10191,6 +10235,29 @@
     },
     "status": "idle"
   },
+  "letsencrypt": {
+    "deps": [
+      "python",
+      "python-acme",
+      "python-configargparse",
+      "python-configobj",
+      "python-dialog",
+      "python-mock",
+      "python-parsedatetime",
+      "python-psutil",
+      "python-zope-component",
+      "python-zope-interface"
+    ],
+    "rpms": {
+      "letsencrypt-0.1.0-2.fc24": {
+        "/usr/bin/python2": 2
+      },
+      "python2-letsencrypt-0.1.0-2.fc24": {
+        "python(abi) = 2.7": 2
+      }
+    },
+    "status": "idle"
+  },
   "lhapdf": {
     "deps": [
       "python"
@@ -10654,7 +10721,7 @@
       "python"
     ],
     "rpms": {
-      "libmateweather-1.12.0-1.fc24": {
+      "libmateweather-1.12.1-1.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -10816,7 +10883,7 @@
       "python3"
     ],
     "rpms": {
-      "libreoffice-pyuno-1:5.1.0.0-7.beta1.fc24": {
+      "libreoffice-pyuno-1:5.1.0.0-8.beta1.fc24": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3,
         "python3": 3,
@@ -10924,7 +10991,7 @@
       "python"
     ],
     "rpms": {
-      "libsearpc-3.0-5.fc24": {
+      "libsearpc-3.0-6.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -11440,7 +11507,7 @@
       "python"
     ],
     "rpms": {
-      "clang-analyzer-3.7.0-2.fc24": {
+      "clang-analyzer-3.7.0-3.fc24": {
         "python": 2,
         "python = 2.7.10-11.fc24": 2
       }
@@ -12602,10 +12669,10 @@
       "pygobject3"
     ],
     "rpms": {
-      "nemo-pastebin-2.8.x-2.fc24": {
+      "nemo-pastebin-2.8.x-4.fc24": {
         "/usr/bin/python": 2
       },
-      "nemo-python-2.8.x-2.fc24": {
+      "nemo-python-2.8.x-4.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -13008,7 +13075,7 @@
       "python"
     ],
     "rpms": {
-      "nut-client-2.7.3-5.fc24": {
+      "nut-client-2.7.3-6.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -16007,7 +16074,7 @@
       "pygtksourceview"
     ],
     "rpms": {
-      "pluma-1.12.0-2.fc24": {
+      "pluma-1.12.1-1.fc24": {
         "pygobject2": 2,
         "pygobject2 = 2.28.6-14.fc23": 2,
         "pygtk2": 2,
@@ -16115,7 +16182,7 @@
       "python-pillow"
     ],
     "rpms": {
-      "python-polybori-0.8.3-25.fc24": {
+      "python-polybori-0.8.3-26.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -17703,7 +17770,7 @@
       "python-pyspf"
     ],
     "rpms": {
-      "pypolicyd-spf-1.3.1-3.fc23": {
+      "pypolicyd-spf-1.3.2-1.fc24": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -18253,6 +18320,22 @@
       }
     },
     "status": "idle"
+  },
+  "python-CommonMark": {
+    "deps": [
+      "python",
+      "python3"
+    ],
+    "rpms": {
+      "python2-CommonMark-0.5.4-3.fc24": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-CommonMark-0.5.4-3.fc24": {
+        "/usr/bin/python3": 3,
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
   },
   "python-GeoIP": {
     "deps": [
@@ -19109,11 +19192,11 @@
       "pytz"
     ],
     "rpms": {
-      "python2-acme-0.1.0-2.fc24": {
+      "python2-acme-0.1.0-3.fc24": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-acme-0.1.0-2.fc24": {
+      "python3-acme-0.1.0-3.fc24": {
         "python(abi) = 3.5": 3
       }
     },
@@ -19588,10 +19671,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-argcomplete-1.0.0-2.fc24": {
+      "python2-argcomplete-1.0.0-3.fc24": {
         "python(abi) = 2.7": 2
       },
-      "python3-argcomplete-1.0.0-2.fc24": {
+      "python3-argcomplete-1.0.0-3.fc24": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -20433,14 +20516,15 @@
       "python",
       "python-requests",
       "python-rsa",
-      "python-six"
+      "python-six",
+      "python3"
     ],
     "rpms": {
-      "python-boto-2.38.0-3.fc23": {
+      "python-boto-2.38.0-5.fc24": {
         "python(abi) = 2.7": 2
       },
-      "python3-boto-2.38.0-3.fc23": {
-        "python(abi) = 3.4": 3
+      "python3-boto-2.38.0-5.fc24": {
+        "python(abi) = 3.5": 3
       }
     },
     "status": "released"
@@ -20843,16 +20927,16 @@
       ]
     },
     "rpms": {
-      "python-cclib-1.3.1-4.fc24": {
+      "python2-cclib-1.3.1-5.fc24": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-cclib-1.3.1-4.fc24": {
-        "/usr/bin/python2": 2,
+      "python3-cclib-1.3.1-5.fc24": {
+        "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "python-cdb": {
     "deps": [
@@ -21923,6 +22007,12 @@
       "python",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1288830",
+        "NEW"
+      ]
+    },
     "rpms": {
       "python-cups-doc-1.9.72-6.fc24": {
         "/usr/bin/python": 2
@@ -22108,6 +22198,21 @@
     },
     "status": "idle"
   },
+  "python-dbf": {
+    "deps": [
+      "python",
+      "python3"
+    ],
+    "rpms": {
+      "python2-dbf-0.96.005-1.fc24": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-dbf-0.96.005-1.fc24": {
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
   "python-dbusmock": {
     "deps": [
       "dbus-python",
@@ -22131,10 +22236,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-ddt-1.0.1-1.fc24": {
+      "python2-ddt-1.0.1-2.fc24": {
         "python(abi) = 2.7": 2
       },
-      "python3-ddt-1.0.1-1.fc24": {
+      "python3-ddt-1.0.1-2.fc24": {
         "python(abi) = 3.5": 3
       }
     },
@@ -22293,10 +22398,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-dialog-3.3.0-3.fc24": {
+      "python2-dialog-3.3.0-4.fc24": {
         "python(abi) = 2.7": 2
       },
-      "python3-dialog-3.3.0-3.fc24": {
+      "python3-dialog-3.3.0-4.fc24": {
         "python(abi) = 3.5": 3
       }
     },
@@ -33329,7 +33434,7 @@
       "pytz"
     ],
     "rpms": {
-      "python-pysaml2-3.0.0-1.fc24": {
+      "python-pysaml2-3.0.2-1.fc24": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
@@ -34560,7 +34665,7 @@
       "rpm"
     ],
     "rpms": {
-      "python-rhsm-1.16.2-1.fc24": {
+      "python-rhsm-1.16.4-1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -35284,11 +35389,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-setuptools-18.6.1-1.fc24": {
+      "python2-setuptools-18.7.1-1.fc24": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-setuptools-18.6.1-1.fc24": {
+      "python3-setuptools-18.7.1-1.fc24": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -41824,15 +41929,15 @@
       "python"
     ],
     "rpms": {
-      "sagemath-core-6.5-13.fc24": {
+      "sagemath-core-6.5-14.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "sagemath-notebook-6.5-13.fc24": {
+      "sagemath-notebook-6.5-14.fc24": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "sagemath-sagetex-6.5-13.fc24": {
+      "sagemath-sagetex-6.5-14.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -42321,7 +42426,7 @@
       "python-simplejson"
     ],
     "rpms": {
-      "shinken-2.4.2-1.fc24": {
+      "shinken-2.4.2-2.fc24": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -42453,7 +42558,7 @@
       "python"
     ],
     "rpms": {
-      "skf-python-2.00.1-1.fc23": {
+      "skf-python-2.00.2-1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -43107,6 +43212,7 @@
     "deps": [
       "dbus-python",
       "pygobject3",
+      "python",
       "python-dateutil",
       "python-dmidecode",
       "python-ethtool",
@@ -43116,13 +43222,16 @@
       "yum"
     ],
     "rpms": {
-      "subscription-manager-1.16.4-1.fc24": {
+      "dnf-plugin-subscription-manager-1.16.6-1.fc24": {
+        "python(abi) = 2.7": 2
+      },
+      "subscription-manager-1.16.6-1.fc24": {
         "/usr/bin/python": 2
       },
-      "subscription-manager-gui-1.16.4-1.fc24": {
+      "subscription-manager-gui-1.16.6-1.fc24": {
         "/usr/bin/python": 2
       },
-      "subscription-manager-migration-1.16.4-1.fc24": {
+      "subscription-manager-migration-1.16.6-1.fc24": {
         "/usr/bin/python": 2
       }
     },
@@ -43527,7 +43636,7 @@
       "python-six"
     ],
     "rpms": {
-      "supernova-2.1.0-1.fc24": {
+      "supernova-2.2.0-1.fc24": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
@@ -43572,7 +43681,7 @@
       "supybot-meetbot"
     ],
     "rpms": {
-      "supybot-fedmsg-0.1.0-2.fc23": {
+      "supybot-fedmsg-0.2.0-1.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -47285,7 +47394,7 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1282086",
-        "ON_QA"
+        "CLOSED ERRATA"
       ]
     },
     "rpms": {
