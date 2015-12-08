@@ -9,14 +9,15 @@ obnam: &obnam
 # Please keep everything from here on alphabetized
 
 abiword:
+  status: in-progress
   note: |
     The single Abi.py file provided upstream is a tiny stub that has no
-    compatibility issues. However, the make file components supplied to
-    install it contain a command line invocation of Python that's not
-    compatible.
+    compatibility issues. However, the make file component supplied to
+    install it contains a command line invocation of Python that's not
+    compatible. This has now been corrected in trunk upstream, and should
+    be released in Abiword 3.1.
   links:
     bug: http://bugzilla.abisource.com/show_bug.cgi?id=13746
-
 autotrash:
   status: released
   note: |
@@ -54,6 +55,15 @@ crudini:
   status: in-progress
   links:
     bug: https://github.com/pixelb/crudini/pull/28
+diffuse:
+  status: idle
+  links:
+    homepage: http://diffuse.sourceforge.net/
+  note: |
+    Upstream does not presently support Python 3. They are currently dependent
+    upon PyGTK (rather than PyGObject), which only supports Python 2. They are
+    planning significant refactoring work, and it seems unlikely porting would
+    occur prior to that.
 exo:
   status: released
   note: |
@@ -111,6 +121,14 @@ libtdb:
 libtevent:
   status: released
   note: Ported in tevent 0.9.25
+libxslt:
+  status: in-progress
+  links:
+    homepage: http://xmlsoft.org/libxslt/
+    repo: https://gist.github.com/novocaine/ae657bdbf0f25b81e52b
+  note: |
+    Upstream does not support Python 3 at present; however, there has
+    already been effort made to port it, see referenced GitHub repository.
 lorem-ipsum-generator:
   status: idle
 m2crypto:
@@ -119,6 +137,13 @@ m2crypto:
       repo: https://gitlab.com/m2crypto/m2crypto
   note: |
     [rodrigc](https://github.com/rodrigc) is submitting fixes upstream
+meld:
+  status: idle
+  links:
+    homepage: http://meldmerge.org/
+  note: |
+    Full Python 3 support is on the upstream list of future tasks. Examination
+    of the codebase shows some work has already been done.
 mypaint:
   status: in-progress
   note: Porting efforts partially underway by [Elliott Sales de Andrade](https://github.com/QuLogic)
@@ -266,6 +291,11 @@ python-keystoneclient:
     repo: https://github.com/openstack/python-keystoneclient
   note: PY3 compatible since 0.7.0 (see commit aa6c99e)
 python-larch: *obnam
+python-Levenshtein:
+  status: released
+  links:
+    homepage: https://pypi.python.org/pypi/python-Levenshtein/
+  note: Upstream already supports Python 3 by default.
 python-martian:
   status: released
 python-mechanize:
