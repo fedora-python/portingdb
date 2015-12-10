@@ -9,7 +9,7 @@ from flask import Flask, render_template, current_app, Markup, abort, url_for
 from flask import make_response
 from flask.json import jsonify
 from sqlalchemy import func, or_, create_engine
-from sqlalchemy.orm import subqueryload, eagerload, sessionmaker
+from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
 from jinja2 import StrictUndefined
 import markdown
 from dogpile.cache import make_region
@@ -251,9 +251,13 @@ def graph_json():
     query = queries.packages(db)
     query = query.filter(tables.Package.status != 'released')
     query = query.filter(tables.Package.status != 'dropped')
+    query = query.options(joinedload(tables.Package.requirers))
     packages = list(query)
-    get_color = lambda p: "#{0:02x}{0:02x}{0:02x}".format(max(225 - 10*len(p.pending_requirers), 0))
-    nodes = [{'name': p.name, 'status': p.status, 'color': get_color(p)}
+    nodes = [{'name': p.name,
+              'status': p.status,
+              'color': graph_color(p),
+              'status_color': '#' + p.status_obj.color,
+             }
              for p in packages]
     names = [p.name for p in packages]
 
@@ -265,6 +269,20 @@ def graph_json():
              for d in query
              if d.requirer_name in names and d.requirement_name in names]
     return jsonify(nodes=nodes, links=links)
+
+
+def graph_color(package):
+    def component_color(c):
+        c /= 255
+        c = c / 2
+        c = c ** 0.2
+        c = c ** (1.1 ** len(package.pending_requirers))
+        c *= 255
+        return '{0:02x}'.format(int(c))
+
+    sc = package.status_obj.color
+    return '#' + ''.join(component_color(int(sc[x:x+2], 16))
+                         for x in (0, 2, 4))
 
 
 def _piechart(status_summary, bg=None):

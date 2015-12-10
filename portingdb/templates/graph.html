@@ -27,8 +27,23 @@
   font-family: sans-serif;
 }
 
+.badge {
+    display: inline-block:
+    width: 0.1ex;
+    height: 1em;
+}
+
 </style>
 <body>
+<p>
+    Here is a graph of all unported packages (idle, blocked, and in-progress)
+    tracked by <a href='..'>portingdb</a>.
+    Darker colors mean more dependencies.
+    Hover over a package to see its name; click it to open its portingdb summary.
+</p>
+<p>
+    The graph is quite demanding CPU-wise. Sorry for that!
+</p>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
@@ -78,7 +93,7 @@ svg.append("svg:defs").selectAll("marker")
       .attr('class', 'd3-tip')
       .offset([-10, 0])
       .html(function(d) {
-        return d.name;
+        return '<span class="badge" style="background-color:' + d.status_color + '">&nbsp;</span> ' + d.name;
       })
 
   var node = svg.selectAll(".node")
