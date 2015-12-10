@@ -73,6 +73,9 @@ def parse_arguments(args):
     parser.add_argument('--no-bz', dest='fetch_bugzilla', action='store_false',
                         default=True, help=_("Don't get Bugzilla links"))
 
+    parser.add_argument('--qrepo', dest='py3query_repo', default='rawhide',
+                        help=_("Repo to use for the query"))
+
     return parser.parse_args(args), parser
 
 
@@ -155,9 +158,10 @@ class Py3QueryCommand(dnf.cli.Command):
             print(self.parser.format_help())
             return
 
+        reponame = self.opts.py3query_repo
         self.base_query = self.base.sack.query()
-        self.pkg_query = self.base_query.filter(reponame='rawhide')
-        self.src_query = self.base_query.filter(reponame='rawhide-source').filter(arch=['src'])
+        self.pkg_query = self.base_query.filter(reponame=reponame)
+        self.src_query = self.base_query.filter(reponame=reponame + '-source').filter(arch=['src'])
 
         # python_versions: {package: set of Python versions}
         python_versions = collections.defaultdict(set)
@@ -166,7 +170,7 @@ class Py3QueryCommand(dnf.cli.Command):
         # dep_versions: {dep name: Python version}
         dep_versions = collections.defaultdict(set)
         for n, seeds in SEED_PACKAGES.items():
-            provides = sorted(self.all_provides(seeds), key=str)
+            provides = sorted(self.all_provides(reponame, seeds), key=str)
 
             # This effectively includes packages that still need
             # Python 3.4 while Rawhide only provides Python 3.5
@@ -261,12 +265,12 @@ class Py3QueryCommand(dnf.cli.Command):
             json.dump(json_output, sys.stdout, indent=2, sort_keys=True)
             sys.stdout.flush()
 
-    def all_provides(self, seeds):
+    def all_provides(self, reponame, seeds):
         pkgs = set()
         for seed in seeds:
             query = dnf.subject.Subject(seed, ignore_case=True).get_best_query(
                 self.base.sack, with_provides=False)
-            query = query.filter(reponame='rawhide')
+            query = query.filter(reponame=reponame)
             pkgs.update(query.run())
         provides = set()
         for pkg in sorted(pkgs):
