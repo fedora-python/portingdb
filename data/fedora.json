@@ -189,7 +189,7 @@
       "python"
     ],
     "rpms": {
-      "OpenIPMI-python-2.0.21-10.fc24": {
+      "OpenIPMI-python-2.0.21-11.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -1385,11 +1385,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-assimp-3.1.1-6.fc24": {
+      "python2-assimp-3.1.1-7.fc24": {
         "python(abi) = 2.7": 2,
         "python2 = 2.7.10": 2
       },
-      "python3-assimp-3.1.1-6.fc24": {
+      "python3-assimp-3.1.1-7.fc24": {
         "python(abi) = 3.5": 3,
         "python3": 3,
         "python3 = 3.5.0-5.fc24": 3
@@ -6691,7 +6691,7 @@
   "git": {
     "deps": [],
     "rpms": {
-      "git-p4-2.6.3-2.fc24": {
+      "git-p4-2.6.4-1.fc24": {
         "/usr/bin/python": 2
       }
     },
@@ -7573,6 +7573,25 @@
     },
     "status": "idle"
   },
+  "google-api-python-client": {
+    "deps": [
+      "python",
+      "python-httplib2",
+      "python-oauth2client",
+      "python-six",
+      "python-uri-templates",
+      "python3"
+    ],
+    "rpms": {
+      "python2-google-api-client-1.4.2-3.fc24": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-google-api-client-1.4.2-3.fc24": {
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
   "googlecl": {
     "deps": [
       "python",
@@ -7959,7 +7978,7 @@
       "python"
     ],
     "rpms": {
-      "groonga-python-5.0.9-1.fc24": {
+      "groonga-python-5.1.0-1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -8390,11 +8409,11 @@
       "python3"
     ],
     "rpms": {
-      "python-hawkey-0.6.2-2.fc24": {
+      "python-hawkey-0.6.2-3.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-hawkey-0.6.2-2.fc24": {
+      "python3-hawkey-0.6.2-3.fc24": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -8877,7 +8896,7 @@
       "pyxdg"
     ],
     "rpms": {
-      "icewm-xdgmenu-1.3.8-8.fc24": {
+      "icewm-xdgmenu-1.3.8-9.fc24": {
         "/usr/bin/python": 2
       }
     },
@@ -9642,12 +9661,12 @@
       "python"
     ],
     "rpms": {
-      "perf-4.4.0-0.rc4.git0.1.fc24": {
+      "perf-4.4.0-0.rc4.git2.1.fc24": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.4.0-0.rc4.git0.1.fc24": {
+      "python-perf-4.4.0-0.rc4.git2.1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -11923,7 +11942,7 @@
       "python"
     ],
     "rpms": {
-      "mathgl-common-2.3.3-4.fc24": {
+      "mathgl-common-2.3.3-5.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -13846,67 +13865,6 @@
         "/usr/bin/python2": 2
       },
       "python-ceilometer-1:5.0.0-1.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-cinder": {
-    "deps": [
-      "babel",
-      "python",
-      "python-amqplib",
-      "python-anyjson",
-      "python-cheetah",
-      "python-cinderclient",
-      "python-eventlet",
-      "python-glanceclient",
-      "python-greenlet",
-      "python-iso8601",
-      "python-jinja2",
-      "python-keystoneclient",
-      "python-keystonemiddleware",
-      "python-kombu",
-      "python-lockfile",
-      "python-lxml",
-      "python-migrate",
-      "python-mysql",
-      "python-netaddr",
-      "python-novaclient",
-      "python-os-brick",
-      "python-oslo-concurrency",
-      "python-oslo-config",
-      "python-oslo-context",
-      "python-oslo-db",
-      "python-oslo-messaging",
-      "python-oslo-middleware",
-      "python-oslo-reports",
-      "python-oslo-rootwrap",
-      "python-oslo-serialization",
-      "python-oslo-service",
-      "python-oslo-utils",
-      "python-oslo-versionedobjects",
-      "python-osprofiler",
-      "python-paramiko",
-      "python-paste-deploy",
-      "python-pbr",
-      "python-psutil",
-      "python-qpid",
-      "python-routes",
-      "python-rtslib",
-      "python-six",
-      "python-sqlalchemy",
-      "python-stevedore",
-      "python-suds",
-      "python-swiftclient",
-      "python-taskflow",
-      "python-webob"
-    ],
-    "rpms": {
-      "openstack-cinder-1:7.0.0-1.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "python-cinder-1:7.0.0-1.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -17943,10 +17901,10 @@
       "scipy"
     ],
     "rpms": {
-      "python2-GridDataFormats-0.3.0-2.fc24": {
+      "python2-GridDataFormats-0.3.1-1.fc24": {
         "python(abi) = 2.7": 2
       },
-      "python3-GridDataFormats-0.3.0-2.fc24": {
+      "python3-GridDataFormats-0.3.1-1.fc24": {
         "python(abi) = 3.5": 3
       }
     },
@@ -19873,15 +19831,20 @@
       "python",
       "python-mysql",
       "python-psycopg2",
-      "python-reportlab"
+      "python-reportlab",
+      "python3"
     ],
     "rpms": {
-      "python-biopython-1.66-1.fc24": {
+      "python-biopython-1.66-2.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
+      },
+      "python3-biopython-1.66-2.fc24": {
+        "libpython3.5m.so.1.0()(64bit)": 3,
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "python-bitarray": {
     "deps": [
@@ -20232,10 +20195,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-cached-property-1.3.0-1.fc24": {
+      "python2-cached_property-1.3.0-2.fc24": {
         "python(abi) = 2.7": 2
       },
-      "python3-cached-property-1.3.0-1.fc24": {
+      "python3-cached_property-1.3.0-2.fc24": {
         "python(abi) = 3.5": 3
       }
     },
@@ -25162,6 +25125,21 @@
     },
     "status": "released"
   },
+  "python-funcsigs": {
+    "deps": [
+      "python",
+      "python3"
+    ],
+    "rpms": {
+      "python2-funcsigs-0.4-2.fc24": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-funcsigs-0.4-2.fc24": {
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
   "python-functest": {
     "deps": [
       "python"
@@ -25946,11 +25924,11 @@
       "python3"
     ],
     "rpms": {
-      "python-gunicorn-19.3.0-4.fc24": {
+      "python-gunicorn-19.4.1-1.fc24": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-gunicorn-19.3.0-4.fc24": {
+      "python3-gunicorn-19.4.1-1.fc24": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -28986,6 +28964,33 @@
     },
     "status": "released"
   },
+  "python-music21": {
+    "deps": [
+      "lilypond",
+      "numpy",
+      "python",
+      "python-chardet",
+      "python-enum34",
+      "python-jsonpickle",
+      "python-matplotlib",
+      "python-mock",
+      "python-pillow",
+      "python-six",
+      "python-webcolors",
+      "python-xlrd",
+      "python3",
+      "scipy"
+    ],
+    "rpms": {
+      "python2-music21-2.2.1-1.fc24": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-music21-2.2.1-1.fc24": {
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
   "python-musicbrainz2": {
     "deps": [
       "python"
@@ -31849,10 +31854,10 @@
       "python3"
     ],
     "rpms": {
-      "python-productmd-1.0-7.fc24.git3b72969": {
+      "python-productmd-1.0-8.fc24.git3b72969": {
         "python(abi) = 2.7": 2
       },
-      "python3-productmd-1.0-7.fc24.git3b72969": {
+      "python3-productmd-1.0-8.fc24.git3b72969": {
         "python(abi) = 3.5": 3
       }
     },
@@ -34447,12 +34452,12 @@
       "python3"
     ],
     "rpms": {
-      "python-rospkg-1.0.38-2.fc24": {
+      "python-rospkg-1.0.38-3.fc24": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2,
         "python-argparse = 2.7.10-11.fc24": 2
       },
-      "python3-rospkg-1.0.38-2.fc24": {
+      "python3-rospkg-1.0.38-3.fc24": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -38644,6 +38649,7 @@
     "deps": [
       "fedfind",
       "python",
+      "python-cached_property",
       "python-mwclient"
     ],
     "rpms": {
