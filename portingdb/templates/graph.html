@@ -1,34 +1,61 @@
-<!DOCTYPE html>
-<html xmlns:xlink="http://www.w3.org/1999/xlink">
-<meta charset="utf-8">
-<style>
+{% extends "_base.html" %}
 
-.node {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
+{% block titlecontent -%}
+    Graph – {{ super() }}
+{%- endblock titlecontent %}
 
-.link {
-  stroke: #bbb;
-  stroke-opacity: 1;
-}
+{% block favicon_url -%}
+    {{ url_for('piechart_svg') }}?{{ cache_tag }}
+{%- endblock favicon_url %}
 
-.marker {
-  fill: #bbb;
-  fill-opacity: 1;
-}
+{% block style %}
+    {{ super() }}
+    .node {
+    stroke: #fff;
+    stroke-width: 1.5px;
+    }
 
-.d3-tip {
-  line-height: 1;
-  padding: 3px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-  font-family: sans-serif;
-}
+    .link {
+    stroke: #bbb;
+    stroke-opacity: 1;
+    }
 
-</style>
-<body>
+    .marker {
+    fill: #bbb;
+    fill-opacity: 1;
+    }
+
+    .d3-tip {
+    line-height: 1;
+    padding: 3px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+    font-family: sans-serif;
+    }
+{% endblock style %}
+
+
+{% block bodycontent %}
+<div class="container">
+    <div class="col-12">
+        <h1>A Graph</h1>
+        <p>
+            Here is a graph showing dependency information for all unported
+            packages (idle, blocked, and in-progress)
+            tracked by <a href='..'>portingdb</a>.
+            Darker colors mean more dependencies.
+            Hover over a package to see its name; click it to open its portingdb summary.
+        </p>
+        <p>
+            The graph is currently quite CPU-hungry. Sorry for that!
+        </p>
+    </div>
+</div>
+<center>
+    <div id="graph-goes-here"></div>
+</center>
+
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
@@ -41,7 +68,7 @@ var force = d3.layout.force()
     .linkDistance(15)
     .size([width, height]);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#graph-goes-here").append("svg")
     .attr("width", width)
     .attr("height", height);
 
@@ -78,7 +105,7 @@ svg.append("svg:defs").selectAll("marker")
       .attr('class', 'd3-tip')
       .offset([-10, 0])
       .html(function(d) {
-        return d.name;
+        return '<i class="pkgstatus-icon" style="background-color:' + d.status_color + '">&nbsp;</i> ' + d.name;
       })
 
   var node = svg.selectAll(".node")
@@ -107,5 +134,4 @@ svg.append("svg:defs").selectAll("marker")
 });
 
 </script>
-</body>
-</html>
+{% endblock bodycontent %}
