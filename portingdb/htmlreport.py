@@ -246,6 +246,16 @@ def format_rpm_name(text):
         name, version, release))
 
 
+def graph():
+    return render_template(
+        'graph.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('graph'), 'Graph'),
+        ),
+    )
+
+
 def graph_json():
     db = current_app.config['DB']()
     query = queries.packages(db)
@@ -358,7 +368,7 @@ def create_app(db_url, cache_config=None):
     _add_route("/", hello)
     _add_route("/pkg/<pkg>/", package)
     _add_route("/grp/<grp>/", group)
-    _add_route("/graph/", lambda: render_template('graph.html'))
+    _add_route("/graph/", graph)
     _add_route("/graph/portingdb.json", graph_json)
     _add_route("/piechart.svg", piechart_svg)
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
