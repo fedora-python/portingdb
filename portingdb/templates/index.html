@@ -257,6 +257,17 @@
                     As with RPM info, bug status may be slightly out of sate.
                 </p>
             </div>
+            <h2>Visualizations</h2>
+            <div>
+                You might want to see an interactive
+                <a href="{{ url_for('graph') }}">dependency graph</a>
+                of all unported packages (Warning: CPU-hungry.)
+            </div>
+            <div>
+                We also have a manager-friendly pie chart:
+                <a href="{{ url_for('piechart_svg') }}">
+                <img src="{{ url_for('piechart_svg') }}"></a>.
+            </div>
         </div>
     </div>
 {% endblock bodycontent %}

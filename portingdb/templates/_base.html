@@ -171,13 +171,14 @@
     </div>
 {%- endmacro %}
 
-<html>
+<html xmlns:xlink="http://www.w3.org/1999/xlink">
     <head>
         <title>{% block titlecontent %}Python 3 Porting Database{% endblock titlecontent %}</title>
         <link rel="icon" type="image/svg+xml" href="{% block favicon_url %}{% endblock favicon_url %}">
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
         <style>
+            {% block style %}
             .badge {
                 min-width: 2em;
                 color: black;
@@ -263,6 +264,8 @@
             .iconlink-bug-CLOSED-ERRATA,
             .iconlink-bug-CLOSED-NEXTRELEASE
                 { color: #5CB85C !important; } /* ~released */
+
+            {% endblock style %}
         </style>
     </head>
     <body>
