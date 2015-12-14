@@ -75,19 +75,26 @@ fail2ban:
       bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282498
   note: |
       Upstream claims support of python-3.2+
+fonts-tweak-tool:
+  status: released
+  links:
+    repo: https://bitbucket.org/tagoh/fonts-tweak-tool/src
 freeipa:
   status: in-progress
   links:
       homepage: https://www.freeipa.org
       repo: https://git.fedorahosted.org/cgit/freeipa.git
+gdal:
+  status: released
+genbackupdata: *obnam
 glances:
     status: released
     links:
       repo: https://github.com/nicolargo/glances
       bug: https://bugzilla.redhat.com/show_bug.cgi?id=1175164
-genbackupdata: *obnam
-gdal:
-  status: released
+gnome-tweak-tool:
+  status: idle
+  note: Python 3 is not currently supported upstream.
 iotop:
   status: released
   links:
@@ -114,6 +121,10 @@ libfreenect:
     but shouldn't affect actual compatibility.
   links:
     bug: https://github.com/OpenKinect/libfreenect/issues/458
+libplist:
+  status: released
+  links:
+    repo: http://cgit.libimobiledevice.org/libplist.git/tree/cython
 libtalloc:
   status: released
 libtdb:
@@ -129,6 +140,9 @@ libxslt:
   note: |
     Upstream does not support Python 3 at present; however, there has
     already been effort made to port it, see referenced GitHub repository.
+lilypond:
+  status: idle
+  note: Python 3 is not currently supported upstream.
 lorem-ipsum-generator:
   status: idle
 m2crypto:
@@ -149,6 +163,11 @@ mypaint:
   note: Porting efforts partially underway by [Elliott Sales de Andrade](https://github.com/QuLogic)
   links:
     bug: https://github.com/mypaint/mypaint/issues/392
+odfpy:
+  status: released
+  links:
+    repo: https://github.com/eea/odfpy
+  note: odfpy is said to support Python 3 as of version 1.3. Fedora's current package is older.
 opencv:
   status: released
   note: Available since 3.0 release
@@ -170,9 +189,18 @@ pssh:
     repo: https://code.google.com/p/parallel-ssh/source/browse/setup.py
 py-radix:
   status: released
+pyexiv2:
+  status: dropped
+  links:
+    homepage: http://tilloy.net/dev/pyexiv2/
+  note: 'Per homepage: "pyexiv2 is now deprecated in favour of GExiv2."'
 pygsl:
   status: released
   note: See [release message](http://sourceforge.net/p/pygsl/mailman/message/34494662/)
+pyhunspell:
+  status: released
+  links:
+    repo: https://github.com/blatinier/pyhunspell
 pymunk:
   status: released
   links:
@@ -444,6 +472,10 @@ speedtest-cli:
     Once the 5.100 upstream (with patches) is released, patched spec file will
     go in for rawhide
 summain: *obnam
+supervisor:
+  status: in-progress
+  links:
+    homepage: https://github.com/supervisor/supervisor
 TurboGears2:
   status: released
   note: |
