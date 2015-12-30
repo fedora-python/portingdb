@@ -18,6 +18,10 @@ abiword:
     be released in Abiword 3.1.
   links:
     bug: http://bugzilla.abisource.com/show_bug.cgi?id=13746
+alacarte:
+  status: released
+  links:
+    repo: https://github.com/GNOME/alacarte/
 autotrash:
   status: released
   note: |
@@ -258,6 +262,11 @@ python-bitmath:
   links:
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282560
     repo: https://github.com/tbielawa/bitmath
+python-CDDB:
+  status: idle
+  note: "It hasn't been maintained upstream since 2003."
+  links:
+    homepage: http://cddb-py.sourceforge.net/
 python-coverage-test-runner: *obnam
 python-cliapp: *obnam
 python-django-admin-honeypot:
@@ -462,6 +471,14 @@ skeinforge: &skeinforge
   note: |
     Upstream is dead. Use modern slicing software like slic3r or cura instead.
 sfact: *skeinforge
+solfege:
+  status: idle
+  note: |
+    Not Python 3 compatible (though the change log makes reference to a
+    Python 3-related fix), which is apparent through code inspection and
+    the fact it depends upon PyGTK2.
+  links:
+    homepage: https://www.gnu.org/software/solfege/
 speedtest-cli:
   status: released
   links:
@@ -494,6 +511,16 @@ ViTables:
   links:
     repo: https://github.com/uvemas/ViTables/tree/develop
   note: See explanation in https://github.com/uvemas/ViTables/issues/29#issuecomment-95507605
+wxPython:
+  status: in-progress
+  note: |
+    Current releases are incompatible with Python 3.
+
+    The wxPython team is working on a reimplementation named "Project Phoenix",
+    which does support Python 3.
+  links:
+    homepage: http://wiki.wxpython.org/ProjectPhoenix
+    repo: https://github.com/wxWidgets/Phoenix
 xapian-bindings:
   status: released
 xpra:
