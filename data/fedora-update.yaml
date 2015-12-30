@@ -45,13 +45,12 @@ kernel-tests:
     status: in-progress
     links:
         repo: https://git.fedorahosted.org/cgit/kernel-tests.git
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1293015
     note: |
         [rodrigc](https://github.com/rodrigc) is submitting fixes in [his repo](https://github.com/rodrigc/kernel-tests).
 
         There is no bugzilla component for this package, discussion is
-        goint on in the mailing list (kernel@lists.fedoraproject.org),
-        and known bugs with the port are reported on
-        [Github](https://github.com/rodrigc/kernel-tests/issues).
+        goint on in the mailing list (kernel@lists.fedoraproject.org).
 gstreamer-python:
     status: dropped
     note: |
@@ -147,6 +146,15 @@ python-docs:
     status: dropped
     note: |
         Replacement: `python3-docs`
+python-elixir:
+    status: dropped
+    note: |
+      Suggested replacement: `python3-sqlalchemy` has a builtin declarative
+      layer now.  Porting to that is most likely the best route forward.
+      `python-elixir` had some work done in its source repository to support
+      python3 but that was never released.  The source repository has since
+      been taken down so that work has been lost and upstream appears to
+      have died.
 python-instant:
     note: |
       spec file updated and built in rawhide by [fab](http://fabian-affolter.ch).
@@ -161,6 +169,12 @@ python-kerberos:
     status: dropped
     note: |
       Suggested replacement: `python-gssapi`
+python-kid:
+    status: dropped
+    note: |
+      Suggested replacement: `python-genshi`
+      Not a drop-in replacement but genshi's templating language is based on
+      kid's so it's the closest thing.  python-kid is dead upstream.
 python-krbV:
     status: dropped
     note: |
@@ -188,6 +202,9 @@ python-mutagen:
     nonblocking: true
     note: |
         Ported, but the devel package needs py3
+python-netlib:
+    note: |
+      spec file updated and built in rawhide by [fab](http://fabian-affolter.ch).
 python-nss:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=985290
@@ -206,6 +223,21 @@ python-os-testr:
 python-pdfrw:
   links:
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282219
+python-peak-rules:
+  status: dropped
+  note: |
+    In April of 2015 upstream did some work to port this to python3 but that
+    work hasn't been completed or pushed to a release package yet.  This
+    package is not currently needed by any Fedora package that is to be ported
+    to python3 so no one on the Fedora side has had a desire to work on porting
+    for upstream.  Note that python-peak-rules and its dependencies interact
+    with some low-level pieces of python so porting work is different than
+    other packages.
+python-prioritized_methods:
+  status: dropped
+  note: |
+    See the notes for [python-peak-rules](http://fedora.portingdb.xyz/pkg/python-peak-rules/)
+    which this depends upon.
 python-pyudev:
   nonblocking: true
   note: |
@@ -215,6 +247,36 @@ python-subprocess32:
     note: |
       This is a backport of the subprocess module in python-3.2 to python2.
       For python3 code, just use subprocess from the stdlib.
+python-tgmochikit:
+    status: dropped
+    note: |
+      Dead upstream.  Part of TurboGears-1.  Port to TurboGears2 and a newer
+      javascript framework like jquery.
+python-toscawidgets:
+    status: dropped
+    note: |
+      Suggested Replacement: python-tw2-core (toscawidgets2).  Porting will be needed as it
+      is not a drop in replacement.
+python-turbocheetah:
+    status: dropped
+    note: |
+      Dead upstream   Part of TurboGears-1.  Port to TurboGears2 and a newer
+      templating library like jinja2.
+python-turbojson:
+    status: dropped
+    note: |
+      Dead upstream.  Part of TurboGears-1.  Port to TurboGears2 where this
+      isn't needed.
+python-turbokid:
+    status: dropped
+    note: |
+      Dead upstream.  Part of TurboGears-1.  Port to TurboGears2 and
+      a different templating language (genshi is similar to kid) where this
+      isn't needed.
+python-tw-forms:
+    status: dropped
+    note: |
+      Suggested Replacement: python-tw2-forms
 python-twiggy:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282112
@@ -244,6 +306,11 @@ tracer:
     note: |
       Upstream seems to have support for python3.
       The fedora packager is also upstream.
+TurboGears:
+    statue: dropped
+    note: |
+      TurboGears-1 is not seeing further upstream development.
+      Suggested Replacement: TurboGears2 (Similar API but porting will be needed)
 will-crash:
     status: released  # (exception)
     note: |
