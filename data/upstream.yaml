@@ -18,6 +18,10 @@ abiword:
     be released in Abiword 3.1.
   links:
     bug: http://bugzilla.abisource.com/show_bug.cgi?id=13746
+alacarte:
+  status: released
+  links:
+    repo: https://github.com/GNOME/alacarte/
 autotrash:
   status: released
   note: |
@@ -258,6 +262,11 @@ python-bitmath:
   links:
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282560
     repo: https://github.com/tbielawa/bitmath
+python-CDDB:
+  status: idle
+  note: "It hasn't been maintained upstream since 2003."
+  links:
+    homepage: http://cddb-py.sourceforge.net/
 python-coverage-test-runner: *obnam
 python-cliapp: *obnam
 python-django-admin-honeypot:
@@ -462,6 +471,14 @@ skeinforge: &skeinforge
   note: |
     Upstream is dead. Use modern slicing software like slic3r or cura instead.
 sfact: *skeinforge
+solfege:
+  status: idle
+  note: |
+    Not Python 3 compatible (though the change log makes reference to a
+    Python 3-related fix), which is apparent through code inspection and
+    the fact it depends upon PyGTK2.
+  links:
+    homepage: https://www.gnu.org/software/solfege/
 speedtest-cli:
   status: released
   links:
@@ -494,6 +511,14 @@ ViTables:
   links:
     repo: https://github.com/uvemas/ViTables/tree/develop
   note: See explanation in https://github.com/uvemas/ViTables/issues/29#issuecomment-95507605
+wxPython:
+  status: idle
+  note: |
+    According to comments in files, much of its Python code was generated with SWIG 1.3.29, which
+    (dating from 2006) is too old to support Python 3. (Python 3 support was added to SWIG in
+    release 1.3.37 in 2009.) Also, code inspection immediately turns up incompatibilities.
+  links:
+    homepage: http://wxpython.org/
 xapian-bindings:
   status: released
 xpra:
