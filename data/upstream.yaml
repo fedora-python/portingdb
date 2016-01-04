@@ -5,6 +5,11 @@ obnam: &obnam
   note: |
     Author is "not really ready to accept patches".
     See the [mailing list post](http://listmaster.pepperfish.net/pipermail/obnam-dev-obnam.org/2015-October/000238.html).
+openerp: &openerp
+  note: |
+    Upstream is not interested in Python 3 support at this time.
+  links:
+    bug: https://github.com/odoo/odoo/issues/8530
 
 # Please keep everything from here on alphabetized
 
@@ -175,6 +180,8 @@ odfpy:
 opencv:
   status: released
   note: Available since 3.0 release
+openerp-client: *openerp
+openerp7: *openerp
 pki-core:
   status: in-progress
 powerline:
@@ -493,6 +500,10 @@ supervisor:
   status: in-progress
   links:
     homepage: https://github.com/supervisor/supervisor
+trytond:
+  status: in-progress
+  links:
+    bug: https://bugs.tryton.org/issue3211
 TurboGears2:
   status: released
   note: |
