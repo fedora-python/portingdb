@@ -134,7 +134,7 @@ def update_group_closures(db):
             pkg = waiting.pop()
             if pkg not in pkgs:
                 pkgs.add(pkg)
-                if pkg.status not in ('dropped', 'released'):
+                if pkg.status not in ('dropped', ):
                     waiting.update(pkg.requirements)
         pkgs.difference_update(group.packages)
         values.extend({'group_ident': group.ident, 'package_name': p.name}
