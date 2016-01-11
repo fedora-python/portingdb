@@ -25,45 +25,16 @@
             {{ progress_summary(status_summary, total_pkg_count) }}
         </div>
         <div class="col-md-8">
-            <div>
-                This is a dashboard to track progress of porting
-                {{ config.get('name', 'some') }} packages to Python 3.
-            </div>
-            <div>
-                If you would like to jump in and help port, do this:
-                <ul>
-                    <li>
-                        If you have a specific project in mind that you would like to port,
-                        click on it and follow instructions there.
-                        (You can use your browser – Ctrl+F – to find your package on this page.)
-                    </li>
-                    <li>
-                        If you don't have a specific project, pick one of the Waiting packages,
-                        then follow the instructions on its page.
-                        How about {{ pkglink(random_ready) }}?
-                    </li>
-                    <li>
-                        If you see a problem with this site or the database,
-                        <a href="https://github.com/fedora-python/portingdb/issues">file an issue</a>.
-                    </li>
-                </ul>
-            </div>
+            {% if 'main-instructions' in config %}
+                {{ config['main-instructions'].replace('$RANDOMPKG',
+                                                       pkglink(random_ready))
+                    |safe }}
+            {% endif %}
             {% if groups %}
                 <h2>Package Groups</h2>
-                <div>
-                    If you're interested in porting a bigger, self-contained
-                    {% if 'name' in config %}
-                        piece of {{ config['name'] }},
-                    {% else %}
-                        set of poackages,
-                    {% endif %}
-                    choose one of these.
-                </div>
-                <div>
-                    Note that some of these are still incomplete early examples.
-                    Please propose changes at
-                    <a href="https://github.com/fedora-python/portingdb/blob/master/data/groups.yaml">Github</a>.
-                </div>
+                {% if 'groups-note' in config %}
+                    {{ config['groups-note'] |safe }}
+                {% endif %}
                 {% for grp, statuses in groups.items() %}
                     <h3>
                         <a href="{{ url_for('group', grp=grp.ident) }}">
