@@ -205,68 +205,9 @@
                     {% endfor %}
                 </ul>
             {% endfor %}
-            <h2>Entomology</h2>
-            <div>
-                <p>
-                    The <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1285816">
-                        Python 3 Porting tracking bug</a>
-                    on Bugzilla is queried regularly.
-                    Bugs for individual packages are linked, and the
-                    links are color-coded according to bug status:
-                </p>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div>
-                            <i class="fa fa-bug iconlink-bug-NEW"></i>
-                            <strong>No activity</strong>
-                        </div>
-                        <small>
-                            NEW; CLOSED (DEFERRED)
-                        </small>
-                    </li>
-                    <li class="list-group-item">
-                        <div>
-                            <i class="fa fa-bug iconlink-bug-ASSIGNED"></i>
-                            <strong>Open</strong>
-                        </div>
-                        <small>
-                            ASSIGNED; POST; MODIFIED; ON_QA; VERIFIED;
-                            RELEASE_PENDING
-                        </small>
-                    </li>
-                    <li class="list-group-item">
-                        <div>
-                            <i class="fa fa-bug iconlink-bug-CLOSED-WONTFIX"></i>
-                            <strong>Problematic</strong>
-                        </div>
-                        <small>
-                            CLOSED (NOTABUG, WONTFIX, WORKSFORME, DUPLICATE,
-                                    UPSTREAM, CANTFIX, INSUFFICIENT_DATA, EOL)
-                        </small>
-                    </li>
-                    <li class="list-group-item">
-                        <div>
-                            <i class="fa fa-bug iconlink-bug-CLOSED-RAWHIDE"></i>
-                            <strong>Fixed</strong>
-                        </div>
-                        <small>
-                            CLOSED (CURRENTRELEASE, RAWHIDE, ERRATA,
-                                    NEXTRELEASE)
-                        </small>
-                    </li>
-                    <li class="list-group-item">
-                        <div>
-                            <a href="#"><i class="fa fa-bug"></i></a>
-                            <strong>Unknown</strong>
-                        </div>
-                        Links to bugs that were entered manually are not
-                        color-coded (they use the color of regular links).
-                    </li>
-                </ul>
-                <p>
-                    As with RPM info, bug status may be slightly out of sate.
-                </p>
-            </div>
+            {% if 'extra-sidebar' in config %}
+                {{ config['extra-sidebar'] |safe }}
+            {% endif %}
             <h2>Visualizations</h2>
             <div>
                 You might want to see an interactive
