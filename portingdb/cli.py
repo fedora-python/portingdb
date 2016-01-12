@@ -8,7 +8,7 @@ from sqlalchemy import create_engine, func
 from sqlalchemy.orm import eagerload, subqueryload
 
 from portingdb import tables
-from portingdb.load import get_db, load_from_directory
+from portingdb.load import get_db, load_from_directories
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -18,7 +18,10 @@ def main():
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)
-@click.option('--datadir', help="Data directory", default='.', envvar='PORTINGDB_DATA', multiple=True)
+@click.option('--datadir', default='.', envvar='PORTINGDB_DATA', multiple=True,
+              help="Data directory. If given multiple times, the directories "
+                "are searched in order: files in directories that appear "
+                "earlier on the command line shadow the later ones.")
 @click.option('--db', help="Database file", default='portingdb.sqlite', envvar='PORTINGDB_FILE')
 @click.option('-v', '--verbose', help="Output lots of information", count=True)
 @click.option('-q', '--quiet', help="Output less information", count=True)
@@ -118,10 +121,9 @@ def load(ctx):
     for table in tables.metadata.sorted_tables:
         db.execute(table.delete())
 
-    for datadir in datadirs:
-        warnings = load_from_directory(db, datadir)
-        for warning in warnings:
-            click.secho(warning, fg='red')
+    warnings = load_from_directories(db, datadirs)
+    for warning in warnings:
+        click.secho(warning, fg='red')
     db.commit()
 
     if ctx.obj['verbose']:
@@ -184,13 +186,18 @@ def report(ctx):
 
     print_collection_header(collections, foot=True)
 
+    for c in db.query(tables.Config):
+        print('{c.key} :{c.value}'.format(c=c))
+
 
 @cli.command()
 @click.option('--debug/--no-debug', help="Run in debug mode")
 @click.option('--cache',
               help="""JSON-formatted dogpile.cache configuration, for example '{"backend": "'dogpile.cache.memory'"}'""")
+@click.option('--port', type=int, default=5000,
+              help="""Port to listen on (default: 5000)'""")
 @click.pass_context
-def serve(ctx, debug, cache):
+def serve(ctx, debug, cache, port):
     """Serve HTML reports via a HTTP server"""
     db_url = ctx.obj['db_url']
     from . import htmlreport
@@ -200,7 +207,8 @@ def serve(ctx, debug, cache):
     else:
         cache_config = json.loads(cache)
 
-    htmlreport.main(db_url=db_url, debug=debug, cache_config=cache_config)
+    htmlreport.main(db_url=db_url, debug=debug, cache_config=cache_config,
+                    port=port)
 
 
 @cli.command()

@@ -120,7 +120,6 @@ def hello():
         done_packages=done,
         dropped_packages=dropped,
         random_ready=random_ready,
-        len=len,
         groups=groups,
         nonblocking=nonblocking,
         the_score=the_score,
@@ -346,14 +345,21 @@ def create_app(db_url, cache_config=None):
     cache = make_region().configure(**cache_config)
     app = Flask(__name__)
     app.config['DB'] = sessionmaker(bind=create_engine(db_url))
+    db = app.config['DB']()
     app.config['Cache'] = cache
+    app.config['CONFIG'] = {c.key: json.loads(c.value)
+                            for c in db.query(tables.Config)}
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
     app.jinja_env.filters['format_rpm_name'] = format_rpm_name
 
     @app.context_processor
-    def add_cache_tag():
-        return {'cache_tag': uuid.uuid4()}
+    def add_template_globals():
+        return {
+            'cache_tag': uuid.uuid4(),
+            'len': len,
+            'config': app.config['CONFIG'],
+        }
 
     def _add_route(url, func):
         @functools.wraps(func)
@@ -377,6 +383,6 @@ def create_app(db_url, cache_config=None):
     return app
 
 
-def main(db_url, cache_config=None, debug=False):
+def main(db_url, cache_config=None, debug=False, port=5000):
     app = create_app(db_url, cache_config=cache_config)
-    app.run(debug=debug)
+    app.run(debug=debug, port=port)

@@ -135,6 +135,8 @@ class Collection(TableBase):
         Unicode())
 
     def status_description(self, status):
+        if status is None:
+            return 'Unknown'
         for cs in self.collection_statuses:
             if cs.status == status.ident:
                 return cs.description
@@ -350,6 +352,16 @@ class RPMPyDependency(TableBase):
         'PyDependency', backref=backref('rpm_py_dependencies'))
     rpm = relationship(
         'RPM', backref=backref('rpm_py_dependencies'))
+
+
+class Config(TableBase):
+    u"""Stores configuration."""
+    # This is here so that the database has all the required data.
+    __tablename__ = 'config'
+    key = Column(
+        Unicode(), primary_key=True, nullable=False)
+    value = Column(
+        Unicode(), nullable=False)
 
 
 Package.requirements = relationship(

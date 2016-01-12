@@ -266,6 +266,21 @@
             .iconlink-bug-CLOSED-NEXTRELEASE
                 { color: #5CB85C !important; } /* ~released */
 
+            .global-message {
+                padding: 0.1ex;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                background-color: #888;
+                color: #000;
+            }
+            body {
+                margin-bottom: 4em;
+            }
+            {% if 'extra-css' in config %}
+                {{ config['extra-css'] }}
+            {% endif %}
+
             {% endblock style %}
         </style>
     </head>
@@ -289,5 +304,10 @@
         {% endblock breadcrumbs %}
         {% block bodycontent %}
         {% endblock bodycontent %}
+        {% if 'message' in config %}
+            <div class="global-message">
+                {{ config['message'] }}
+            </div>
+        {% endif %}
     </body>
 </html>
