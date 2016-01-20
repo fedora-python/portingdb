@@ -339,6 +339,38 @@ def piechart_pkg(pkg):
     return _piechart([], package.status_obj)
 
 
+def format_quantity(num):
+    for prefix in ' KMGT':
+        if num > 1000:
+            num /= 1000
+        else:
+            break
+    if num > 100:
+        num = round(num)
+    elif num > 10:
+        num = round(num, 1)
+    else:
+        num = round(num, 2)
+    if abs(num - int(num)) < 0.01:
+        num = int(num)
+    return str(num) + prefix
+
+def format_percent(num):
+    num *= 100
+    if num > 10:
+        num = round(num)
+    if num > 1:
+        num = round(num, 1)
+        if abs(num - int(num)) < 0.01:
+            num = int(num)
+    else:
+        for digits in range(1, 3):
+            rounded = round(num, digits)
+            if rounded != 0:
+                break
+        num = rounded
+    return str(num) + '%'
+
 def create_app(db_url, cache_config=None):
     if cache_config is None:
         cache_config = {'backend': 'dogpile.cache.null'}
@@ -352,12 +384,15 @@ def create_app(db_url, cache_config=None):
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
     app.jinja_env.filters['format_rpm_name'] = format_rpm_name
+    app.jinja_env.filters['format_quantity'] = format_quantity
+    app.jinja_env.filters['format_percent'] = format_percent
 
     @app.context_processor
     def add_template_globals():
         return {
             'cache_tag': uuid.uuid4(),
             'len': len,
+            'log': math.log,
             'config': app.config['CONFIG'],
         }
 

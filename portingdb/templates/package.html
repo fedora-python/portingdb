@@ -106,6 +106,38 @@
             {% endif %}
             <h3>Dependency Tree</h3>
             {{ print_deptree(deptree) }}
+            {% if pkg['loc_version'] %}
+                <h3>Project Size</h3>
+                {{ loc_chart(pkg) }}
+                <div>
+                    <span class="minibadge"></span>
+                    ~{{ pkg['loc_total'] | format_quantity }}
+                    total lines of code
+                </div>
+                <div>
+                    <span class="minibadge"
+                        style="background-color: #5BC0DE !important;"
+                    >
+                    </span>
+                    ~{{ pkg['loc_python'] | format_quantity }}
+                    ({{ (pkg['loc_python'] / pkg['loc_total']) | format_percent }})
+                    Python
+                </div>
+                {% if pkg['loc_capi'] %}
+                    <div>
+                        <span class="minibadge"
+                            style="background-color: #F0AD4E !important;"
+                        >
+                        </span>
+                        ~{{ pkg['loc_capi'] | format_quantity }}
+                        ({{ (pkg['loc_capi'] / pkg['loc_total']) | format_percent }})
+                        C/C++ w/ CPython API
+                    </div>
+                {% endif %}
+                <div>
+                    (approximation as of {{ pkg['loc_version'] }})
+                </div>
+            {% endif %}
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-8">

@@ -99,6 +99,19 @@ class Package(TableBase):
         Unicode(), ForeignKey(Status.ident), nullable=False,
         doc=u"Summarized status")
 
+    loc_python = Column(
+        Integer(), nullable=True,
+        doc="Approximate number of Python lines of code")
+    loc_capi = Column(
+        Integer(), nullable=True,
+        doc="Approximate number of C lines of code that uses the CPython API")
+    loc_total = Column(
+        Integer(), nullable=True,
+        doc="Approximate total number of lines of code (in any language)")
+    loc_version = Column(
+        Integer(), nullable=True,
+        doc="Package version for which line-of-code stats were gathered")
+
     by_collection = relationship(
         'CollectionPackage',
         collection_class=mapped_collection(lambda cp: cp.collection.ident))
