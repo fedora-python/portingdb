@@ -127,6 +127,11 @@ def load_from_directories(db, directories):
     except FileNotFoundError:
         config = {}
 
+    try:
+        loc_info = data_from_file(directories, 'loc')
+    except FileNotFoundError:
+        loc_info = {}
+
     values = [{'key': k, 'value': json.dumps(v)} for k, v in config.items()]
     bulk_load(db, values, tables.Config.__table__, id_column="key")
 
@@ -162,6 +167,10 @@ def load_from_directories(db, directories):
             'name': k,
             'status': 'unknown',
         } for k, v in package_infos.items()]
+        for value in values:
+            pkg_loc_info = loc_info.get(value['name'], {})
+            for field in 'python', 'capi', 'total', 'version':
+                value['loc_' + field] = pkg_loc_info.get(field, None)
         bulk_load(db, values, tables.Package.__table__, id_column="name")
 
         # Dependencies

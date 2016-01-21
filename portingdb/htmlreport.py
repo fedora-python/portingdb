@@ -6,7 +6,7 @@ import math
 import uuid
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
-from flask import make_response
+from flask import make_response, request
 from flask.json import jsonify
 from sqlalchemy import func, or_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
@@ -266,6 +266,7 @@ def graph_json():
               'status': p.status,
               'color': graph_color(p),
               'status_color': '#' + p.status_obj.color,
+              'size': 3.5+math.log((p.loc_python or 1)+(p.loc_capi or 1), 50),
              }
              for p in packages]
     names = [p.name for p in packages]
@@ -339,6 +340,145 @@ def piechart_pkg(pkg):
     return _piechart([], package.status_obj)
 
 
+def group_by_loc(grp):
+    db = current_app.config['DB']()
+
+    group = db.query(tables.Group).get(grp)
+    if group is None:
+        abort(404)
+
+    query = queries.packages(db)
+    query = query.join(tables.Package.group_packages)
+    query = query.filter(tables.GroupPackage.group_ident == grp)
+
+    extra_breadcrumbs=(
+        (url_for('group_by_loc', grp=grp), group.name),
+    )
+
+    return by_loc(query=query, extra_breadcrumbs=extra_breadcrumbs,
+                  extra_args={'grp': group})
+
+def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
+    db = current_app.config['DB']()
+
+    sort_key = request.args.get('sort', None)
+    sort_reverse = bool(request.args.get('reverse', False))
+    if sort_reverse:
+        def descending(p):
+            return p
+        def ascending(p):
+            return p.desc()
+    else:
+        def descending(p):
+            return p.desc()
+        def ascending(p):
+            return p
+
+    if query is None:
+        query = queries.packages(db)
+
+    query = query.filter(tables.Package.status.in_(('idle', 'in-progress', 'blocked')))
+    saved = query
+    query = query.filter(tables.Package.loc_total)
+    if sort_key == 'name':
+        query = query.order_by(ascending(func.lower(tables.Package.name)))
+    elif sort_key == 'loc':
+        query = query.order_by(descending(tables.Package.loc_total))
+    elif sort_key == 'python':
+        query = query.order_by(descending(tables.Package.loc_python))
+    elif sort_key == 'capi':
+        query = query.order_by(descending(tables.Package.loc_capi))
+    elif sort_key == 'py-percent':
+        query = query.order_by(descending((0.1+tables.Package.loc_python)/tables.Package.loc_total))
+    elif sort_key == 'capi-percent':
+        query = query.order_by(descending((0.1+tables.Package.loc_capi)/tables.Package.loc_total))
+    elif sort_key == 'py-small':
+        query = query.order_by(ascending(
+            tables.Package.loc_total - tables.Package.loc_python/1.5))
+    elif sort_key == 'capi-small':
+        query = query.order_by(descending(tables.Package.loc_capi>0))
+        query = query.order_by(ascending(
+            tables.Package.loc_total -
+            tables.Package.loc_capi/1.5 +
+            tables.Package.loc_python/9.9))
+    elif sort_key == 'py-big':
+        query = query.order_by(descending(
+            tables.Package.loc_python * tables.Package.loc_python /
+            (1.0+tables.Package.loc_total-tables.Package.loc_python)))
+    elif sort_key == 'capi-big':
+        query = query.order_by(descending(
+            tables.Package.loc_capi * tables.Package.loc_capi /
+            (1.0+tables.Package.loc_total-tables.Package.loc_capi)))
+    elif sort_key == 'no-py':
+        query = query.order_by(ascending(
+            (tables.Package.loc_python + tables.Package.loc_capi + 0.0) /
+            tables.Package.loc_total))
+    else:
+        query = query.order_by(descending(tables.Package.loc_python +
+                                          tables.Package.loc_capi))
+    query = query.order_by(tables.Package.loc_total)
+    query = query.order_by(func.lower(tables.Package.name))
+
+    packages = list(query)
+
+    by_name = saved.order_by(func.lower(tables.Package.name))
+
+    query = by_name.filter(tables.Package.loc_total == None)
+    missing_packages = list(query)
+
+    query = by_name.filter(tables.Package.loc_total == 0)
+    no_code_packages = list(query)
+
+    if extra_args is None:
+        extra_args = {}
+
+    return render_template(
+        'by_loc.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('by_loc'), 'Packages by Code Stats'),
+        ) + extra_breadcrumbs,
+        packages=packages,
+        sort_key=sort_key,
+        sort_reverse=sort_reverse,
+        missing_packages=missing_packages,
+        no_code_packages=no_code_packages,
+        **extra_args
+    )
+
+
+def format_quantity(num):
+    for prefix in ' KMGT':
+        if num > 1000:
+            num /= 1000
+        else:
+            break
+    if num > 100:
+        num = round(num)
+    elif num > 10:
+        num = round(num, 1)
+    else:
+        num = round(num, 2)
+    if abs(num - int(num)) < 0.01:
+        num = int(num)
+    return str(num) + prefix
+
+def format_percent(num):
+    num *= 100
+    if num > 10:
+        num = round(num)
+    if num > 1:
+        num = round(num, 1)
+        if abs(num - int(num)) < 0.01:
+            num = int(num)
+    else:
+        for digits in range(1, 3):
+            rounded = round(num, digits)
+            if rounded != 0:
+                break
+        num = rounded
+    return str(num) + '%'
+
 def create_app(db_url, cache_config=None):
     if cache_config is None:
         cache_config = {'backend': 'dogpile.cache.null'}
@@ -352,12 +492,15 @@ def create_app(db_url, cache_config=None):
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
     app.jinja_env.filters['format_rpm_name'] = format_rpm_name
+    app.jinja_env.filters['format_quantity'] = format_quantity
+    app.jinja_env.filters['format_percent'] = format_percent
 
     @app.context_processor
     def add_template_globals():
         return {
             'cache_tag': uuid.uuid4(),
             'len': len,
+            'log': math.log,
             'config': app.config['CONFIG'],
         }
 
@@ -379,6 +522,8 @@ def create_app(db_url, cache_config=None):
     _add_route("/piechart.svg", piechart_svg)
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
     _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
+    _add_route("/by_loc/", by_loc)
+    _add_route("/by_loc/grp/<grp>/", group_by_loc)
 
     return app
 

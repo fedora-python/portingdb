@@ -171,11 +171,38 @@
     </div>
 {%- endmacro %}
 
+{% macro loc_chart(pkg) -%}
+    {% if pkg['loc_total'] %}
+        {% set max_size = 20000000  %} {# (a bit bigger than the biggest repo - kernel) #}
+        {% set width = ((log(pkg['loc_total'], max_size))) %}
+        <div class="progress" style="width: {{ 100*width }}%">
+            {% if pkg['loc_python'] and pkg['loc_python'] > 0.0001 %}
+                <div
+                    class="progress-bar progress-bar-info"
+                    style="width: {{ 100 * ((pkg['loc_python'] / pkg['loc_total'])) }}%;"
+                    title="Python"
+                >
+                </div>
+            {% endif %}
+            {% if pkg['loc_capi'] and pkg['loc_capi'] > 0.0001 %}
+                <div
+                    class="progress-bar progress-bar-warning"
+                    style="width: {{ 100 * ((pkg['loc_capi'] / pkg['loc_total'])) }}%;"
+                    title="C/C++ with CPython API"
+                >
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{%- endmacro %}
+
 <html xmlns:xlink="http://www.w3.org/1999/xlink">
     <head>
         <title>{% block titlecontent %}Python 3 Porting Database{% endblock titlecontent %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block favicon %}
         <link rel="icon" type="image/svg+xml" href="{% block favicon_url %}{% endblock favicon_url %}">
+        {% endblock favicon %}
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
         <style>
