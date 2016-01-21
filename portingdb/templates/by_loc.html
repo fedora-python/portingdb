@@ -153,15 +153,31 @@
         </div>
         {% if missing_packages %}
             <div class="col-md-12">
-                <div>
-                    Stats for these packages are not available yet:
-                </div>
-                <div>
-                    {% for pkg in missing_packages %}
-                        {{ pkglink(pkg) }}
-                    {% endfor %}
-                </div>
+                <p>
+                    <div>
+                        Stats for these packages are not available yet:
+                    </div>
+                    <div>
+                        {% for pkg in missing_packages %}
+                            {{ pkglink(pkg) }}
+                        {% endfor %}
+                    </div>
+                </p>
             </div>
         {% endif %}
-\   </div>
+        {% if no_code_packages %}
+            <div class="col-md-12">
+                <p>
+                    <div>
+                        The script found no code at all in these packages:
+                    </div>
+                    <div>
+                        {% for pkg in no_code_packages %}
+                            {{ pkglink(pkg) }}
+                        {% endfor %}
+                    </div>
+                </p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock bodycontent %}

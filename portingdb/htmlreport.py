@@ -401,12 +401,13 @@ def by_loc():
 
     packages = list(query)
 
-    query = saved
-    query = query.filter((tables.Package.loc_total == None) |
-                        (~tables.Package.loc_total))
-    query = query.order_by(func.lower(tables.Package.name))
+    by_name = saved.order_by(func.lower(tables.Package.name))
 
+    query = by_name.filter(tables.Package.loc_total == None)
     missing_packages = list(query)
+
+    query = by_name.filter(tables.Package.loc_total == 0)
+    no_code_packages = list(query)
 
     return render_template(
         'by_loc.html',
@@ -418,6 +419,7 @@ def by_loc():
         sort_key=sort_key,
         sort_reverse=sort_reverse,
         missing_packages=missing_packages,
+        no_code_packages=no_code_packages,
     )
 
 
