@@ -443,7 +443,7 @@ def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
         sort_reverse=sort_reverse,
         missing_packages=missing_packages,
         no_code_packages=no_code_packages,
-        **extra_args
+        grp=extra_args.get('grp')
     )
 
 
