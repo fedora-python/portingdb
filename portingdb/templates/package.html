@@ -106,7 +106,7 @@
             {% endif %}
             <h3>Dependency Tree</h3>
             {{ print_deptree(deptree) }}
-            {% if pkg['loc_version'] %}
+            {% if pkg['loc_total'] %}
                 <h3>Project Size</h3>
                 {{ loc_chart(pkg) }}
                 <div>
