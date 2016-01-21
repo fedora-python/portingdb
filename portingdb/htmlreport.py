@@ -266,6 +266,7 @@ def graph_json():
               'status': p.status,
               'color': graph_color(p),
               'status_color': '#' + p.status_obj.color,
+              'size': 3.5+math.log((p.loc_python or 1)+(p.loc_capi or 1), 50),
              }
              for p in packages]
     names = [p.name for p in packages]
