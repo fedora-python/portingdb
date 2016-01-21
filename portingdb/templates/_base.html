@@ -200,7 +200,9 @@
     <head>
         <title>{% block titlecontent %}Python 3 Porting Database{% endblock titlecontent %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block favicon %}
         <link rel="icon" type="image/svg+xml" href="{% block favicon_url %}{% endblock favicon_url %}">
+        {% endblock favicon %}
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
         <style>

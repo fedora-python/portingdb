@@ -340,7 +340,25 @@ def piechart_pkg(pkg):
     return _piechart([], package.status_obj)
 
 
-def by_loc():
+def group_by_loc(grp):
+    db = current_app.config['DB']()
+
+    group = db.query(tables.Group).get(grp)
+    if group is None:
+        abort(404)
+
+    query = queries.packages(db)
+    query = query.join(tables.Package.group_packages)
+    query = query.filter(tables.GroupPackage.group_ident == grp)
+
+    extra_breadcrumbs=(
+        (url_for('group_by_loc', grp=grp), group.name),
+    )
+
+    return by_loc(query=query, extra_breadcrumbs=extra_breadcrumbs,
+                  extra_args={'grp': group})
+
+def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
     db = current_app.config['DB']()
 
     sort_key = request.args.get('sort', None)
@@ -356,7 +374,9 @@ def by_loc():
         def ascending(p):
             return p
 
-    query = queries.packages(db)
+    if query is None:
+        query = queries.packages(db)
+
     query = query.filter(tables.Package.status.in_(('idle', 'in-progress', 'blocked')))
     saved = query
     query = query.filter(tables.Package.loc_total)
@@ -409,17 +429,21 @@ def by_loc():
     query = by_name.filter(tables.Package.loc_total == 0)
     no_code_packages = list(query)
 
+    if extra_args is None:
+        extra_args = {}
+
     return render_template(
         'by_loc.html',
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('by_loc'), 'Packages by Code Stats'),
-        ),
+        ) + extra_breadcrumbs,
         packages=packages,
         sort_key=sort_key,
         sort_reverse=sort_reverse,
         missing_packages=missing_packages,
         no_code_packages=no_code_packages,
+        **extra_args
     )
 
 
@@ -499,6 +523,7 @@ def create_app(db_url, cache_config=None):
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
     _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
     _add_route("/by_loc/", by_loc)
+    _add_route("/by_loc/grp/<grp>/", group_by_loc)
 
     return app
 

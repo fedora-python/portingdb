@@ -1,10 +1,14 @@
 {% extends "_base.html" %}
 
-{% block titlecontent %}Packages by Code Stats – {{ super() }} {% endblock titlecontent %}
+{% block titlecontent -%}
+    {%- if grp -%}
+        {{ grp.name }} —.
+    {% endif -%}
+    Packages by Code Stats – {{ super() }}
+{%- endblock titlecontent %}
 
-{% block favicon_url -%}
-    {{ url_for('piechart_svg') }}?{{ cache_tag }}
-{%- endblock favicon_url %}
+{% block favicon -%}
+{%- endblock favicon %}
 
 {% block style %}
     {{ super() }}
@@ -46,9 +50,9 @@
 
 {% macro sort_url(key) -%}
     {% if sort_key == key and not sort_reverse %}
-        {{ url_for('by_loc', sort=key, reverse=1) }}
+        {{ url_for(request.endpoint, sort=key, reverse=1, **request.view_args) }}
     {% else %}
-        {{ url_for('by_loc', sort=key) }}
+        {{ url_for(request.endpoint, sort=key, **request.view_args) }}
     {% endif %}
 {%- endmacro %}
 
@@ -64,20 +68,21 @@
             {%- endif -%}
             &nbsp;
         {%- endif -%}
-        <a href="
-            {%- if sort_key == key and not sort_reverse -%}
-                {{ url_for('by_loc', sort=key, reverse=1) }}
-            {%- else -%}
-                {{ url_for('by_loc', sort=key) }}
-            {%- endif -%}
-        ">{{ text }}</a>
+        <a href="{{ sort_url(key) }}">{{ text }}</a>
     {%- endif -%}
 {%- endmacro %}
 
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
-            <h1>Packages by Code Stats</h1>
+            <h1>
+                Packages by Code Stats
+                {% if grp %}
+                    <small>
+                        for <a href="{{ url_for('group', grp=grp.ident) }}"> {{ grp.name }}</a>
+                    </small>
+                {% endif %}
+            </h1>
             <p>
                 Here are the unported packages, with the approximate size
                 of their codebases (in lines of code), and the sizes of their
