@@ -1,5 +1,12 @@
 
-# This file is alphabetized; please keep it that way.
+# These are out of order because they define an alias that is used later in the file
+
+python-twisted-lore: &dead-twisted-part
+    status: dropped
+    note: |
+        `dead.package` says: Obsoleted by main python-twisted package.
+
+# The rest of this file is alphabetized; please keep it that way.
 
 # Don't explicitly say "status: released" except in special cases: the status
 # is fetched from Rawhide. (Alas, the update might take some time.)
@@ -157,6 +164,10 @@ python-elixir:
       python3 but that was never released.  The source repository has since
       been taken down so that work has been lost and upstream appears to
       have died.
+python-geoclue:
+    status: dropped
+    note: |
+        `dead.package` says: Package is retired
 python-ipaddress:
     status: dropped
     note: |
@@ -295,6 +306,13 @@ python-tw-forms:
 python-twiggy:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282112
+python-twisted-conch: *dead-twisted-part
+python-twisted-lore: *dead-twisted-part
+python-twisted-mail: *dead-twisted-part
+python-twisted-names: *dead-twisted-part
+python-twisted-news: *dead-twisted-part
+python-twisted-runner: *dead-twisted-part
+python-twisted-words: *dead-twisted-part
 python-webob1.1:
     status: dropped
     note: |
