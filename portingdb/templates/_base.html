@@ -173,26 +173,21 @@
 
 {% macro loc_chart(pkg) -%}
     {% if pkg['loc_total'] %}
-        {% set width = ((log(pkg['loc_total'], 20000000))) %}
+        {% set max_size = 20000000  %} {# (a bit bigger than the biggest repo - kernel) #}
+        {% set width = ((log(pkg['loc_total'], max_size))) %}
         <div class="progress" style="width: {{ 100*width }}%">
             {% if pkg['loc_python'] and pkg['loc_python'] > 0.0001 %}
                 <div
-                    class="progress-bar progress-bar-info" role="progressbar"
-                    aria-valuenow="{{ pkg['loc_python'] }}"
-                    aria-valuemin="0" aria-valuemax="{{ pkg['loc_total'] }}"
-                    style="width: {{ 100 * ((pkg['loc_python'] / pkg['loc_total'])) }}%;
-                        color: black;"
+                    class="progress-bar progress-bar-info"
+                    style="width: {{ 100 * ((pkg['loc_python'] / pkg['loc_total'])) }}%;"
                     title="Python"
                 >
                 </div>
             {% endif %}
             {% if pkg['loc_capi'] and pkg['loc_capi'] > 0.0001 %}
                 <div
-                    class="progress-bar progress-bar-warning" role="progressbar"
-                    aria-valuenow="{{ pkg['loc_capi'] }}"
-                    aria-valuemin="0" aria-valuemax="{{ pkg['loc_total'] }}"
-                    style="width: {{ 100 * ((pkg['loc_capi'] / pkg['loc_total'])) }}%;
-                        color: black;"
+                    class="progress-bar progress-bar-warning"
+                    style="width: {{ 100 * ((pkg['loc_capi'] / pkg['loc_total'])) }}%;"
                     title="C/C++ with CPython API"
                 >
                 </div>

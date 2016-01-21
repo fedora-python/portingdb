@@ -4,11 +4,16 @@
 Works on a fedpkg clone, so typical usage is like this:
 
     fedpkg clone $PACKAGE
-    python3 get-loc $PACKAGE
+    python3 get-loc PACKAGE
 
 but it's really geared towards analyzing more packages at once:
 
-    python3 get-loc $PACKAGE1 $PACKAGE2 $PACKAGE3 ...
+    python3 get-loc PACKAGE1 PACKAGE2 PACKAGE3 ...
+
+And you can update an existing JSON file: stats for new packages will be added,
+or overwritten:
+
+    python3 get-loc --update FILE  PACKAGE1 PACKAGE2 PACKAGE3 ...
 
 The script runs `fedpkg prep`, `grep`, and `cloc`, so those commands need to be
 installed.
@@ -21,6 +26,8 @@ import json
 import pathlib
 import asyncio
 import multiprocessing
+
+import click
 
 # Using asyncio to let the child processes run in parallel
 
@@ -78,13 +85,16 @@ def process_package(directory):
     return result
 
 @asyncio.coroutine
-def process_packages(directories):
+def process_packages(directories, initial=None):
     # maybe asyncio.gather would do here, but let's process the packages
     # alphabetically, "cpu_count()" packages at a time.
     directories = list(directories)
-    result = {}
+    if initial is None:
+        result = {}
+    else:
+        result = initial
 
-    semaphore = asyncio.Semaphore(multiprocessing.cpu_count())
+    semaphore = asyncio.Semaphore(multiprocessing.cpu_count()+1)
     running = set()
     done = set()
     futures = []
@@ -119,15 +129,20 @@ def process_packages(directories):
 
     return result
 
-if len(sys.argv) == 1:
-    directories = ['.']
-elif sys.argv[1] not in ('-h', '--help'):
-    directories = sys.argv[1:]
-else:
-    print('see docstring for usage details')
-    exit('Usage: get-loc [DIRECTORY...]')
+@click.command(help=__doc__)
+@click.option('-u', '--update', help='JSON file with existing data')
+@click.argument('directories', nargs=-1)
+def main(update, directories):
+    if update:
+        with open(update) as f:
+            initial = json.load(f)
+    else:
+        initial = None
 
-loop = asyncio.get_event_loop()
-result = loop.run_until_complete(process_packages(directories))
+    loop = asyncio.get_event_loop()
+    result = loop.run_until_complete(process_packages(directories, initial))
 
-print(json.dumps(result, indent=4, sort_keys=True))
+    print(json.dumps(result, indent=4, sort_keys=True))
+
+if __name__ == '__main__':
+    main()

@@ -6,7 +6,7 @@ import math
 import uuid
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
-from flask import make_response
+from flask import make_response, request
 from flask.json import jsonify
 from sqlalchemy import func, or_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
@@ -339,6 +339,87 @@ def piechart_pkg(pkg):
     return _piechart([], package.status_obj)
 
 
+def by_loc():
+    db = current_app.config['DB']()
+
+    sort_key = request.args.get('sort', None)
+    sort_reverse = bool(request.args.get('reverse', False))
+    if sort_reverse:
+        def descending(p):
+            return p
+        def ascending(p):
+            return p.desc()
+    else:
+        def descending(p):
+            return p.desc()
+        def ascending(p):
+            return p
+
+    query = queries.packages(db)
+    query = query.filter(tables.Package.status.in_(('idle', 'in-progress', 'blocked')))
+    saved = query
+    query = query.filter(tables.Package.loc_total)
+    if sort_key == 'name':
+        query = query.order_by(ascending(func.lower(tables.Package.name)))
+    elif sort_key == 'loc':
+        query = query.order_by(descending(tables.Package.loc_total))
+    elif sort_key == 'python':
+        query = query.order_by(descending(tables.Package.loc_python))
+    elif sort_key == 'capi':
+        query = query.order_by(descending(tables.Package.loc_capi))
+    elif sort_key == 'py-percent':
+        query = query.order_by(descending((0.1+tables.Package.loc_python)/tables.Package.loc_total))
+    elif sort_key == 'capi-percent':
+        query = query.order_by(descending((0.1+tables.Package.loc_capi)/tables.Package.loc_total))
+    elif sort_key == 'py-small':
+        query = query.order_by(ascending(
+            tables.Package.loc_total - tables.Package.loc_python/1.5))
+    elif sort_key == 'capi-small':
+        query = query.order_by(descending(tables.Package.loc_capi>0))
+        query = query.order_by(ascending(
+            tables.Package.loc_total -
+            tables.Package.loc_capi/1.5 +
+            tables.Package.loc_python/9.9))
+    elif sort_key == 'py-big':
+        query = query.order_by(descending(
+            tables.Package.loc_python * tables.Package.loc_python /
+            (1.0+tables.Package.loc_total-tables.Package.loc_python)))
+    elif sort_key == 'capi-big':
+        query = query.order_by(descending(
+            tables.Package.loc_capi * tables.Package.loc_capi /
+            (1.0+tables.Package.loc_total-tables.Package.loc_capi)))
+    elif sort_key == 'no-py':
+        query = query.order_by(ascending(
+            (tables.Package.loc_python + tables.Package.loc_capi + 0.0) /
+            tables.Package.loc_total))
+    else:
+        query = query.order_by(descending(tables.Package.loc_python +
+                                          tables.Package.loc_capi))
+    query = query.order_by(tables.Package.loc_total)
+    query = query.order_by(func.lower(tables.Package.name))
+
+    packages = list(query)
+
+    query = saved
+    query = query.filter((tables.Package.loc_total == None) |
+                        (~tables.Package.loc_total))
+    query = query.order_by(func.lower(tables.Package.name))
+
+    missing_packages = list(query)
+
+    return render_template(
+        'by_loc.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('by_loc'), 'Packages by Code Stats'),
+        ),
+        packages=packages,
+        sort_key=sort_key,
+        sort_reverse=sort_reverse,
+        missing_packages=missing_packages,
+    )
+
+
 def format_quantity(num):
     for prefix in ' KMGT':
         if num > 1000:
@@ -414,6 +495,7 @@ def create_app(db_url, cache_config=None):
     _add_route("/piechart.svg", piechart_svg)
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
     _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
+    _add_route("/by_loc/", by_loc)
 
     return app
 
