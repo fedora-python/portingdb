@@ -1,5 +1,6 @@
 import os
 import json
+import datetime
 
 import yaml
 from sqlalchemy import create_engine
@@ -126,6 +127,8 @@ def load_from_directories(db, directories):
         config = data_from_file(directories, 'config')
     except FileNotFoundError:
         config = {}
+
+    config['load_time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
 
     try:
         loc_info = data_from_file(directories, 'loc')

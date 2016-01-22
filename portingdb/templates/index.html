@@ -119,6 +119,22 @@
         <div class="col-md-1">
         </div>
         <div class="col-md-3">
+            {% if 'load_time' in config %}
+                <div>
+                    Data for this site was loaded at:
+                </div>
+                <div class="text-center">
+                    <tt>
+                        {{ config['load_time'] }}
+                    </tt>
+                </div>
+                <p>
+                    <small>
+                        Ignoring loading time and delays in repository mirrors,
+                        it's current for that time.
+                    </small>
+                </p>
+            {% endif %}
             <h2>Status Legend</h2>
             <ul class="list-group">
                 {% for status in statuses %}
