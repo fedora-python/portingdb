@@ -128,7 +128,7 @@ def load_from_directories(db, directories):
     except FileNotFoundError:
         config = {}
 
-    config['load_time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+    config['load_time'] = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')
 
     try:
         loc_info = data_from_file(directories, 'loc')
