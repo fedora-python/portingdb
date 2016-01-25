@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+import csv
 
 import yaml
 from sqlalchemy import create_engine
@@ -33,6 +34,15 @@ def data_from_file(directories, basename):
             filename = os.path.join(directory, basename + ext)
             if os.path.exists(filename):
                 return decode_file(filename)
+    raise FileNotFoundError(filename)
+
+
+def data_from_csv(directories, basename):
+    for directory in directories:
+        filename = os.path.join(directory, basename + '.csv')
+        if os.path.exists(filename):
+            with open(filename) as f:
+                return(list(csv.DictReader(f)))
     raise FileNotFoundError(filename)
 
 
@@ -278,6 +288,10 @@ def load_from_directories(db, directories):
 
     queries.update_status_summaries(db)
     queries.update_group_closures(db)
+
+    values = data_from_csv(directories, 'history')
+    bulk_load(db, values, tables.HistoryEntry.__table__,
+              key_columns=['commit', 'status'])
 
     if 'limit' in config:
         db.flush()

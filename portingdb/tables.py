@@ -377,6 +377,25 @@ class Config(TableBase):
         Unicode(), nullable=False)
 
 
+class HistoryEntry(TableBase):
+    u"""Stores the database's history."""
+    # This is here so that the database has all the required data.
+    __tablename__ = 'history_entries'
+    id = IDColumn()
+    __table_args__ = (UniqueConstraint('commit', 'status'), )
+    commit = Column(
+        Unicode(), nullable=False)
+    status = Column(
+        ForeignKey(Status.ident), nullable=False)
+    date = Column(
+        Unicode(), nullable=False)
+    num_packages = Column(
+        Integer(), nullable=False)
+
+    status_obj = relationship(
+        'Status', backref=backref('history'))
+
+
 Package.requirements = relationship(
     Package,
     secondary=Dependency.__table__,
