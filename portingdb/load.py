@@ -75,10 +75,32 @@ def _add_order(rows):
         row['order'] = i
     return rows
 
-def _prepare_enum(rows):
+def _prepare_priorities(rows):
     _add_order(rows)
     for row in rows:
-        row['term'] = row['term'].replace('\\e', '\x1b')
+        if 'term' in row:
+            row['term'] = row['term'].replace('\\e', '\x1b')
+        else:
+            row['term'] = '?'
+        if 'weight' not in row:
+            row['weight'] = 0
+    return rows
+
+def _prepare_statuses(rows):
+    _add_order(rows)
+    for row in rows:
+        if 'term' in row:
+            row['term'] = row['term'].replace('\\e', '\x1b')
+        else:
+            row['term'] = '?'
+        if 'weight' not in row:
+            row['weight'] = 0
+        if 'rank' not in row:
+            row['rank'] = 0
+        if 'description' not in row:
+            row['description'] = '...'
+        if 'instructions' not in row:
+            row['instructions'] = '...'
     return rows
 
 
@@ -109,7 +131,8 @@ def _strip_key(values, key):
     def gen():
         for value in values:
             value = dict(value)
-            del value[key]
+            if key in value:
+                del value[key]
             yield value
     return list(gen())
 
@@ -138,10 +161,10 @@ def load_from_directories(db, directories):
     values = [{'key': k, 'value': json.dumps(v)} for k, v in config.items()]
     bulk_load(db, values, tables.Config.__table__, id_column="key")
 
-    values = _prepare_enum(data_from_file(directories, 'statuses'))
+    values = _prepare_statuses(data_from_file(directories, 'statuses'))
     bulk_load(db, values, tables.Status.__table__, id_column="ident")
 
-    values = _prepare_enum(data_from_file(directories, 'priorities'))
+    values = _prepare_priorities(data_from_file(directories, 'priorities'))
     bulk_load(db, values, tables.Priority.__table__, id_column="ident")
 
     col_values = _add_order(data_from_file(directories, 'collections'))
@@ -152,7 +175,7 @@ def load_from_directories(db, directories):
         'collection_ident': c['ident'],
         'status': s,
         'description': d,
-    } for c in col_values for s, d in c['statuses'].items()]
+    } for c in col_values for s, d in c.get('statuses', {}).items()]
     bulk_load(db, values, tables.CollectionStatus.__table__,
               key_columns=["collection_ident", "status"])
 
@@ -195,7 +218,11 @@ def load_from_directories(db, directories):
             _get_repolink(col_package_map[n, collection], v, k)
             for n, m in package_infos.items()
             for k, v in m.get('links', {}).items())
-        values = [v for v in values if v]
+        values = [v for v in values if v and v['type'] != 'commit']
+        for v in values:
+            if v['type'] == 'bugs':
+                v['type'] = 'bug'
+        print(set(v['type'] for v in values))
         bulk_load(db, values, tables.Link.__table__,
                   key_columns=['collection_package_id', 'url'])
 
@@ -207,9 +234,17 @@ def load_from_directories(db, directories):
                   key_columns=['collection_package_id', 'rpm_name'])
 
         # PyDependencies
+        def get_rpms(v):
+            rpms = v.get('rpms', {})
+            if isinstance(rpms, dict):
+                return rpms.items()
+            else:
+                # Old format without dependency info
+                return []
+
         values = [(('name', n), ('py_version', p))
                   for k, v in package_infos.items()
-                  for r in v.get('rpms', {}).values()
+                  for rn, r in get_rpms(v)
                   for n, p in r.items()]
         values = list(dict(p) for p in set(values))
         bulk_load(db, values, tables.PyDependency.__table__,
@@ -219,7 +254,7 @@ def load_from_directories(db, directories):
         values = [{'rpm_id': rpm_ids[col_package_map[k, collection], rn],
                    'py_dependency_name': n}
                   for k, v in package_infos.items()
-                  for rn, r in v.get('rpms', {}).items()
+                  for rn, r in get_rpms(v)
                   for n in r]
         bulk_load(db, values, tables.RPMPyDependency.__table__,
                   key_columns=['rpm_id', 'py_dependency_name'])
