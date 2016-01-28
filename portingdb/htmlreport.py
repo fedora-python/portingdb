@@ -4,6 +4,8 @@ import functools
 import json
 import math
 import uuid
+import io
+import csv
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
 from flask import make_response, request
@@ -340,6 +342,34 @@ def piechart_pkg(pkg):
     return _piechart([], package.status_obj)
 
 
+def history():
+    return render_template(
+        'history.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('history'), 'History'),
+        ),
+    )
+
+
+def history_csv():
+    db = current_app.config['DB']()
+
+    query = db.query(tables.HistoryEntry)
+    query = query.order_by(tables.HistoryEntry.date)
+    sio = io.StringIO()
+    w = csv.DictWriter(sio, ['commit', 'date', 'status', 'num_packages'])
+    w.writeheader()
+    for row in query:
+        w.writerow({
+            'commit': row.commit,
+            'date': row.date,
+            'status': row.status,
+            'num_packages': row.num_packages,
+        })
+    return sio.getvalue()
+
+
 def group_by_loc(grp):
     db = current_app.config['DB']()
 
@@ -524,6 +554,8 @@ def create_app(db_url, cache_config=None):
     _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
     _add_route("/by_loc/", by_loc)
     _add_route("/by_loc/grp/<grp>/", group_by_loc)
+    _add_route("/history/", history)
+    _add_route("/history/data.csv", history_csv)
 
     return app
 

@@ -128,6 +128,8 @@ def update_status_summaries(db):
 def update_group_closures(db):
     values = []
     for group in db.query(tables.Group):
+        if group.ident is None:
+            continue
         waiting = set(group.packages)
         pkgs = set()
         while waiting:
@@ -141,4 +143,5 @@ def update_group_closures(db):
                       for p in pkgs)
 
     update = tables.GroupPackage.__table__.insert()
-    db.execute(update, values)
+    if values:
+        db.execute(update, values)
