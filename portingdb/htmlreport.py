@@ -349,6 +349,7 @@ def history():
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('history'), 'History'),
         ),
+        expand=bool(request.args.get('expand', False)),
     )
 
 

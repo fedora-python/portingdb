@@ -27,6 +27,17 @@ body {
             This graph shows recorded status history of packages
             tracked by the {{ config['name'] or '' }} portingdb.
         </p>
+        <p>
+            {% if expand %}
+                You can make the graph show
+                percentages or
+                <a href="{{ url_for('history') }}">counts</a>.
+            {% else %}
+                You can make the graph show
+                <a href="{{ url_for('history', expand=1) }}">percentages</a>
+                or counts.
+            {% endif %}
+        </p>
         <div class="chart">
         </div>
     </div>
@@ -92,7 +103,7 @@ var yAxisr = d3.svg.axis()
     .scale(y);
 
 var stack = d3.layout.stack()
-    .offset("zero")
+    .offset("{{ 'expand' if expand else 'zero' }}")
     .values(function(d) { return d.values; })
     .x(function(d) { return d.date; })
     .y(function(d) { return d.num_packages; });
@@ -148,14 +159,20 @@ var graph = d3.csv(csvpath, function(data) {
     .attr("x", 6)
     .style("text-anchor", "start").text( function (d) {return month_format(d);} );
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + width + ", 0)")
-      .call(yAxis.orient("right"));
+  {% if expand %}
+    var y_format = function(d) { return d * 100 + '%'; };
+  {% else %}
+    var y_format = function(d) { return '' + d; };
+  {% endif %}
 
   svg.append("g")
       .attr("class", "y axis")
-      .call(yAxis.orient("left"));
+      .attr("transform", "translate(" + width + ", 0)")
+      .call(yAxis.orient("right").tickFormat( y_format ));
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis.orient("left").tickFormat( y_format ));
 
   var make_minibadge = function (key) {
     return "<span style='background-color:" + colormap[key] + " !important;' class='minibadge'></span>&nbsp;";
