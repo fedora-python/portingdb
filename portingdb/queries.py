@@ -188,5 +188,31 @@ def update_py23_mix(db):
     db.execute(update)
 
 
+def update_py34_abi(db):
+    mispackaged = db.query(tables.Status).get('mispackaged')
+    if mispackaged is None:
+        return
+
+    query = db.query(tables.CollectionPackage)
+    query = query.join(
+        tables.RPM,
+        tables.CollectionPackage.id == tables.RPM.collection_package_id)
+    query = query.join(
+        tables.RPMPyDependency,
+        tables.RPM.id == tables.RPMPyDependency.rpm_id)
+    query = query.filter(tables.RPMPyDependency.py_dependency_name == 'python(abi) = 3.4')
+    query = query.filter(tables.CollectionPackage.status.in_(('idle', 'blocked', 'released')))
+    query = query.filter(tables.CollectionPackage.note == None)
+
+    ids = {pkg.id for pkg in query}
+    update = tables.CollectionPackage.__table__.update()
+    update = update.where(tables.CollectionPackage.id.in_(ids))
+    update = update.values(
+        status='mispackaged',
+        note='''The package depends on Python 3.4. It should be updated for 3.5.''')
+    db.execute(update)
+
+
 def update_mispackaged(db):
     update_py23_mix(db)
+    update_py34_abi(db)
