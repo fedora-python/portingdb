@@ -348,13 +348,16 @@ def piechart_pkg(pkg):
 
 
 def history():
+    expand = request.args.get('expand', None)
+    if expand not in ('1', None):
+        abort(400)  # Bad request
     return render_template(
         'history.html',
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('history'), 'History'),
         ),
-        expand=bool(request.args.get('expand', False)),
+        expand=bool(expand),
     )
 
 
@@ -398,17 +401,21 @@ def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
     db = current_app.config['DB']()
 
     sort_key = request.args.get('sort', None)
-    sort_reverse = bool(request.args.get('reverse', False))
-    if sort_reverse:
+    sort_reverse = request.args.get('reverse', None)
+    print(sort_key)
+    print(sort_reverse)
+    if sort_reverse is None:
         def descending(p):
             return p
         def ascending(p):
             return p.desc()
+    elif sort_reverse == '1':
+        def descending(p):
+            return p.desc()
+        def ascending(p):
+            return p
     else:
-        def descending(p):
-            return p.desc()
-        def ascending(p):
-            return p
+        abort(400)  # Bad request
 
     if query is None:
         query = queries.packages(db)
@@ -449,9 +456,11 @@ def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
         query = query.order_by(ascending(
             (tables.Package.loc_python + tables.Package.loc_capi + 0.0) /
             tables.Package.loc_total))
-    else:
+    elif sort_key is None:
         query = query.order_by(descending(tables.Package.loc_python +
                                           tables.Package.loc_capi))
+    else:
+        abort(400)  # Bad request
     query = query.order_by(tables.Package.loc_total)
     query = query.order_by(func.lower(tables.Package.name))
 
@@ -540,12 +549,15 @@ def create_app(db_url, cache_config=None):
             'config': app.config['CONFIG'],
         }
 
-    def _add_route(url, func):
+    def _add_route(url, func, get_keys=()):
         @functools.wraps(func)
         def decorated(*args, **kwargs):
             creator = functools.partial(func, *args, **kwargs)
-            key = json.dumps({'url': url, 'args': args, 'kwargs': kwargs},
-                             sort_keys=True)
+            key_dict = {'url': url,
+                        'args': args,
+                        'kwargs': kwargs,
+                        'get': {k: request.args.get(k) for k in get_keys}}
+            key = json.dumps(key_dict, sort_keys=True)
             print(key)
             return cache.get_or_create(key, creator)
         app.route(url)(decorated)
@@ -558,9 +570,9 @@ def create_app(db_url, cache_config=None):
     _add_route("/piechart.svg", piechart_svg)
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
     _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
-    _add_route("/by_loc/", by_loc)
-    _add_route("/by_loc/grp/<grp>/", group_by_loc)
-    _add_route("/history/", history)
+    _add_route("/by_loc/", by_loc, get_keys={'sort', 'reverse'})
+    _add_route("/by_loc/grp/<grp>/", group_by_loc, get_keys={'sort', 'reverse'})
+    _add_route("/history/", history, get_keys={'expand'})
     _add_route("/history/data.csv", history_csv)
 
     return app
