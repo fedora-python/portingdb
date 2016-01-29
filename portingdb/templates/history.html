@@ -38,6 +38,11 @@ body {
                 or counts.
             {% endif %}
         </p>
+        <p>
+            (Note that the exact methodology of assigning status to packages
+            is exvolving over time; for example the "mispackaged" status
+            was added at the end of January 2015.)
+        </p>
         <div class="chart">
         </div>
     </div>
@@ -58,10 +63,11 @@ var colormap = {
     'in-progress': '#F0AD4E',
     'blocked': '#D9534F',
     'released': '#5CB85C',
+    'mispackaged': '#5BC0DE',
     'dropped': '#888888',
 };
 
-var key_order = ["dropped", "released", "in-progress", "idle", "blocked"];
+var key_order = ["dropped", "released", "mispackaged", "in-progress", "idle", "blocked"];
 
 colorrange = ["#045A8D", "#2B8CBE", "#74A9CF", "#A6BDDB", "#D0D1E6", "#F1EEF6"];
 strokecolor = '#000';

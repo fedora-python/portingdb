@@ -63,6 +63,9 @@ def hello():
     dropped, query = queries.split(query, tables.Package.status == 'dropped')
     dropped = queries.order_by_name(db, dropped)
 
+    mispackaged, query = queries.split(query, tables.Package.status == 'mispackaged')
+    mispackaged = queries.order_by_name(db, mispackaged)
+
     blocked, query = queries.split(query, tables.Package.status == 'blocked')
     blocked = blocked.options(subqueryload('requirements'))
     blocked = queries.order_by_name(db, blocked)
@@ -77,6 +80,7 @@ def hello():
     done = list(done)
     ready = list(ready)
     blocked = list(blocked)
+    mispackaged = list(mispackaged)
     dropped = list(dropped)
     random_ready = random.choice(ready)
 
@@ -121,6 +125,7 @@ def hello():
         blocked_packages=blocked,
         done_packages=done,
         dropped_packages=dropped,
+        mispackaged_packages=mispackaged,
         random_ready=random_ready,
         groups=groups,
         nonblocking=nonblocking,

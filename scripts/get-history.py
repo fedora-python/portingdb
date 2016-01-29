@@ -56,6 +56,9 @@ def main(update):
                             lineterminator='\n')
     writer.writeheader()
 
+    all_statuses = [
+        "blocked", "dropped", "idle", "in-progress", "released", "mispackaged"]
+
     if update:
         with open(update) as f:
             for row in csv.DictReader(f):
@@ -85,13 +88,16 @@ def main(update):
                 query = select(columns).select_from(tables.Package.__table__)
                 query = query.group_by(tables.Package.status)
 
-                for status, num_packages in db.execute(query):
-                    date = run(['git', 'log', '-n1', '--pretty=%ci', commit]).strip()
+                date = run(['git', 'log', '-n1', '--pretty=%ci', commit]).strip()
+                package_numbers = {status: num_packages
+                                   for status, num_packages
+                                   in db.execute(query)}
+                for status in all_statuses:
                     row = {
                         'commit': commit,
                         'date': date,
                         'status': status,
-                        'num_packages': num_packages,
+                        'num_packages': package_numbers.get(status, 0),
                     }
                     writer.writerow(row)
 

@@ -52,6 +52,21 @@
 
     (Note that there might be false positives; if you spot one, please
     [file a bug](https://github.com/fedora-python/portingdb/issues))
+- ident: mispackaged
+  name: Mispackaged
+  abbrev: M
+  color: '5bc0de'
+  term: M
+  weight: 1
+  description: Packaging, rather than code, seems incorrect
+  rank: 6
+  instructions: |
+    This package has a packaging problem, which should be described in the
+    notes.
+    Check where the problem is coming from, and work with the maintainer
+    to correct it.
+
+    If this is a false positive, file a portingdb bug.
 - ident: dropped
   name: Dropped
   abbrev: X
