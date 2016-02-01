@@ -14,7 +14,6 @@ openerp: &openerp
 # Please keep everything from here on alphabetized
 
 abiword:
-  status: in-progress
   note: |
     The single Abi.py file provided upstream is a tiny stub that has no
     compatibility issues. However, the make file component supplied to
@@ -37,7 +36,6 @@ autotrash:
 babel:
   status: released
 boom:
-  status: in-progress
   links:
     bug: https://github.com/tarekziade/boom/pull/52
     repo: https://github.com/tarekziade/boom
@@ -144,7 +142,6 @@ libtevent:
   status: released
   note: Ported in tevent 0.9.25
 libxslt:
-  status: in-progress
   links:
     homepage: http://xmlsoft.org/libxslt/
     repo: https://gist.github.com/novocaine/ae657bdbf0f25b81e52b
@@ -157,11 +154,11 @@ lilypond:
 lorem-ipsum-generator:
   status: idle
 m2crypto:
-  status: in-progress
   links:
       repo: https://gitlab.com/m2crypto/m2crypto
   note: |
-    [rodrigc](https://github.com/rodrigc) is submitting fixes upstream
+    [rodrigc](https://github.com/rodrigc) submitted many fixes upstream.
+    Some were merged.
 meld:
   status: idle
   links:
@@ -170,7 +167,6 @@ meld:
     Full Python 3 support is on the upstream list of future tasks. Examination
     of the codebase shows some work has already been done.
 mypaint:
-  status: in-progress
   note: Porting efforts partially underway by [Elliott Sales de Andrade](https://github.com/QuLogic)
   links:
     bug: https://github.com/mypaint/mypaint/issues/392
@@ -184,17 +180,14 @@ opencv:
   note: Available since 3.0 release
 openerp-client: *openerp
 openerp7: *openerp
-pki-core:
-  status: in-progress
 powerline:
   status: released
   links:
     repo: https://github.com/powerline/powerline
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282487
 psi4:
-  status: in-progress
-  links:
-    bug: https://github.com/psi4/psi4public/pull/160
+  note: |
+    A major porting effort by Robert T. McGibbon was [merged](https://github.com/psi4/psi4public/pull/160).
 pssh:
   status: released
   links:
@@ -225,7 +218,6 @@ pyppd:
     repo: https://github.com/vitorbaptista/pyppd
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282555
 PyQuante:
-  status: in-progress
   note: Part of re-write, may not finish any time soon
   links:
     bug: https://github.com/rpmuller/pyquante2/commit/b6ea11bb9c9ab977f4a113735ffdc39773e66cc5
@@ -240,9 +232,8 @@ pysendfile:
     note: |
         Latest upstream version supports Python 3.
 pysysbot:
-  status: in-progress
   note: |
-    Being ported by me, [Fabian Affolter](http://fabian-affolter.ch/).
+    Being ported by [Fabian Affolter](http://fabian-affolter.ch/).
   links:
     homepage: http://affolter-engineering.ch/pysysbot/
 python-AppTools:
@@ -253,11 +244,10 @@ python-anfft:
   status: dropped
   note: Authors recommend using [pyFFTW](https://hgomersall.github.io/pyFFTW/) instead
 python-atfork:
-  status: in-progress
-  note:
-    Fork url https://github.com/fitoria/python-atfork
-  bug: https://github.com/google/python-atfork/pull/1
-  repo: https://github.com/google/python-atfork
+  status: dropped
+  links:
+    bug: https://github.com/google/python-atfork/pull/1
+    repo: https://github.com/google/python-atfork
 python-bitarray:
   status: released
   links:
@@ -425,7 +415,6 @@ python-routes:
   note: |
     Upstream python3 support as of 2.2
 python-rows:
-  status: in-progress
   links:
     bug: https://github.com/turicas/rows/issues/46
 python-sexy:
@@ -461,7 +450,6 @@ python-tw2-forms:
 python-xlwt:
   status: released
 python-xlib:
-  status: in-progress
   links:
     bug: http://sourceforge.net/p/python-xlib/mailman/python-xlib-users/thread/1447862425.2461.3.camel%40gmail.com/#msg34629506
 python-yubico:
@@ -478,7 +466,9 @@ rb_libtorrent:
   status: idle
   note: The code is written for Python2 and upstream work is needed to port it to Python3
 samba:
-  status: in-progress
+  note: |
+    Somewhat stale work-in-progress branch at [Github](https://github.com/encukou/samba/tree/py3).
+    Please contact Petr Viktorin (FAS: `pviktori`) for details and coordination.
 seivot: *obnam
 skeinforge: &skeinforge
   status: dropped
@@ -507,8 +497,8 @@ supervisor:
   status: in-progress
   links:
     homepage: https://github.com/supervisor/supervisor
+    bug: https://github.com/Supervisor/supervisor/labels/python%203
 trytond:
-  status: in-progress
   links:
     bug: https://bugs.tryton.org/issue3211
 TurboGears2:
@@ -525,7 +515,6 @@ veusz:
   status: released
   note: Available since 1.19 release
 ViTables:
-  status: in-progress
   links:
     repo: https://github.com/uvemas/ViTables/tree/develop
   note: See explanation in https://github.com/uvemas/ViTables/issues/29#issuecomment-95507605

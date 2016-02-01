@@ -41,7 +41,6 @@ createrepo:
 
         Dependant packages should be ported to `createrepo_c`.
 fedmsg:
-    status: in-progress
     note: |
         The python3-fedmsg-core package is done and available, but the commands
         modules won't be do-able until twisted is done.
@@ -74,9 +73,13 @@ lunatic-python:
     note: |
         There is a better alternative which supports Python3, Lupa.
 m2crypto:
-    nonblocking: true
+    status: dropped
     note: |
-      Suggested replacement: `python-cryptography`
+      Suggested replacement: `python-cryptography` (or Python standard library).
+
+      While upstream is making progress porting m2crypto, moving to the
+      cryptography module, and the cryptography features in Python's standard
+      library, seems to be a better long-term option for dependent projects.
 pycairo:
     status: dropped
     note: |
@@ -120,6 +123,13 @@ python:
     note: |
       This is the Python 2 package.
       Please port to Python 3.
+python-atfork:
+    status: dropped
+    note:
+        As mentioned in the upstream pull request, upstream considers this
+        project dead.
+
+        Since nothing depends on it in Fedora, porting it does not seem useful.
 python-backports:
     status: dropped
     note: |
