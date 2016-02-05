@@ -192,6 +192,13 @@ python-geoclue:
     status: dropped
     note: |
         `dead.package` says: Package is retired
+python-ipaddr:
+    nonblocking: true
+    note: |
+        Python 3.3+ includes the `ipaddress` module, which has been backported
+        to Python 2 (`python-ipaddress`).
+
+        Packages that depend on `ipaddr` should consider porting to `ipaddress`.
 python-ipaddress:
     status: dropped
     note: |
