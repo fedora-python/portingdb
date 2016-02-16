@@ -11,6 +11,59 @@ openerp: &openerp
   links:
     bug: https://github.com/odoo/odoo/issues/8530
 
+
+# Packages where the upstream link points to PyPI and the Trove classifiers
+# include the Python 3 tag
+# If you have better information, move the entry to the section below
+
+pkgwat: &pypi-trove-compatible
+  status: released
+  note: |
+    Trove classifiers on PyPI suggest that this software is ported upstream.
+python-PSI: *pypi-trove-compatible
+python-altgraph: *pypi-trove-compatible
+python-barbicanclient: *pypi-trove-compatible
+python-bashate: *pypi-trove-compatible
+python-bucky: *pypi-trove-compatible
+python-cloud-sptheme: *pypi-trove-compatible
+python-concurrentloghandler: *pypi-trove-compatible
+python-django-ckeditor: *pypi-trove-compatible
+python-django-openstack-auth: *pypi-trove-compatible
+python-django-threadedcomments: *pypi-trove-compatible
+python-django-tinymce: *pypi-trove-compatible
+python-flask-classy: *pypi-trove-compatible
+python-gerrit-view: *pypi-trove-compatible
+python-gerritlib: *pypi-trove-compatible
+python-gntp: *pypi-trove-compatible
+python-hcs_utils: *pypi-trove-compatible
+python-heatclient: *pypi-trove-compatible
+python-importanize: *pypi-trove-compatible
+python-ironicclient: *pypi-trove-compatible
+python-landslide: *pypi-trove-compatible
+python-mailer: *pypi-trove-compatible
+python-manilaclient: *pypi-trove-compatible
+python-networking-vmware-nsx: *pypi-trove-compatible
+python-pyramid-mako: *pypi-trove-compatible
+python-pyspf: *pypi-trove-compatible
+python-pyudev: *pypi-trove-compatible
+python-rfc3986: *pypi-trove-compatible
+python-setuptools_git: *pypi-trove-compatible
+python-setuptools_hg: *pypi-trove-compatible
+python-shade: *pypi-trove-compatible
+python-swiftclient: *pypi-trove-compatible
+python-termcolor: *pypi-trove-compatible
+python-trollius-redis: *pypi-trove-compatible
+python-tuskarclient: *pypi-trove-compatible
+python-upoints: *pypi-trove-compatible
+python-virtualenvwrapper: *pypi-trove-compatible
+python-yaql: *pypi-trove-compatible
+python-zope-contenttype: *pypi-trove-compatible
+python-zope-filerepresentation: *pypi-trove-compatible
+python-zope-i18n: *pypi-trove-compatible
+python-zope-interface4: *pypi-trove-compatible
+python-zope-proxy: *pypi-trove-compatible
+
+
 # Please keep everything from here on alphabetized
 
 abiword:
