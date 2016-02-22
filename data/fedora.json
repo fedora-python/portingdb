@@ -3209,7 +3209,7 @@
   "cmake": {
     "deps": [],
     "rpms": {
-      "cmake-3.5.0-0.1.rc2.fc24": {
+      "cmake-3.5.0-0.2.rc3.fc24": {
         "/usr/bin/python3": 3
       }
     },
@@ -3363,11 +3363,11 @@
       "python"
     ],
     "rpms": {
-      "condor-8.5.1-4.fc24": {
+      "condor-8.5.2-1.fc24": {
         "python": 2,
         "python = 2.7.11-4.fc24": 2
       },
-      "condor-python-8.5.1-4.fc24": {
+      "condor-python-8.5.2-1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -12328,13 +12328,17 @@
   "mgarepo": {
     "deps": [
       "python-httplib2",
+      "python-ldap3",
       "python3",
       "rpm",
       "subversion"
     ],
     "rpms": {
-      "mgarepo-1.11.6-2.fc24": {
+      "mgarepo-1.11.9-1.fc24": {
         "/usr/bin/python3": 3,
+        "python(abi) = 3.5": 3
+      },
+      "mgarepo-ldap-1.11.9-1.fc24": {
         "python(abi) = 3.5": 3
       }
     },
@@ -13805,6 +13809,15 @@
     },
     "status": "idle"
   },
+  "openlierox": {
+    "deps": [],
+    "rpms": {
+      "openlierox-1:0.58-0.7.rc3.fc24": {
+        "/usr/bin/python": 2
+      }
+    },
+    "status": "idle"
+  },
   "openlmi-networking": {
     "deps": [
       "openlmi-providers",
@@ -14032,11 +14045,11 @@
       "python3"
     ],
     "rpms": {
-      "openslide-python-1.1.0-5.fc24": {
+      "openslide-python-1.1.0-6.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "openslide-python3-1.1.0-5.fc24": {
+      "openslide-python3-1.1.0-6.fc24": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -15998,7 +16011,7 @@
       "python-pillow"
     ],
     "rpms": {
-      "python-polybori-0.8.3-29.fc24": {
+      "python-polybori-0.8.3-30.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -25400,6 +25413,22 @@
       }
     },
     "status": "idle"
+  },
+  "python-flask-multistatic": {
+    "deps": [
+      "python",
+      "python-flask",
+      "python3"
+    ],
+    "rpms": {
+      "python2-flask-multistatic-1.0-1.fc24": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-flask-multistatic-1.0-1.fc24": {
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
   },
   "python-flask-oauth": {
     "deps": [
@@ -37829,19 +37858,19 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1310323",
-        "MODIFIED"
+        "ON_QA"
       ]
     },
     "rpms": {
-      "python2-stem-1.4.1b-9.fc24": {
+      "python2-stem-1.4.1b-10.fc24": {
         "python(abi) = 2.7": 2
       },
-      "python3-stem-1.4.1b-9.fc24": {
-        "/usr/bin/python2": 2,
+      "python3-stem-1.4.1b-10.fc24": {
+        "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "python-stevedore": {
     "deps": [
@@ -44880,7 +44909,7 @@
       "python"
     ],
     "rpms": {
-      "python-stp-2.1.0-3.20150904git.5405af4.fc24": {
+      "python-stp-2.1.2-1.20151122git.3785148.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -48378,13 +48407,13 @@
       "python3"
     ],
     "rpms": {
-      "vips-python-8.2.2-2.fc24": {
+      "vips-python-8.2.2-3.fc24": {
         "python(abi) = 2.7": 2
       },
-      "vips-python3-8.2.2-2.fc24": {
+      "vips-python3-8.2.2-3.fc24": {
         "python(abi) = 3.5": 3
       },
-      "vips-tools-8.2.2-2.fc24": {
+      "vips-tools-8.2.2-3.fc24": {
         "/usr/bin/python": 2
       }
     },
