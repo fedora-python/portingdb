@@ -1728,7 +1728,7 @@
       "sip"
     ],
     "rpms": {
-      "avogadro-libs-1.1.1-16.fc24": {
+      "avogadro-libs-1.1.1-18.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -6523,7 +6523,8 @@
   "gdal": {
     "deps": [
       "numpy",
-      "python"
+      "python",
+      "python3"
     ],
     "links": {
       "bug": [
@@ -6532,13 +6533,18 @@
       ]
     },
     "rpms": {
-      "gdal-python-2.0.2-3.fc24": {
-        "/usr/bin/python": 2,
+      "gdal-python-2.0.2-4.fc24": {
+        "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
+      },
+      "gdal-python3-2.0.2-4.fc24": {
+        "/usr/bin/python3": 3,
+        "libpython3.5m.so.1.0()(64bit)": 3,
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "gdb": {
     "deps": [
@@ -9828,12 +9834,12 @@
       ]
     },
     "rpms": {
-      "perf-4.5.0-0.rc4.git3.1.fc24": {
+      "perf-4.5.0-0.rc5.git0.1.fc24": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.5.0-0.rc4.git3.1.fc24": {
+      "python-perf-4.5.0-0.rc5.git0.1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -10651,7 +10657,7 @@
       "python"
     ],
     "rpms": {
-      "libfreenect-python-0.5.2-5.fc24": {
+      "libfreenect-python-0.5.3-1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -11205,10 +11211,10 @@
       "python3"
     ],
     "rpms": {
-      "libselinux-python-2.4-8.fc24": {
+      "libselinux-python-2.5-0.1.rc1.fc24": {
         "python(abi) = 2.7": 2
       },
-      "libselinux-python3-2.4-8.fc24": {
+      "libselinux-python3-2.5-0.1.rc1.fc24": {
         "python(abi) = 3.5": 3
       }
     },
@@ -11221,10 +11227,10 @@
       "python3"
     ],
     "rpms": {
-      "libsemanage-python-2.4-6.fc24": {
+      "libsemanage-python-2.5-0.1.rc1.fc24": {
         "python(abi) = 2.7": 2
       },
-      "libsemanage-python3-2.4-6.fc24": {
+      "libsemanage-python3-2.5-0.1.rc1.fc24": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -11949,12 +11955,14 @@
   "mMass": {
     "deps": [
       "numpy",
+      "python",
       "wxPython"
     ],
     "rpms": {
-      "mMass-5.5.0-15.fc24": {
-        "/usr/bin/python": 2,
-        "libpython2.7.so.1.0()(64bit)": 2
+      "mMass-5.5.0-16.fc24": {
+        "/usr/bin/python2": 2,
+        "libpython2.7.so.1.0()(64bit)": 2,
+        "python(abi) = 2.7": 2
       }
     },
     "status": "idle"
@@ -13655,15 +13663,20 @@
   },
   "openbabel": {
     "deps": [
-      "python"
+      "python",
+      "python3"
     ],
     "rpms": {
-      "python-openbabel-2.3.90-0.7.20150402gita345105.fc24": {
+      "python2-openbabel-2.3.90-0.9.20160216git3a63a98.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
+      },
+      "python3-openbabel-2.3.90-0.9.20160216git3a63a98.fc24": {
+        "libpython3.5m.so.1.0()(64bit)": 3,
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "openbox": {
     "deps": [
@@ -14029,10 +14042,10 @@
   "opensips": {
     "deps": [],
     "rpms": {
-      "opensips-1.10.5-8.fc24": {
+      "opensips-1.11.6-1.fc24": {
         "/usr/bin/python": 2
       },
-      "opensips-python-1.10.5-8.fc24": {
+      "opensips-python-1.11.6-1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -15972,12 +15985,12 @@
       ]
     },
     "rpms": {
-      "policycoreutils-devel-2.4-21.fc24": {
+      "policycoreutils-devel-2.5-0.1.rc1.fc24": {
         "/usr/bin/python3": 3,
         "python(abi) = 2.7": 2,
         "python(abi) = 3.5": 3
       },
-      "policycoreutils-gui-2.4-21.fc24": {
+      "policycoreutils-gui-2.5-0.1.rc1.fc24": {
         "/usr/bin/python": 2,
         "/usr/bin/python3": 3,
         "pygtk2": 2,
@@ -15987,19 +16000,20 @@
         "python(abi) = 2.7": 2,
         "python(abi) = 3.5": 3
       },
-      "policycoreutils-python-2.4-21.fc24": {
+      "policycoreutils-python-2.5-0.1.rc1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "policycoreutils-python-utils-2.4-21.fc24": {
+      "policycoreutils-python-utils-2.5-0.1.rc1.fc24": {
+        "/usr/bin/python": 2,
         "/usr/bin/python3": 3
       },
-      "policycoreutils-python3-2.4-21.fc24": {
+      "policycoreutils-python3-2.5-0.1.rc1.fc24": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "policycoreutils-sandbox-2.4-21.fc24": {
-        "/usr/bin/python3": 3
+      "policycoreutils-sandbox-2.5-0.1.rc1.fc24": {
+        "/usr/bin/python": 2
       }
     },
     "status": "in-progress"
@@ -21179,12 +21193,12 @@
       "python3"
     ],
     "rpms": {
-      "python-catkin_tools-0.3.0-3.fc24": {
+      "python-catkin_tools-0.3.1-1.fc24": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2,
         "python-argparse = 2.7.11-4.fc24": 2
       },
-      "python3-catkin_tools-0.3.0-3.fc24": {
+      "python3-catkin_tools-0.3.1-1.fc24": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -22388,6 +22402,12 @@
       "python",
       "python-setuptools"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1310629",
+        "NEW"
+      ]
+    },
     "rpms": {
       "python-cssutils-1.0.1-2.fc24": {
         "/usr/bin/python": 2,
@@ -39559,6 +39579,12 @@
       "python-service-identity",
       "python-zope-interface"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1297899",
+        "NEW"
+      ]
+    },
     "rpms": {
       "python-twisted-15.4.0-3.fc24": {
         "/usr/bin/python2": 2,
@@ -40211,13 +40237,13 @@
       "python3"
     ],
     "rpms": {
-      "python2-virtualenv-13.1.2-4.fc24": {
+      "python2-virtualenv-14.0.6-1.fc24": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2,
         "python2-devel": 2,
         "python2-devel = 2.7.11-4.fc24": 2
       },
-      "python3-virtualenv-13.1.2-4.fc24": {
+      "python3-virtualenv-14.0.6-1.fc24": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3,
         "python3-devel": 3,
@@ -43715,15 +43741,15 @@
       "python"
     ],
     "rpms": {
-      "sagemath-core-6.8-2.fc24": {
+      "sagemath-core-6.8-4.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "sagemath-notebook-6.8-2.fc24": {
+      "sagemath-notebook-6.8-4.fc24": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "sagemath-sagetex-6.8-2.fc24": {
+      "sagemath-sagetex-6.8-4.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -43744,25 +43770,25 @@
       "python-zmq"
     ],
     "rpms": {
-      "salt-2015.5.9-3.fc24": {
+      "salt-2015.5.9-4.fc24": {
         "python(abi) = 2.7": 2
       },
-      "salt-api-2015.5.9-3.fc24": {
+      "salt-api-2015.5.9-4.fc24": {
         "/usr/bin/python": 2
       },
-      "salt-cloud-2015.5.9-3.fc24": {
+      "salt-cloud-2015.5.9-4.fc24": {
         "/usr/bin/python": 2
       },
-      "salt-master-2015.5.9-3.fc24": {
+      "salt-master-2015.5.9-4.fc24": {
         "/usr/bin/python": 2
       },
-      "salt-minion-2015.5.9-3.fc24": {
+      "salt-minion-2015.5.9-4.fc24": {
         "/usr/bin/python": 2
       },
-      "salt-ssh-2015.5.9-3.fc24": {
+      "salt-ssh-2015.5.9-4.fc24": {
         "/usr/bin/python": 2
       },
-      "salt-syndic-2015.5.9-3.fc24": {
+      "salt-syndic-2015.5.9-4.fc24": {
         "/usr/bin/python": 2
       }
     },
@@ -44808,7 +44834,7 @@
       "python-pymongo"
     ],
     "rpms": {
-      "starcal-3.0.1-1.fc24": {
+      "starcal-3.0.1-2.fc24": {
         "/usr/bin/python": 2,
         "/usr/bin/python3": 3
       }
@@ -48173,7 +48199,7 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1275860",
-        "ON_QA"
+        "CLOSED ERRATA"
       ]
     },
     "rpms": {
