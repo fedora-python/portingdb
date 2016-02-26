@@ -221,18 +221,14 @@ python-geoclue:
     status: dropped
     note: |
         `dead.package` says: Package is retired
-python-GeoIP:
+python-GeoIP: &geoip
     dead-upstream: true
     note: |
         PyPI has several alternatives:
-            - https://pypi.python.org/pypi/python-geoip-python3
-            - https://pypi.python.org/pypi/maxminddb-geolite2/
-python-geoip-geolite2:
-    dead-upstream: true
-    note: |
-        PyPI has several alternatives:
-            - https://pypi.python.org/pypi/python-geoip-python3
-            - https://pypi.python.org/pypi/maxminddb-geolite2/
+
+        - [python-geoip-python3](https://pypi.python.org/pypi/python-geoip-python3)
+        - [maxminddb-geolite2](https://pypi.python.org/pypi/maxminddb-geolite2/)
+python-geoip-geolite2: *geoip
 python-googlevoice:
     dead-upstream: true
     note: |
