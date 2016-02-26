@@ -24,6 +24,7 @@ authconfig:
         There's a python2 and a python3 subpackage, but they do different
         things.
 binclock:
+    dead-upstream: true
     note: |
         Upstream inactive since 2001.
         Upstream email <brian@linuxee.sk> bounces.
@@ -165,6 +166,8 @@ python-bunch:
     status: dropped
     note: |
         Replacement: `python-munch` (Same API)
+python-cheetah:
+    dead-upstream: true
 python-cherrypy:
     status: dropped
     note: |
@@ -175,11 +178,22 @@ python-cherrypy2:
       This is a backwards compatibility package.  Code that needs to be run on
       python3 needs to be ported to a current version of this framework.
       Replacement: `python3-cherrypy`
+python-clientform:
+    status: dropped
+    note: |
+        The functionality provided by this module is now part of mechanize.
+        Replacement: `python-mechanize`
 python-dateutil15:
     status: dropped
     note: |
         This is an old version of the dateutil library.
         Replacement: `python-dateutil`
+python-django-profiles:
+    status: dropped
+    note: |
+        Due to changes in Django making it effectively obsolete, this
+        application is no longer maintained.
+        Replacement: `python-django`
 python-docs:
     status: dropped
     note: |
@@ -207,6 +221,22 @@ python-geoclue:
     status: dropped
     note: |
         `dead.package` says: Package is retired
+python-GeoIP:
+    dead-upstream: true
+    note: |
+        PyPI has several alternatives:
+            - https://pypi.python.org/pypi/python-geoip-python3
+            - https://pypi.python.org/pypi/maxminddb-geolite2/
+python-geoip-geolite2:
+    dead-upstream: true
+    note: |
+        PyPI has several alternatives:
+            - https://pypi.python.org/pypi/python-geoip-python3
+            - https://pypi.python.org/pypi/maxminddb-geolite2/
+python-googlevoice:
+    dead-upstream: true
+    note: |
+        "Project is defunct. Please look to other solutions."
 python-ipaddr:
     nonblocking: true
     note: |
