@@ -18,6 +18,15 @@ python-twisted-lore: &dead-twisted-part
 anjuta:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282116
+antlr:
+    status: dropped
+    note: |
+        This is ANTLR 2, quite an old version. Fedora also has ``antlr3``
+        and ``antlr4`` packages, but it seems Python support is not included
+        in those (?, 2016-03-01).
+
+        When porting, the best course of action seems to be switching to
+        ANTLR 4, which has Python 3 support upstream.
 authconfig:
     status: idle
     note: |
