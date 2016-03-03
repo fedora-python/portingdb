@@ -1,4 +1,16 @@
 {
+  "2ping": {
+    "deps": [
+      "python"
+    ],
+    "rpms": {
+      "2ping-3.2.0-1.fc25": {
+        "/usr/bin/python2": 2,
+        "python(abi) = 2.7": 2
+      }
+    },
+    "status": "idle"
+  },
   "389-ds-base": {
     "deps": [
       "policycoreutils"
@@ -217,7 +229,7 @@
       "python"
     ],
     "rpms": {
-      "python-OpenImageIO-1.6.10-1.fc24": {
+      "python-OpenImageIO-1.6.11-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -321,30 +333,6 @@
       }
     },
     "status": "idle"
-  },
-  "PyOpenGL": {
-    "deps": [
-      "numpy",
-      "python",
-      "python3"
-    ],
-    "rpms": {
-      "PyOpenGL-3.1.0-5.fc24": {
-        "libpython2.7.so.1.0()(64bit)": 2,
-        "python(abi) = 2.7": 2
-      },
-      "PyOpenGL-Tk-3.1.0-5.fc24": {
-        "python(abi) = 2.7": 2
-      },
-      "python3-PyOpenGL-3.1.0-5.fc24": {
-        "libpython3.5m.so.1.0()(64bit)": 3,
-        "python(abi) = 3.5": 3
-      },
-      "python3-PyOpenGL-Tk-3.1.0-5.fc24": {
-        "python(abi) = 3.5": 3
-      }
-    },
-    "status": "released"
   },
   "PyPAM": {
     "deps": [
@@ -937,22 +925,6 @@
     },
     "status": "idle"
   },
-  "ahc-tools": {
-    "deps": [
-      "python",
-      "python-hardware",
-      "python-ironicclient",
-      "python-oslo-config",
-      "python-swiftclient"
-    ],
-    "rpms": {
-      "ahc-tools-0.2.0-1.fc23": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
   "ahkab": {
     "deps": [
       "numpy",
@@ -1235,7 +1207,7 @@
       ]
     },
     "rpms": {
-      "antlr-python-2.7.7-41.fc25": {
+      "antlr-python-2.7.7-42.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -2410,6 +2382,12 @@
       "python",
       "python-six"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1313796",
+        "NEW"
+      ]
+    },
     "rpms": {
       "breathe-4.1.0-2.fc24": {
         "python(abi) = 2.7": 2
@@ -2496,10 +2474,10 @@
     "deps": [
       "fedmsg",
       "python",
-      "python-libpagure"
+      "python-retask"
     ],
     "rpms": {
-      "bugyou-0.1-2.fc24": {
+      "bugyou-0.2-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -2508,10 +2486,11 @@
   "bugyou_plugins": {
     "deps": [
       "python",
+      "python-libpagure",
       "python-retask"
     ],
     "rpms": {
-      "bugyou_plugins-0.1-1.fc25": {
+      "bugyou_plugins-0.1-2.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
@@ -2855,6 +2834,12 @@
       "python-nose",
       "python-rospkg"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1313844",
+        "NEW"
+      ]
+    },
     "rpms": {
       "catkin-0.4.5-12.gitd4f1f24.fc24": {
         "python(abi) = 2.7": 2,
@@ -2894,12 +2879,18 @@
   },
   "cdbs": {
     "deps": [],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1313853",
+        "ASSIGNED"
+      ]
+    },
     "rpms": {
       "cdbs-0.4.130-3.fc24": {
         "/usr/bin/python": 2
       }
     },
-    "status": "idle"
+    "status": "in-progress"
   },
   "centerim": {
     "deps": [
@@ -3292,6 +3283,12 @@
     "deps": [
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1313932",
+        "NEW"
+      ]
+    },
     "rpms": {
       "coccinelle-1.0.4-4.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
@@ -3495,7 +3492,7 @@
       "pywebkitgtk"
     ],
     "rpms": {
-      "conduit-0.3.17-10.fc21": {
+      "conduit-0.3.17-12.fc25": {
         "pygtk2": 2,
         "pygtk2 = 2.24.0-13.fc24": 2,
         "python(abi) = 2.7": 2
@@ -3689,17 +3686,8 @@
   "crossfire": {
     "deps": [],
     "rpms": {
-      "crossfire-plugins-1.70.0-11.fc24": {
+      "crossfire-plugins-1.71.0-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
-      }
-    },
-    "status": "idle"
-  },
-  "crossfire-maps": {
-    "deps": [],
-    "rpms": {
-      "crossfire-maps-1.70.0-8.fc24": {
-        "/usr/bin/python": 2
       }
     },
     "status": "idle"
@@ -3827,7 +3815,6 @@
   },
   "cura": {
     "deps": [
-      "PyOpenGL",
       "numpy",
       "pyserial",
       "python",
@@ -3845,7 +3832,6 @@
   },
   "cura-lulzbot": {
     "deps": [
-      "PyOpenGL",
       "numpy",
       "pyserial",
       "python",
@@ -3899,13 +3885,19 @@
     "deps": [
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1313978",
+        "ASSIGNED"
+      ]
+    },
     "rpms": {
       "cxxtest-4.4-3.fc24": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "in-progress"
   },
   "cyphesis": {
     "deps": [],
@@ -3921,6 +3913,12 @@
       "pygobject3",
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1314029",
+        "NEW"
+      ]
+    },
     "rpms": {
       "d-feet-0.3.9-4.fc24": {
         "/usr/bin/python": 2,
@@ -4594,6 +4592,12 @@
       "python-dns",
       "python-requests"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1314043",
+        "NEW"
+      ]
+    },
     "rpms": {
       "dnsyo-1.1.4-4.fc21": {
         "/usr/bin/python": 2,
@@ -4626,29 +4630,14 @@
     },
     "status": "idle"
   },
-  "docker-registry": {
-    "deps": [
-      "PyYAML",
-      "m2crypto",
-      "python",
-      "python-backports-lzma",
-      "python-blinker",
-      "python-docker-registry-core",
-      "python-flask",
-      "python-gevent",
-      "python-gunicorn",
-      "python-requests",
-      "python-sqlalchemy"
-    ],
-    "rpms": {
-      "docker-registry-0.9.1-5.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
   "doclifter": {
     "deps": [],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1314047",
+        "NEW"
+      ]
+    },
     "rpms": {
       "doclifter-2.15-5.fc24": {
         "/usr/bin/python2": 2
@@ -4709,7 +4698,7 @@
   "dpdk": {
     "deps": [],
     "rpms": {
-      "dpdk-tools-2.2.0-5.fc24": {
+      "dpdk-tools-2.2.0-6.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -5109,6 +5098,18 @@
     },
     "status": "idle"
   },
+  "erlang-rpm-macros": {
+    "deps": [
+      "python-pybeam",
+      "rpm"
+    ],
+    "rpms": {
+      "erlang-rpm-macros-0.2.0-2.fc25": {
+        "/usr/bin/python": 2
+      }
+    },
+    "status": "idle"
+  },
   "espresso": {
     "deps": [],
     "rpms": {
@@ -5276,17 +5277,18 @@
     "deps": [
       "python",
       "python-cached_property",
+      "python-productmd",
       "python-setuptools",
       "python-six",
       "python3"
     ],
     "rpms": {
-      "fedfind-1.6.2-3.fc24": {
+      "fedfind-2.0.0-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2,
         "python-argparse = 2.7.11-4.fc24": 2
       },
-      "python3-fedfind-1.6.2-3.fc24": {
+      "python3-fedfind-2.0.0-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -5490,11 +5492,11 @@
       ]
     },
     "rpms": {
-      "fedora-cert-0.5.10.6-2.fc24": {
+      "fedora-cert-0.5.10.7-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "fedora-packager-0.5.10.6-2.fc24": {
+      "fedora-packager-0.5.10.7-1.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -6515,10 +6517,10 @@
       "python-six"
     ],
     "rpms": {
-      "gcc-python2-plugin-0.15-2.fc24": {
+      "gcc-python2-plugin-0.15-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "gcc-python3-plugin-0.15-2.fc24": {
+      "gcc-python3-plugin-0.15-3.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -6530,7 +6532,7 @@
       "pygtk2"
     ],
     "rpms": {
-      "gcompris-15.10-4.fc24": {
+      "gcompris-15.10-5.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "pygtk2": 2,
         "pygtk2 = 2.24.0-13.fc24": 2
@@ -7087,7 +7089,7 @@
   "glibc": {
     "deps": [],
     "rpms": {
-      "glibc-benchtests-2.23.90-2.fc25": {
+      "glibc-benchtests-2.23.90-3.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -7286,7 +7288,7 @@
       "python3"
     ],
     "rpms": {
-      "gnome-builder-3.19.4-5.fc24": {
+      "gnome-builder-3.19.90-1.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -7635,7 +7637,6 @@
   },
   "gnuradio": {
     "deps": [
-      "PyOpenGL",
       "PyQt4",
       "PyQwt",
       "numpy",
@@ -8734,23 +8735,23 @@
       "python-setuptools"
     ],
     "rpms": {
-      "holland-1.0.12-1.fc24": {
+      "holland-1.0.12-2.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "holland-common-1.0.12-1.fc24": {
+      "holland-common-1.0.12-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "holland-mysqldump-1.0.12-1.fc24": {
+      "holland-mysqldump-1.0.12-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "holland-mysqllvm-1.0.12-1.fc24": {
+      "holland-mysqllvm-1.0.12-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "holland-pgdump-1.0.12-1.fc24": {
+      "holland-pgdump-1.0.12-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "holland-xtrabackup-1.0.12-1.fc24": {
+      "holland-xtrabackup-1.0.12-2.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -9222,7 +9223,6 @@
   },
   "impressive": {
     "deps": [
-      "PyOpenGL",
       "pygame",
       "python",
       "python-pillow",
@@ -9367,9 +9367,6 @@
   "instack-undercloud": {
     "deps": [
       "instack",
-      "openstack-tripleo",
-      "openstack-tripleo-heat-templates",
-      "openstack-tripleo-image-elements",
       "policycoreutils"
     ],
     "rpms": {
@@ -10041,20 +10038,20 @@
       ]
     },
     "rpms": {
-      "koji-1.10.1-2.fc24": {
+      "koji-1.10.1-3.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "koji-builder-1.10.1-2.fc24": {
+      "koji-builder-1.10.1-3.fc25": {
         "/usr/bin/python": 2
       },
-      "koji-hub-1.10.1-2.fc24": {
+      "koji-hub-1.10.1-3.fc25": {
         "/usr/bin/python": 2
       },
-      "koji-utils-1.10.1-2.fc24": {
+      "koji-utils-1.10.1-3.fc25": {
         "/usr/bin/python": 2
       },
-      "koji-vm-1.10.1-2.fc24": {
+      "koji-vm-1.10.1-3.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -10415,10 +10412,10 @@
       "python-zope-interface"
     ],
     "rpms": {
-      "letsencrypt-0.4.0-1.fc24": {
+      "letsencrypt-0.4.1-1.fc25": {
         "/usr/bin/python2": 2
       },
-      "python2-letsencrypt-0.4.0-1.fc24": {
+      "python2-letsencrypt-0.4.1-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -10467,10 +10464,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-blockdev-1.4-2.fc25": {
+      "python2-blockdev-1.4-3.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-blockdev-1.4-2.fc25": {
+      "python3-blockdev-1.4-3.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -11220,23 +11217,6 @@
     },
     "status": "released"
   },
-  "libsmartcols-bindings": {
-    "deps": [
-      "python",
-      "python3"
-    ],
-    "rpms": {
-      "python2-smartcols-0.0.2-4.fc24": {
-        "libpython2.7.so.1.0()(64bit)": 2,
-        "python(abi) = 2.7": 2
-      },
-      "python3-smartcols-0.0.2-4.fc24": {
-        "libpython3.5m.so.1.0()(64bit)": 3,
-        "python(abi) = 3.5": 3
-      }
-    },
-    "status": "released"
-  },
   "libsmbios": {
     "deps": [
       "python"
@@ -11431,11 +11411,11 @@
       "python3"
     ],
     "rpms": {
-      "libvirt-python-1.3.1-2.fc24": {
+      "libvirt-python-1.3.2-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "libvirt-python3-1.3.1-2.fc24": {
+      "libvirt-python3-1.3.2-1.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -11761,7 +11741,7 @@
       "python3"
     ],
     "rpms": {
-      "lorax-24.13-1.fc25": {
+      "lorax-24.14-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -13667,7 +13647,7 @@
       "python"
     ],
     "rpms": {
-      "opencv-python-2.4.12.3-1.fc24": {
+      "opencv-python-2.4.12.3-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -14040,747 +14020,6 @@
       }
     },
     "status": "released"
-  },
-  "openstack-ceilometer": {
-    "deps": [
-      "PyYAML",
-      "babel",
-      "libvirt-python",
-      "python",
-      "python-alembic",
-      "python-anyjson",
-      "python-ceilometerclient",
-      "python-croniter",
-      "python-eventlet",
-      "python-glanceclient",
-      "python-greenlet",
-      "python-iso8601",
-      "python-jsonpath-rw",
-      "python-jsonpath-rw-ext",
-      "python-jsonschema",
-      "python-keystoneclient",
-      "python-keystonemiddleware",
-      "python-lxml",
-      "python-migrate",
-      "python-msgpack",
-      "python-netaddr",
-      "python-neutronclient",
-      "python-novaclient",
-      "python-oslo-concurrency",
-      "python-oslo-config",
-      "python-oslo-context",
-      "python-oslo-db",
-      "python-oslo-i18n",
-      "python-oslo-log",
-      "python-oslo-messaging",
-      "python-oslo-middleware",
-      "python-oslo-policy",
-      "python-oslo-reports",
-      "python-oslo-rootwrap",
-      "python-oslo-serialization",
-      "python-oslo-service",
-      "python-oslo-utils",
-      "python-oslo-vmware",
-      "python-paste-deploy",
-      "python-pbr",
-      "python-pecan",
-      "python-posix_ipc",
-      "python-pymongo",
-      "python-requests",
-      "python-retrying",
-      "python-six",
-      "python-sqlalchemy",
-      "python-stevedore",
-      "python-swiftclient",
-      "python-tooz",
-      "python-webob",
-      "python-werkzeug",
-      "python-wsme",
-      "pytz"
-    ],
-    "rpms": {
-      "openstack-ceilometer-alarm-1:5.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-ceilometer-api-1:5.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-ceilometer-collector-1:5.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-ceilometer-common-1:5.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-ceilometer-ipmi-1:5.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-ceilometer-notification-1:5.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-ceilometer-polling-1:5.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "python-ceilometer-1:5.0.0-2.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-designate": {
-    "deps": [
-      "babel",
-      "python",
-      "python-dns",
-      "python-eventlet",
-      "python-flask",
-      "python-greenlet",
-      "python-iso8601",
-      "python-jinja2",
-      "python-jsonschema",
-      "python-keystonemiddleware",
-      "python-memcached",
-      "python-migrate",
-      "python-mysql",
-      "python-netaddr",
-      "python-neutronclient",
-      "python-oslo-concurrency",
-      "python-oslo-config",
-      "python-oslo-context",
-      "python-oslo-db",
-      "python-oslo-i18n",
-      "python-oslo-log",
-      "python-oslo-messaging",
-      "python-oslo-middleware",
-      "python-oslo-policy",
-      "python-oslo-rootwrap",
-      "python-oslo-serialization",
-      "python-oslo-utils",
-      "python-paste",
-      "python-paste-deploy",
-      "python-pbr",
-      "python-pecan",
-      "python-psutil",
-      "python-requests",
-      "python-routes",
-      "python-six",
-      "python-sqlalchemy",
-      "python-stevedore",
-      "python-webob",
-      "python-werkzeug"
-    ],
-    "rpms": {
-      "openstack-designate-agent-1:1.0.0-0.3.0b3.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-designate-api-1:1.0.0-0.3.0b3.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-designate-central-1:1.0.0-0.3.0b3.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-designate-common-1:1.0.0-0.3.0b3.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-designate-mdns-1:1.0.0-0.3.0b3.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-designate-pool-manager-1:1.0.0-0.3.0b3.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-designate-sink-1:1.0.0-0.3.0b3.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-designate-zone-manager-1:1.0.0-0.3.0b3.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "python-designate-1:1.0.0-0.3.0b3.fc24": {
-        "python(abi) = 2.7": 2
-      },
-      "python-designate-tests-1:1.0.0-0.3.0b3.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-gnocchi": {
-    "deps": [
-      "PyYAML",
-      "numpy",
-      "python",
-      "python-alembic",
-      "python-flask",
-      "python-futures",
-      "python-jinja2",
-      "python-keystonemiddleware",
-      "python-msgpack",
-      "python-oslo-config",
-      "python-oslo-db",
-      "python-oslo-log",
-      "python-oslo-policy",
-      "python-oslo-serialization",
-      "python-oslo-sphinx",
-      "python-oslo-utils",
-      "python-pandas",
-      "python-paste-deploy",
-      "python-pecan",
-      "python-psycopg2",
-      "python-pytimeparse",
-      "python-requests",
-      "python-retrying",
-      "python-six",
-      "python-sqlalchemy",
-      "python-sqlalchemy-utils",
-      "python-stevedore",
-      "python-swiftclient",
-      "python-sysv_ipc",
-      "python-tooz",
-      "python-trollius",
-      "python-voluptuous",
-      "python-webob",
-      "python-werkzeug",
-      "pytz"
-    ],
-    "rpms": {
-      "openstack-gnocchi-api-1.3.0-5.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-gnocchi-carbonara-1.3.0-5.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-gnocchi-indexer-sqlalchemy-1.3.0-5.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-gnocchi-metricd-1.3.0-5.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-gnocchi-statsd-1.3.0-5.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "python-gnocchi-1.3.0-5.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-heat": {
-    "deps": [
-      "PyYAML",
-      "babel",
-      "python",
-      "python-anyjson",
-      "python-ceilometerclient",
-      "python-cinderclient",
-      "python-cryptography",
-      "python-eventlet",
-      "python-glanceclient",
-      "python-greenlet",
-      "python-heatclient",
-      "python-httplib2",
-      "python-iso8601",
-      "python-keystoneclient",
-      "python-keystonemiddleware",
-      "python-kombu",
-      "python-lxml",
-      "python-memcached",
-      "python-migrate",
-      "python-mysql",
-      "python-netaddr",
-      "python-neutronclient",
-      "python-novaclient",
-      "python-oslo-cache",
-      "python-oslo-concurrency",
-      "python-oslo-config",
-      "python-oslo-context",
-      "python-oslo-db",
-      "python-oslo-i18n",
-      "python-oslo-log",
-      "python-oslo-messaging",
-      "python-oslo-middleware",
-      "python-oslo-policy",
-      "python-oslo-reports",
-      "python-oslo-serialization",
-      "python-oslo-service",
-      "python-oslo-utils",
-      "python-oslo-versionedobjects",
-      "python-osprofiler",
-      "python-paramiko",
-      "python-paste-deploy",
-      "python-pbr",
-      "python-posix_ipc",
-      "python-qpid",
-      "python-requests",
-      "python-routes",
-      "python-saharaclient",
-      "python-six",
-      "python-sqlalchemy",
-      "python-stevedore",
-      "python-swiftclient",
-      "python-troveclient",
-      "python-webob"
-    ],
-    "rpms": {
-      "openstack-heat-api-1:5.0.0-3.fc24": {
-        "/usr/bin/python": 2
-      },
-      "openstack-heat-api-cfn-1:5.0.0-3.fc24": {
-        "/usr/bin/python": 2
-      },
-      "openstack-heat-api-cloudwatch-1:5.0.0-3.fc24": {
-        "/usr/bin/python": 2
-      },
-      "openstack-heat-common-1:5.0.0-3.fc24": {
-        "/usr/bin/python": 2,
-        "python(abi) = 2.7": 2,
-        "python-argparse = 2.7.11-4.fc24": 2
-      },
-      "openstack-heat-engine-1:5.0.0-3.fc24": {
-        "/usr/bin/python": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-heat-gbp": {
-    "deps": [
-      "openstack-heat",
-      "python",
-      "python-gbpclient"
-    ],
-    "rpms": {
-      "openstack-heat-gbp-2015.1.1-2.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-ironic-python-agent": {
-    "deps": [
-      "babel",
-      "python",
-      "python-eventlet",
-      "python-iso8601",
-      "python-netifaces",
-      "python-oslo-concurrency",
-      "python-oslo-config",
-      "python-oslo-i18n",
-      "python-oslo-log",
-      "python-oslo-serialization",
-      "python-oslo-service",
-      "python-oslo-utils",
-      "python-pbr",
-      "python-pecan",
-      "python-pint",
-      "python-psutil",
-      "python-pyudev",
-      "python-requests",
-      "python-six",
-      "python-stevedore",
-      "python-wsme"
-    ],
-    "rpms": {
-      "openstack-ironic-python-agent-1.0.0-2.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-manila": {
-    "deps": [
-      "babel",
-      "python",
-      "python-alembic",
-      "python-amqplib",
-      "python-anyjson",
-      "python-cheetah",
-      "python-cinderclient",
-      "python-eventlet",
-      "python-greenlet",
-      "python-httplib2",
-      "python-iso8601",
-      "python-keystoneclient",
-      "python-keystonemiddleware",
-      "python-kombu",
-      "python-lockfile",
-      "python-lxml",
-      "python-migrate",
-      "python-mysql",
-      "python-netaddr",
-      "python-neutronclient",
-      "python-novaclient",
-      "python-oslo-concurrency",
-      "python-oslo-config",
-      "python-oslo-context",
-      "python-oslo-db",
-      "python-oslo-i18n",
-      "python-oslo-log",
-      "python-oslo-messaging",
-      "python-oslo-middleware",
-      "python-oslo-policy",
-      "python-oslo-rootwrap",
-      "python-oslo-serialization",
-      "python-oslo-service",
-      "python-oslo-utils",
-      "python-paramiko",
-      "python-paste-deploy",
-      "python-pbr",
-      "python-posix_ipc",
-      "python-qpid",
-      "python-requests",
-      "python-retrying",
-      "python-routes",
-      "python-six",
-      "python-sqlalchemy",
-      "python-stevedore",
-      "python-suds",
-      "python-webob"
-    ],
-    "rpms": {
-      "openstack-manila-1:1.0.0-4.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-manila-share-1:1.0.0-4.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "python-manila-1:1.0.0-4.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-manila-ui": {
-    "deps": [
-      "babel",
-      "python",
-      "python-django",
-      "python-django-compressor",
-      "python-django-openstack-auth",
-      "python-iso8601",
-      "python-keystoneclient",
-      "python-manilaclient",
-      "python-neutronclient",
-      "python-novaclient",
-      "python-pbr"
-    ],
-    "rpms": {
-      "openstack-manila-ui-1.0.1-2.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-marconi": {
-    "deps": [
-      "babel",
-      "python",
-      "python-falcon",
-      "python-iso8601",
-      "python-jsonschema",
-      "python-keystoneclient",
-      "python-memcached",
-      "python-msgpack",
-      "python-netaddr",
-      "python-oslo-config",
-      "python-posix_ipc",
-      "python-pymongo",
-      "python-six",
-      "python-sqlalchemy",
-      "python-sqlite3dbm",
-      "python-stevedore",
-      "python-webob"
-    ],
-    "rpms": {
-      "openstack-marconi-2014.1-4.fc24.2": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-neutron-gbp": {
-    "deps": [
-      "python"
-    ],
-    "rpms": {
-      "openstack-neutron-gbp-2015.2.0-1.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-packstack": {
-    "deps": [
-      "PyYAML",
-      "pyOpenSSL",
-      "python",
-      "python-docutils",
-      "python-netaddr",
-      "python-setuptools"
-    ],
-    "rpms": {
-      "openstack-packstack-1:7.0.0-0.12.dev1692.g1b5e83b.fc24": {
-        "/usr/bin/python": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-sahara": {
-    "deps": [
-      "babel",
-      "python",
-      "python-alembic",
-      "python-barbicanclient",
-      "python-cinderclient",
-      "python-eventlet",
-      "python-flask",
-      "python-heatclient",
-      "python-iso8601",
-      "python-jinja2",
-      "python-jsonschema",
-      "python-keystoneclient",
-      "python-keystonemiddleware",
-      "python-manilaclient",
-      "python-neutronclient",
-      "python-novaclient",
-      "python-oslo-concurrency",
-      "python-oslo-config",
-      "python-oslo-context",
-      "python-oslo-db",
-      "python-oslo-i18n",
-      "python-oslo-log",
-      "python-oslo-messaging",
-      "python-oslo-middleware",
-      "python-oslo-policy",
-      "python-oslo-rootwrap",
-      "python-oslo-serialization",
-      "python-oslo-service",
-      "python-oslo-utils",
-      "python-paramiko",
-      "python-pbr",
-      "python-requests",
-      "python-six",
-      "python-sqlalchemy",
-      "python-stevedore",
-      "python-swiftclient",
-      "python-webob"
-    ],
-    "rpms": {
-      "openstack-sahara-1:3.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-sahara-api-1:3.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-sahara-common-1:3.0.0-2.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      },
-      "openstack-sahara-engine-1:3.0.0-2.fc24": {
-        "/usr/bin/python2": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-swift": {
-    "deps": [
-      "openstack-swift-plugin-swift3",
-      "python",
-      "python-configobj",
-      "python-dns",
-      "python-eventlet",
-      "python-greenlet",
-      "python-keystonemiddleware",
-      "python-netifaces",
-      "python-paste-deploy",
-      "python-pyeclib",
-      "python-setuptools",
-      "python-simplejson",
-      "python-six",
-      "pyxattr"
-    ],
-    "rpms": {
-      "openstack-swift-2.5.0-2.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      },
-      "openstack-swift-account-2.5.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-swift-container-2.5.0-2.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      },
-      "openstack-swift-object-2.5.0-2.fc24": {
-        "/usr/bin/python2": 2
-      },
-      "openstack-swift-proxy-2.5.0-2.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-swift-plugin-swift3": {
-    "deps": [
-      "openstack-swift",
-      "python"
-    ],
-    "rpms": {
-      "openstack-swift-plugin-swift3-1.9-2.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-tempest": {
-    "deps": [
-      "PyYAML",
-      "python",
-      "python-anyjson",
-      "python-boto",
-      "python-cinderclient",
-      "python-cliff",
-      "python-fixtures",
-      "python-glanceclient",
-      "python-heatclient",
-      "python-ironicclient",
-      "python-iso8601",
-      "python-junitxml",
-      "python-keyring",
-      "python-keystoneclient",
-      "python-lxml",
-      "python-netaddr",
-      "python-neutronclient",
-      "python-nose",
-      "python-novaclient",
-      "python-oslo-concurrency",
-      "python-oslo-config",
-      "python-oslo-i18n",
-      "python-oslo-log",
-      "python-oslo-serialization",
-      "python-oslo-utils",
-      "python-pbr",
-      "python-saharaclient",
-      "python-six",
-      "python-stevedore",
-      "python-swiftclient",
-      "python-tempest-lib",
-      "python-testrepository",
-      "python-testresources",
-      "python-testscenarios",
-      "python-testtools",
-      "subunit"
-    ],
-    "rpms": {
-      "openstack-tempest-1:liberty-20151020.2.fc24": {
-        "/usr/bin/python": 2,
-        "python": 2,
-        "python = 2.7.11-4.fc24": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-tripleo": {
-    "deps": [],
-    "rpms": {
-      "openstack-tripleo-0.0.5-4c3fb309727671130a32b4c19de48ec22c8530aa1.fc24": {
-        "/usr/bin/python": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-tripleo-heat-templates": {
-    "deps": [
-      "PyYAML",
-      "python"
-    ],
-    "rpms": {
-      "openstack-tripleo-heat-templates-0.7.9-14.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-tripleo-image-elements": {
-    "deps": [
-      "diskimage-builder"
-    ],
-    "rpms": {
-      "openstack-tripleo-image-elements-0.8.10-21.fc24": {
-        "/usr/bin/python": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-tuskar-ui": {
-    "deps": [
-      "os-cloud-config",
-      "python",
-      "python-ceilometerclient",
-      "python-cinderclient",
-      "python-django",
-      "python-django-compressor",
-      "python-django-openstack-auth",
-      "python-django-pyscss",
-      "python-eventlet",
-      "python-glanceclient",
-      "python-heatclient",
-      "python-ironicclient",
-      "python-iso8601",
-      "python-keystoneclient",
-      "python-kombu",
-      "python-lockfile",
-      "python-netaddr",
-      "python-neutronclient",
-      "python-novaclient",
-      "python-oslo-config",
-      "python-pbr",
-      "python-scss",
-      "python-swiftclient",
-      "python-tuskarclient",
-      "pytz"
-    ],
-    "rpms": {
-      "openstack-tuskar-ui-0.2.0-5.fc22": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "openstack-zaqar": {
-    "deps": [
-      "babel",
-      "python",
-      "python-falcon",
-      "python-iso8601",
-      "python-jsonschema",
-      "python-keystoneclient",
-      "python-memcached",
-      "python-msgpack",
-      "python-netaddr",
-      "python-oslo-config",
-      "python-oslo-i18n",
-      "python-oslo-utils",
-      "python-pbr",
-      "python-posix_ipc",
-      "python-pymongo",
-      "python-six",
-      "python-sqlalchemy",
-      "python-sqlite3dbm",
-      "python-stevedore",
-      "python-webob"
-    ],
-    "rpms": {
-      "openstack-zaqar-1:1.0.0-2.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
   },
   "openstv": {
     "deps": [
@@ -15657,7 +14896,6 @@
   },
   "pipviewer": {
     "deps": [
-      "PyOpenGL",
       "PyQt",
       "pygtk2",
       "python",
@@ -16616,11 +15854,11 @@
       "python3"
     ],
     "rpms": {
-      "pyatspi-2.18.0-3.fc24": {
+      "pyatspi-2.19.91-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pyatspi-2.18.0-3.fc24": {
+      "python3-pyatspi-2.19.91-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -16715,7 +15953,6 @@
   },
   "pycam": {
     "deps": [
-      "PyOpenGL",
       "pygtk2",
       "pygtkglext",
       "python",
@@ -16972,11 +16209,11 @@
       "python3"
     ],
     "rpms": {
-      "pyflakes-1.0.0-3.fc24": {
+      "pyflakes-1.1.0-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pyflakes-1.0.0-3.fc24": {
+      "python3-pyflakes-1.1.0-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -17224,7 +16461,6 @@
   },
   "pygtkglext": {
     "deps": [
-      "PyOpenGL",
       "pygtk2",
       "python",
       "python-pyopengl"
@@ -19265,11 +18501,11 @@
       "pytz"
     ],
     "rpms": {
-      "python2-acme-0.4.0-1.fc24": {
+      "python2-acme-0.4.1-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-acme-0.4.0-1.fc24": {
+      "python3-acme-0.4.1-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -23144,10 +22380,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-django-babel-0.4.0-4.fc24": {
+      "python2-django-babel-0.5.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-django-babel-0.4.0-4.fc24": {
+      "python3-django-babel-0.5.0-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -23520,18 +22756,6 @@
     },
     "rpms": {
       "python-django-helpdesk-0.1.12-6.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "python-django-horizon-gbp": {
-    "deps": [
-      "python",
-      "python-gbpclient"
-    ],
-    "rpms": {
-      "python-django-horizon-gbp-2015.1.1-3.fc24": {
         "python(abi) = 2.7": 2
       }
     },
@@ -24948,7 +24172,6 @@
   },
   "python-eyed3": {
     "deps": [
-      "file",
       "python"
     ],
     "links": {
@@ -24958,7 +24181,7 @@
       ]
     },
     "rpms": {
-      "python-eyed3-0.7.9-1.fc25": {
+      "python-eyed3-0.7.9-2.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -25148,7 +24371,7 @@
       "pytz"
     ],
     "rpms": {
-      "python2-fedmsg-meta-fedora-infrastructure-0.15.8-2.fc24": {
+      "python2-fedmsg-meta-fedora-infrastructure-0.15.9-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -35450,6 +34673,23 @@
     },
     "status": "released"
   },
+  "python-rcssmin": {
+    "deps": [
+      "python",
+      "python3"
+    ],
+    "rpms": {
+      "python2-rcssmin-1.0.6-1.fc25": {
+        "libpython2.7.so.1.0()(64bit)": 2,
+        "python(abi) = 2.7": 2
+      },
+      "python3-rcssmin-1.0.6-1.fc25": {
+        "libpython3.5m.so.1.0()(64bit)": 3,
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
   "python-rdflib": {
     "deps": [
       "python",
@@ -37980,22 +37220,6 @@
       }
     },
     "status": "released"
-  },
-  "python-sqlalchemy-traversal": {
-    "deps": [
-      "python",
-      "python-colander",
-      "python-pyramid",
-      "python-sqlalchemy",
-      "python-venusian",
-      "python-zope-interface"
-    ],
-    "rpms": {
-      "python-sqlalchemy-traversal-0.4.1-6.fc23": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
   },
   "python-sqlalchemy-utils": {
     "deps": [
@@ -41246,25 +40470,6 @@
     },
     "status": "idle"
   },
-  "python-wsme": {
-    "deps": [
-      "python",
-      "python-netaddr",
-      "python-simplegeneric",
-      "python-six",
-      "python-webob",
-      "pytz"
-    ],
-    "rpms": {
-      "python2-wsme-0.7.0-2.fc24": {
-        "python(abi) = 2.7": 2
-      },
-      "python3-wsme-0.7.0-2.fc24": {
-        "python(abi) = 3.4": 3
-      }
-    },
-    "status": "released"
-  },
   "python-wstool": {
     "deps": [
       "PyYAML",
@@ -42768,7 +41973,7 @@
   "qemu": {
     "deps": [],
     "rpms": {
-      "qemu-kvm-tools-2:2.5.0-4.fc24": {
+      "qemu-kvm-tools-2:2.5.0-8.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -42827,7 +42032,6 @@
   },
   "qmforge": {
     "deps": [
-      "PyOpenGL",
       "PyQt4",
       "PyQwt",
       "openbabel",
@@ -44050,25 +43254,25 @@
       "python-zmq"
     ],
     "rpms": {
-      "salt-2015.5.9-4.fc24": {
+      "salt-2015.5.9-5.fc25": {
         "python(abi) = 2.7": 2
       },
-      "salt-api-2015.5.9-4.fc24": {
+      "salt-api-2015.5.9-5.fc25": {
         "/usr/bin/python": 2
       },
-      "salt-cloud-2015.5.9-4.fc24": {
+      "salt-cloud-2015.5.9-5.fc25": {
         "/usr/bin/python": 2
       },
-      "salt-master-2015.5.9-4.fc24": {
+      "salt-master-2015.5.9-5.fc25": {
         "/usr/bin/python": 2
       },
-      "salt-minion-2015.5.9-4.fc24": {
+      "salt-minion-2015.5.9-5.fc25": {
         "/usr/bin/python": 2
       },
-      "salt-ssh-2015.5.9-4.fc24": {
+      "salt-ssh-2015.5.9-5.fc25": {
         "/usr/bin/python": 2
       },
-      "salt-syndic-2015.5.9-4.fc24": {
+      "salt-syndic-2015.5.9-5.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -46333,22 +45537,6 @@
       }
     },
     "status": "released"
-  },
-  "tailor": {
-    "deps": [
-      "mercurial",
-      "python",
-      "subversion"
-    ],
-    "rpms": {
-      "python-vcpx-0.9.35-19.fc24": {
-        "python(abi) = 2.7": 2
-      },
-      "tailor-0.9.35-19.fc24": {
-        "/usr/bin/python": 2
-      }
-    },
-    "status": "idle"
   },
   "targetcli": {
     "deps": [
@@ -49037,7 +48225,7 @@
       "python"
     ],
     "rpms": {
-      "wireshark-cli-2.0.1-3.fc24": {
+      "wireshark-cli-2.0.2-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
