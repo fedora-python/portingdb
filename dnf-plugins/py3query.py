@@ -253,6 +253,8 @@ class Py3QueryCommand(dnf.cli.Command):
                                           'ERRATA', 'NEXTRELEASE')
                 if r.get('status') == 'idle' and bug.status != 'NEW':
                     r['status'] = 'in-progress'
+                elif r.get('status') == 'idle' and bug.status == 'NEW':
+                    r['status'] = "mispackaged"
 
         # Print out output
 
