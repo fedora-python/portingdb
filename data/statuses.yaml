@@ -1,18 +1,14 @@
-- ident: idle
-  name: Idle
-  abbrev: I
-  color: 'DDDDDD'
-  term: ' '
-  weight: 4
-  description: No current activity is recorded
-  rank: 4
-  instructions: |
-    No one is working on this package now. You can visit pkgdb for links to the
-    upstream project.
-    Ask for Python 3 status, and coordinate work with the upstream to port.
-
-    If upstream has Python 3 support but it is not yet in Fedora,
-    get in touch with the Fedora maintainer (also visible in pkgdb).
+- ident: released
+  name: Released
+  abbrev: ✔
+  color: '5CB85C'
+  term: '\e[32;7m✔\e[0m'
+  weight: 2
+  description: Version with Python 3 support is officially released
+  rank: 2
+  instructions:
+    We are done! This package is released with Python 3 support, and
+    all is good in the world.
 - ident: in-progress
   name: In Progress
   abbrev: P
@@ -25,32 +21,6 @@
     Someone is working on this package. Please coordinate with them.
 
     (If you cannot find contacts here, please
-    [file a bug](https://github.com/fedora-python/portingdb/issues))
-- ident: released
-  name: Released
-  abbrev: ✔
-  color: '5CB85C'
-  term: '\e[32;7m✔\e[0m'
-  weight: 2
-  description: Version with Python 3 support is officially released
-  rank: 2
-  instructions:
-    We are done! This package is released with Python 3 support, and
-    all is good in the world.
-- ident: blocked
-  name: Blocked
-  abbrev: B
-  color: 'D9534F'
-  term: 'B'
-  weight: 3
-  description: Depends on work on another package
-  rank: 3
-  instructions: |
-    This package has some dependencies that do not support Python 3 yet.
-    They need to be ported first.
-    Take a look at the list, and choose one.
-
-    (Note that there might be false positives; if you spot one, please
     [file a bug](https://github.com/fedora-python/portingdb/issues))
 - ident: mispackaged
   name: Mispackaged
@@ -67,6 +37,36 @@
     to correct it.
 
     If this is a false positive, file a portingdb bug.
+- ident: idle
+  name: Idle
+  abbrev: I
+  color: 'DDDDDD'
+  term: ' '
+  weight: 4
+  description: No current activity is recorded
+  rank: 4
+  instructions: |
+    No one is working on this package now. You can visit pkgdb for links to the
+    upstream project.
+    Ask for Python 3 status, and coordinate work with the upstream to port.
+
+    If upstream has Python 3 support but it is not yet in Fedora,
+    get in touch with the Fedora maintainer (also visible in pkgdb).
+- ident: blocked
+  name: Blocked
+  abbrev: B
+  color: 'D9534F'
+  term: 'B'
+  weight: 3
+  description: Depends on work on another package
+  rank: 3
+  instructions: |
+    This package has some dependencies that do not support Python 3 yet.
+    They need to be ported first.
+    Take a look at the list, and choose one.
+
+    (Note that there might be false positives; if you spot one, please
+    [file a bug](https://github.com/fedora-python/portingdb/issues))
 - ident: dropped
   name: Dropped
   abbrev: X
