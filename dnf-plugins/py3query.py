@@ -255,6 +255,9 @@ class Py3QueryCommand(dnf.cli.Command):
                     r['status'] = 'in-progress'
                 elif r.get('status') == 'idle' and bug.status == 'NEW':
                     r['status'] = "mispackaged"
+                    r['note'] = ('There is a problem in Fedora packaging, ' +
+                                 'not necessarily with the software itself. ' +
+                                 'See the linked Fedora bug.')
 
         # Print out output
 
