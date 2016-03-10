@@ -15,6 +15,8 @@ python-twisted-lore: &dead-twisted-part
 # your bug blocks https://bugzilla.redhat.com/show_bug.cgi?id=1285816
 # Packages with bugs that aren't NEW will be shown "in-progress" in portingdb.
 
+adonthell:
+    dead-upstream: true
 anjuta:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282116
@@ -27,6 +29,12 @@ antlr:
 
         When porting, the best course of action seems to be switching to
         ANTLR 4, which has Python 3 support upstream.
+arandr:
+    being-ported: true
+archivemail:
+    dead-upstream: true
+arm-none-eabi-gdb:
+    dead-upstream: true
 authconfig:
     status: idle
     note: |
@@ -38,6 +46,10 @@ binclock:
         Upstream inactive since 2001.
         Upstream email <brian@linuxee.sk> bounces.
         Bugzilla porting patch without reponse.
+bmpanel2:
+    dead-upstream: true
+boom:
+    python3-pull-request: https://github.com/tarekziade/boom/pull/52
 boost:
     nonblocking: true
     note: |
@@ -50,16 +62,35 @@ byobu:
         [dperson] Pull accepted upstream (will be in 5.100). Updated the `spec`
         file to fix the she-bang lines on build. Submited it to the maintainer.
         Maintainer will wait on Fedora 24 to change script interpreter.
+certmaster:
+    dead-upstream: true
+chameleon:
+    dead-upstream: true
+clac:
+    dead-upstream: true
+cloudtoserver:
+    python3-pull-request: https://github.com/fedora-cloud/cloudtoserver/pull/6
 cmake:
     nonblocking: true
     note: |
         Looks like a stray dependency on py2
+comix:
+    dead-upstream: true
+contextkit:
+    dead-upstream: true
 createrepo:
     status: dropped
     note: |
         This has a dependency on `yum`, which is not going to be ported.
 
         Dependant packages should be ported to `createrepo_c`.
+cwiid:
+    dead-upstream: true
+dpdk:
+    note: |
+        Python 3 support committed but not yet released. (March 2016)
+drobo-utils:
+    dead-upstream: true
 fedmsg:
     note: |
         The python3-fedmsg-core package is done and available, but the commands
@@ -242,6 +273,12 @@ python-googlevoice:
     dead-upstream: true
     note: |
         "Project is defunct. Please look to other solutions."
+python-halite:
+    dead-upstream: true
+    note: |
+        "Halite is officially retired."
+python-HTMLgen:
+    dead-upstream: true
 python-ipaddr:
     nonblocking: true
     note: |
