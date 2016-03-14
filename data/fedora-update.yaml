@@ -314,10 +314,6 @@ python-ldap:
     status: dropped
     note: |
       Suggested replacement: `python-pyldap` (drop-in, provides the `ldap` module)
-python-lzo:
-    note: |
-            A new upstream maintainer has appeared and [merged python3 support](https://github.com/jd-boyd/python-lzo/pull/8) to their
-            tree but still needs to [make a new release](https://github.com/jd-boyd/python-lzo/issues/9).
 python-matplotlib:
     nonblocking: true
     note: |
@@ -474,9 +470,9 @@ subunit:
         A Python 3 subpackage exists, but isn't packaged well yet.
         Also the plugins aren't ported.
 tracer:
+    status: in-progress
     note: |
-      Upstream seems to have support for python3.
-      The fedora packager is also upstream.
+      Upstream supports python3, fedora packager(=upstream) promised to update the spec file. (2016-03-11)
 TurboGears:
     status: dropped
     note: |
@@ -510,8 +506,3 @@ youtube-dl:
         spec updated and built for Rawhide
     links:
         repo: https://github.com/rg3/youtube-dl/
-python-retask:
-    note: |
-        [sayanchowdhury](https://github.com/sayanchowdhury) is working on this.
-        version 4.0 had a broken import so the build failed. There was a
-        [PR](https://github.com/kushaldas/retask/pull/9)
