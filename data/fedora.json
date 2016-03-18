@@ -1475,7 +1475,7 @@
       "python-websocket-client"
     ],
     "rpms": {
-      "atomicapp-0.4.3-2.fc25": {
+      "atomicapp-0.4.4-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
@@ -4743,7 +4743,7 @@
   "dpdk": {
     "deps": [],
     "rpms": {
-      "dpdk-tools-2.2.0-6.fc25": {
+      "dpdk-tools-2.2.0-7.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -5328,12 +5328,12 @@
       "python3"
     ],
     "rpms": {
-      "fedfind-2.1.1-1.fc25": {
+      "fedfind-2.2.2-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2,
         "python-argparse = 2.7.11-4.fc24": 2
       },
-      "python3-fedfind-2.1.1-1.fc25": {
+      "python3-fedfind-2.2.2-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -5609,7 +5609,7 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "fedpkg-1.21-2.fc24": {
+      "fedpkg-1.22-2.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -6362,7 +6362,7 @@
       "python-qt5"
     ],
     "rpms": {
-      "fusion-icon-1:0.2.1-1.fc25": {
+      "fusion-icon-1:0.2.2-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
@@ -7147,7 +7147,7 @@
   "global": {
     "deps": [],
     "rpms": {
-      "global-6.5.1-2.fc24": {
+      "global-6.5.2-1.fc25": {
         "/usr/bin/python3": 3
       }
     },
@@ -7366,7 +7366,7 @@
       "meld"
     ],
     "rpms": {
-      "gnome-commander-4:1.4.7-2.fc24": {
+      "gnome-commander-4:1.4.8-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -7441,7 +7441,7 @@
       "python3"
     ],
     "rpms": {
-      "gnome-music-3.19.91-1.fc25": {
+      "gnome-music-3.19.92-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -7461,7 +7461,7 @@
   "gnome-photos": {
     "deps": [],
     "rpms": {
-      "gnome-photos-tests-3.19.91-1.fc25": {
+      "gnome-photos-tests-3.19.92-1.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -7552,7 +7552,7 @@
       "python3"
     ],
     "rpms": {
-      "gnome-shell-3.19.91-1.fc25": {
+      "gnome-shell-3.19.92-1.fc25": {
         "/usr/bin/python3": 3,
         "python3(x86-64) = 3.5.1-7.fc25": 3
       }
@@ -9044,7 +9044,7 @@
       "python3"
     ],
     "rpms": {
-      "ibus-table-1.9.11-2.fc24": {
+      "ibus-table-1.9.12-1.fc25": {
         "python3": 3,
         "python3 = 3.5.1-7.fc25": 3
       }
@@ -9171,15 +9171,17 @@
     "deps": [
       "libguestfs",
       "libxml2",
+      "oz",
       "python",
       "python-httplib2",
       "python-oauth2",
       "python-paste-deploy",
       "python-pycurl",
+      "python-urlgrabber",
       "python-zope-interface"
     ],
     "rpms": {
-      "imagefactory-1.1.7-3.fc24": {
+      "imagefactory-1.1.8-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2,
         "python-argparse = 2.7.11-4.fc24": 2
@@ -9189,6 +9191,7 @@
   },
   "imagefactory-plugins": {
     "deps": [
+      "PyYAML",
       "VMDKstream",
       "euca2ools",
       "imagefactory",
@@ -9201,41 +9204,38 @@
       "python-pyrax"
     ],
     "rpms": {
-      "imagefactory-plugins-1.1.7-3.fc24": {
+      "imagefactory-plugins-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-Docker-1.1.7-3.fc24": {
+      "imagefactory-plugins-Docker-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-EC2-1.1.7-3.fc24": {
+      "imagefactory-plugins-EC2-1.1.8-2.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-IndirectionCloud-1.1.7-3.fc24": {
+      "imagefactory-plugins-IndirectionCloud-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-Nova-1.1.7-3.fc24": {
+      "imagefactory-plugins-OVA-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-OVA-1.1.7-3.fc24": {
+      "imagefactory-plugins-OpenStack-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-OpenStack-1.1.7-3.fc24": {
+      "imagefactory-plugins-RHEVM-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-RHEVM-1.1.7-3.fc24": {
+      "imagefactory-plugins-Rackspace-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-Rackspace-1.1.7-3.fc24": {
+      "imagefactory-plugins-TinMan-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-TinMan-1.1.7-3.fc24": {
+      "imagefactory-plugins-ovfcommon-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "imagefactory-plugins-ovfcommon-1.1.7-3.fc24": {
-        "python(abi) = 2.7": 2
-      },
-      "imagefactory-plugins-vSphere-1.1.7-3.fc24": {
+      "imagefactory-plugins-vSphere-1.1.8-2.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -9840,12 +9840,12 @@
       ]
     },
     "rpms": {
-      "perf-4.6.0-0.rc0.git1.1.fc25": {
+      "perf-4.6.0-0.rc0.git5.1.fc25": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.6.0-0.rc0.git1.1.fc25": {
+      "python-perf-4.6.0-0.rc0.git5.1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -16431,18 +16431,18 @@
       "python3-cairo"
     ],
     "rpms": {
-      "python-gobject-3.19.91-1.fc25": {
+      "python-gobject-3.19.92-1.fc25": {
         "pycairo(x86-64) = 1.10.0-4.fc24": 2,
         "python(abi) = 2.7": 2
       },
-      "python-gobject-base-3.19.91-1.fc25": {
+      "python-gobject-base-3.19.92-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-gobject-3.19.91-1.fc25": {
+      "python3-gobject-3.19.92-1.fc25": {
         "python(abi) = 3.5": 3,
         "python3-cairo(x86-64) = 1.10.0-15.fc24": 3
       },
-      "python3-gobject-base-3.19.91-1.fc25": {
+      "python3-gobject-base-3.19.92-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -17864,6 +17864,25 @@
     ],
     "rpms": {
       "python-Lightbox-2.1-13.fc24": {
+        "python(abi) = 2.7": 2
+      }
+    },
+    "status": "idle"
+  },
+  "python-MDAnalysis": {
+    "deps": [
+      "netcdf4-python",
+      "numpy",
+      "python",
+      "python-GridDataFormats",
+      "python-biopython",
+      "python-matplotlib",
+      "python-seaborn",
+      "scipy"
+    ],
+    "rpms": {
+      "python2-MDAnalysis-0.14.0-2.fc25": {
+        "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
     },
@@ -24478,10 +24497,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-fasteners-0.14.1-3.fc24": {
+      "python2-fasteners-0.14.1-4.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-fasteners-0.14.1-3.fc24": {
+      "python3-fasteners-0.14.1-4.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -35317,11 +35336,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-reno-1.5.0-1.fc24": {
+      "python2-reno-1.6.0-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-reno-1.5.0-1.fc24": {
+      "python3-reno-1.6.0-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -35857,6 +35876,23 @@
       }
     },
     "status": "idle"
+  },
+  "python-rjsmin": {
+    "deps": [
+      "python",
+      "python3"
+    ],
+    "rpms": {
+      "python2-rjsmin-1.0.12-2.fc25": {
+        "libpython2.7.so.1.0()(64bit)": 2,
+        "python(abi) = 2.7": 2
+      },
+      "python3-rjsmin-1.0.12-2.fc25": {
+        "libpython3.5m.so.1.0()(64bit)": 3,
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
   },
   "python-robofab": {
     "deps": [
@@ -40843,10 +40879,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-wikitcms-2.0.2-1.fc25": {
+      "python2-wikitcms-2.1.2-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-wikitcms-2.0.2-1.fc25": {
+      "python3-wikitcms-2.1.2-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -42588,11 +42624,11 @@
       "sip"
     ],
     "rpms": {
-      "qgis-python-2.14.0-2.fc25": {
+      "qgis-python-2.14.0-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "qgis-server-2.14.0-2.fc25": {
+      "qgis-server-2.14.0-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -43119,7 +43155,7 @@
       "python3"
     ],
     "rpms": {
-      "relval-2.0.3-1.fc25": {
+      "relval-2.1.0-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -43482,12 +43518,12 @@
       "rpmlint"
     ],
     "rpms": {
-      "pyrpkg-1.41-1.fc25": {
+      "pyrpkg-1.42-1.fc25": {
         "python(abi) = 2.7": 2,
         "python-argparse = 2.7.11-4.fc24": 2,
         "python-hashlib = 20081120": 2
       },
-      "rpkg-1.41-1.fc25": {
+      "rpkg-1.42-1.fc25": {
         "/usr/bin/python": 2,
         "python-argparse = 2.7.11-4.fc24": 2
       }
@@ -43890,10 +43926,10 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "samba-libs-2:4.4.0-0.7.rc4.fc25": {
+      "samba-libs-2:4.4.0-0.8.rc5.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "samba-python-2:4.4.0-0.7.rc4.fc25": {
+      "samba-python-2:4.4.0-0.8.rc5.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -49027,7 +49063,7 @@
       "dbus-python"
     ],
     "rpms": {
-      "xboxdrv-0.8.8-1.fc25": {
+      "xboxdrv-0.8.8-2.fc25": {
         "/usr/bin/python2": 2
       }
     },
