@@ -275,6 +275,7 @@ def load_from_directories(db, directories):
     values = [{
         'ident': k,
         'name': v['name'],
+        'hidden': v.get('hidden', False),
     } for k, v in group_values.items()]
     bulk_load(db, values, tables.Group.__table__, id_column='ident')
 

@@ -318,6 +318,9 @@ class Group(TableBase):
     name = Column(
         Unicode(), nullable=False,
         doc=u"Display name")
+    hidden = Column(
+        Boolean(), nullable=False, default=False,
+        doc=u"True if the group should not be shown on the main page")
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)

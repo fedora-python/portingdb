@@ -95,6 +95,7 @@ def hello():
     # Group query
 
     query = db.query(tables.Group)
+    query = query.filter(~tables.Group.hidden)
     query = query.join(tables.Group.packages)
     query = query.join(tables.Package.status_obj)
     query = query.group_by(tables.Group.ident)
