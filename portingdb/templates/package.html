@@ -63,8 +63,10 @@
                                             <li>
                                                 {% if pydep.py_version == 3 %}
                                                     <span class="fa fa-li">✔</span>
-                                                {% else %}
+                                                {% elif pydep.py_version == 2 %}
                                                     <span class="fa fa-li">×</span>
+                                                {% else %}
+                                                    <span class="fa fa-li"> </span>
                                                 {% endif %}
                                                 {{ pydep.name }}
                                             </li>
