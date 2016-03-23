@@ -131,6 +131,18 @@ exo:
   status: released
   note: |
     Upstream does not use Python at all, it's Fedora only dependency.
+fabric:
+  status: released
+  links:
+    bug: https://github.com/fabric/fabric/issues/1378
+  note: |
+    [Mathias Ertl](https://github.com/mathiasertl) submitted
+    [Python 3 patches](https://github.com/fabric/fabric/issues/1378)
+    to the Fabric maintainer.  These patches stopped compatibility with
+    Python 2.5 and earlier, so the Fabric maintainer did not accept them.
+    Mathias forked the code and
+    [released the fork to pypi](https://pypi.python.org/pypi/Fabric3).
+    It can be installed with `pip install Fabric3`.
 fail2ban:
   status: released
   links:
@@ -525,6 +537,8 @@ python-tw2-forms:
 python-xlwt:
   status: released
 python-xlib:
+  note: |
+    A Python 3 fork is available at [LiuLang's Github](https://github.com/LiuLang/python3-xlib).
   links:
     bug: http://sourceforge.net/p/python-xlib/mailman/python-xlib-users/thread/1447862425.2461.3.camel%40gmail.com/#msg34629506
 python-yolk:
