@@ -67,7 +67,6 @@ var width = 1200,
     height = 900;
 
 var force = d3.layout.force()
-    .charge(-10)
     .linkDistance(15)
     .size([width, height]);
 
@@ -79,6 +78,7 @@ d3.json("portingdb.json", function(error, graph) {
   if (error) throw error;
 
   force
+      .charge(-9000 / Math.pow(graph.nodes.length, 0.9))
       .nodes(graph.nodes)
       .links(graph.links)
       .start();
