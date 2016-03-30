@@ -26,6 +26,11 @@ import bugzilla  # python-bugzilla
 BUGZILLA_URL = 'bugzilla.redhat.com'
 TRACKER_BUG_IDS = [
     1285816,  # The Python 3 tracking bug
+    1322027   # The Python 3 Upstream Porting tracking bug
+]
+# Trackers of bugs that indicate the given package is mispackaged.
+MISPACKAGED_TRACKER_BUG_IDS = [
+    1285816   # The Python 3 tracking bug
 ]
 
 SEED_PACKAGES = {
@@ -227,8 +232,8 @@ class Py3QueryCommand(dnf.cli.Command):
             bz = bugzilla.RHBugzilla(BUGZILLA_URL)
 
             next(bar)
-            include_fields = ['id', 'depends_on', 'component', 'status',
-                              'resolution']
+            include_fields = ['id', 'depends_on', 'blocks', 'component',
+                              'status', 'resolution']
             trackers = bz.getbugs(TRACKER_BUG_IDS,
                                   include_fields=include_fields)
             all_ids = [b for t in trackers for b in t.depends_on]
@@ -251,9 +256,11 @@ class Py3QueryCommand(dnf.cli.Command):
                 inprogress_statuses = ('ASSIGNED', 'POST', 'MODIFIED', 'ON_QA')
                 inprogress_resolutions = ('CURRENTRELEASE', 'RAWHIDE',
                                           'ERRATA', 'NEXTRELEASE')
+
                 if r.get('status') == 'idle' and bug.status != 'NEW':
                     r['status'] = 'in-progress'
-                elif r.get('status') == 'idle' and bug.status == 'NEW':
+                elif r.get('status') == 'idle' and bug.status == 'NEW' and \
+                        any(tb in bug.blocks for tb in MISPACKAGED_TRACKER_BUG_IDS):
                     r['status'] = "mispackaged"
                     r['note'] = ('There is a problem in Fedora packaging, ' +
                                  'not necessarily with the software itself. ' +
