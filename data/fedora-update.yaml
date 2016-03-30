@@ -87,13 +87,17 @@ dpdk:
         Python 3 support committed but not yet released. (March 2016)
 drobo-utils:
     dead-upstream: true
+exo:
+    links:
+        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282165
 fedmsg:
     note: |
         The python3-fedmsg-core package is done and available, but the commands
         modules won't be do-able until twisted is done.
-exo:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282165
+gstreamer-python:
+    status: dropped
+    note: |
+      Replacement: `python-gstreamer1`
 kernel-tests:
     status: released
     links:
@@ -101,11 +105,6 @@ kernel-tests:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1293015
     note: |
         [rodrigc](https://github.com/rodrigc) submitted fixes which where accepted upstream.
-
-gstreamer-python:
-    status: dropped
-    note: |
-      Replacement: `python-gstreamer1`
 libssh2-python:
     note: |
         Code is old, but it's just a binding: it seems to work with Python 3.4
