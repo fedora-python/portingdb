@@ -287,8 +287,6 @@ def load_from_directories(db, directories):
     bulk_load(db, values, tables.GroupPackage.__table__,
               key_columns=['group_ident', 'package_name'])
 
-    queries.update_mispackaged(db)
-
     queries.update_status_summaries(db)
     queries.update_group_closures(db)
 
