@@ -115,7 +115,7 @@ def progressbar(seq, text, namegetter=str):
     print(file=sys.stderr)
 
 
-def is_ported(pkgs, python_versions):
+def set_status(result, pkgs, python_versions):
     # Look at the Python dependencies of given packages, based on the
     # name only (this means different arches are grouped into one)
     name_by_version = collections.defaultdict(set)
@@ -124,10 +124,18 @@ def is_ported(pkgs, python_versions):
             name_by_version[v].add(p.name)
     if name_by_version[2] & name_by_version[3]:
         # If a package depends on *both* py2 and py3, it's not ported
-        return False
-    # Otherwise, a srpm isn't ported if it has more packages that need py2
-    # than those that need py3
-    return len(name_by_version[3]) >= len(name_by_version[2])
+        result['status'] = 'mispackaged'
+        result['note'] = ('A single package depends on both Python 2 and '+
+            'Python 3.\n' +
+            'It should be split into a python2 and python3 subpackages ' +
+            'to prevent it from always dragging the py2 dependency in.')
+    else:
+        # Otherwise, a srpm isn't ported if it has more packages that need py2
+        # than those that need py3
+        if len(name_by_version[3]) >= len(name_by_version[2]):
+            result['status'] = 'released'
+        else:
+            result['status'] = 'idle'
 
 
 def format_rpm_name(pkg):
@@ -211,10 +219,7 @@ class Py3QueryCommand(dnf.cli.Command):
         for name in progressbar(by_srpm_name, 'Generating output'):
             pkgs = sorted(by_srpm_name[name])
             r = json_output[name] = {}
-            if is_ported(pkgs, python_versions):
-                r['status'] = 'released'
-            else:
-                r['status'] = 'idle'
+            set_status(r, pkgs, python_versions)
             r['rpms'] = {format_rpm_name(p):
                          {str(d): dep_versions[d] for d in rpm_pydeps[p]}
                         for p in pkgs}

@@ -148,47 +148,6 @@ def update_group_closures(db):
         db.execute(update, values)
 
 
-def update_py23_mix(db):
-    """Mark packages where a RPM depends on *both* py2 & py3 as mispackaged"""
-    mispackaged = db.query(tables.Status).get('mispackaged')
-    if mispackaged is None:
-        return
-
-    pydep2 = aliased(tables.PyDependency)
-    rpmpydep2 = aliased(tables.RPMPyDependency)
-
-    query = db.query(tables.CollectionPackage)
-    query = query.join(
-        tables.RPM,
-        tables.CollectionPackage.id == tables.RPM.collection_package_id)
-    query = query.join(
-        tables.RPMPyDependency,
-        tables.RPM.id == tables.RPMPyDependency.rpm_id)
-    query = query.join(
-        tables.PyDependency,
-        tables.PyDependency.name == tables.RPMPyDependency.py_dependency_name)
-    query = query.join(
-        rpmpydep2,
-        tables.RPM.id == rpmpydep2.rpm_id)
-    query = query.join(
-        pydep2,
-        pydep2.name == rpmpydep2.py_dependency_name)
-    query = query.filter(tables.PyDependency.py_version == 3)
-    query = query.filter(pydep2.py_version == 2)
-    query = query.filter(tables.CollectionPackage.status.in_(('idle', 'blocked')))
-    query = query.filter(tables.CollectionPackage.note == None)
-
-    ids = {pkg.id for pkg in query}
-    update = tables.CollectionPackage.__table__.update()
-    update = update.where(tables.CollectionPackage.id.in_(ids))
-    update = update.values(
-        status='mispackaged',
-        note='''A single package depends on both Python 2 and Python 3.
-        It should be split into a python2 and python3 subpackages
-        to prevent it from always dragging the py2 dependency in.''')
-    db.execute(update)
-
-
 def update_py34_abi(db):
     mispackaged = db.query(tables.Status).get('mispackaged')
     if mispackaged is None:
@@ -215,5 +174,4 @@ def update_py34_abi(db):
 
 
 def update_mispackaged(db):
-    update_py23_mix(db)
     update_py34_abi(db)
