@@ -151,7 +151,6 @@ fail2ban:
   note: |
       Upstream claims support of python-3.2+
 fife:
-    status: in-progress
     links:
         bug: https://github.com/fifengine/fifengine/issues/631
 fonts-tweak-tool:
@@ -179,7 +178,6 @@ gnome-tweak-tool:
   status: idle
   note: Python 3 is not currently supported upstream.
 gyp:
-    status: in-progress
     links:
         bug: https://codereview.chromium.org/1454433002
 iotop:
@@ -200,9 +198,12 @@ jabber-roster:
   note: |
     Porting will start if deps are available.
 konversation:
-    status: in-progress
     links:
         homepage: https://konversation.kde.org/
+    note:
+        Partially ported: the
+        [media script](https://quickgit.kde.org/?p=konversation.git&a=commit&h=285fc5f496363937b3676f33e7b468b8d85cce5e)
+        is ported to Python 3 while the rest of the package is not.
 libldb:
   status: released
   notes: |
