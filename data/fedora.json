@@ -523,6 +523,7 @@
       "python-six",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "PyXB-1.2.4-7.fc24": {
         "/usr/bin/python3": 3,
@@ -532,7 +533,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "PyYAML": {
     "deps": [
@@ -1992,6 +1993,7 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "gedit-beesu-plugin-0.4-27.fc24": {
         "pygtk2": 2,
@@ -2006,7 +2008,7 @@
         "python = 2.7.11-4.fc24": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "beets": {
     "deps": [
@@ -2756,13 +2758,14 @@
   },
   "cantor": {
     "deps": [],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "cantor-15.12.3-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "capstone": {
     "deps": [
@@ -4524,13 +4527,14 @@
       "python3",
       "rhn-client-tools"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "dnf-plugin-spacewalk-2.4.15-3.fc24": {
         "python(abi) = 2.7": 2,
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "dnf-plugin-system-upgrade": {
     "deps": [
@@ -5201,6 +5205,7 @@
       "python3",
       "qscintilla"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "eric-6.1.3-1.fc25": {
         "python(abi) = 2.7": 2,
@@ -5208,7 +5213,7 @@
         "python2 = 2.7.11": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "erlang-rpm-macros": {
     "deps": [
@@ -5356,6 +5361,7 @@
         "CLOSED RAWHIDE"
       ]
     },
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "fail2ban-server-0.9.4-4.fc25": {
         "/usr/bin/python": 2,
@@ -5363,7 +5369,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "mispackaged"
   },
   "farstream": {
     "deps": [
@@ -7213,12 +7219,19 @@
   },
   "glade3": {
     "deps": [],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1323267",
+        "NEW"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "glade3-libgladeui-2:3.8.5-6.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "glances": {
     "deps": [
@@ -7359,24 +7372,38 @@
     "deps": [
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1323262",
+        "NEW"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "gmpy-1.17-5.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "gmsh": {
     "deps": [
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1323263",
+        "NEW"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "gmsh-common-2.12.0-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "gnash": {
     "deps": [
@@ -8000,6 +8027,13 @@
       "python",
       "python-ase"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1323264",
+        "NEW"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "gpaw-0.11.0.13004-20.fc24": {
         "/usr/bin/python": 2,
@@ -8013,7 +8047,7 @@
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "gphotoframe": {
     "deps": [
@@ -11477,7 +11511,7 @@
         "NEW"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-solv-0.6.19-2.fc25": {
         "/usr/bin/python": 2,
@@ -12030,13 +12064,20 @@
     "deps": [
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1323254",
+        "NEW"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "lshell-0.9.16-5.fc23": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "ltspfs": {
     "deps": [],
@@ -12194,12 +12235,19 @@
   },
   "maildirproc": {
     "deps": [],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1188631",
+        "NEW"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "maildirproc-0.4.3-10.fc24": {
         "/usr/bin/python": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "mailman": {
     "deps": [
@@ -12297,13 +12345,20 @@
     "deps": [
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1323257",
+        "NEW"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "marisa-python-0.2.4-14.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "mash": {
     "deps": [
@@ -13505,12 +13560,19 @@
     "deps": [
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1323266",
+        "NEW"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-notmuch-0.21-3.fc24": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "ntop": {
     "deps": [],
@@ -13556,12 +13618,19 @@
     "deps": [
       "python"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1323261",
+        "NEW"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "nut-client-2.7.4-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "nwchem": {
     "deps": [],
@@ -15212,6 +15281,7 @@
       "python3",
       "pyxdg"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "pitivi-0.95-3.fc24": {
         "pycairo": 2,
@@ -15219,7 +15289,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "pius": {
     "deps": [
@@ -15469,6 +15539,7 @@
       "python-slip",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "policycoreutils-devel-2.5-4.fc25": {
         "/usr/bin/python3": 3,
@@ -15500,7 +15571,7 @@
         "/usr/bin/python": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "polybori": {
     "deps": [
@@ -15598,6 +15669,7 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-preprocess-1.2.2-7.20150919gitd5ab9a.fc24": {
         "/usr/bin/python2": 2,
@@ -15609,7 +15681,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "preupgrade-assistant": {
     "deps": [
@@ -19959,7 +20031,7 @@
         "NEW"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-bashate-0.3.2-2.fc24": {
         "/usr/bin/python3": 3,
@@ -20213,7 +20285,7 @@
         "NEW"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-bitlyapi-0.1.1-9.fc24": {
         "python(abi) = 2.7": 2
@@ -26699,7 +26771,7 @@
         "NEW"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-grafyaml-0.0.5-1.fc24": {
         "/usr/bin/python3": 3,
@@ -27448,6 +27520,7 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-instant-1.6.0-3.fc24": {
         "/usr/bin/python2": 2,
@@ -27458,7 +27531,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-interfile": {
     "deps": [
@@ -27953,6 +28026,7 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-jmespath-0.9.0-3.fc24": {
         "/usr/bin/python3": 3,
@@ -27963,7 +28037,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-joblib": {
     "deps": [
@@ -30042,6 +30116,7 @@
       "python3",
       "scipy"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-moss-0.3.4-4.fc24": {
         "python(abi) = 2.7": 2
@@ -30051,7 +30126,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-mox": {
     "deps": [
@@ -39149,6 +39224,7 @@
       "python3",
       "scipy"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-theano-0.8.0-1.fc25": {
         "/usr/bin/python": 2,
@@ -39161,7 +39237,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-tidy": {
     "deps": [
@@ -40699,6 +40775,7 @@
         "CLOSED RAWHIDE"
       ]
     },
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-vobject-0.9.2-1.fc25": {
         "/usr/bin/python3": 3,
@@ -40708,7 +40785,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "mispackaged"
   },
   "python-volatility": {
     "deps": [
@@ -41738,6 +41815,7 @@
       "python-six",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-yaql-1.0.2-2.fc24": {
         "/usr/bin/python2": 2,
@@ -41749,7 +41827,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-yenc": {
     "deps": [
@@ -43739,6 +43817,7 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "ris-linux-0.4-17.fc24": {
         "python": 2,
@@ -43748,7 +43827,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "rmol": {
     "deps": [
@@ -45273,13 +45352,14 @@
       "python-psutil",
       "python-pymongo"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "starcal-3.0.1-2.fc24": {
         "/usr/bin/python": 2,
         "/usr/bin/python3": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "statscache": {
     "deps": [
@@ -45484,6 +45564,7 @@
       "python-traceback2",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python-subunit-1.2.0-4.fc24": {
         "/usr/bin/python": 2,
@@ -45500,7 +45581,7 @@
         "pygtk2 = 2.24.0-13.fc24": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "subversion": {
     "deps": [
@@ -48431,6 +48512,7 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python-unbound-1.5.8-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
@@ -48448,7 +48530,7 @@
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "undertaker": {
     "deps": [
@@ -48958,6 +49040,7 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "python2-vrpn-07.33-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
@@ -48968,7 +49051,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "vte": {
     "deps": [
@@ -49167,6 +49250,7 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "will-crash-0.10-2.fc24": {
         "python": 2,
@@ -49175,7 +49259,7 @@
         "python3 = 3.5.1-7.fc25": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "winpdb": {
     "deps": [
