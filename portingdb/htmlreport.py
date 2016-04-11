@@ -253,21 +253,29 @@ def format_rpm_name(text):
         name, version, release))
 
 
-def graph():
+def graph(grp=None):
     return render_template(
         'graph.html',
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('graph'), 'Graph'),
         ),
+        grp=grp,
     )
 
 
-def graph_json():
+def graph_grp(grp):
+    return graph(grp=grp)
+
+
+def graph_json(grp=None):
     db = current_app.config['DB']()
     query = queries.packages(db)
     query = query.filter(tables.Package.status != 'released')
     query = query.filter(tables.Package.status != 'dropped')
+    if grp:
+        query = query.join(tables.GroupPackage)
+        query = query.filter(tables.GroupPackage.group_ident == grp)
     query = query.options(joinedload(tables.Package.requirers))
     packages = list(query)
     nodes = [{'name': p.name,
@@ -287,6 +295,10 @@ def graph_json():
              for d in query
              if d.requirer_name in names and d.requirement_name in names]
     return jsonify(nodes=nodes, links=links)
+
+
+def graph_json_grp(grp):
+    return graph_json(grp=grp)
 
 
 def graph_color(package):
@@ -571,6 +583,8 @@ def create_app(db_url, cache_config=None):
     _add_route("/piechart.svg", piechart_svg)
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
     _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
+    _add_route("/grp/<grp>/graph/", graph_grp)
+    _add_route("/grp/<grp>/graph/data.json", graph_json_grp)
     _add_route("/by_loc/", by_loc, get_keys={'sort', 'reverse'})
     _add_route("/by_loc/grp/<grp>/", group_by_loc, get_keys={'sort', 'reverse'})
     _add_route("/history/", history, get_keys={'expand'})

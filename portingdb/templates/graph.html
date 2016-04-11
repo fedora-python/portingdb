@@ -43,7 +43,11 @@
         <p>
             Here is a graph showing dependency information for all unported
             packages (idle, blocked, mispackaged, and in-progress)
-            tracked by <a href='..'>portingdb</a>.
+            {% if grp %}
+                in the <a href='{{ url_for("group", grp=grp) }}'>{{ grp }}</a>
+                group
+            {% endif %}
+            tracked by <a href='{{ url_for("hello") }}'>portingdb</a>.
             Darker colors mean more dependencies.
             Hover over a package to see its name; click it to open its portingdb summary.
         </p>
@@ -51,7 +55,7 @@
             Bigger nodes mean more Python (+C extension) code.
         </p>
         <p>
-            The graph is currently quite CPU-hungry. Sorry for that!
+            Large graphs are quite CPU-hungry. Sorry for that!
         </p>
     </div>
 </div>
@@ -74,7 +78,13 @@ var svg = d3.select("#graph-goes-here").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("portingdb.json", function(error, graph) {
+d3.json(
+    {% if grp %}
+        "{{ url_for('graph_json_grp', grp=grp) }}"
+    {% else %}
+        "portingdb.json"
+    {% endif %}
+    , function(error, graph) {
   if (error) throw error;
 
   force
