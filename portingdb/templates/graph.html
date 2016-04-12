@@ -5,7 +5,11 @@
 {%- endblock titlecontent %}
 
 {% block favicon_url -%}
-    {{ url_for('piechart_svg') }}?{{ cache_tag }}
+    {% if grp %}
+        {{ url_for('piechart_grp', grp=grp) }}?{{ cache_tag }}
+    {% else %}
+        {{ url_for('piechart_svg') }}?{{ cache_tag }}
+    {% endif %}
 {%- endblock favicon_url %}
 
 {% block style %}
