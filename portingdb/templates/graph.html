@@ -7,6 +7,8 @@
 {% block favicon_url -%}
     {% if grp %}
         {{ url_for('piechart_grp', grp=grp) }}?{{ cache_tag }}
+    {% elif pkg %}
+        {{ url_for('piechart_pkg', pkg=pkg) }}?{{ cache_tag }}
     {% else %}
         {{ url_for('piechart_svg') }}?{{ cache_tag }}
     {% endif %}
@@ -50,6 +52,10 @@
             {% if grp %}
                 in the <a href='{{ url_for("group", grp=grp) }}'>{{ grp }}</a>
                 group
+            {% elif pkg %}
+                related to the
+                <a href='{{ url_for("package", pkg=pkg) }}'>{{ pkg }}</a>
+                package, as
             {% endif %}
             tracked by <a href='{{ url_for("hello") }}'>portingdb</a>.
             Darker colors mean more dependencies.
@@ -85,6 +91,8 @@ var svg = d3.select("#graph-goes-here").append("svg")
 d3.json(
     {% if grp %}
         "{{ url_for('graph_json_grp', grp=grp) }}"
+    {% elif pkg %}
+        "{{ url_for('graph_json_pkg', pkg=pkg) }}"
     {% else %}
         "portingdb.json"
     {% endif %}
@@ -139,7 +147,20 @@ svg.append("svg:defs").selectAll("marker")
 
     svg.call(tip);
 
-  force.on("tick", function() {
+    var total_requirements = 0;
+    var total_requirers = 0;
+    graph.nodes.forEach(function(o, i) {
+        total_requirements += o.num_requirements;
+        total_requirers += o.num_requirers;
+    });
+    var avg_requirements = total_requirements / graph.nodes.length;
+    var avg_requirers = total_requirers / graph.nodes.length;
+
+  force.on("tick", function(e) {
+    graph.nodes.forEach(function(o, i) {
+        o.y += (o.num_requirements - avg_requirements - o.num_requirers + avg_requirers) * e.alpha / 5;
+    });
+
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
@@ -147,7 +168,8 @@ svg.append("svg:defs").selectAll("marker")
 
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
-  });
+
+    });
 });
 
 </script>

@@ -253,7 +253,7 @@ def format_rpm_name(text):
         name, version, release))
 
 
-def graph(grp=None):
+def graph(grp=None, pkg=None):
     return render_template(
         'graph.html',
         breadcrumbs=(
@@ -261,6 +261,7 @@ def graph(grp=None):
             (url_for('graph'), 'Graph'),
         ),
         grp=grp,
+        pkg=pkg,
     )
 
 
@@ -268,21 +269,53 @@ def graph_grp(grp):
     return graph(grp=grp)
 
 
-def graph_json(grp=None):
+def graph_pkg(pkg):
+    return graph(pkg=pkg)
+
+
+def graph_json(grp=None, pkg=None):
     db = current_app.config['DB']()
-    query = queries.packages(db)
-    query = query.filter(tables.Package.status != 'released')
-    query = query.filter(tables.Package.status != 'dropped')
-    if grp:
-        query = query.join(tables.GroupPackage)
-        query = query.filter(tables.GroupPackage.group_ident == grp)
-    query = query.options(joinedload(tables.Package.requirers))
-    packages = list(query)
+    if pkg is None:
+        db = current_app.config['DB']()
+        query = queries.packages(db)
+        query = query.filter(tables.Package.status != 'released')
+        query = query.filter(tables.Package.status != 'dropped')
+        if grp:
+            query = query.join(tables.GroupPackage)
+            query = query.filter(tables.GroupPackage.group_ident == grp)
+        query = query.options(joinedload(tables.Package.requirers))
+        packages = list(query)
+    else:
+        query = db.query(tables.Package)
+        root_package = query.get(pkg)
+        if root_package is None:
+            abort(404)
+        todo = {root_package}
+        requirements = set()
+        while todo:
+            package = todo.pop()
+            print('*'*8, len(todo), package.name, package.requirements)
+            if package not in requirements:
+                requirements.add(package)
+                todo.update(p for p in package.requirements
+                            if p.status not in {'released', 'dropped'})
+        todo = {root_package}
+        requirers = set()
+        while todo:
+            package = todo.pop()
+            print('$'*8, len(todo), package.name, package.requirers)
+            if package not in requirers:
+                requirers.add(package)
+                todo.update(p for p in package.requirers
+                            if p.status not in {'released', 'dropped'})
+        packages = list(requirements | requirers | {root_package})
     nodes = [{'name': p.name,
               'status': p.status,
               'color': graph_color(p),
               'status_color': '#' + p.status_obj.color,
               'size': 3.5+math.log((p.loc_python or 1)+(p.loc_capi or 1), 50),
+              'num_requirers': len(p.pending_requirers),
+              'num_requirements': len(p.pending_requirements),
              }
              for p in packages]
     names = [p.name for p in packages]
@@ -299,6 +332,10 @@ def graph_json(grp=None):
 
 def graph_json_grp(grp):
     return graph_json(grp=grp)
+
+
+def graph_json_pkg(pkg):
+    return graph_json(pkg=pkg)
 
 
 def graph_color(package):
@@ -585,6 +622,8 @@ def create_app(db_url, cache_config=None):
     _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
     _add_route("/grp/<grp>/graph/", graph_grp)
     _add_route("/grp/<grp>/graph/data.json", graph_json_grp)
+    _add_route("/pkg/<pkg>/graph/", graph_pkg)
+    _add_route("/pkg/<pkg>/graph/data.json", graph_json_pkg)
     _add_route("/by_loc/", by_loc, get_keys={'sort', 'reverse'})
     _add_route("/by_loc/grp/<grp>/", group_by_loc, get_keys={'sort', 'reverse'})
     _add_route("/history/", history, get_keys={'expand'})
