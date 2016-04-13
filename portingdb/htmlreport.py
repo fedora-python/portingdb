@@ -294,7 +294,6 @@ def graph_json(grp=None, pkg=None):
         requirements = set()
         while todo:
             package = todo.pop()
-            print('*'*8, len(todo), package.name, package.requirements)
             if package not in requirements:
                 requirements.add(package)
                 todo.update(p for p in package.requirements
@@ -303,7 +302,6 @@ def graph_json(grp=None, pkg=None):
         requirers = set()
         while todo:
             package = todo.pop()
-            print('$'*8, len(todo), package.name, package.requirers)
             if package not in requirers:
                 requirers.add(package)
                 todo.update(p for p in package.requirers
