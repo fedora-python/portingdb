@@ -72,20 +72,23 @@
     </thead>
 {%- endmacro %}
 
-{% macro pkglist_table_content(packages, collections) -%}
+{% macro pkglist_table_content(packages, collections, show_nonblocking=False) -%}
     {{ pkglist_table_head(collections) }}
     <tbody>
         {% for pkg in packages %}
             <tr>
-                {{ package_tr_content(cname, pkg, collections) }}
+                {{ package_tr_content(cname, pkg, collections, show_nonblocking=show_nonblocking) }}
             </tr>
         {% endfor %}
     </tbody>
 {%- endmacro %}
 
-{% macro package_tr_content(category_name, pkg, collections) -%}
+{% macro package_tr_content(category_name, pkg, collections, show_nonblocking=False) -%}
     <td>
         {{ pkglink(pkg) }}
+        {% if show_nonblocking and pkg.nonblocking %}
+            <small>(nonblocking)</small>
+        {% endif %}
     </td>
     {% for col in collections %}
         {% set cp = pkg.by_collection.get(col.ident) %}

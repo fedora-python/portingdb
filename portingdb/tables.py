@@ -131,6 +131,10 @@ class Package(TableBase):
         return [r for r in self.requirers
                 if r.status not in ('released', 'dropped')]
 
+    @property
+    def nonblocking(self):
+        return any(cp.nonblocking for cp in self.collection_packages)
+
 
 class Collection(TableBase):
     u"""A distro, or non-distro repository (e.g. "fedora" or "upstream")."""
