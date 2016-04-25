@@ -2776,7 +2776,7 @@
     "deps": [],
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "cantor-15.12.3-1.fc25": {
+      "cantor-16.04.0-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "libpython3.5m.so.1.0()(64bit)": 3
       }
@@ -2977,25 +2977,35 @@
     "deps": [
       "python",
       "python-flask",
-      "python-requests"
+      "python-requests",
+      "python-setuptools"
     ],
     "rpms": {
-      "ceph-1:9.2.0-5.fc25": {
+      "ceph-base-1:10.2.0-2.fc25": {
         "/usr/bin/python": 2,
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
         "python(abi) = 2.7": 2
       },
-      "ceph-common-1:9.2.0-5.fc25": {
+      "ceph-common-1:10.2.0-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python-cephfs-1:9.2.0-5.fc25": {
+      "ceph-mon-1:10.2.0-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python-rados-1:9.2.0-5.fc25": {
+      "ceph-osd-1:10.2.0-2.fc25": {
+        "/usr/bin/python": 2
+      },
+      "python-cephfs-1:10.2.0-2.fc25": {
+        "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python-rbd-1:9.2.0-5.fc25": {
+      "python-rados-1:10.2.0-2.fc25": {
+        "libpython2.7.so.1.0()(64bit)": 2,
+        "python(abi) = 2.7": 2
+      },
+      "python-rbd-1:10.2.0-2.fc25": {
+        "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
     },
@@ -3134,7 +3144,7 @@
   "cinnamon-desktop": {
     "deps": [],
     "rpms": {
-      "cinnamon-desktop-2.8.1-1.fc25": {
+      "cinnamon-desktop-3.0.0-1.fc25": {
         "/usr/bin/python2": 2
       }
     },
@@ -3191,7 +3201,7 @@
       "python"
     ],
     "rpms": {
-      "python-clearsilver-0.10.5-34.fc24": {
+      "python-clearsilver-0.10.5-35.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -5211,7 +5221,7 @@
       "python3"
     ],
     "rpms": {
-      "enki-15.11.2-0.3.20160227git8e374ef.fc25": {
+      "enki-16.04.0-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3,
         "python3": 3,
@@ -5375,7 +5385,7 @@
   "exciting": {
     "deps": [],
     "rpms": {
-      "exciting-common-10-2.fc24": {
+      "exciting-common-10-3.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -6399,7 +6409,7 @@
       "python-poppler-qt4"
     ],
     "rpms": {
-      "frescobaldi-2.18.2-1.fc24": {
+      "frescobaldi-2.19.0-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -6809,7 +6819,7 @@
   "gdb": {
     "deps": [],
     "rpms": {
-      "gdb-7.11-69.fc25": {
+      "gdb-7.11-70.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -7192,7 +7202,7 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1322472",
-        "CLOSED UPSTREAM"
+        "NEW"
       ]
     },
     "rpms": {
@@ -7201,7 +7211,7 @@
         "python = 2.7.11-4.fc24": 2
       }
     },
-    "status": "in-progress"
+    "status": "idle"
   },
   "gitg": {
     "deps": [
@@ -9044,23 +9054,27 @@
       "python-setuptools"
     ],
     "rpms": {
-      "holland-1.0.12-2.fc25": {
+      "holland-1.0.12-6.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "holland-common-1.0.12-2.fc25": {
+      "holland-common-1.0.12-6.fc25": {
         "python(abi) = 2.7": 2
       },
-      "holland-mysqldump-1.0.12-2.fc25": {
+      "holland-commvault-1.0.12-6.fc25": {
+        "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "holland-mysqllvm-1.0.12-2.fc25": {
+      "holland-mysqldump-1.0.12-6.fc25": {
         "python(abi) = 2.7": 2
       },
-      "holland-pgdump-1.0.12-2.fc25": {
+      "holland-mysqllvm-1.0.12-6.fc25": {
         "python(abi) = 2.7": 2
       },
-      "holland-xtrabackup-1.0.12-2.fc25": {
+      "holland-pgdump-1.0.12-6.fc25": {
+        "python(abi) = 2.7": 2
+      },
+      "holland-xtrabackup-1.0.12-6.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -10111,12 +10125,12 @@
       ]
     },
     "rpms": {
-      "perf-4.6.0-0.rc4.git2.1.fc25": {
+      "perf-4.6.0-0.rc4.git3.1.fc25": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.6.0-0.rc4.git2.1.fc25": {
+      "python-perf-4.6.0-0.rc4.git3.1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -10186,6 +10200,15 @@
     },
     "status": "idle"
   },
+  "kf5-kross-interpreters": {
+    "deps": [],
+    "rpms": {
+      "kf5-kross-python2-16.04.0-1.fc25": {
+        "libpython2.7.so.1.0()(64bit)": 2
+      }
+    },
+    "status": "idle"
+  },
   "khal": {
     "deps": [
       "python-click",
@@ -10220,7 +10243,7 @@
       "python-vobject"
     ],
     "rpms": {
-      "khard-0.8.1-1.fc25": {
+      "khard-0.9.0-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2,
         "python-argparse = 2.7.11-4.fc24": 2
@@ -10233,7 +10256,7 @@
       "boost"
     ],
     "rpms": {
-      "kig-15.12.3-1.fc25": {
+      "kig-16.04.0-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -11778,17 +11801,16 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1298250",
-        "NEW"
+        "CLOSED RAWHIDE"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-tevent-0.9.28-1.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged"
+    "status": "in-progress"
   },
   "libuser": {
     "deps": [
@@ -12040,7 +12062,7 @@
       "python-requests"
     ],
     "rpms": {
-      "liveusb-creator-3.93.1-1.fc25": {
+      "liveusb-creator-3.93.2-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -13076,7 +13098,7 @@
       "python-mpd"
     ],
     "rpms": {
-      "mpdris2-0.7-1.fc25": {
+      "mpdris2-0.7-2.20160422gita3af302.fc25": {
         "pygobject2": 2,
         "pygobject2 = 2.28.6-15.fc24": 2
       }
@@ -14490,17 +14512,17 @@
       "rpmdevtools"
     ],
     "rpms": {
-      "openscap-containers-1.2.8-2.fc24": {
+      "openscap-containers-1.2.9-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       },
-      "openscap-python-1.2.8-2.fc24": {
+      "openscap-python-1.2.9-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "openscap-python3-1.2.8-2.fc24": {
+      "openscap-python3-1.2.9-1.fc25": {
         "python(abi) = 3.5": 3
       },
-      "openscap-utils-1.2.8-2.fc24": {
+      "openscap-utils-1.2.9-1.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -14514,7 +14536,7 @@
       "python3"
     ],
     "rpms": {
-      "openscap-daemon-0.1.4-1.fc25": {
+      "openscap-daemon-0.1.5-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3,
         "python3": 3,
@@ -22249,17 +22271,18 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "python-cpuinfo-0.1.8-2.fc24": {
-        "/usr/bin/python2": 2,
+      "python2-cpuinfo-0.2.3-1.fc25": {
+        "/usr/bin/python3": 3,
         "python(abi) = 2.7": 2
       },
-      "python3-cpuinfo-0.1.8-2.fc24": {
+      "python3-cpuinfo-0.2.3-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-cram": {
     "deps": [
@@ -29700,21 +29723,19 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1329556",
-        "MODIFIED"
+        "ON_QA"
       ]
     },
-    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "python-ly-0.9.4-1.fc25": {
+      "python-ly-0.9.4-2.fc25": {
         "/usr/bin/python2": 2,
-        "/usr/bin/python3": 3,
         "python(abi) = 2.7": 2
       },
-      "python3-ly-0.9.4-1.fc25": {
+      "python3-ly-0.9.4-2.fc25": {
         "python(abi) = 3.5": 3
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "python-lyricwiki": {
     "deps": [
@@ -33142,10 +33163,10 @@
       "python3"
     ],
     "rpms": {
-      "python-parse_type-0.3.4-7.fc24": {
+      "python2-parse_type-0.3.4-8.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-parse_type-0.3.4-7.fc24": {
+      "python3-parse_type-0.3.4-8.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -34852,10 +34873,10 @@
       "python3"
     ],
     "rpms": {
-      "python-pygal-2.1.1-1.fc25": {
+      "python-pygal-2.2.1-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-pygal-2.1.1-1.fc25": {
+      "python3-pygal-2.2.1-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -35823,12 +35844,12 @@
       "python3"
     ],
     "rpms": {
-      "python-pytest-multihost-1.0-2.fc25": {
+      "python-pytest-multihost-1.1-2.fc25": {
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pytest-multihost-1.0-2.fc25": {
+      "python3-pytest-multihost-1.1-2.fc25": {
         "python(abi) = 3.5": 3,
         "python3": 3,
         "python3 = 3.5.1-7.fc25": 3
@@ -36212,7 +36233,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-qutepart-2.2.3-1.20160229gitfdc29c7.fc25": {
+      "python3-qutepart-3.0.0-1.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -36501,7 +36522,7 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1282151",
-        "ON_QA"
+        "CLOSED ERRATA"
       ]
     },
     "rpms": {
@@ -38477,10 +38498,10 @@
       "python3-openid"
     ],
     "rpms": {
-      "python2-social-auth-0.2.14-4.fc25": {
+      "python2-social-auth-0.2.18-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-social-auth-0.2.14-4.fc25": {
+      "python3-social-auth-0.2.18-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -41368,20 +41389,24 @@
   "python-vatnumber": {
     "deps": [
       "python",
-      "python-suds"
+      "python-suds",
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1309263",
-        "MODIFIED"
+        "ON_QA"
       ]
     },
     "rpms": {
-      "python-vatnumber-1.0-8.fc24": {
+      "python2-vatnumber-1.2-1.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-vatnumber-1.2-1.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "python-vcrpy": {
     "deps": [
@@ -43647,10 +43672,10 @@
       "python3"
     ],
     "rpms": {
-      "python3-pytz-2015.7-3.fc24": {
+      "python3-pytz-2016.4-1.fc25": {
         "python(abi) = 3.5": 3
       },
-      "pytz-2015.7-3.fc24": {
+      "pytz-2016.4-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -43868,7 +43893,7 @@
   "qemu": {
     "deps": [],
     "rpms": {
-      "qemu-kvm-tools-2:2.6.0-0.1.rc2.fc25": {
+      "qemu-kvm-tools-2:2.6.0-0.1.rc3.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -46175,45 +46200,45 @@
       "python3"
     ],
     "rpms": {
-      "python-libipa_hbac-1.13.4-1.fc25": {
+      "python-libipa_hbac-1.13.4-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python-libsss_nss_idmap-1.13.4-1.fc25": {
+      "python-libsss_nss_idmap-1.13.4-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python-sss-1.13.4-1.fc25": {
+      "python-sss-1.13.4-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python-sss-murmur-1.13.4-1.fc25": {
+      "python-sss-murmur-1.13.4-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python-sssdconfig-1.13.4-1.fc25": {
+      "python-sssdconfig-1.13.4-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-libipa_hbac-1.13.4-1.fc25": {
+      "python3-libipa_hbac-1.13.4-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "python3-libsss_nss_idmap-1.13.4-1.fc25": {
+      "python3-libsss_nss_idmap-1.13.4-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "python3-sss-1.13.4-1.fc25": {
+      "python3-sss-1.13.4-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "python3-sss-murmur-1.13.4-1.fc25": {
+      "python3-sss-murmur-1.13.4-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "python3-sssdconfig-1.13.4-1.fc25": {
+      "python3-sssdconfig-1.13.4-2.fc25": {
         "python(abi) = 3.5": 3
       },
-      "sssd-tools-1.13.4-1.fc25": {
+      "sssd-tools-1.13.4-2.fc25": {
         "/usr/bin/python3": 3
       }
     },
@@ -49628,7 +49653,7 @@
   "vdr-epg-daemon": {
     "deps": [],
     "rpms": {
-      "vdr-epg-daemon-1.0.36-1.fc25": {
+      "vdr-epg-daemon-1.0.38-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
