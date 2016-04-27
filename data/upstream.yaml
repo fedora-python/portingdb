@@ -20,6 +20,12 @@ pkgwat: &pypi-trove-compatible
   status: released
   note: |
     Trove classifiers on PyPI suggest that this software is ported upstream.
+pki-core:
+  links:
+    repo: https://git.fedorahosted.org/cgit/pki.git/
+  note: |
+    `pki-base` subpackage as a `pki-base-python3` equivalent, however, the
+    `pki-server` (and probably `pki-tools`) are not yet ported upstream.
 python-PSI: *pypi-trove-compatible
 python-altgraph: *pypi-trove-compatible
 python-barbicanclient: *pypi-trove-compatible
@@ -222,6 +228,9 @@ libxslt:
 lilypond:
   status: idle
   note: Python 3 is not currently supported upstream.
+lnst:
+  links:
+    bug: https://github.com/jpirko/lnst/issues/105
 lorem-ipsum-generator:
   status: idle
 m2crypto:
