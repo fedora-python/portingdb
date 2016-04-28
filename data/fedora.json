@@ -2753,7 +2753,7 @@
       "sip"
     ],
     "rpms": {
-      "calibre-2.55.0-4.fc25": {
+      "calibre-2.55.0-5.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -6521,7 +6521,7 @@
       "python-simplejson"
     ],
     "rpms": {
-      "func-0.30-7.fc24": {
+      "func-0.30-8.fc25": {
         "/usr/bin/python": 2,
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
@@ -8861,7 +8861,6 @@
       "m2crypto",
       "python",
       "python-dns",
-      "python-gnupg",
       "python-ipaddr",
       "unbound"
     ],
@@ -10849,10 +10848,10 @@
       "python3"
     ],
     "rpms": {
-      "python-bytesize-0.4-3.fc25": {
+      "python-bytesize-0.5-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-bytesize-0.4-3.fc25": {
+      "python3-bytesize-0.5-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -10892,6 +10891,18 @@
         "python(abi) = 2.7": 2
       },
       "libcap-ng-python3-0.7.7-4.fc24": {
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
+  "libcec": {
+    "deps": [
+      "python3"
+    ],
+    "rpms": {
+      "python3-libcec-3.1.0-1.fc25": {
+        "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
     },
@@ -14490,7 +14501,6 @@
   },
   "openpgpkey-milter": {
     "deps": [
-      "python-gnupg",
       "python-pymilter",
       "unbound"
     ],
@@ -14969,17 +14979,17 @@
       "python-systemd"
     ],
     "rpms": {
-      "pacemaker-1.1.14-2.5a6cdd1.git.fc25": {
+      "pacemaker-1.1.15-0.1.rc1.fc25": {
         "python": 2,
         "python = 2.7.11-4.fc24": 2
       },
-      "pacemaker-cts-1.1.14-2.5a6cdd1.git.fc25": {
+      "pacemaker-cts-1.1.15-0.1.rc1.fc25": {
         "/usr/bin/python": 2,
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
         "python(abi) = 2.7": 2
       },
-      "pacemaker-libs-devel-1.1.14-2.5a6cdd1.git.fc25": {
+      "pacemaker-libs-devel-1.1.15-0.1.rc1.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -16218,7 +16228,6 @@
       "pulp",
       "pygobject3",
       "python",
-      "python-gnupg",
       "python-setuptools"
     ],
     "rpms": {
@@ -26224,7 +26233,7 @@
       "python"
     ],
     "rpms": {
-      "python-fpconst-0.7.3-15.fc24": {
+      "python-fpconst-0.7.3-16.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -27070,20 +27079,24 @@
   },
   "python-gnupg": {
     "deps": [
-      "python"
+      "python",
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1305346",
-        "MODIFIED"
+        "ON_QA"
       ]
     },
     "rpms": {
-      "python-gnupg-0.3.7-3.fc24": {
+      "python2-gnupg-0.3.8-1.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-gnupg-0.3.8-1.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "python-gnutls": {
     "deps": [
@@ -35040,7 +35053,7 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1324237",
-        "ON_QA"
+        "CLOSED ERRATA"
       ]
     },
     "rpms": {
@@ -35981,20 +35994,20 @@
   },
   "python-pytimeparse": {
     "deps": [
-      "python"
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1305459",
-        "ASSIGNED"
+        "ON_QA"
       ]
     },
     "rpms": {
-      "python-pytimeparse-1.1.5-2.fc24": {
-        "python(abi) = 2.7": 2
+      "python-pytimeparse-1.1.5-4.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "python-pytools": {
     "deps": [
@@ -38243,16 +38256,15 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1309249",
-        "NEW"
+        "ASSIGNED"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-simpletal-4.3-9.fc24": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged"
+    "status": "in-progress"
   },
   "python-simplevisor": {
     "deps": [
@@ -46195,11 +46207,11 @@
       "python3"
     ],
     "rpms": {
-      "python3-spyder-2.3.8-3.fc25": {
+      "python3-spyder-2.3.9-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       },
-      "spyder-2.3.8-3.fc25": {
+      "spyder-2.3.9-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
@@ -49641,7 +49653,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-libmount-2.28-1.fc25": {
+      "python3-libmount-2.28-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -49745,7 +49757,7 @@
   "vdr-epg-daemon": {
     "deps": [],
     "rpms": {
-      "vdr-epg-daemon-1.0.41-1.fc25": {
+      "vdr-epg-daemon-1.0.43-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
