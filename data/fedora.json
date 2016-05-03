@@ -2551,7 +2551,7 @@
   "bugzilla": {
     "deps": [],
     "rpms": {
-      "bugzilla-contrib-5.0.2-2.fc24": {
+      "bugzilla-contrib-5.0.2-3.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -3134,7 +3134,7 @@
       "python-pillow"
     ],
     "rpms": {
-      "cinnamon-3.0.0-1.fc25": {
+      "cinnamon-3.0.1-1.fc25": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2
       }
@@ -3144,7 +3144,7 @@
   "cinnamon-desktop": {
     "deps": [],
     "rpms": {
-      "cinnamon-desktop-3.0.0-1.fc25": {
+      "cinnamon-desktop-3.0.0-2.fc25": {
         "/usr/bin/python2": 2
       }
     },
@@ -3381,7 +3381,7 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1313932",
-        "ON_QA"
+        "ASSIGNED"
       ]
     },
     "rpms": {
@@ -4002,7 +4002,7 @@
       "wxPython"
     ],
     "rpms": {
-      "cura-lulzbot-19.08-1.fc25": {
+      "cura-lulzbot-19.12-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -8921,10 +8921,23 @@
     },
     "status": "released"
   },
+  "heketi": {
+    "deps": [
+      "python",
+      "python-jwt",
+      "python-requests"
+    ],
+    "rpms": {
+      "python-heketi-1.2.0-1.fc25": {
+        "python(abi) = 2.7": 2
+      }
+    },
+    "status": "idle"
+  },
   "hexchat": {
     "deps": [],
     "rpms": {
-      "hexchat-2.12.0-1.fc25": {
+      "hexchat-2.12.1-1.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -11107,10 +11120,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-libguestfs-1:1.33.23-1.fc25": {
+      "python2-libguestfs-1:1.33.24-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-libguestfs-1:1.33.23-1.fc25": {
+      "python3-libguestfs-1:1.33.24-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -12650,7 +12663,7 @@
       "python"
     ],
     "rpms": {
-      "meld-3.15.1-2.fc24": {
+      "meld-3.16.0-1.fc25": {
         "/usr/bin/python": 2,
         "pycairo": 2,
         "pycairo = 1.10.0-4.fc24": 2,
@@ -16527,17 +16540,16 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1322480",
-        "NEW"
+        "ASSIGNED"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "pyaudio-0.2.3-12.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged"
+    "status": "in-progress"
   },
   "pybliographer": {
     "deps": [
@@ -17367,10 +17379,9 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1180935",
-        "NEW"
+        "MODIFIED"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "pylibacl-0.5.1-9.fc24": {
         "libpython2.7.so.1.0()(64bit)": 2,
@@ -17379,7 +17390,7 @@
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged"
+    "status": "in-progress"
   },
   "pyliblo": {
     "deps": [
@@ -37378,7 +37389,8 @@
   },
   "python-rpi-gpio": {
     "deps": [
-      "python"
+      "python",
+      "python3"
     ],
     "links": {
       "bug": [
@@ -37386,14 +37398,17 @@
         "NEW"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "python-rpi-gpio-0.5.11-2.fc24": {
+      "python2-RPi.GPIO-0.6.1-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
+      },
+      "python3-RPi.GPIO-0.6.1-1.fc25": {
+        "libpython3.5m.so.1.0()(64bit)": 3,
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "python-rply": {
     "deps": [
@@ -42696,10 +42711,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-xmltodict-0.9.2-2.fc25": {
+      "python2-xmltodict-0.10.1-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-xmltodict-0.9.2-2.fc25": {
+      "python3-xmltodict-0.10.1-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -47810,7 +47825,7 @@
   "texworks": {
     "deps": [],
     "rpms": {
-      "texworks-0.6.0-2.fc25": {
+      "texworks-0.6.1-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
