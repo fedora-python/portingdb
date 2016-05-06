@@ -318,7 +318,7 @@ def update(ctx):
     from . import queries
     queries.update_group_closures(db)
 
-@cli.command()
+@cli.command('upstream-idle')
 @click.pass_context
 def upstream_idle(ctx):
     """List packages marked as released upstream which are currently idle.
