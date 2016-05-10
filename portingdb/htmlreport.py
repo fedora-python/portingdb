@@ -324,7 +324,8 @@ def graph_json(grp=None, pkg=None):
               "target": names.index(d.requirement_name),
              }
              for d in query
-             if d.requirer_name in names and d.requirement_name in names]
+             if d.requirer_name in names and d.requirement_name in names
+                 and not d.requirement.nonblocking]
     return jsonify(nodes=nodes, links=links)
 
 
