@@ -243,6 +243,14 @@ pyPdf:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=991102
     note: |
         Suggested replacement: `python-PyPDF2`, which has official py3+ support on v1.20 onwards.
+Pyrex:
+    status: dropped
+    note: |
+        The last Pyrex release was in 2010.
+        Cython, originally a Pyrex fork, is now a mature and widely used tool.
+        It does introduce some incompatible extensions, however.
+
+        Suggested replacement: `Cython`
 pyserial:
     nonblocking: true
     note: |
@@ -462,12 +470,25 @@ python-mutagen:
     nonblocking: true
     note: |
         Ported, but the devel package needs py3
+python-myghty:
+    status: dropped
+    note: |
+        Per the [PiPI page](https://pypi.python.org/pypi/Myghty),
+        "Myghty is a legacy library. New projects should use Mako templates".
+
+        Suggested replacement: `python-mako`
 python-netlib:
     note: |
       spec file updated and built in rawhide by [fab](http://fabian-affolter.ch).
 python-nss:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=985290
+python-numeric:
+    status: dropped
+    note: |
+        Last released in 2005, Numeric has been replaced by its successor, Numpy.
+
+        Suggested replacement: `numpy`
 python-oauth:
     status: dropped
     note: |
