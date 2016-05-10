@@ -276,6 +276,10 @@ python-bunch:
         Replacement: `python-munch` (Same API)
 python-cheetah:
     dead-upstream: true
+    status: dropped
+    note: |
+      Extremely unlikely to ever be ported.
+      Suggested replacement: `python-jinja2` and `python-mako`
 python-cherrypy:
     status: dropped
     note: |
@@ -459,6 +463,10 @@ python-openid:
 python-os-testr:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1279704
+python-oslo-concurrency:
+    nonblocking: true
+    note: |
+        The tests subpackage is still Python2-only.
 python-oslo-context:
     nonblocking: true
     note: |
