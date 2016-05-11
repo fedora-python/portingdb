@@ -59,10 +59,14 @@ def main(update):
     all_statuses = [
         "blocked", "dropped", "idle", "in-progress", "released", "mispackaged"]
 
+    prev_date = None
+    prev_commit = None
     if update:
         with open(update) as f:
             for row in csv.DictReader(f):
                 excluded.add(row['commit'])
+                prev_date = row['date']
+                prev_commit = row['commit']
                 writer.writerow(row)
 
     try:
@@ -71,38 +75,55 @@ def main(update):
         tmpdb = os.path.join(tmpclone, 'tmp-portingdb.sqlite')
         run(['git', 'clone', '.', tmpclone])
         prev_data_hash = None
+        prev_batch = []
         for commit in reversed(git_history()):
             data_hash = run(['git', 'rev-parse', commit + ':' + 'data'])
-            if (commit not in excluded) and (data_hash != prev_data_hash):
-                # Note: we don't remove files that didn't exist in the old
-                # version.
-                run(['git', 'checkout', commit, '--', 'data'], cwd=tmpclone)
-                run(['python3', '-m', 'portingdb',
-                     '--datadir', tmpdata,
-                     '--db', tmpdb,
-                     'load'])
-
-                engine = create_engine('sqlite:///' + os.path.abspath(tmpdb))
-                db = get_db(engine=engine)
-                columns = [tables.Package.status, func.count()]
-                query = select(columns).select_from(tables.Package.__table__)
-                query = query.group_by(tables.Package.status)
-
-                date = run(['git', 'log', '-n1', '--pretty=%ci', commit]).strip()
-                package_numbers = {status: num_packages
-                                   for status, num_packages
-                                   in db.execute(query)}
-                for status in all_statuses:
-                    row = {
-                        'commit': commit,
-                        'date': date,
-                        'status': status,
-                        'num_packages': package_numbers.get(status, 0),
-                    }
+            if (commit in excluded) or (data_hash == prev_data_hash):
+                prev_data_hash = data_hash
+                continue
+            date = run(['git', 'log', '-n1', '--pretty=%ci', commit]).strip()
+            if prev_date and prev_date[:11] != date[:11]:
+                prev_date = date
+                prev_commit = commit
+                for row in prev_batch:
                     writer.writerow(row)
+            else:
+                prev_commit = commit
+                print('{},{} - skipping'.format(prev_commit, prev_date),
+                      file=sys.stderr)
+            prev_batch = []
 
-                os.unlink(tmpdb)
+            # Note: we don't remove files that didn't exist in the old
+            # version.
+            run(['git', 'checkout', commit, '--', 'data'], cwd=tmpclone)
+            run(['python3', '-m', 'portingdb',
+                    '--datadir', tmpdata,
+                    '--db', tmpdb,
+                    'load'])
+
+            engine = create_engine('sqlite:///' + os.path.abspath(tmpdb))
+            db = get_db(engine=engine)
+            columns = [tables.Package.status, func.count()]
+            query = select(columns).select_from(tables.Package.__table__)
+            query = query.group_by(tables.Package.status)
+
+            package_numbers = {status: num_packages
+                                for status, num_packages
+                                in db.execute(query)}
+            for status in all_statuses:
+                row = {
+                    'commit': commit,
+                    'date': date,
+                    'status': status,
+                    'num_packages': package_numbers.get(status, 0),
+                }
+                prev_batch.append(row)
+
+            os.unlink(tmpdb)
+
             prev_data_hash = data_hash
+        for row in prev_batch:
+            writer.writerow(row)
     finally:
         shutil.rmtree(tmpdir)
     return
