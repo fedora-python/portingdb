@@ -307,6 +307,20 @@ def graph_json(grp=None, pkg=None):
                 todo.update(p for p in package.requirers
                             if p.status not in {'released', 'dropped'})
         packages = list(requirements | requirers | {root_package})
+
+    package_names = {p.name for p in packages}
+    query = db.query(tables.Dependency)
+    linked_pairs = {(d.requirer_name, d.requirement_name)
+                    for d in query
+                    if d.requirer_name in package_names
+                        and d.requirement_name in package_names
+                        and not d.requirement.nonblocking}
+    linked_names = (set(p[0] for p in linked_pairs) |
+                    set(p[1] for p in linked_pairs))
+    if pkg:
+        linked_names.add(pkg)
+    not_included = [p for p in packages if p.name not in linked_names]
+
     nodes = [{'name': p.name,
               'status': p.status,
               'color': graph_color(p),
@@ -315,10 +329,10 @@ def graph_json(grp=None, pkg=None):
               'num_requirers': len(p.pending_requirers),
               'num_requirements': len(p.pending_requirements),
              }
-             for p in packages]
-    names = [p.name for p in packages]
+             for p in packages
+             if p.name in linked_names and p.name in package_names]
+    names = [n['name'] for n in nodes]
 
-    query = db.query(tables.Dependency)
 
     links = [{"source": names.index(d.requirer_name),
               "target": names.index(d.requirement_name),
@@ -326,6 +340,12 @@ def graph_json(grp=None, pkg=None):
              for d in query
              if d.requirer_name in names and d.requirement_name in names
                  and not d.requirement.nonblocking]
+
+    nodes_in_links = (set(l['source'] for l in links) |
+                      set(l['target'] for l in links))
+
+    nodes = [n for i, n in enumerate(nodes) if i in nodes_in_links]
+
     return jsonify(nodes=nodes, links=links)
 
 

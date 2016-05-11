@@ -47,7 +47,7 @@
     <div class="col-12">
         <h1>A Graph</h1>
         <p>
-            Here is a graph showing dependency information for all unported
+            Here is a graph showing all dependency relationships for unported
             packages (idle, blocked, mispackaged, and in-progress)
             {% if grp %}
                 in the <a href='{{ url_for("group", grp=grp) }}'>{{ grp }}</a>
@@ -58,6 +58,8 @@
                 package, as
             {% endif %}
             tracked by <a href='{{ url_for("hello") }}'>portingdb</a>.
+            Packages with no relationship to other unported packages are not
+            shown.
             Darker colors mean more dependencies.
             Hover over a package to see its name; click it to open its portingdb summary.
         </p>
