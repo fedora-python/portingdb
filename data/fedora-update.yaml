@@ -186,6 +186,21 @@ magicor:
     dead-upstream: true
 marave:
     dead-upstream: true
+notify-python:
+    status: dropped
+    note: |
+        This package provided customized static Python bindings to a GTK
+        library.
+        GTK3 and GObject introspection provide dynamic bindings that do not
+        need to be customized for each language, thus this package is
+        not necessary.
+
+        Suggested replacement: `python-gobject` (provides the `gi` module)
+
+        [A small tutorial] for using libnotify's dynamic Python bindings was
+        written by Dev_Dungeon user NanoDano.
+
+        [A small tutorial]: http://www.devdungeon.com/content/desktop-notifications-python-libnotify
 osbs:
     status: dropped
     note: |
