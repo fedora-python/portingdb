@@ -77,11 +77,13 @@ def main(update):
         prev_data_hash = None
         prev_batch = []
         for commit in reversed(git_history()):
+            date = run(['git', 'log', '-n1', '--pretty=%ci', commit]).strip()
+            if prev_date and prev_date > date:
+                continue
             data_hash = run(['git', 'rev-parse', commit + ':' + 'data'])
             if (commit in excluded) or (data_hash == prev_data_hash):
                 prev_data_hash = data_hash
                 continue
-            date = run(['git', 'log', '-n1', '--pretty=%ci', commit]).strip()
             if prev_date and prev_date[:11] != date[:11]:
                 prev_date = date
                 prev_commit = commit
