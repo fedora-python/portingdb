@@ -116,6 +116,25 @@ gmpy:
     status: dropped
     note: |
       Suggested replacement: `python-gmpy2`
+gnome-desktop:
+    status: dropped
+    note: |
+      Sugested replacement: `gnome-desktop3`
+
+      In [a bug](https://bugzilla.redhat.com/show_bug.cgi?id=1328871),
+      the maintainer clarified:
+
+      > so to be clear, gnome-desktop is an old library not used by much
+      > anymore. it doesn't have python bindings in the tarball. Those are
+      > provided by gnome-python2-desktop.
+      >
+      > gnome-desktop3 is actively used (in very limited ways), but it relies
+      > on gobject introspection to bind to python.
+
+      Note that since
+      [gnome-desktop3](https://admin.fedoraproject.org/pkgdb/package/rpms/gnome-desktop3/)
+      uses GObject introspection, it has no own Python code and thus does not
+      show up in PortingDB.
 gnome-python2:
     status: dropped
     note: |
