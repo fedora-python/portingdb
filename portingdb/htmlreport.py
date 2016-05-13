@@ -134,6 +134,30 @@ def hello():
     )
 
 
+def jsonstats():
+    db = current_app.config['DB']()
+
+    query = queries.packages(db)
+    active, query = queries.split(query, tables.Package.status == 'in-progress')
+    done, query = queries.split(query, tables.Package.status == 'released')
+    dropped, query = queries.split(query, tables.Package.status == 'dropped')
+    mispackaged, query = queries.split(query, tables.Package.status == 'mispackaged')
+    blocked, query = queries.split(query, tables.Package.status == 'blocked')
+    ready, query = queries.split(query, tables.Package.status == 'idle')
+    assert query.count() == 0
+
+    stats = {
+        'in-progress': active.count(),
+        'released': done.count(),
+        'dropped': dropped.count(),
+        'mispackaged': mispackaged.count(),
+        'blocked': blocked.count(),
+        'idle': ready.count(),
+    }
+
+    return jsonify(**stats)
+
+
 def get_status_summary(db, filter=None):
     query = db.query(tables.Status)
     query = query.join(tables.Package, tables.Status.packages)
@@ -632,6 +656,7 @@ def create_app(db_url, cache_config=None):
         app.route(url)(decorated)
 
     _add_route("/", hello)
+    _add_route("/stats.json", jsonstats)
     _add_route("/pkg/<pkg>/", package)
     _add_route("/grp/<grp>/", group)
     _add_route("/graph/", graph)
