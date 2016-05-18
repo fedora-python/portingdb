@@ -26,8 +26,9 @@
         </div>
         <div class="col-md-8">
             {% if 'main-instructions' in config %}
-                {{ config['main-instructions'].replace('$RANDOMPKG',
-                                                       pkglink(random_ready))
+                {{ config['main-instructions']
+                        .replace('$RANDOMPKG', pkglink(random_ready))
+                        .replace('$HOWTO_LINK', url_for('howto'))
                     |safe }}
             {% endif %}
             {% if groups %}

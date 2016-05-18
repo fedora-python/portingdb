@@ -475,6 +475,16 @@ def piechart_pkg(pkg):
     return _piechart([], package.status_obj)
 
 
+def howto():
+    return render_template(
+        'howto.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('howto'), 'So you want to contribute?'),
+        ),
+    )
+
+
 def history():
     expand = request.args.get('expand', None)
     if expand not in ('1', None):
@@ -755,6 +765,7 @@ def create_app(db_url, cache_config=None):
     _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
     _add_route("/history/", history, get_keys={'expand'})
     _add_route("/history/data.csv", history_csv)
+    _add_route("/howto/", howto)
 
     return app
 
