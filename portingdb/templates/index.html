@@ -58,12 +58,12 @@
                 <div>
                     {{ len(mispackaged_packages) }} packages were found to have some kind of packaging problem.
                 </div>
-                <div>
+                <div style="padding-bottom: 7pt">
                     To find the best package to port, see <a href="{{
                     url_for('mispackaged') }}">packages ordered by last
-                    activity</a>. <!-- <br/>
-                    For more information read: <a href="{# url_for('howto')
-                    #}">So you want to contribute?</a> -->
+                    activity</a>.<br/>
+                    For more information read: <a href="{{ url_for('howto')
+                    }}">So you want to contribute?</a>
                 </div>
                 <ul class="simple-pkg-list">
                 {% for pkg in mispackaged_packages %}

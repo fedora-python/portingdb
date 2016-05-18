@@ -476,12 +476,50 @@ def piechart_pkg(pkg):
 
 
 def howto():
+    db = current_app.config['DB']()
+    query = queries.packages(db)
+
+    # Count the idle and blocked packages
+    idle_query, query = queries.split(query, tables.Package.status == 'idle')
+    idle_len = idle_query.count()
+    blocked_query, query = queries.split(query, tables.Package.status == 'blocked')
+    blocked_len = blocked_query.count()
+
+    # Get all the mispackaged packages
+    mispackaged_query, query = queries.split(query, tables.Package.status == 'mispackaged')
+    mispackaged = list(mispackaged_query)
+
+    # Pick a mispackaged package at random
+    random_mispackaged = random.choice(mispackaged)
+
+    # Fedora status: Mispackaged
+    query = db.query(tables.Status)
+    query = query.filter(tables.Status.ident == 'mispackaged')
+    query = query.join(tables.CollectionPackage)
+    query = query.filter(
+            tables.CollectionPackage.collection_ident == 'fedora')
+    mispackaged_status = query.first()
+
+    # Upstream status: Released
+    query = db.query(tables.Status)
+    query = query.filter(tables.Status.ident == 'released')
+    query = query.join(tables.CollectionPackage)
+    query = query.filter(
+            tables.CollectionPackage.collection_ident == 'upstream')
+    released_status = query.first()
+
     return render_template(
         'howto.html',
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('howto'), 'So you want to contribute?'),
         ),
+        idle_len=idle_len,
+        blocked_len=blocked_len,
+        mispackaged=mispackaged,
+        random_mispackaged=random_mispackaged,
+        mispackaged_status = mispackaged_status,
+        released_status = released_status,
     )
 
 

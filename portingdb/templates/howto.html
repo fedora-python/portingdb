@@ -4,11 +4,152 @@
     So you want to contribute? – {{ super() }}
 {%- endblock titlecontent %}
 
+{% block style %}
+{{ super() }}
+
+div.toc {
+    border: 1px solid black;
+    background-color: #f5f5f5;
+    font-weight: bold;
+    padding: 10pt 10pt 0pt 10pt;
+}
+
+div.toc li {
+    font-weight: normal;
+}
+
+p.codebox {
+    border: 1px solid black;
+    background-color: #eeeeee;
+    padding: 5pt;
+}
+
+code.codebox {
+    white-space: pre;
+    word-break: normal;
+    word-wrap: normal;
+    background-color: inherit;
+}
+
+{% endblock style %}
+
 {% block bodycontent %}
 
 <div class="container">
     <div class="col-md-12">
         <h1>So you want to contribute?</h1>
+        <p>
+            That's great! What do you want to do?
+        </p>
+
+        <div class="toc">
+            Table of Contents:
+            <ul>
+                <li><a href="#package-it">Package it</a></li>
+                <li><a href="#investigate-annotate">Investigate & Annotate</a></li>
+                <li><a href="#port-it">Port it</a></li>
+            </ul>
+        </div>
+
+        <h2 id="package-it">Package it</h2>
+        <p>
+            There are currently <a href="{{ url_for('mispackaged') }}">{{ len(mispackaged) }} packages</a> that are Python 3–ready upstream (that we know of), but not quite yet Python 3–ready in Fedora. These are labeled as "mispackaged" in PortingDB.
+        </p><p>
+            You can view the <a href="{{ url_for('mispackaged') }}">mispackaged packages</a> ordered by their last activity, so you can pick one off the top and be relatively sure nobody is currently working on it.
+            Alternatively, you can pick one of <a href="{{ url_for('mispackaged', requested=1) }}">these packages</a>, where the packager explicitly asked for someone to provide a patch since they don't have the time for it.
+        </p><p>
+            Now open the package in PortingDB (e.g. {{ pkglink(random_mispackaged) }}): The {{ badge(mispackaged_status) }} next to <i>Fedora</i> in the sidebar indicates that indeed we are dealing with a mispackaged package.
+        </p>
+        <h3>What's What</h3>
+        <p>
+            Look further down the sidebar for the headline <i>RPMs</i>. There you will see all the RPM (sub)packages contained in this package. Sometimes there's just the base package, sometimes it has several subpackages. What we want to know is if there is a (sub)package for Python 3. If there is only a Python 2 (sub)package, then we know that this package needs to be ported.
+        </p><p>
+            However, sometimes you will find a package that is still mispackaged even though it already has a Python 3 (sub)package. In those cases, something isn't quite right. Usually the Python 3 subpackage depends on both Python 3 <i>and</i> Python 2. That is unfortunate, because it basically renders the porting effort null.
+        </p>
+        <h3>Make a Patch</h3>
+        <p>
+            In either case, look a bit further down still and find a link to the associated Bugzilla report (under <i>Links→bug</i> in the sidebar). Go there and join the discussion. Find out what's the status quo and if anyone is working on it. If not, be the one that submits a patch!
+            <!-- TODO: Link for How to submit/create a patch? -->
+        </p><p>
+            To aid you in your porting effort, use the <a href="http://python-rpm-porting.readthedocs.io">Python RPM Porting Guide</a>. If you are investigating why a Python 3 subpackage still depends on Python&nbsp;2, take a look at the <a href="http://python-rpm-porting.readthedocs.io/en/latest/application-modules.html#are-shebangs-dragging-you-down-to-python-2">section on <i>shebangs</i></a>.
+        </p>
+        <h3>Make it Happen</h3>
+        <p>
+            When you submit your patch to the associated Bugzilla report (use the <i>"Add an attachment"</i> button), be sure to ask the assgned packager to review and push it. However, as maintainers can be unresponsive for long periods of time, let us know about your patch as well so we can push it if the maintainer is unable.
+        </p><p>
+            To let us know, edit the <i>Blocks</i> field of the Bugzilla report and add the string <b>PY3PATCH-AVAILABLE</b> (you can use space as a separator). That way it will appear in our <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1312032">tracking bug</a> for packages with an available patch. If need be, we'll review your patch and push it for the maintainer.
+        </p>
+        <h3>Fame and Glory</h3>
+        <p>
+            After you've done the deed, you deserve your reward! Sadly, the hand of the King's daughter and half of all the kingdom has recently become unavailable (may vary upon location, ask your nearest royal family), but fret not, you can get a <i>badge</i> of honour!
+        </p><p>
+            Visit the <a href="#TODO">wiki page for badges</a>, add a row with your <i>FAS username</i> and post a link to the Bugzilla report you helped resolve. You can get 3 badges: for your 1st, 5th and also 10th resolved package!
+            <!-- TODO: Badges wiki page. -->
+        </p>
+
+        <h2 id="investigate-annotate">Investigate & Annotate</h2>
+        <p>
+            If packaging is just not your thing, don't despair! You can help also by providing information!
+        </p>
+        <h3>But it <i>is</i> Python 3 compatible upstream!</h3>
+        <h4>Idle packages</h4>
+        <p>
+            There are <a href="{{ url_for('hello') }}#idle">{{ idle_len }} idle packages</a> which are currently only available for Python 2 and where we don't know of their Python 3–readiness upstream. Do you know that some of them in fact do support Python 3 upstream? Great news! You can let us know by <a href="https://fedoraproject.org/wiki/User:Pviktori/Python_3_Bug_Filing">filing a bug!</a>
+            <!-- TODO: Polish the bug filing wiki page. -->
+        </p>
+        <h4>Blocked packages</h4>
+        <p>
+            The <a href="{{ url_for('hello') }}#blocked">{{ blocked_len }} blocked packages</a> are a bit similar, but not quite. These are Python 2–only packages that, however, cannot yet be ported because some of their dependencies are still not ported to Python 3 in Fedora.
+        </p><p>
+            If you do know that some of these packages support Python 3 upstream, open the package here on PortingDB and look for the the Fedora headline in the left sidebar. If there's a {{ badge(released_status) }} next to it, we already know it's ready upstream. Otherwise, please let us know!
+        </p><p>
+            To make PortingDB aware that the package supports Python 3 upstream, please make a pull request on GitHub and provide the information by editing the <a href="https://github.com/fedora-python/portingdb/blob/master/data/upstream.yaml">data/upstream.yaml</a> file. People not acquainted with git can edit the file directly on GitHub by clicking on the little pencil icon on the right side above the contents of the file. Add the following:
+        </p>
+        <p class="codebox"><code class="codebox">package-name:
+    status: released
+    links:
+        bug: http://...
+        homepage: http://...
+        repo: http://...
+    note: |
+        This is a custom note. Please do NOT forget the '|'
+        on the previous line, it's important.</code></p>
+        <p>
+            Make sure to put the note inside the file in alphabetical order according to the package name. Including a link is required, chose either a <i>bug</i>, <i>homepage</i> or a <i>repo</i> link type (or a combination thereof). And the note can be any relevant text you wish or it can be omitted.
+        </p>
+        <h3>You shouldn't be using this…</h3>
+        <p>
+            There are also some packages that just won't be ported, because they were obsoleted by a different package. For example the <i>python</i> package just won't be ported, because the <i>python3</i> package came along.
+        </p><p>
+            If you know of a package which people should stop using and switch to a different one instead, please make a pull request on GitHub and provide the information by editing the <a href="https://github.com/fedora-python/portingdb/blob/master/data/fedora-update.yaml">data/fedora-update.yaml</a> file. People not acquainted with git can edit the file directly on GitHub by clicking on the little pencil icon on the right side above the contents of the file. Add the following:
+        </p>
+        <p class="codebox"><code class="codebox">package-name:
+    status: dropped
+    note: |
+        Suggested replacement: `other-package-name`
+        You are also encouraged to add a text comment like so.</code></p>
+        <p>
+            Make sure to put the note inside the file in alphabetical order according to the package name.
+        </p>
+
+        <h2 id="port-it">Port it</h2>
+        <p>
+            The vast majority of the <a href="{{ url_for('hello') }}#idle">{{ idle_len }} idle packages</a> are projects that are not yet ported to Python 3 upstream. We in Fedora follow the <i>upstream first</i> rule. If we need to make a change to some software (like port it to Python 3), we need to go upstream and either help the upstream team in the endeavour or offer to make the change for them.
+        </p>
+        <h3>Going Up the Stream</h3>
+        <p>
+            Pick an <a href="{{ url_for('hello') }}#idle">idle package</a> you would like to work on (for example {{ pkglink(random_mispackaged) }}) and open it in PortingDB. Now you can click on the package name besides the blue Fedora logo towards the top of the page. This will take you to the corresponding entry in the <i>Fedora Package Database</i> and from there follow the link labelled <i>upstream</i>.
+        </p><p>
+            Sometimes, however, the upstream link gets broken. In that case go back to the package's page here on PortingDB. Follow the <i>spec file</i> link: what you'll see is a file with the metadata and building instructions for this package. Look for a line beginning with <i>Source0:</i> and try to use its URL (or part of it) to find the upstream project.
+        </p>
+        <h3>Help Wanted</h3>
+        <p>
+            First, let's make sure porting is needed as occasionally the package may be already ported, we just don't know about it yet. Look through the information on the website, the issue / bug tracker, the readme files, perhaps even the commit history. If it really is already ported, <a href="https://fedoraproject.org/wiki/User:Pviktori/Python_3_Bug_Filing">file a Fedora bug!</a>
+        </p><p>
+            Otherwise, check if someone is working on porting it, or if it is perhaps planned. If there is an issue / bug tracker try finding if someone opened a ticket for porting to Python 3. If not, open one yourself! If you find no issue / bug tracker, you can use plain old email. Offer your help with porting the software and await a response. If you want to be proactive, you can start porting and then offer a <i>pull request</i>, but beware in some cases it might not be accepted.
+        </p><p>
+            It may happen that you find the upstream is dead and the project orphaned. You can take the initiative and take over the project. Start a new repository on GitLab/GitHub/Bitbucket/what-have-you, copy the sources there and get to work!
+        </p>
     </div>
 </div>
 
