@@ -351,5 +351,6 @@ def upstream_idle(ctx):
     else:
         for r in results:
             print("{}".format(r.name))
-    if results:
+
+    if not results:
         exit(1)
