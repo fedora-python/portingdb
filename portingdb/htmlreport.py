@@ -117,7 +117,8 @@ def hello():
         ),
         collections=collections,
         coll_info=coll_info,
-        statuses=list(db.query(tables.Status).order_by(tables.Status.order)),
+        statuses=list(db.query(tables.Status)
+                .filter(tables.Status.ident != 'unknown').order_by(tables.Status.order)),
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
         total_pkg_count=total_pkg_count,
         status_summary=get_status_summary(db),
