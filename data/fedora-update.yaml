@@ -734,6 +734,23 @@ PyQt:
     note: |
       PyQt 3.x is not maintained upstream any more;
       please switch to `PyQt4` or `python-qt5` when porting.
+pywebkitgtk:
+    status: dropped
+    note: |
+        This package provided customized static Python bindings to a GTK
+        library.
+        GTK3 and GObject introspection provide dynamic bindings that do not
+        need to be customized for each language, thus this package is
+        not necessary.
+
+        Suggested replacement: `python-gobject` (provides the `gi` module)
+        and `webkitgtk4` (provides the `gi.repository.WebKit2` module).
+        Note that `webkitgtk4` is not specific to Python and thus does
+        not show up in portingdb.
+
+        [An example] that works with Python 3 is provided on the GTK wiki.
+
+        [An example]: https://wiki.gnome.org/Projects/WebKitGtk/ProgrammingGuide/Bindings-libnotify
 skeinforge: &skeinforge
   status: dropped
 sfact: *skeinforge
