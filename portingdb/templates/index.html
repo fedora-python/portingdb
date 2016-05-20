@@ -44,7 +44,7 @@
                     {{ progress_summary(statuses.items(), len(grp.packages)) }}
                 {% endfor %}
             {% endif %}
-            <h2>Active packages</h2>
+            <h2 id="in-progress">Porting in Progress</h2>
             <div>
                 We know about {{ len(active_packages) }} packages that
                 someone is actively porting, or which are waiting for review.
@@ -53,7 +53,7 @@
                {{ pkglist_table_content(active_packages, collections) }}
             </table>
             {% if mispackaged_packages %}
-                <h2>Packaging problems</h2>
+                <h2 id="mispackaged">Mispackaged packages</h2>
                 <div>
                     {{ len(mispackaged_packages) }} packages were found to have some kind of packaging problem:
                 </div>
@@ -65,7 +65,7 @@
                 {% endfor %}
                 </ul>
             {% endif %}
-            <h2>Waiting packages</h2>
+            <h2 id="idle">Idle packages</h2>
             <div>
                 {{ len(ready_packages) }} packages are waiting for someone to pick them up.
                 Grab your favorite, and go port it!
@@ -86,7 +86,7 @@
                    </li>
                 {% endfor %}
             </ul>
-            <h2>Blocked packages</h2>
+            <h2 id="blocked">Blocked packages</h2>
             <div>
                 {{ len(blocked_packages) }}  packages don't have all dependencies ported yet.
             </div>
@@ -105,7 +105,7 @@
                    </li>
                {% endfor %}
             </ul>
-            <h2>Done packages</h2>
+            <h2 id="released">Released packages</h2>
             <div>
                 {{ len(done_packages) }}  packages are already ported. Yipee!
             </div>
@@ -114,7 +114,7 @@
                     {{ pkglink(pkg) }}
                {% endfor %}
             </div>
-            <h2>Dropped packages</h2>
+            <h2 id="dropped">Dropped packages</h2>
             <div>
                 {{ len(dropped_packages) }}  packages will not be ported to Python 3.
                 Anything that requires them will need to switch to an alternative.
@@ -153,7 +153,7 @@
                 {% for status in statuses %}
                     <li class="list-group-item">
                         {{ minibadge(status) }}
-                        {{ status.name }}
+                        <a href="#{{ status.ident }}">{{ status.name }}</a>
                         <div><small>{{ status.description }}</small></div>
                     </li>
                 {% endfor %}
