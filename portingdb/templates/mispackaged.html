@@ -1,0 +1,56 @@
+{% extends "_base.html" %}
+
+{% block titlecontent -%}
+    Mispackaged – {{ super() }}
+{%- endblock titlecontent %}
+
+{% block style %}
+{{ super() }}
+
+body {
+  /*font: 10px sans-serif;*/
+}
+
+span.halfwidth {
+    width: 50%; display: inline-block;
+}
+
+{% endblock style %}
+
+{% block bodycontent %}
+
+<div class="container">
+    <div class="col-md-12">
+        <h1>Mispackaged packges</h1>
+        <p>
+            {% if not requested %}
+                You can see <i>all packages</i> or <a href="{{ url_for('mispackaged', requested=1) }}">packages where the maintainer requested a patch</a>.
+            {% else %}
+                You can see <a href="{{ url_for('mispackaged') }}">all packages</a> or <i>packages where the maintainer requested a patch</i>.
+            {% endif %}
+        </p>
+        <ul class="simple-pkg-list">
+            <span class="halfwidth"></span>
+            <b>Last BugZilla comment:</b>
+
+            {% for pkg in mispackaged %}
+                <li>
+                    <span class="halfwidth">
+                    {{ pkglink(pkg) }}
+                    {% if not requested and
+                            "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
+                            in pkg.list_tracking_bugs %}
+                       (patch requested by maintainer)
+                    {% endif %}
+                    </span>
+
+                    {% if pkg.last_link_update %}
+                        {{ ago(pkg.last_link_update) }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock bodycontent %}

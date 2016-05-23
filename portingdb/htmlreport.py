@@ -6,6 +6,7 @@ import math
 import uuid
 import io
 import csv
+import datetime
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
 from flask import make_response, request
@@ -588,6 +589,82 @@ def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
     )
 
 
+def mispackaged():
+    # Parameters
+    requested = request.args.get('requested', None)
+    if requested not in ('1', None):
+        abort(400)  # Bad request
+
+    # Database
+    db = current_app.config['DB']()
+    query = queries.packages(db)
+
+    # Get data
+    mispackaged, query = queries.split(query, tables.Package.status == 'mispackaged')
+    mispackaged = mispackaged.options(subqueryload('collection_packages'))
+    mispackaged = mispackaged.options(subqueryload('collection_packages.links'))
+    mispackaged = mispackaged.options(subqueryload('collection_packages.tracking_bugs'))
+
+    if requested:
+        # Filter only to packages where maintainer requested a patch
+        mispackaged = [pkg for pkg in mispackaged
+                if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
+                in pkg.list_tracking_bugs]
+
+    # Sorting the packages based on their last_link_update
+    #   Note that sorting through the database is problematic, because
+    #   to sort on a @property you need to create a @hybrid_property which
+    #   needs to be written as sort of an SQL expression
+
+    # Packages without a BZ report will be last
+    nonevalue = datetime.datetime.utcnow()
+    mispackaged = sorted(mispackaged,
+            key=lambda pkg: pkg.last_link_update or nonevalue)
+
+    # Render the page, pass the data
+    return render_template(
+        'mispackaged.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('mispackaged'), 'Mispackaged'),
+        ),
+        requested=bool(requested),
+        mispackaged=mispackaged,
+        ago=ago,
+    )
+
+def ago(date):
+    """Displays roughly how long ago the date was in a human readable format"""
+    now = datetime.datetime.utcnow()
+    diff = now - date
+
+    # Years
+    if diff.days >= 365:
+        if diff.days >= 2 * 365:
+            return "{} years ago".format(math.floor(diff.days / 365))
+        else:
+            return "a year ago"
+    # Months
+    elif diff.days >= 31:
+        if diff.days >= 2 * 30:
+            return "{} months ago".format(math.floor(diff.days / 30))
+        else:
+            return "a month ago"
+    # Weeks
+    elif diff.days >= 7:
+        if diff.days >= 2 * 7:
+            return "{} weeks ago".format(math.floor(diff.days / 7))
+        else:
+            return "a week ago"
+    # Days
+    elif diff.days >= 2:
+        return "{} days ago".format(diff.days)
+    elif diff.days == 1:
+        return "yesterday"
+    else:
+        return "today"
+
+
 def format_quantity(num):
     for prefix in ' KMGT':
         if num > 1000:
@@ -673,6 +750,7 @@ def create_app(db_url, cache_config=None):
     _add_route("/pkg/<pkg>/graph/data.json", graph_json_pkg)
     _add_route("/by_loc/", by_loc, get_keys={'sort', 'reverse'})
     _add_route("/by_loc/grp/<grp>/", group_by_loc, get_keys={'sort', 'reverse'})
+    _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
     _add_route("/history/", history, get_keys={'expand'})
     _add_route("/history/data.csv", history_csv)
 
