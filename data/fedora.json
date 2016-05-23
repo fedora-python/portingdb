@@ -16,7 +16,7 @@
       "policycoreutils"
     ],
     "rpms": {
-      "389-ds-base-1.3.5.4-1.fc25": {
+      "389-ds-base-1.3.5.4-1.fc25.1": {
         "/usr/bin/python3": 3
       }
     },
@@ -65,11 +65,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-COPASI-4.17-0.3.20160203git7b0f05.fc25": {
+      "python2-COPASI-4.17-0.4.20160203git7b0f05.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-COPASI-4.17-0.3.20160203git7b0f05.fc25": {
+      "python3-COPASI-4.17-0.4.20160203git7b0f05.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -229,7 +229,7 @@
       "python"
     ],
     "rpms": {
-      "OpenIPMI-python-2.0.21-12.fc24": {
+      "OpenIPMI-python-2.0.21-13.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -1151,21 +1151,21 @@
       "rpm"
     ],
     "rpms": {
-      "anaconda-core-25.12-1.fc25": {
+      "anaconda-core-25.14-1.fc25": {
         "/usr/bin/python3": 3,
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "anaconda-dracut-25.12-1.fc25": {
+      "anaconda-dracut-25.14-1.fc25": {
         "/usr/bin/python3": 3
       },
-      "anaconda-gui-25.12-1.fc25": {
+      "anaconda-gui-25.14-1.fc25": {
         "python(abi) = 3.5": 3
       },
-      "anaconda-tui-25.12-1.fc25": {
+      "anaconda-tui-25.14-1.fc25": {
         "python(abi) = 3.5": 3
       },
-      "anaconda-widgets-25.12-1.fc25": {
+      "anaconda-widgets-25.14-1.fc25": {
         "python(abi) = 3.5": 3,
         "python3": 3,
         "python3 = 3.5.1-7.fc25": 3
@@ -2080,7 +2080,7 @@
   "bind": {
     "deps": [],
     "rpms": {
-      "bind-utils-32:9.10.3-13.P4.fc25": {
+      "bind-utils-32:9.10.3-14.P4.fc25": {
         "/usr/bin/python3": 3
       }
     },
@@ -2103,20 +2103,6 @@
     "rpms": {
       "bios_extract-0-0.16.20150611gita257643.fc24": {
         "/usr/bin/python": 2
-      }
-    },
-    "status": "idle"
-  },
-  "bitbake": {
-    "deps": [
-      "python",
-      "python-ply",
-      "python-progressbar"
-    ],
-    "rpms": {
-      "bitbake-1.17.0-3.fc24": {
-        "/usr/bin/python2": 2,
-        "python(abi) = 2.7": 2
       }
     },
     "status": "idle"
@@ -2759,7 +2745,7 @@
       "sip"
     ],
     "rpms": {
-      "calibre-2.56.0-1.fc25": {
+      "calibre-2.57.1-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -3173,7 +3159,7 @@
   "cinnamon-desktop": {
     "deps": [],
     "rpms": {
-      "cinnamon-desktop-3.0.1-2.fc25": {
+      "cinnamon-desktop-3.0.2-1.fc25": {
         "/usr/bin/python2": 2
       }
     },
@@ -3219,7 +3205,7 @@
   "claws-mail": {
     "deps": [],
     "rpms": {
-      "claws-mail-plugins-python-3.13.2-2.fc24": {
+      "claws-mail-plugins-python-3.13.2-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -3230,7 +3216,7 @@
       "python"
     ],
     "rpms": {
-      "python-clearsilver-0.10.5-35.fc25": {
+      "python-clearsilver-0.10.5-36.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -3437,7 +3423,7 @@
   "collectd": {
     "deps": [],
     "rpms": {
-      "collectd-5.5.1-8.fc25": {
+      "collectd-5.5.1-9.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -3506,7 +3492,7 @@
       "python"
     ],
     "rpms": {
-      "python2-libconcord-1.2-9.fc24": {
+      "python2-libconcord-1.2-10.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -3813,7 +3799,7 @@
       "yum-metadata-parser"
     ],
     "rpms": {
-      "createrepo-0.10.3-3.fc21": {
+      "createrepo-0.10.3-9.fc25": {
         "/usr/bin/python": 2,
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
@@ -3936,39 +3922,42 @@
   "csdiff": {
     "deps": [
       "boost",
-      "python"
+      "python",
+      "python3"
     ],
     "rpms": {
-      "csdiff-1.2.3-8.fc25": {
+      "python2-csdiff-1.3.0-1.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-csdiff-1.3.0-1.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "csmock": {
     "deps": [
-      "csdiff",
       "mock",
-      "python"
+      "python3"
     ],
     "rpms": {
-      "csmock-common-1.9.2-1.fc25": {
-        "python(abi) = 2.7": 2
+      "csmock-common-2.0.0-1.fc25": {
+        "python(abi) = 3.5": 3
       },
-      "csmock-plugin-clang-1.9.2-1.fc25": {
-        "python(abi) = 2.7": 2
+      "csmock-plugin-clang-2.0.0-1.fc25": {
+        "python(abi) = 3.5": 3
       },
-      "csmock-plugin-cppcheck-1.9.2-1.fc25": {
-        "python(abi) = 2.7": 2
+      "csmock-plugin-cppcheck-2.0.0-1.fc25": {
+        "python(abi) = 3.5": 3
       },
-      "csmock-plugin-pylint-1.9.2-1.fc25": {
-        "python(abi) = 2.7": 2
+      "csmock-plugin-pylint-2.0.0-1.fc25": {
+        "python(abi) = 3.5": 3
       },
-      "csmock-plugin-shellcheck-1.9.2-1.fc25": {
-        "python(abi) = 2.7": 2
+      "csmock-plugin-shellcheck-2.0.0-1.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "csound": {
     "deps": [
@@ -4234,7 +4223,7 @@
       "python"
     ],
     "rpms": {
-      "debconf-1.5.56-4.fc24": {
+      "debconf-1.5.56-5.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -4320,33 +4309,6 @@
     },
     "status": "idle"
   },
-  "desktopcouch": {
-    "deps": [
-      "avahi",
-      "dbus-python",
-      "gnome-python2-desktop",
-      "pygtk2",
-      "python",
-      "python-couchdb",
-      "python-oauth",
-      "python-twisted",
-      "pyxdg"
-    ],
-    "rpms": {
-      "desktopcouch-1.0.8-4.fc24": {
-        "/usr/bin/python": 2
-      },
-      "desktopcouch-tools-1.0.8-4.fc24": {
-        "/usr/bin/python": 2,
-        "pygtk2": 2,
-        "pygtk2 = 2.24.0-14.fc25": 2
-      },
-      "python-desktopcouch-1.0.8-4.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
   "devassistant": {
     "deps": [
       "PyYAML",
@@ -4381,7 +4343,7 @@
       "python3"
     ],
     "rpms": {
-      "devscripts-2.16.2-1.fc25": {
+      "devscripts-2.16.4-2.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -4588,15 +4550,15 @@
       "rpm"
     ],
     "rpms": {
-      "dnf-automatic-1.1.8-1.fc25": {
+      "dnf-automatic-1.1.9-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       },
-      "python2-dnf-1.1.8-1.fc25": {
+      "python2-dnf-1.1.9-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-dnf-1.1.8-1.fc25": {
+      "python3-dnf-1.1.9-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -4661,10 +4623,10 @@
       "python3"
     ],
     "rpms": {
-      "python-dnf-plugins-core-0.1.20-1.fc25": {
+      "python2-dnf-plugins-core-0.1.21-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-dnf-plugins-core-0.1.20-1.fc25": {
+      "python3-dnf-plugins-core-0.1.21-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -5148,7 +5110,7 @@
       "python"
     ],
     "rpms": {
-      "edk2-tools-python-20160418gita8c39ba-0.fc25": {
+      "edk2-tools-python-20160418gita8c39ba-1.fc25": {
         "python": 2,
         "python = 2.7.11-4.fc24": 2
       }
@@ -5270,7 +5232,7 @@
   "eom": {
     "deps": [],
     "rpms": {
-      "eom-1.14.0-1.fc25": {
+      "eom-1.14.1-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -5298,7 +5260,7 @@
       "python"
     ],
     "rpms": {
-      "epylog-1.0.7-12.fc24": {
+      "epylog-1.0.7-13.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -5968,21 +5930,6 @@
     },
     "status": "idle"
   },
-  "fife": {
-    "deps": [
-      "python"
-    ],
-    "rpms": {
-      "fife-2:0.3.3r3-18.fc24": {
-        "libpython2.7.so.1.0()(64bit)": 2
-      },
-      "python-fife-2:0.3.3r3-18.fc24": {
-        "libpython2.7.so.1.0()(64bit)": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
   "file": {
     "deps": [
       "python",
@@ -6071,7 +6018,7 @@
   "fish": {
     "deps": [],
     "rpms": {
-      "fish-2.2.0-11.fc25": {
+      "fish-2.3.0-1.fc25": {
         "/usr/bin/python3": 3
       }
     },
@@ -6390,7 +6337,7 @@
   "freeradius": {
     "deps": [],
     "rpms": {
-      "freeradius-python-3.0.10-2.fc24": {
+      "freeradius-python-3.0.11-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -6831,12 +6778,12 @@
       ]
     },
     "rpms": {
-      "gdal-python-2.1.0-5.fc25": {
+      "gdal-python-2.1.0-6.fc25": {
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "gdal-python3-2.1.0-5.fc25": {
+      "gdal-python3-2.1.0-6.fc25": {
         "/usr/bin/python3": 3,
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
@@ -6951,7 +6898,7 @@
       "python"
     ],
     "rpms": {
-      "genders-python-1.22-5.fc24": {
+      "genders-python-1.22-6.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -7083,18 +7030,6 @@
     },
     "status": "idle"
   },
-  "ghost-diagrams": {
-    "deps": [
-      "pygtk2"
-    ],
-    "rpms": {
-      "ghost-diagrams-0.8-14.fc24": {
-        "pygtk2": 2,
-        "pygtk2 = 2.24.0-14.fc25": 2
-      }
-    },
-    "status": "idle"
-  },
   "gif2png": {
     "deps": [
       "python"
@@ -7147,7 +7082,7 @@
   "git": {
     "deps": [],
     "rpms": {
-      "git-p4-2.8.2-4.fc25": {
+      "git-p4-2.8.3-2.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -7938,7 +7873,7 @@
   "gnumeric": {
     "deps": [],
     "rpms": {
-      "gnumeric-1:1.12.29-2.fc25": {
+      "gnumeric-1:1.12.29-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -8021,22 +7956,22 @@
       "qpid-proton"
     ],
     "rpms": {
-      "gofer-2.7.6-1.fc25": {
+      "gofer-2.8.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "gofer-tools-2.7.6-1.fc25": {
+      "gofer-tools-2.8.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python-gofer-2.7.6-1.fc25": {
+      "python-gofer-2.8.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python-gofer-amqp-2.7.6-1.fc25": {
+      "python-gofer-amqp-2.8.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python-gofer-proton-2.7.6-1.fc25": {
+      "python-gofer-proton-2.8.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python-gofer-qpid-2.7.6-1.fc25": {
+      "python-gofer-qpid-2.8.0-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -8396,7 +8331,7 @@
       "python"
     ],
     "rpms": {
-      "graphviz-python-2.38.0-34.fc25": {
+      "graphviz-python-2.38.0-35.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
@@ -8836,7 +8771,7 @@
       "python"
     ],
     "rpms": {
-      "python-hamlib-3.0.1-3.fc24": {
+      "python-hamlib-3.0.1-4.fc25": {
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
         "python(abi) = 2.7": 2
@@ -8943,7 +8878,7 @@
   "hexchat": {
     "deps": [],
     "rpms": {
-      "hexchat-2.12.1-2.fc25": {
+      "hexchat-2.12.1-3.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -9031,7 +8966,7 @@
       "python"
     ],
     "rpms": {
-      "python-hivex-1.3.13-5.fc25": {
+      "python-hivex-1.3.13-6.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -9150,21 +9085,21 @@
   },
   "hplip": {
     "deps": [
-      "PyQt4",
       "dbus-python",
       "pygobject3",
       "python-pillow",
+      "python-qt5",
       "python-reportlab",
       "python3"
     ],
     "rpms": {
-      "hplip-3.16.3-1.fc25": {
+      "hplip-3.16.5-1.fc25": {
         "/usr/bin/python3": 3
       },
-      "hplip-gui-3.16.3-1.fc25": {
+      "hplip-gui-3.16.5-1.fc25": {
         "/usr/bin/python3": 3
       },
-      "hplip-libs-3.16.3-1.fc25": {
+      "hplip-libs-3.16.5-1.fc25": {
         "python(abi) = 3.5": 3,
         "python3": 3,
         "python3 = 3.5.1-7.fc25": 3
@@ -9462,7 +9397,7 @@
       "python-docutils"
     ],
     "rpms": {
-      "ikiwiki-3.20160121-2.fc24": {
+      "ikiwiki-3.20160121-3.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
@@ -10135,12 +10070,12 @@
       ]
     },
     "rpms": {
-      "perf-4.7.0-0.rc0.git3.1.fc25": {
+      "perf-4.7.0-0.rc0.git5.1.fc25": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.7.0-0.rc0.git3.1.fc25": {
+      "python-perf-4.7.0-0.rc0.git5.1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -10453,7 +10388,6 @@
       "python-dogpile-cache",
       "python-fedmsg-meta-fedora-infrastructure",
       "python-flask",
-      "python-flask-openid",
       "python-flask-sqlalchemy",
       "python-flask-wtf",
       "python-jinja2",
@@ -10462,22 +10396,22 @@
       "rpm"
     ],
     "rpms": {
-      "koschei-admin-1.6.1-1.fc25": {
+      "koschei-admin-1.7-1.fc25": {
         "/usr/bin/python": 2
       },
-      "koschei-backend-1.6.1-1.fc25": {
+      "koschei-backend-1.7-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "koschei-backend-fedora-1.6.1-1.fc25": {
+      "koschei-backend-fedora-1.7-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "koschei-common-1.6.1-1.fc25": {
+      "koschei-common-1.7-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "koschei-frontend-1.6.1-1.fc25": {
+      "koschei-frontend-1.7-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "koschei-frontend-fedora-1.6.1-1.fc25": {
+      "koschei-frontend-fedora-1.7-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -10542,7 +10476,7 @@
   "kvirc": {
     "deps": [],
     "rpms": {
-      "kvirc-5.0.0-0.3.alpha2.fc25": {
+      "kvirc-5.0.0-0.4.alpha2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -10645,22 +10579,22 @@
       "python3"
     ],
     "rpms": {
-      "dpm-python-1.8.11-1.fc25": {
+      "dpm-python-1.8.11-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "dpm-python3-1.8.11-1.fc25": {
+      "dpm-python3-1.8.11-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "dpm-server-mysql-1.8.11-1.fc25": {
+      "dpm-server-mysql-1.8.11-2.fc25": {
         "python-uuid = 1.31": 2
       },
-      "lfc-python-1.8.11-1.fc25": {
+      "lfc-python-1.8.11-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "lfc-python3-1.8.11-1.fc25": {
+      "lfc-python3-1.8.11-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -10720,7 +10654,7 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "python-ldns-1.6.17-18.fc25": {
+      "python-ldns-1.6.17-19.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -10774,28 +10708,6 @@
         "python(abi) = 2.7": 2
       },
       "lekhonee-lib-0.7-12.fc25": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
-  "letsencrypt": {
-    "deps": [
-      "python",
-      "python-configargparse",
-      "python-configobj",
-      "python-dialog",
-      "python-mock",
-      "python-parsedatetime",
-      "python-psutil",
-      "python-zope-component",
-      "python-zope-interface"
-    ],
-    "rpms": {
-      "letsencrypt-0.5.0-1.fc25": {
-        "/usr/bin/python2": 2
-      },
-      "python2-letsencrypt-0.5.0-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -10925,7 +10837,7 @@
       "python"
     ],
     "rpms": {
-      "libchewing-python-0.5.0-1.fc25": {
+      "libchewing-python-0.5.1-1.fc25": {
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
         "python(abi) = 2.7": 2
@@ -11114,10 +11026,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-libguestfs-1:1.33.29-1.fc25": {
+      "python2-libguestfs-1:1.33.29-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-libguestfs-1:1.33.29-1.fc25": {
+      "python3-libguestfs-1:1.33.29-2.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -11574,11 +11486,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-libsbml-5.13.0-2.fc25": {
+      "python2-libsbml-5.13.0-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-libsbml-5.13.0-2.fc25": {
+      "python3-libsbml-5.13.0-3.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -11602,11 +11514,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-libsedml-0.3.1-13.fc25": {
+      "python2-libsedml-0.3.1-14.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-libsedml-0.3.1-13.fc25": {
+      "python3-libsedml-0.3.1-14.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -11828,7 +11740,7 @@
       "python"
     ],
     "rpms": {
-      "python-libteam-1.24-1.fc25": {
+      "python-libteam-1.25-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -11969,11 +11881,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-yui-1.1.1-3.fc25": {
+      "python2-yui-1.1.1-4.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-yui-1.1.1-3.fc25": {
+      "python3-yui-1.1.1-4.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -12008,7 +11920,7 @@
   "lilypond": {
     "deps": [],
     "rpms": {
-      "lilypond-2.19.41-1.fc25": {
+      "lilypond-2.19.42-1.fc25": {
         "/usr/bin/python": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       }
@@ -12258,7 +12170,7 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1323254",
-        "ON_QA"
+        "CLOSED ERRATA"
       ]
     },
     "rpms": {
@@ -12507,7 +12419,7 @@
       "python"
     ],
     "rpms": {
-      "mapserver-python-7.0.1-1.git6ae2bc6.fc25": {
+      "mapserver-python-7.0.1-2.git6ae2bc6.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -12539,7 +12451,7 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "marisa-python-0.2.4-15.fc25": {
+      "marisa-python-0.2.4-16.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -12578,7 +12490,7 @@
       "pygtk2"
     ],
     "rpms": {
-      "mate-desktop-1.14.0-1.fc25": {
+      "mate-desktop-1.14.1-1.fc25": {
         "/usr/bin/python": 2,
         "pygtk2": 2,
         "pygtk2 = 2.24.0-14.fc25": 2
@@ -12814,7 +12726,7 @@
       "python"
     ],
     "rpms": {
-      "ming-python-0.4.5-9.fc24": {
+      "ming-python-0.4.5-10.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -12896,10 +12808,10 @@
       "python-sqlobject"
     ],
     "rpms": {
-      "mirrorbrain-tools-2.18.1-8.fc24": {
+      "mirrorbrain-tools-2.18.1-9.fc25": {
         "/usr/bin/python": 2
       },
-      "python-mb-2.18.1-8.fc24": {
+      "python-mb-2.18.1-9.fc25": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
@@ -13264,7 +13176,7 @@
   "munin": {
     "deps": [],
     "rpms": {
-      "munin-node-2.0.25-11.fc25": {
+      "munin-node-2.0.25-12.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -13439,22 +13351,8 @@
   "nbdkit": {
     "deps": [],
     "rpms": {
-      "nbdkit-plugin-python-1.1.11-5.fc24": {
+      "nbdkit-plugin-python-1.1.11-8.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
-      }
-    },
-    "status": "idle"
-  },
-  "neap": {
-    "deps": [
-      "pygtk2",
-      "python-xlib"
-    ],
-    "rpms": {
-      "neap-0.7-4.fc24": {
-        "/usr/bin/python": 2,
-        "pygtk2": 2,
-        "pygtk2 = 2.24.0-14.fc25": 2
       }
     },
     "status": "idle"
@@ -13464,7 +13362,7 @@
       "cinnamon-desktop"
     ],
     "rpms": {
-      "nemo-3.0.1-1.fc25": {
+      "nemo-3.0.2-1.fc25": {
         "/usr/bin/python3": 3
       }
     },
@@ -13526,7 +13424,7 @@
       "python"
     ],
     "rpms": {
-      "net-snmp-python-1:5.7.3-10.fc25": {
+      "net-snmp-python-1:5.7.3-11.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -13756,23 +13654,23 @@
       "stomppy"
     ],
     "rpms": {
-      "nordugrid-arc-acix-cache-5.0.5-2.fc24": {
+      "nordugrid-arc-acix-cache-5.1.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "nordugrid-arc-acix-core-5.0.5-2.fc24": {
+      "nordugrid-arc-acix-core-5.1.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "nordugrid-arc-acix-index-5.0.5-2.fc24": {
+      "nordugrid-arc-acix-index-5.1.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "nordugrid-arc-arex-5.0.5-2.fc24": {
+      "nordugrid-arc-arex-5.1.0-1.fc25": {
         "/usr/bin/python": 2
       },
-      "nordugrid-arc-python-5.0.5-2.fc24": {
+      "nordugrid-arc-python-5.1.0-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "nordugrid-arc-python3-5.0.5-2.fc24": {
+      "nordugrid-arc-python3-5.1.0-1.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -13964,7 +13862,7 @@
       "python"
     ],
     "rpms": {
-      "python-obexftp-0.24-11.fc24": {
+      "python-obexftp-0.24-12.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -14246,11 +14144,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-openbabel-2.3.90-0.9.20160216git3a63a98.fc24": {
+      "python2-openbabel-2.3.90-0.10.20160216git3a63a98.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-openbabel-2.3.90-0.9.20160216git3a63a98.fc24": {
+      "python3-openbabel-2.3.90-0.10.20160216git3a63a98.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -14595,17 +14493,17 @@
       "rpmdevtools"
     ],
     "rpms": {
-      "openscap-containers-1.2.9-1.fc25": {
+      "openscap-containers-1.2.9-2.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       },
-      "openscap-python-1.2.9-1.fc25": {
+      "openscap-python-1.2.9-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "openscap-python3-1.2.9-1.fc25": {
+      "openscap-python3-1.2.9-2.fc25": {
         "python(abi) = 3.5": 3
       },
-      "openscap-utils-1.2.9-1.fc25": {
+      "openscap-utils-1.2.9-2.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -14631,10 +14529,10 @@
   "opensips": {
     "deps": [],
     "rpms": {
-      "opensips-1.11.6-2.fc25": {
+      "opensips-1.11.6-3.fc25": {
         "/usr/bin/python": 2
       },
-      "opensips-python-1.11.6-2.fc25": {
+      "opensips-python-1.11.6-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -14724,7 +14622,7 @@
       "python"
     ],
     "rpms": {
-      "openwsman-python-2.6.2-4.fc25": {
+      "openwsman-python-2.6.2-5.fc25": {
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
         "python(abi) = 2.7": 2
@@ -15250,18 +15148,18 @@
       "python3"
     ],
     "rpms": {
-      "pcp-3.11.2-2.fc25": {
+      "pcp-3.11.2-2.fc25.1": {
         "python3": 3,
         "python3 = 3.5.1-7.fc25": 3
       },
-      "pcp-pmda-json-3.11.2-2.fc25": {
+      "pcp-pmda-json-3.11.2-2.fc25.1": {
         "/usr/bin/python": 2
       },
-      "python-pcp-3.11.2-2.fc25": {
+      "python-pcp-3.11.2-2.fc25.1": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pcp-3.11.2-2.fc25": {
+      "python3-pcp-3.11.2-2.fc25.1": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -15413,7 +15311,7 @@
   "perl-Inline-Python": {
     "deps": [],
     "rpms": {
-      "perl-Inline-Python-0.49-4.fc24": {
+      "perl-Inline-Python-0.49-5.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -15529,7 +15427,7 @@
       "dbus-python"
     ],
     "rpms": {
-      "libpurple-2.10.12-3.fc25": {
+      "libpurple-2.10.12-4.fc25": {
         "/usr/bin/python3": 3
       }
     },
@@ -15941,10 +15839,10 @@
   "postgresql": {
     "deps": [],
     "rpms": {
-      "postgresql-plpython-9.5.3-1.fc25": {
+      "postgresql-plpython-9.5.3-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "postgresql-plpython3-9.5.3-1.fc25": {
+      "postgresql-plpython3-9.5.3-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -16317,26 +16215,26 @@
       "python-semantic_version"
     ],
     "rpms": {
-      "pulp-puppet-admin-extensions-2.8.3-1.fc25": {
+      "pulp-puppet-admin-extensions-2.8.3-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "pulp-puppet-consumer-extensions-2.8.3-1.fc25": {
+      "pulp-puppet-consumer-extensions-2.8.3-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "pulp-puppet-devel-2.8.3-1.fc25": {
+      "pulp-puppet-devel-2.8.3-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "pulp-puppet-handlers-2.8.3-1.fc25": {
+      "pulp-puppet-handlers-2.8.3-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "pulp-puppet-plugins-2.8.3-1.fc25": {
+      "pulp-puppet-plugins-2.8.3-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "pulp-puppet-tools-2.8.3-1.fc25": {
+      "pulp-puppet-tools-2.8.3-2.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-pulp-puppet-common-2.8.3-1.fc25": {
+      "python2-pulp-puppet-common-2.8.3-2.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -16592,11 +16490,11 @@
       ]
     },
     "rpms": {
-      "python2-pyaudio-0.2.9-1.fc25": {
+      "python2-pyaudio-0.2.9-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pyaudio-0.2.9-1.fc25": {
+      "python3-pyaudio-0.2.9-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -17455,7 +17353,7 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1322496",
-        "ON_QA"
+        "CLOSED ERRATA"
       ]
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
@@ -18624,10 +18522,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-PyPDF2-1.25.1-7.fc25": {
+      "python2-PyPDF2-1.25.1-9.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-PyPDF2-1.25.1-7.fc25": {
+      "python3-PyPDF2-1.25.1-9.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -18698,19 +18596,20 @@
     "deps": [
       "dbus-python",
       "python",
+      "python-crypto",
       "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1282149",
-        "NEW"
+        "ON_QA"
       ]
     },
     "rpms": {
-      "python-SecretStorage-2.1.1-3.fc24": {
+      "python2-SecretStorage-2.1.4-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-SecretStorage-2.1.1-3.fc24": {
+      "python3-SecretStorage-2.1.4-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -22902,10 +22801,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-ddt-1.0.1-3.fc24": {
+      "python2-ddt-1.0.2-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-ddt-1.0.1-3.fc24": {
+      "python3-ddt-1.0.2-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -23530,21 +23429,24 @@
     "deps": [
       "python",
       "python-django",
-      "python-sqlparse"
+      "python-sqlparse",
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1311523",
-        "NEW"
+        "CLOSED RAWHIDE"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "python-django-debug-toolbar-1.4-2.fc24": {
+      "python-django-debug-toolbar-1.4-3.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-django-debug-toolbar-1.4-3.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "python-django-devserver": {
     "deps": [
@@ -23834,40 +23736,46 @@
     "deps": [
       "python",
       "python-django",
-      "python-nose"
+      "python-nose",
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1311551",
-        "NEW"
+        "CLOSED RAWHIDE"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "python-django-nose-1.4.1-2.fc24": {
+      "python-django-nose-1.4.3-1.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-django-nose-1.4.3-1.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "python-django-notification": {
     "deps": [
       "python",
-      "python-django"
+      "python-django",
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1336826",
-        "NEW"
+        "CLOSED RAWHIDE"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "python-django-notification-1.2.0-3.fc24": {
+      "python-django-notification-1.2.0-4.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-django-notification-1.2.0-4.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "python-django-openid-auth": {
     "deps": [
@@ -25606,10 +25514,10 @@
       "python3"
     ],
     "rpms": {
-      "python-fixtures-1.4.0-2.fc24": {
+      "python-fixtures-3.0.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-fixtures-1.4.0-2.fc24": {
+      "python3-fixtures-3.0.0-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -25671,29 +25579,6 @@
         "python(abi) = 2.7": 2
       },
       "python3-flask-1:0.10.1-8.fc24": {
-        "python(abi) = 3.5": 3
-      }
-    },
-    "status": "released"
-  },
-  "python-flask-admin": {
-    "deps": [
-      "python",
-      "python-flask",
-      "python-wtforms",
-      "python3"
-    ],
-    "links": {
-      "bug": [
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1282084",
-        "CLOSED ERRATA"
-      ]
-    },
-    "rpms": {
-      "python-flask-admin-1.2.0-3.fc24": {
-        "python(abi) = 2.7": 2
-      },
-      "python3-flask-admin-1.2.0-3.fc24": {
         "python(abi) = 3.5": 3
       }
     },
@@ -25859,28 +25744,6 @@
       }
     },
     "status": "released"
-  },
-  "python-flask-mongoengine": {
-    "deps": [
-      "python",
-      "python-flask",
-      "python-flask-wtf",
-      "python-mongoengine",
-      "python-six"
-    ],
-    "links": {
-      "bug": [
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1312332",
-        "NEW"
-      ]
-    },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
-    "rpms": {
-      "python-flask-mongoengine-0.7.1-3.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "mispackaged"
   },
   "python-flask-multistatic": {
     "deps": [
@@ -27206,23 +27069,21 @@
   },
   "python-glue": {
     "deps": [
-      "python",
-      "python-jinja2",
-      "python-pillow"
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1070172",
-        "MODIFIED"
+        "ON_QA"
       ]
     },
     "rpms": {
-      "python-glue-0.11.1-5.fc25": {
-        "/usr/bin/python": 2,
-        "python(abi) = 2.7": 2
+      "glue-0.11.1-6.fc25": {
+        "/usr/bin/python3": 3,
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "python-gmpy2": {
     "deps": [
@@ -27651,24 +27512,6 @@
       }
     },
     "status": "idle"
-  },
-  "python-hcs_utils": {
-    "deps": [
-      "python"
-    ],
-    "links": {
-      "bug": [
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1333821",
-        "NEW"
-      ]
-    },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
-    "rpms": {
-      "python-hcs_utils-1.1.1-11.fc24": {
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "mispackaged"
   },
   "python-heatclient": {
     "deps": [
@@ -30994,7 +30837,8 @@
   },
   "python-mpd": {
     "deps": [
-      "python"
+      "python",
+      "python3"
     ],
     "links": {
       "bug": [
@@ -31003,11 +30847,14 @@
       ]
     },
     "rpms": {
-      "python-mpd-0.2.1-11.fc24": {
+      "python2-mpd-0.2.1-12.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-mpd-0.2.1-12.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "python-mpmath": {
     "deps": [
@@ -34219,11 +34066,11 @@
       "python3"
     ],
     "rpms": {
-      "python-pip-8.0.2-1.fc24": {
+      "python-pip-8.1.2-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pip-8.0.2-1.fc24": {
+      "python3-pip-8.1.2-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -37771,21 +37618,6 @@
     },
     "status": "released"
   },
-  "python-rply": {
-    "deps": [
-      "python",
-      "python3"
-    ],
-    "rpms": {
-      "python-rply-0.7.2-4.fc24": {
-        "python(abi) = 2.7": 2
-      },
-      "python3-rply-0.7.2-4.fc24": {
-        "python(abi) = 3.5": 3
-      }
-    },
-    "status": "released"
-  },
   "python-rpmfluff": {
     "deps": [
       "python",
@@ -39913,18 +39745,6 @@
     },
     "status": "mispackaged"
   },
-  "python-sybase": {
-    "deps": [
-      "python"
-    ],
-    "rpms": {
-      "python-sybase-0.39-17.fc24": {
-        "libpython2.7.so.1.0()(64bit)": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
-  },
   "python-systemd": {
     "deps": [
       "python",
@@ -41762,11 +41582,11 @@
       "python3"
     ],
     "rpms": {
-      "python-unittest2-1.1.0-4.fc24": {
+      "python2-unittest2-1.1.0-5.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-unittest2-1.1.0-4.fc24": {
+      "python3-unittest2-1.1.0-5.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -44039,7 +43859,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-mypy-0.3.1-1": {
+      "python3-mypy-0.4.1-2": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -44441,7 +44261,7 @@
   "qemu": {
     "deps": [],
     "rpms": {
-      "qemu-kvm-tools-2:2.6.0-1.fc25": {
+      "qemu-kvm-tools-2:2.6.0-2.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -44536,13 +44356,13 @@
       "python-qpid"
     ],
     "rpms": {
-      "python-qpid-messaging-0.34-8.fc25": {
+      "python-qpid-messaging-0.34-9.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
         "python(abi) = 2.7": 2
       },
-      "qpid-cpp-client-devel-0.34-8.fc25": {
+      "qpid-cpp-client-devel-0.34-9.fc25": {
         "python": 2,
         "python = 2.7.11-4.fc24": 2
       }
@@ -44574,13 +44394,13 @@
       "python3"
     ],
     "rpms": {
-      "python-qpid-proton-0.12.1-1.fc25": {
+      "python-qpid-proton-0.12.1-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-qpid-proton-0.12.1-1.fc25": {
+      "python3-qpid-proton-0.12.1-2.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -44915,7 +44735,7 @@
       "python"
     ],
     "rpms": {
-      "python-redland-1.0.16.1-15.fc24": {
+      "python-redland-1.0.16.1-16.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -45018,7 +44838,7 @@
       "python"
     ],
     "rpms": {
-      "remctl-python-3.11-1.fc25": {
+      "remctl-python-3.11-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
@@ -45422,28 +45242,16 @@
       "python3"
     ],
     "rpms": {
-      "rpm-python-4.13.0-0.rc1.34.fc25": {
+      "rpm-python-4.13.0-0.rc1.35.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "rpm-python3-4.13.0-0.rc1.34.fc25": {
+      "rpm-python3-4.13.0-0.rc1.35.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
     },
     "status": "released"
-  },
-  "rpm-compare-req": {
-    "deps": [
-      "python"
-    ],
-    "rpms": {
-      "rpm-compare-req-0.1.0-7.fc24": {
-        "/usr/bin/python": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
   },
   "rpm-ostree-toolbox": {
     "deps": [
@@ -45558,7 +45366,7 @@
       "python"
     ],
     "rpms": {
-      "rrdtool-python-1.6.0-1.fc25": {
+      "rrdtool-python-1.6.0-2.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python": 2,
         "python = 2.7.11-4.fc24": 2,
@@ -45660,7 +45468,7 @@
       "python3-dugong"
     ],
     "rpms": {
-      "s3ql-2.13-4.fc25": {
+      "s3ql-2.18-1.fc25": {
         "/usr/bin/python3": 3,
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
@@ -45800,10 +45608,10 @@
       ]
     },
     "rpms": {
-      "samba-libs-2:4.4.3-1.fc25": {
+      "samba-libs-2:4.4.3-1.fc25.1": {
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "samba-python-2:4.4.3-1.fc25": {
+      "samba-python-2:4.4.3-1.fc25.1": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -46354,7 +46162,7 @@
       "python"
     ],
     "rpms": {
-      "skf-python-2.00.4-1.fc24": {
+      "skf-python-2.00.4-1.fc25.1": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -46632,12 +46440,12 @@
       "sphinxbase"
     ],
     "rpms": {
-      "python-sphinxtrain-1.0.8-24.fc24": {
+      "python-sphinxtrain-1.0.8-25.fc25": {
         "/usr/bin/python": 2,
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "sphinxtrain-1.0.8-24.fc24": {
+      "sphinxtrain-1.0.8-25.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -46876,7 +46684,7 @@
       "python"
     ],
     "rpms": {
-      "stfl-python-0.22-16.fc24": {
+      "stfl-python-0.22-17.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -47027,15 +46835,15 @@
     ],
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "python-subunit-1.2.0-5.fc25": {
+      "python-subunit-1.2.0-6.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-subunit-1.2.0-5.fc25": {
+      "python3-subunit-1.2.0-6.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 3.5": 3
       },
-      "subunit-filters-1.2.0-5.fc25": {
+      "subunit-filters-1.2.0-6.fc25": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "pygtk2": 2,
@@ -47049,10 +46857,10 @@
       "python"
     ],
     "rpms": {
-      "subversion-python-1.9.4-1.fc25": {
+      "subversion-python-1.9.4-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "subversion-tools-1.9.4-1.fc25": {
+      "subversion-tools-1.9.4-2.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -47429,7 +47237,7 @@
       "python-setuptools"
     ],
     "rpms": {
-      "supervisor-3.2.3-2.fc25": {
+      "supervisor-3.2.3-3.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
@@ -48267,10 +48075,10 @@
       "python"
     ],
     "rpms": {
-      "python-fb303-0.9.1-17.fc25.3": {
+      "python-fb303-0.9.1-17.fc25.4": {
         "python(abi) = 2.7": 2
       },
-      "python-thrift-0.9.1-17.fc25.3": {
+      "python-thrift-0.9.1-17.fc25.4": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2,
         "python2 = 2.7.11": 2
@@ -49786,7 +49594,7 @@
   "tsung": {
     "deps": [],
     "rpms": {
-      "tsung-1.6.0-1.fc25": {
+      "tsung-1.6.0-2.fc25": {
         "/usr/bin/python2": 2
       }
     },
@@ -49901,20 +49709,26 @@
   "tweepy": {
     "deps": [
       "python",
-      "python-simplejson"
+      "python-requests-oauthlib",
+      "python-simplejson",
+      "python-six",
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1317899",
-        "ASSIGNED"
+        "ON_QA"
       ]
     },
     "rpms": {
-      "tweepy-2.3.0-4.fc24": {
+      "python2-tweepy-3.5.0-1.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-tweepy-3.5.0-1.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "twms": {
     "deps": [
@@ -50014,18 +49828,6 @@
       }
     },
     "status": "released"
-  },
-  "undertaker": {
-    "deps": [
-      "python"
-    ],
-    "rpms": {
-      "undertaker-1.6.1-10.fc24": {
-        "/usr/bin/python": 2,
-        "python(abi) = 2.7": 2
-      }
-    },
-    "status": "idle"
   },
   "uniconvertor": {
     "deps": [
@@ -50459,10 +50261,10 @@
       "pygobject3"
     ],
     "rpms": {
-      "virt-install-1.3.2-3.fc25": {
+      "virt-install-1.3.2-4.20160520git2204de62d9.fc25": {
         "/usr/bin/python2": 2
       },
-      "virt-manager-1.3.2-3.fc25": {
+      "virt-manager-1.3.2-4.20160520git2204de62d9.fc25": {
         "/usr/bin/python2": 2
       }
     },
@@ -50816,21 +50618,21 @@
   },
   "withlock": {
     "deps": [
-      "python"
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1313785",
-        "NEW"
+        "CLOSED RAWHIDE"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "withlock-0.3-2.fc24": {
-        "python2 = 2.7.11": 2
+      "withlock-0.5-1.fc25": {
+        "python3": 3,
+        "python3 = 3.5.1-7.fc25": 3
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "wklej": {
     "deps": [
@@ -51028,7 +50830,7 @@
   "xchat": {
     "deps": [],
     "rpms": {
-      "xchat-1:2.8.8-31.fc24": {
+      "xchat-1:2.8.8-32.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -51037,7 +50839,7 @@
   "xchat-gnome": {
     "deps": [],
     "rpms": {
-      "xchat-gnome-0.26.2-22.git40c5bf988.fc25": {
+      "xchat-gnome-0.26.2-23.git40c5bf988.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -51103,7 +50905,7 @@
       "python"
     ],
     "rpms": {
-      "xmms2-python-0.8-33.fc24": {
+      "xmms2-python-0.8-34.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -51242,7 +51044,7 @@
       "python3"
     ],
     "rpms": {
-      "youtube-dl-2016.05.01-1.fc25": {
+      "youtube-dl-2016.05.16-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -51469,7 +51271,7 @@
       "python"
     ],
     "rpms": {
-      "zinnia-python-0.06-28.fc24": {
+      "zinnia-python-0.06-29.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -51481,7 +51283,7 @@
       "python3"
     ],
     "rpms": {
-      "znc-modpython-1.6.3-2.fc25": {
+      "znc-modpython-1.6.3-3.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python3": 3,
         "python3 = 3.5.1-7.fc25": 3
