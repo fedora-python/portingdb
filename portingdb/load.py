@@ -236,6 +236,13 @@ def load_from_directories(db, directories):
         bulk_load(db, values, tables.Link.__table__,
                   key_columns=['collection_package_id', 'url'])
 
+        # Tracking bugs
+        values = [{'collection_package_id': col_package_map[k, collection],
+                   'url': n}
+                  for k, v in package_infos.items() for n in v.get('tracking_bugs', ())]
+        bulk_load(db, values, tables.TrackingBug.__table__,
+                  key_columns=['collection_package_id', 'url'])
+
         # RPMs
         values = [{'collection_package_id': col_package_map[k, collection],
                    'rpm_name': n}

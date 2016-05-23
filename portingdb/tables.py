@@ -135,6 +135,10 @@ class Package(TableBase):
     def nonblocking(self):
         return any(cp.nonblocking for cp in self.collection_packages)
 
+    @property
+    def list_tracking_bugs(self):
+        return [tb.url for cp in self.collection_packages for tb in cp.tracking_bugs]
+
 
 class Collection(TableBase):
     u"""A distro, or non-distro repository (e.g. "fedora" or "upstream")."""
@@ -265,6 +269,28 @@ class RPM(TableBase):
         return '<{} {} for {}>'.format(type(self).__qualname__,
                                        self.rpm_name,
                                        self.collection_package.name)
+
+
+class TrackingBug(TableBase):
+    u"""Tracking bugs associated with a package."""
+    __tablename__ = 'tracking_bugs'
+    __table_args__ = (UniqueConstraint('collection_package_id', 'url'),
+                      {'sqlite_autoincrement': True})
+
+    id = IDColumn()
+    collection_package_id = Column(
+        ForeignKey(CollectionPackage.id), nullable=False)
+    url = Column(
+        Unicode(), nullable=False,
+        doc='URL of the tracking bug')
+
+    collection_package = relationship(
+        'CollectionPackage', backref=backref('tracking_bugs'))
+
+    def __repr__(self):
+        return '<{} for {}: {}>'.format(type(self).__qualname__,
+                                           self.collection_package.name,
+                                           self.url)
 
 
 class Link(TableBase):
