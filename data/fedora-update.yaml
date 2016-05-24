@@ -6,6 +6,11 @@ python-twisted-lore: &dead-twisted-part
     note: |
         `dead.package` says: Obsoleted by main python-twisted package.
 
+glib2: &devel-only
+    nonblocking: true
+    note: |
+      Only the -devel subpackage depends on Python.
+
 # The rest of this file is alphabetized; please keep it that way.
 
 # Don't explicitly say "status: released" except in special cases: the status
@@ -147,12 +152,14 @@ gnome-python2-extras:
     status: dropped
     note: |
       Suggested replacement: `pygobject3`
+gobject-introspection: *devel-only
 gst-inspector:
     dead-upstream: true
 gstreamer-python:
     status: dropped
     note: |
       Replacement: `python-gstreamer1`
+gtk2: *devel-only
 international-time:
     dead-upstream: true
 kernel-tests:
@@ -162,6 +169,7 @@ kernel-tests:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1293015
     note: |
         [rodrigc](https://github.com/rodrigc) submitted fixes which where accepted upstream.
+libglade2: *devel-only
 libiptcdata:
     dead-upstream: true
 libkdtree++:
@@ -759,6 +767,7 @@ subunit:
     note: |
         A Python 3 subpackage exists, but isn't packaged well yet.
         Also the plugins aren't ported.
+tomoe-gtk: *devel-only
 tracer:
     note: |
       Upstream supports python3, fedora packager(=upstream) promised to update the spec file. (2016-03-11)
