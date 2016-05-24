@@ -14,6 +14,7 @@ import operator
 import sys
 import json
 import collections
+import time
 
 import hawkey
 import dnf
@@ -268,7 +269,14 @@ class Py3QueryCommand(dnf.cli.Command):
                 status = bug.status
                 if bug.resolution:
                     status += ' ' + bug.resolution
-                r.setdefault('links', {})['bug'] = [bug.weburl, status]
+                # Let's get the datetime of the last comment
+                last_comment_datetime = None
+                if bug.comments:
+                    # Get the date-time and convert to a string for JSON
+                    last_comment_datetime = time.strftime('%Y-%m-%d %H:%M:%S',
+                            bug.comments[-1]['time'].timetuple())
+                r.setdefault('links', {})['bug'] = [bug.weburl, status,
+                        last_comment_datetime]
 
                 for tb in bug.blocks:
                     if tb in ADDITIONAL_TRACKER_BUGS:

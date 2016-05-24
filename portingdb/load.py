@@ -71,13 +71,18 @@ def _get_repolink(col_package_id, url, type_name):
     result = {
         'collection_package_id': col_package_id,
         'type': type_name,
+        'url': None,
+        'note': None,
+        'last_update': None,
     }
     if isinstance(url, str):
         result['url'] = url
-        result['note'] = None
     else:
         result['url'] = url[0]
         result['note'] = url[1]
+        if url[2]:
+            result['last_update'] = datetime.datetime.strptime(url[2],
+                    '%Y-%m-%d %H:%M:%S')
     return result
 
 def _add_order(rows):
@@ -234,7 +239,7 @@ def load_from_directories(db, directories):
                 v['type'] = 'bug'
         print(set(v['type'] for v in values))
         bulk_load(db, values, tables.Link.__table__,
-                  key_columns=['collection_package_id', 'url'])
+                  key_columns=['collection_package_id', 'url', 'last_update'])
 
         # Tracking bugs
         values = [{'collection_package_id': col_package_map[k, collection],
