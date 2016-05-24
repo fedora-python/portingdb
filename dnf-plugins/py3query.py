@@ -24,14 +24,25 @@ from dnfpluginscore import _
 import bugzilla  # python-bugzilla
 
 BUGZILLA_URL = 'bugzilla.redhat.com'
+# Tracker bugs which are used to find all relevant package bugs
 TRACKER_BUG_IDS = [
     1285816,  # The Python 3 tracking bug
-    1322027   # The Python 3 Upstream Porting tracking bug
+    1322027,  # The Python 3 Upstream Porting tracking bug
 ]
-# Trackers of bugs that indicate the given package is mispackaged.
+# Trackers of bugs whose presence indicates the given package is mispackaged.
 MISPACKAGED_TRACKER_BUG_IDS = [
-    1285816   # The Python 3 tracking bug
+    1285816,  # The Python 3 tracking bug
 ]
+# Trackers of bugs whose presence gives us additional information about the
+# status quo.
+ADDITIONAL_TRACKER_BUGS = [
+    1333765,  # PY3PATCH-REQUESTED
+    1312032,  # PY3PATCH-AVAILABLE
+    1333770,  # PY3PATCH-PUSH
+]
+
+# Template URL to which you can add the bug ID and get a working URL
+BUGZILLA_BUG_URL = "https://bugzilla.redhat.com/show_bug.cgi?id={}"
 
 SEED_PACKAGES = {
     2: [
@@ -258,6 +269,12 @@ class Py3QueryCommand(dnf.cli.Command):
                 if bug.resolution:
                     status += ' ' + bug.resolution
                 r.setdefault('links', {})['bug'] = [bug.weburl, status]
+
+                for tb in bug.blocks:
+                    if tb in ADDITIONAL_TRACKER_BUGS:
+                        r.setdefault('tracking_bugs', []) \
+                                .append(BUGZILLA_BUG_URL.format(tb))
+
                 inprogress_statuses = ('ASSIGNED', 'POST', 'MODIFIED', 'ON_QA')
                 inprogress_resolutions = ('CURRENTRELEASE', 'RAWHIDE',
                                           'ERRATA', 'NEXTRELEASE')
