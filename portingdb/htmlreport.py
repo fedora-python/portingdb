@@ -64,6 +64,8 @@ def hello():
     dropped = queries.order_by_name(db, dropped)
 
     mispackaged, query = queries.split(query, tables.Package.status == 'mispackaged')
+    mispackaged = mispackaged.options(subqueryload('collection_packages'))
+    mispackaged = mispackaged.options(subqueryload('collection_packages.tracking_bugs'))
     mispackaged = queries.order_by_name(db, mispackaged)
 
     blocked, query = queries.split(query, tables.Package.status == 'blocked')
