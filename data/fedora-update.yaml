@@ -732,6 +732,11 @@ python-webtest1.3:
       ported to the current version of the library as part of porting to
       python3.
       Replacement: `python-webtest`
+python-zbase32: &pyutil-zbase32-cycle
+    nonblocking: true
+    note: |
+      Only `python-zbase32` depends on `pyutil`, and `pyutil` depends back
+      on `python-zbase32`.
 python-zope-interface4:
     status: dropped
     note: |
@@ -742,6 +747,7 @@ PyQt:
     note: |
       PyQt 3.x is not maintained upstream any more;
       please switch to `PyQt4` or `python-qt5` when porting.
+pyutil: *pyutil-zbase32-cycle
 pywebkitgtk:
     status: dropped
     note: |
@@ -776,6 +782,12 @@ TurboGears:
     note: |
       TurboGears-1 is not seeing further upstream development.
       Suggested Replacement: TurboGears2 (Similar API but porting will be needed)
+vegastrike: &vegastrike-cycle
+    nonblocking: true
+    note: |
+      Only `vegastrike` depends on `vegastrike-data`, and `vegastrike-data` depends back
+      on `vegastrike`.
+vegastrike-data: *vegastrike-cycle
 vte:
   status: dropped
   note: |
