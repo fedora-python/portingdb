@@ -239,7 +239,7 @@ def load_from_directories(db, directories):
                 v['type'] = 'bug'
         print(set(v['type'] for v in values))
         bulk_load(db, values, tables.Link.__table__,
-                  key_columns=['collection_package_id', 'url', 'last_update'])
+                  key_columns=['collection_package_id', 'url'])
 
         # Tracking bugs
         values = [{'collection_package_id': col_package_map[k, collection],

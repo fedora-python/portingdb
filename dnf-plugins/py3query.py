@@ -250,7 +250,7 @@ class Py3QueryCommand(dnf.cli.Command):
 
             next(bar)
             include_fields = ['id', 'depends_on', 'blocks', 'component',
-                              'status', 'resolution']
+                              'status', 'resolution', 'last_change_time']
             trackers = bz.getbugs(TRACKER_BUG_IDS,
                                   include_fields=include_fields)
             all_ids = [b for t in trackers for b in t.depends_on]
@@ -269,14 +269,11 @@ class Py3QueryCommand(dnf.cli.Command):
                 status = bug.status
                 if bug.resolution:
                     status += ' ' + bug.resolution
-                # Let's get the datetime of the last comment
-                last_comment_datetime = None
-                if bug.comments:
-                    # Get the date-time and convert to a string for JSON
-                    last_comment_datetime = time.strftime('%Y-%m-%d %H:%M:%S',
-                            bug.comments[-1]['time'].timetuple())
+                # Let's get the datetime of the last comment and convert to string
+                last_change_datetime = time.strftime('%Y-%m-%d %H:%M:%S',
+                        bug.last_change_time.timetuple())
                 r.setdefault('links', {})['bug'] = [bug.weburl, status,
-                        last_comment_datetime]
+                        last_change_datetime]
 
                 for tb in bug.blocks:
                     if tb in ADDITIONAL_TRACKER_BUGS:

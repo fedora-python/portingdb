@@ -143,7 +143,10 @@ class Package(TableBase):
     def last_link_update(self):
         values = [link.last_update for cp in self.collection_packages
                 for link in cp.links if link.last_update is not None]
-        return values[0] if values else None
+        if values:
+            return values[0]
+        else:
+            return None
 
 
 class Collection(TableBase):
@@ -316,7 +319,7 @@ class Link(TableBase):
         doc='Type-specific note about the link')
     last_update = Column(
         DateTime(), nullable=True,
-        doc='Type-specific datetime field')
+        doc="Datetime of the last known change of the Link's contents")
 
 
     collection_package = relationship(

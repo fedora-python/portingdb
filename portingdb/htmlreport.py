@@ -280,6 +280,37 @@ def format_rpm_name(text):
     return Markup('<span class="rpm-name">{}</span>-{}-{}'.format(
         name, version, release))
 
+def format_time_ago(date):
+    """Displays roughly how long ago the date was in a human readable format"""
+    now = datetime.datetime.utcnow()
+    diff = now - date
+
+    # Years
+    if diff.days >= 365:
+        if diff.days >= 2 * 365:
+            return "{} years ago".format(math.floor(diff.days / 365))
+        else:
+            return "a year ago"
+    # Months
+    elif diff.days >= 31:
+        if diff.days >= 2 * 30:
+            return "{} months ago".format(math.floor(diff.days / 30))
+        else:
+            return "a month ago"
+    # Weeks
+    elif diff.days >= 7:
+        if diff.days >= 2 * 7:
+            return "{} weeks ago".format(math.floor(diff.days / 7))
+        else:
+            return "a week ago"
+    # Days
+    elif diff.days >= 2:
+        return "{} days ago".format(diff.days)
+    elif diff.days == 1:
+        return "yesterday"
+    else:
+        return "today"
+
 
 def graph(grp=None, pkg=None):
     return render_template(
@@ -605,21 +636,20 @@ def mispackaged():
     mispackaged = mispackaged.options(subqueryload('collection_packages.links'))
     mispackaged = mispackaged.options(subqueryload('collection_packages.tracking_bugs'))
 
-    if requested:
+    if not requested:
+        # Turn a query into a list of packages
+        mispackaged = list(mispackaged)
+    else:
         # Filter only to packages where maintainer requested a patch
         mispackaged = [pkg for pkg in mispackaged
                 if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
                 in pkg.list_tracking_bugs]
 
     # Sorting the packages based on their last_link_update
-    #   Note that sorting through the database is problematic, because
-    #   to sort on a @property you need to create a @hybrid_property which
-    #   needs to be written as sort of an SQL expression
-
-    # Packages without a BZ report will be last
+    # Packages without a BZ report will be last so users aren't encouraged
+    #   to take them until we file a BZ report for them
     nonevalue = datetime.datetime.utcnow()
-    mispackaged = sorted(mispackaged,
-            key=lambda pkg: pkg.last_link_update or nonevalue)
+    mispackaged.sort(key=lambda pkg: pkg.last_link_update or nonevalue)
 
     # Render the page, pass the data
     return render_template(
@@ -630,40 +660,7 @@ def mispackaged():
         ),
         requested=bool(requested),
         mispackaged=mispackaged,
-        ago=ago,
     )
-
-def ago(date):
-    """Displays roughly how long ago the date was in a human readable format"""
-    now = datetime.datetime.utcnow()
-    diff = now - date
-
-    # Years
-    if diff.days >= 365:
-        if diff.days >= 2 * 365:
-            return "{} years ago".format(math.floor(diff.days / 365))
-        else:
-            return "a year ago"
-    # Months
-    elif diff.days >= 31:
-        if diff.days >= 2 * 30:
-            return "{} months ago".format(math.floor(diff.days / 30))
-        else:
-            return "a month ago"
-    # Weeks
-    elif diff.days >= 7:
-        if diff.days >= 2 * 7:
-            return "{} weeks ago".format(math.floor(diff.days / 7))
-        else:
-            return "a week ago"
-    # Days
-    elif diff.days >= 2:
-        return "{} days ago".format(diff.days)
-    elif diff.days == 1:
-        return "yesterday"
-    else:
-        return "today"
-
 
 def format_quantity(num):
     for prefix in ' KMGT':
@@ -712,6 +709,7 @@ def create_app(db_url, cache_config=None):
     app.jinja_env.filters['format_rpm_name'] = format_rpm_name
     app.jinja_env.filters['format_quantity'] = format_quantity
     app.jinja_env.filters['format_percent'] = format_percent
+    app.jinja_env.filters['format_time_ago'] = format_time_ago
 
     @app.context_processor
     def add_template_globals():

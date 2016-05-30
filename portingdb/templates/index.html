@@ -58,8 +58,11 @@
                     {{ len(mispackaged_packages) }} packages were found to have some kind of packaging problem.
                 </div>
                 <div>
-                    To find the best package to port, see <a href="{{ url_for('mispackaged') }}">packages ordered by last BugZilla comment</a>.<br/>
-                    <!-- For more information read: <a href="{# url_for('howto') #}">So you want to contribute?</a> -->
+                    To find the best package to port, see <a href="{{
+                    url_for('mispackaged') }}">packages ordered by last
+                    activity</a>. <!-- <br/>
+                    For more information read: <a href="{# url_for('howto')
+                    #}">So you want to contribute?</a> -->
                 </div>
                 <ul class="simple-pkg-list">
                 {% for pkg in mispackaged_packages %}
