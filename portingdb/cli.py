@@ -4,7 +4,7 @@ import urllib.parse
 import json
 
 import click
-from sqlalchemy import create_engine, func
+from sqlalchemy import create_engine, func, or_, and_
 from sqlalchemy.orm import eagerload, subqueryload
 
 from portingdb import tables
@@ -351,5 +351,50 @@ def upstream_idle(ctx):
     else:
         for r in results:
             print("{}".format(r.name))
+    if results:
+        exit(1)
+
+@cli.command('bugless-mispackaged')
+@click.pass_context
+def bugless_mispackaged(ctx):
+    """List mispackaged packages that do not have a BugZilla report yet.
+
+    Exits with error code 1 if such packages are found.
+
+    Use the --verbose flag to get the output pretty-printed for humans.
+    """
+    db = ctx.obj['db']
+
+    query = db.query(tables.Package)
+    query = query.filter(tables.Package.status == 'mispackaged')
+    query = query.join(tables.CollectionPackage)
+    query = query.filter(
+            tables.CollectionPackage.collection_ident == 'fedora')
+
+    # Do an outer join with Links, but ONLY with rows of type 'bug' so that if
+    #   a package has only e.g. a 'repo' link, it won't affect the results.
+    query = query.outerjoin(tables.Link, and_(tables.Link.type == 'bug',
+        tables.Link.collection_package_id == tables.CollectionPackage.id))
+
+    # Only show packages that do NOT have a corresponding 'bug' link, or
+    #   packages whese bug link is not automatically generated but comes from
+    #   fedora-update.yaml instead.
+    query = query.filter(or_(tables.Link.id == None, tables.Link.note == None))
+
+    results = list(query)
+    if ctx.obj['verbose'] > 0:
+        if results:
+            print("\nThe following packages are both 'mispackaged' and "
+                    "do not have an associated Bugzilla report:\n")
+            for p in results:
+                print("\t{}".format(p.name))
+            print()
+        else:
+            print("\nThere are no packages both 'mispackaged' and "
+                    "not having an associated Bugzilla report:\n")
+    else:
+        for p in results:
+            print("{}".format(p.name))
+
     if results:
         exit(1)
