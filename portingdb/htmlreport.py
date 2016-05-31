@@ -11,7 +11,7 @@ import datetime
 from flask import Flask, render_template, current_app, Markup, abort, url_for
 from flask import make_response, request
 from flask.json import jsonify
-from sqlalchemy import func, or_, create_engine
+from sqlalchemy import func, and_, or_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
 from jinja2 import StrictUndefined
 import markdown
@@ -626,30 +626,34 @@ def mispackaged():
     if requested not in ('1', None):
         abort(400)  # Bad request
 
-    # Database
     db = current_app.config['DB']()
-    query = queries.packages(db)
+    query = db.query(tables.Package)
+    query = query.filter(tables.Package.status == 'mispackaged')
+    query = query.join(tables.CollectionPackage)
+    query = query.filter(
+            tables.CollectionPackage.collection_ident == 'fedora')
 
-    # Get data
-    mispackaged, query = queries.split(query, tables.Package.status == 'mispackaged')
-    mispackaged = mispackaged.options(subqueryload('collection_packages'))
-    mispackaged = mispackaged.options(subqueryload('collection_packages.links'))
-    mispackaged = mispackaged.options(subqueryload('collection_packages.tracking_bugs'))
+    # Do an outer join with Links, but ONLY with rows of type 'bug' so that if
+    #   a package has only e.g. a 'repo' link, it won't affect the results.
+    query = query.outerjoin(tables.Link, and_(tables.Link.type == 'bug',
+            tables.Link.collection_package_id == tables.CollectionPackage.id))
 
-    if not requested:
-        # Turn a query into a list of packages
-        mispackaged = list(mispackaged)
-    else:
-        # Filter only to packages where maintainer requested a patch
-        mispackaged = [pkg for pkg in mispackaged
-                if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
-                in pkg.list_tracking_bugs]
+    # If appropriate: Filter only to packages where maintainer requested a patch
+    if requested:
+        query = query.join(tables.TrackingBug)
+        query = query.filter(tables.TrackingBug.url ==
+                             "https://bugzilla.redhat.com/show_bug.cgi?id=1333765")
 
-    # Sorting the packages based on their last_link_update
-    # Packages without a BZ report will be last so users aren't encouraged
-    #   to take them until we file a BZ report for them
-    nonevalue = datetime.datetime.utcnow()
-    mispackaged.sort(key=lambda pkg: pkg.last_link_update or nonevalue)
+    # Order by the last_update field, and if it's null, substitute it with the
+    # year 9999 so it's very last. (Note: sqlite does not support NULLS LAST)
+    query = query.order_by(func.ifnull(tables.Link.last_update, '9999'))
+
+    # Speedup: Prevent starting subqueries for each package.
+    query = query.options(subqueryload('collection_packages'))
+    query = query.options(subqueryload('collection_packages.links'))
+    query = query.options(subqueryload('collection_packages.tracking_bugs'))
+
+    mispackaged = list(query)
 
     # Render the page, pass the data
     return render_template(
