@@ -1,6 +1,6 @@
 from sqlalchemy import Column, ForeignKey, MetaData, extract, desc
 from sqlalchemy import UniqueConstraint
-from sqlalchemy.types import Boolean, Integer, Unicode, UnicodeText, Date, Time
+from sqlalchemy.types import Boolean, Integer, Unicode, UnicodeText, Date, DateTime
 from sqlalchemy.types import Enum
 from sqlalchemy.orm import backref, relationship
 from sqlalchemy.orm.collections import mapped_collection
@@ -138,6 +138,15 @@ class Package(TableBase):
     @property
     def list_tracking_bugs(self):
         return [tb.url for cp in self.collection_packages for tb in cp.tracking_bugs]
+
+    @property
+    def last_link_update(self):
+        values = [link.last_update for cp in self.collection_packages
+                for link in cp.links if link.last_update is not None]
+        if values:
+            return values[0]
+        else:
+            return None
 
 
 class Collection(TableBase):
@@ -308,6 +317,10 @@ class Link(TableBase):
     note = Column(
         Unicode(), nullable=True,
         doc='Type-specific note about the link')
+    last_update = Column(
+        DateTime(), nullable=True,
+        doc="Datetime of the last known change of the Link's contents")
+
 
     collection_package = relationship(
         'CollectionPackage', backref=backref('links'))

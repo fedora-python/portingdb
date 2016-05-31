@@ -6,11 +6,12 @@ import math
 import uuid
 import io
 import csv
+import datetime
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
 from flask import make_response, request
 from flask.json import jsonify
-from sqlalchemy import func, or_, create_engine
+from sqlalchemy import func, and_, or_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
 from jinja2 import StrictUndefined
 import markdown
@@ -278,6 +279,37 @@ def format_rpm_name(text):
     name, version, release = text.rsplit('-', 2)
     return Markup('<span class="rpm-name">{}</span>-{}-{}'.format(
         name, version, release))
+
+def format_time_ago(date):
+    """Displays roughly how long ago the date was in a human readable format"""
+    now = datetime.datetime.utcnow()
+    diff = now - date
+
+    # Years
+    if diff.days >= 365:
+        if diff.days >= 2 * 365:
+            return "{} years ago".format(math.floor(diff.days / 365))
+        else:
+            return "a year ago"
+    # Months
+    elif diff.days >= 31:
+        if diff.days >= 2 * 30:
+            return "{} months ago".format(math.floor(diff.days / 30))
+        else:
+            return "a month ago"
+    # Weeks
+    elif diff.days >= 7:
+        if diff.days >= 2 * 7:
+            return "{} weeks ago".format(math.floor(diff.days / 7))
+        else:
+            return "a week ago"
+    # Days
+    elif diff.days >= 2:
+        return "{} days ago".format(diff.days)
+    elif diff.days == 1:
+        return "yesterday"
+    else:
+        return "today"
 
 
 def graph(grp=None, pkg=None):
@@ -588,6 +620,52 @@ def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
     )
 
 
+def mispackaged():
+    # Parameters
+    requested = request.args.get('requested', None)
+    if requested not in ('1', None):
+        abort(400)  # Bad request
+
+    db = current_app.config['DB']()
+    query = db.query(tables.Package)
+    query = query.filter(tables.Package.status == 'mispackaged')
+    query = query.join(tables.CollectionPackage)
+    query = query.filter(
+            tables.CollectionPackage.collection_ident == 'fedora')
+
+    # Do an outer join with Links, but ONLY with rows of type 'bug' so that if
+    #   a package has only e.g. a 'repo' link, it won't affect the results.
+    query = query.outerjoin(tables.Link, and_(tables.Link.type == 'bug',
+            tables.Link.collection_package_id == tables.CollectionPackage.id))
+
+    # If appropriate: Filter only to packages where maintainer requested a patch
+    if requested:
+        query = query.join(tables.TrackingBug)
+        query = query.filter(tables.TrackingBug.url ==
+                             "https://bugzilla.redhat.com/show_bug.cgi?id=1333765")
+
+    # Order by the last_update field, and if it's null, substitute it with the
+    # year 9999 so it's very last. (Note: sqlite does not support NULLS LAST)
+    query = query.order_by(func.ifnull(tables.Link.last_update, '9999'))
+
+    # Speedup: Prevent starting subqueries for each package.
+    query = query.options(subqueryload('collection_packages'))
+    query = query.options(subqueryload('collection_packages.links'))
+    query = query.options(subqueryload('collection_packages.tracking_bugs'))
+
+    mispackaged = list(query)
+
+    # Render the page, pass the data
+    return render_template(
+        'mispackaged.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('mispackaged'), 'Mispackaged'),
+        ),
+        requested=bool(requested),
+        mispackaged=mispackaged,
+    )
+
 def format_quantity(num):
     for prefix in ' KMGT':
         if num > 1000:
@@ -635,6 +713,7 @@ def create_app(db_url, cache_config=None):
     app.jinja_env.filters['format_rpm_name'] = format_rpm_name
     app.jinja_env.filters['format_quantity'] = format_quantity
     app.jinja_env.filters['format_percent'] = format_percent
+    app.jinja_env.filters['format_time_ago'] = format_time_ago
 
     @app.context_processor
     def add_template_globals():
@@ -673,6 +752,7 @@ def create_app(db_url, cache_config=None):
     _add_route("/pkg/<pkg>/graph/data.json", graph_json_pkg)
     _add_route("/by_loc/", by_loc, get_keys={'sort', 'reverse'})
     _add_route("/by_loc/grp/<grp>/", group_by_loc, get_keys={'sort', 'reverse'})
+    _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
     _add_route("/history/", history, get_keys={'expand'})
     _add_route("/history/data.csv", history_csv)
 
