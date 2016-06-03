@@ -80,7 +80,7 @@ def _get_repolink(col_package_id, url, type_name):
     else:
         result['url'] = url[0]
         result['note'] = url[1]
-        if url[2]:
+        if len(url) > 2:
             result['last_update'] = datetime.datetime.strptime(url[2],
                     '%Y-%m-%d %H:%M:%S')
     return result
