@@ -256,6 +256,13 @@ policycoreutils:
         * `policycoreutils-python-utils`: py3 only
         * `policycoreutils-sandbox`: Py2-only, but nothing depends on the
           Python parts
+pungi:
+    status: idle
+    note: |
+      Dependency on both Python 2 and 3 is intentional: Main codebase of
+      Pungi is Python 2 only (mostly due to dependency on koji). However,
+      there is a separate script that depends on pylorax, which is Python 3
+      only. This script is invoked at runtime as a subprocess.
 pycairo:
     status: dropped
     note: |
