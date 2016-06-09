@@ -1991,7 +1991,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1313452",
         "NEW",
-        "2016-05-19 19:48:36"
+        "2016-06-08 09:14:11"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -3516,6 +3516,41 @@
     },
     "status": "idle"
   },
+  "commissaire": {
+    "deps": [
+      "ansible",
+      "py-bcrypt",
+      "python-etcd",
+      "python-falcon",
+      "python-jinja2",
+      "python-requests",
+      "python-setuptools",
+      "python3",
+      "python3-cherrypy"
+    ],
+    "rpms": {
+      "commissaire-0.0.1-0.3.rc3.fc25": {
+        "/usr/bin/python3": 3,
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
+  "commissaire-client": {
+    "deps": [
+      "PyYAML",
+      "py-bcrypt",
+      "python-setuptools",
+      "python3"
+    ],
+    "rpms": {
+      "commissaire-client-0.0.1-0.3.rc3.fc25": {
+        "/usr/bin/python3": 3,
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
   "community-mysql": {
     "deps": [],
     "rpms": {
@@ -4627,7 +4662,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1342491",
         "NEW",
-        "2016-06-03 11:40:55"
+        "2016-06-08 13:32:10"
       ]
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
@@ -6879,7 +6914,7 @@
   "gdb": {
     "deps": [],
     "rpms": {
-      "gdb-7.11-74.fc25": {
+      "gdb-7.11.1-75.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -7606,7 +7641,7 @@
       "python3"
     ],
     "rpms": {
-      "gnome-abrt-1.2.3-3.fc25": {
+      "gnome-abrt-1.2.4-1.fc25": {
         "/usr/bin/python3": 3,
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
@@ -8019,7 +8054,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=635231",
         "NEW",
-        "2016-05-31 12:32:05"
+        "2016-06-09 08:21:57"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -8028,7 +8063,10 @@
         "/usr/bin/python": 2
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
+    ]
   },
   "gofed": {
     "deps": [
@@ -10176,12 +10214,12 @@
       ]
     },
     "rpms": {
-      "perf-4.7.0-0.rc2.git0.1.fc25": {
+      "perf-4.7.0-0.rc2.git1.1.fc25": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.7.0-0.rc2.git0.1.fc25": {
+      "python-perf-4.7.0-0.rc2.git1.1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -10263,7 +10301,7 @@
       "python"
     ],
     "rpms": {
-      "kf5-kapidox-5.22.0-1.fc25": {
+      "kf5-kapidox-5.23.0-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -11932,11 +11970,11 @@
       "python3"
     ],
     "rpms": {
-      "libvirt-python-1.3.4-1.fc25": {
+      "libvirt-python-1.3.5-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "libvirt-python3-1.3.4-1.fc25": {
+      "libvirt-python3-1.3.5-1.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -12065,6 +12103,29 @@
       "lilypond-2.19.42-1.fc25": {
         "/usr/bin/python": 2,
         "libpython2.7.so.1.0()(64bit)": 2
+      }
+    },
+    "status": "idle"
+  },
+  "limnoria": {
+    "deps": [
+      "python",
+      "python-chardet",
+      "python-dateutil",
+      "python-ecdsa",
+      "python-feedparser",
+      "python-gnupg",
+      "python-mock",
+      "python-pysocks",
+      "python-sqlalchemy",
+      "pytz"
+    ],
+    "rpms": {
+      "limnoria-20160506-2.fc25": {
+        "/usr/bin/python2": 2,
+        "python(abi) = 2.7": 2,
+        "python2-devel": 2,
+        "python2-devel = 2.7.11-4.fc24": 2
       }
     },
     "status": "idle"
@@ -12944,10 +13005,10 @@
       "python-sqlobject"
     ],
     "rpms": {
-      "mirrorbrain-tools-2.18.1-9.fc25": {
+      "mirrorbrain-tools-2.18.1-10.fc25": {
         "/usr/bin/python": 2
       },
-      "python-mb-2.18.1-9.fc25": {
+      "python-mb-2.18.1-10.fc25": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
@@ -13900,22 +13961,22 @@
       "python3"
     ],
     "rpms": {
-      "python2-numpy-1:1.11.0-4.fc25": {
+      "python2-numpy-1:1.11.1-0.rc1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-numpy-f2py-1:1.11.0-4.fc25": {
+      "python2-numpy-f2py-1:1.11.1-0.rc1.fc25": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2,
         "python-devel": 2,
         "python-devel = 2.7.11-4.fc24": 2
       },
-      "python3-numpy-1:1.11.0-4.fc25": {
+      "python3-numpy-1:1.11.1-0.rc1.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "python3-numpy-f2py-1:1.11.0-4.fc25": {
+      "python3-numpy-f2py-1:1.11.1-0.rc1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3,
         "python3-devel": 3,
@@ -15715,18 +15776,18 @@
       "python3"
     ],
     "rpms": {
-      "pki-base-10.3.1-1.fc25": {
+      "pki-base-10.3.2-2.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "pki-base-python3-10.3.1-1.fc25": {
+      "pki-base-python3-10.3.2-2.fc25": {
         "python(abi) = 3.5": 3
       },
-      "pki-server-10.3.1-1.fc25": {
+      "pki-server-10.3.2-2.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "pki-tools-10.3.1-1.fc25": {
+      "pki-tools-10.3.2-2.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -16168,7 +16229,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1321853",
         "NEW",
-        "2016-04-22 11:39:05"
+        "2016-06-08 09:07:55"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -16179,7 +16240,10 @@
         "python = 2.7.11-4.fc24": 2
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+    ]
   },
   "psi4": {
     "deps": [
@@ -18096,7 +18160,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1282243",
         "NEW",
-        "2016-04-19 14:39:58"
+        "2016-06-08 12:50:20"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -18106,7 +18170,10 @@
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+    ]
   },
   "pyserial": {
     "deps": [
@@ -19581,8 +19648,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1333800",
-        "MODIFIED",
-        "2016-06-06 18:13:56"
+        "ON_QA",
+        "2016-06-07 18:54:27"
       ]
     },
     "rpms": {
@@ -19848,19 +19915,19 @@
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "python2-aodhclient-0.4.0-3.fc25": {
+      "python2-aodhclient-0.5.0-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-aodhclient-tests-0.4.0-3.fc25": {
+      "python2-aodhclient-tests-0.5.0-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-aodhclient-0.4.0-3.fc25": {
+      "python3-aodhclient-0.5.0-1.fc25": {
         "/usr/bin/python2": 2,
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       },
-      "python3-aodhclient-tests-0.4.0-3.fc25": {
+      "python3-aodhclient-tests-0.5.0-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -20777,8 +20844,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1310322",
-        "CLOSED ERRATA",
-        "2016-04-12 09:40:35"
+        "NEW",
+        "2016-06-08 09:01:12"
       ]
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
@@ -20794,7 +20861,10 @@
         "python3 = 3.5.1-7.fc25": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+    ]
   },
   "python-bitmath": {
     "deps": [
@@ -20898,7 +20968,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-blivet-1:2.1.0-1.fc25": {
+      "python3-blivet-1:2.1.1-1.fc25": {
         "python(abi) = 3.5": 3,
         "python3": 3,
         "python3 = 3.5.1-7.fc25": 3
@@ -23089,10 +23159,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-decorator-4.0.9-1.fc25": {
+      "python2-decorator-4.0.10-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-decorator-4.0.9-1.fc25": {
+      "python3-decorator-4.0.10-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -24050,7 +24120,8 @@
       "python-oslo-config",
       "python-oslo-policy",
       "python-pbr",
-      "python-six"
+      "python-six",
+      "python3"
     ],
     "links": {
       "bug": [
@@ -24060,11 +24131,14 @@
       ]
     },
     "rpms": {
-      "python2-django-openstack-auth-2.0.1-2.fc24": {
+      "python2-django-openstack-auth-2.3.0-1.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-django-openstack-auth-2.3.0-1.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress"
+    "status": "released"
   },
   "python-django-pagination": {
     "deps": [
@@ -24822,10 +24896,10 @@
       "python3"
     ],
     "rpms": {
-      "python-dogpile-cache-0.5.7-3.fc24": {
+      "python-dogpile-cache-0.6.1-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-dogpile-cache-0.5.7-3.fc24": {
+      "python3-dogpile-cache-0.6.1-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -25686,7 +25760,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1285544",
         "NEW",
-        "2016-02-24 14:01:42"
+        "2016-06-08 12:09:32"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -28693,15 +28767,16 @@
   "python-jenkins": {
     "deps": [
       "python",
+      "python-multi_key_dict",
       "python-pbr",
       "python-six",
       "python3"
     ],
     "rpms": {
-      "python-jenkins-0.4.8-3.fc24": {
+      "python2-jenkins-0.4.12-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-jenkins-0.4.8-3.fc24": {
+      "python3-jenkins-0.4.12-2.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -29202,10 +29277,10 @@
       "pytz"
     ],
     "rpms": {
-      "python-kajiki-0.5.3-1.fc25": {
+      "python-kajiki-0.5.4-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-kajiki-0.5.3-1.fc25": {
+      "python3-kajiki-0.5.4-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -32898,8 +32973,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1326722",
-        "NEW",
-        "2016-06-03 12:05:30"
+        "CLOSED RAWHIDE",
+        "2016-06-08 11:09:32"
       ]
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
@@ -32915,10 +32990,7 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "mispackaged",
-    "tracking_bugs": [
-      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
-    ]
+    "status": "mispackaged"
   },
   "python-oslo-config": {
     "deps": [
@@ -32954,7 +33026,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1214734",
         "NEW",
-        "2016-06-03 09:08:19"
+        "2016-06-08 12:07:05"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -33002,7 +33074,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1166404",
         "NEW",
-        "2016-06-03 12:23:48"
+        "2016-06-08 11:53:30"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -33066,7 +33138,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1327505",
         "NEW",
-        "2016-06-03 08:54:34"
+        "2016-06-08 11:44:50"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -33238,7 +33310,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1334796",
         "NEW",
-        "2016-06-03 10:55:29"
+        "2016-06-08 11:40:23"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -33311,7 +33383,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1334798",
         "NEW",
-        "2016-06-02 16:08:54"
+        "2016-06-08 11:41:12"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -33328,7 +33400,7 @@
     },
     "status": "mispackaged",
     "tracking_bugs": [
-      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1333770"
     ]
   },
   "python-oslo-service": {
@@ -33422,11 +33494,10 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1171064",
-        "NEW",
-        "2016-06-01 16:04:32"
+        "ASSIGNED",
+        "2016-06-08 11:15:43"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-oslo-utils-tests-3.7.0-1.fc25": {
         "python(abi) = 2.7": 2
@@ -33438,9 +33509,9 @@
         "python(abi) = 3.5": 3
       }
     },
-    "status": "mispackaged",
+    "status": "in-progress",
     "tracking_bugs": [
-      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1333770"
     ]
   },
   "python-oslo-versionedobjects": {
@@ -33620,10 +33691,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-paho-mqtt-1.1-5.fc24": {
+      "python2-paho-mqtt-1.2-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-paho-mqtt-1.1-5.fc24": {
+      "python3-paho-mqtt-1.2-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -35202,10 +35273,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-pybeam-0.3.2-1.fc24": {
+      "python2-pybeam-0.3.2-2.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-pybeam-0.3.2-1.fc24": {
+      "python3-pybeam-0.3.2-2.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -36958,10 +37029,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-rarfile-2.7-5.fc24": {
+      "python2-rarfile-2.8-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-rarfile-2.7-5.fc24": {
+      "python3-rarfile-2.8-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -38252,20 +38323,19 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1328051",
-        "NEW",
-        "2016-06-02 09:54:45"
+        "ASSIGNED",
+        "2016-06-08 11:13:41"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-saharaclient-0.13.0-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged",
+    "status": "in-progress",
     "tracking_bugs": [
-      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1333770"
     ]
   },
   "python-salttesting": {
@@ -38667,11 +38737,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-setuptools-22.0.0-1.fc25": {
+      "python2-setuptools-22.0.5-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-setuptools-22.0.0-1.fc25": {
+      "python3-setuptools-22.0.5-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -40869,19 +40939,18 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1324131",
-        "NEW",
-        "2016-06-07 09:36:03"
+        "ASSIGNED",
+        "2016-06-08 12:18:34"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-tgscheduler-1.7.0-2.fc24": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged",
+    "status": "in-progress",
     "tracking_bugs": [
-      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1333770"
     ]
   },
   "python-theano": {
@@ -42646,7 +42715,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1032588",
         "NEW",
-        "2016-06-06 15:29:49"
+        "2016-06-08 11:36:01"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -44839,11 +44908,11 @@
       "sip"
     ],
     "rpms": {
-      "qgis-python-2.14.3-2.fc25": {
+      "qgis-python-2.14.3-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "qgis-server-2.14.3-2.fc25": {
+      "qgis-server-2.14.3-3.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -45599,17 +45668,16 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1337126",
-        "NEW",
-        "2016-05-18 15:38:59"
+        "CLOSED NEXTRELEASE",
+        "2016-06-08 13:33:36"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "rhnlib-2.5.77-2.fc24": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged"
+    "status": "in-progress"
   },
   "rho": {
     "deps": [
@@ -46179,10 +46247,10 @@
       ]
     },
     "rpms": {
-      "samba-libs-2:4.4.3-2.fc25": {
+      "samba-libs-2:4.4.4-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "samba-python-2:4.4.3-2.fc25": {
+      "samba-python-2:4.4.4-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -50890,8 +50958,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1342509",
-        "NEW",
-        "2016-06-03 11:58:04"
+        "CLOSED NEXTRELEASE",
+        "2016-06-08 20:15:57"
       ]
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
