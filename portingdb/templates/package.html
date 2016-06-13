@@ -90,6 +90,19 @@
                                         {% if link.note %}
                                             ({{ link.note }})
                                         {% endif %}
+                                        {% if link.last_update %}
+                                            <br/>
+                                            Last activity:
+                                            <time style="font-style: italic;"
+                                                    title="{{ link.last_update }}">
+                                                {{ link.last_update | format_time_ago }}
+                                            </time>
+                                        {% endif %}
+                                        {% if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
+                                                in pkg.list_tracking_bugs %}
+                                            <br/>
+                                            <b>Patch requested by maintainer</b>
+                                        {% endif %}
                                     </li>
                                 {% endfor %}
                             </ul>
