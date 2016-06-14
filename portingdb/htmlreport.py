@@ -85,7 +85,7 @@ def hello():
     blocked = list(blocked)
     mispackaged = list(mispackaged)
     dropped = list(dropped)
-    random_ready = random.choice(ready)
+    random_mispackaged = random.choice(mispackaged)
 
     the_score = (len(done) + len(dropped)) / total_pkg_count
 
@@ -131,7 +131,7 @@ def hello():
         done_packages=done,
         dropped_packages=dropped,
         mispackaged_packages=mispackaged,
-        random_ready=random_ready,
+        random_mispackaged=random_mispackaged,
         groups=groups,
         nonblocking=nonblocking,
         the_score=the_score,
@@ -475,6 +475,54 @@ def piechart_pkg(pkg):
     return _piechart([], package.status_obj)
 
 
+def howto():
+    db = current_app.config['DB']()
+    query = queries.packages(db)
+
+    # Count the idle and blocked packages
+    idle_query, query = queries.split(query, tables.Package.status == 'idle')
+    idle_len = idle_query.count()
+    blocked_query, query = queries.split(query, tables.Package.status == 'blocked')
+    blocked_len = blocked_query.count()
+
+    # Get all the mispackaged packages
+    mispackaged_query, query = queries.split(query, tables.Package.status == 'mispackaged')
+    mispackaged = list(mispackaged_query)
+
+    # Pick a mispackaged package at random
+    random_mispackaged = random.choice(mispackaged)
+
+    # Fedora status: Mispackaged
+    query = db.query(tables.Status)
+    query = query.filter(tables.Status.ident == 'mispackaged')
+    query = query.join(tables.CollectionPackage)
+    query = query.filter(
+            tables.CollectionPackage.collection_ident == 'fedora')
+    mispackaged_status = query.first()
+
+    # Upstream status: Released
+    query = db.query(tables.Status)
+    query = query.filter(tables.Status.ident == 'released')
+    query = query.join(tables.CollectionPackage)
+    query = query.filter(
+            tables.CollectionPackage.collection_ident == 'upstream')
+    released_status = query.first()
+
+    return render_template(
+        'howto.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('howto'), 'So you want to contribute?'),
+        ),
+        idle_len=idle_len,
+        blocked_len=blocked_len,
+        mispackaged=mispackaged,
+        random_mispackaged=random_mispackaged,
+        mispackaged_status = mispackaged_status,
+        released_status = released_status,
+    )
+
+
 def history():
     expand = request.args.get('expand', None)
     if expand not in ('1', None):
@@ -755,6 +803,7 @@ def create_app(db_url, cache_config=None):
     _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
     _add_route("/history/", history, get_keys={'expand'})
     _add_route("/history/data.csv", history_csv)
+    _add_route("/howto/", howto)
 
     return app
 

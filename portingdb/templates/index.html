@@ -26,8 +26,10 @@
         </div>
         <div class="col-md-8">
             {% if 'main-instructions' in config %}
-                {{ config['main-instructions'].replace('$RANDOMPKG',
-                                                       pkglink(random_ready))
+                {{ config['main-instructions']
+                        .replace('$RANDOMPKG', pkglink(random_mispackaged))
+                        .replace('$HOWTO_LINK', url_for('howto'))
+                        .replace('$MISPACKAGED_LINK', url_for('mispackaged'))
                     |safe }}
             {% endif %}
             {% if groups %}
@@ -57,12 +59,12 @@
                 <div>
                     {{ len(mispackaged_packages) }} packages were found to have some kind of packaging problem.
                 </div>
-                <div>
+                <div style="padding-bottom: 7pt">
                     To find the best package to port, see <a href="{{
                     url_for('mispackaged') }}">packages ordered by last
-                    activity</a>. <!-- <br/>
-                    For more information read: <a href="{# url_for('howto')
-                    #}">So you want to contribute?</a> -->
+                    activity</a>.<br/>
+                    For more information read: <a href="{{ url_for('howto')
+                    }}">So you want to contribute?</a>
                 </div>
                 <ul class="simple-pkg-list">
                 {% for pkg in mispackaged_packages %}
@@ -128,8 +130,6 @@
             <div>
                 {{ len(dropped_packages) }}  packages will not be ported to Python 3.
                 Anything that requires them will need to switch to an alternative.
-            </div>
-            <div>
                 The suggested replacement is usually mentioned in porting notes;
                 click on the package for more information.
             </div>
