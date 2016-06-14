@@ -85,7 +85,7 @@ def hello():
     blocked = list(blocked)
     mispackaged = list(mispackaged)
     dropped = list(dropped)
-    random_ready = random.choice(ready)
+    random_mispackaged = random.choice(mispackaged)
 
     the_score = (len(done) + len(dropped)) / total_pkg_count
 
@@ -131,7 +131,7 @@ def hello():
         done_packages=done,
         dropped_packages=dropped,
         mispackaged_packages=mispackaged,
-        random_ready=random_ready,
+        random_mispackaged=random_mispackaged,
         groups=groups,
         nonblocking=nonblocking,
         the_score=the_score,

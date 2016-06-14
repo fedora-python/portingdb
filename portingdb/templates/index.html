@@ -27,8 +27,9 @@
         <div class="col-md-8">
             {% if 'main-instructions' in config %}
                 {{ config['main-instructions']
-                        .replace('$RANDOMPKG', pkglink(random_ready))
+                        .replace('$RANDOMPKG', pkglink(random_mispackaged))
                         .replace('$HOWTO_LINK', url_for('howto'))
+                        .replace('$MISPACKAGED_LINK', url_for('mispackaged'))
                     |safe }}
             {% endif %}
             {% if groups %}
@@ -129,8 +130,6 @@
             <div>
                 {{ len(dropped_packages) }}  packages will not be ported to Python 3.
                 Anything that requires them will need to switch to an alternative.
-            </div>
-            <div>
                 The suggested replacement is usually mentioned in porting notes;
                 click on the package for more information.
             </div>
