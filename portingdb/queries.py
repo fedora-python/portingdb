@@ -66,10 +66,6 @@ def dependents(db, package):
     return _deps(db, package, False)
 
 
-def split(query, condition):
-   return query.filter(condition), query.filter(not_(condition))
-
-
 def order_by_name(db, query):
     return query.order_by(func.lower(tables.Package.name))
 
