@@ -4,35 +4,6 @@
     So you want to contribute? – {{ super() }}
 {%- endblock titlecontent %}
 
-{% block style %}
-{{ super() }}
-
-div.toc {
-    border: 1px solid black;
-    background-color: #f5f5f5;
-    font-weight: bold;
-    padding: 10pt 10pt 0pt 10pt;
-}
-
-div.toc li {
-    font-weight: normal;
-}
-
-p.codebox {
-    border: 1px solid black;
-    background-color: #eeeeee;
-    padding: 5pt;
-}
-
-code.codebox {
-    white-space: pre;
-    word-break: normal;
-    word-wrap: normal;
-    background-color: inherit;
-}
-
-{% endblock style %}
-
 {% block bodycontent %}
 
 <div class="container">
@@ -42,7 +13,7 @@ code.codebox {
             That's great! What do you want to do?
         </p>
 
-        <div class="toc">
+        <div class="well well-sm">
             Table of Contents:
             <ul>
                 <li><a href="#package-it">Package it</a></li>
@@ -96,7 +67,8 @@ code.codebox {
         </p><p>
             To make PortingDB aware that the package supports Python 3 upstream, please make a pull request on GitHub and provide the information by editing the <a href="https://github.com/fedora-python/portingdb/blob/master/data/upstream.yaml">data/upstream.yaml</a> file. People not acquainted with git can edit the file directly on GitHub by clicking on the little pencil icon on the right side above the contents of the file. Add the following:
         </p>
-        <p class="codebox"><code class="codebox">package-name:
+        <pre>
+package-name:
     status: released
     links:
         bug: http://...
@@ -104,7 +76,7 @@ code.codebox {
         repo: http://...
     note: |
         This is a custom note. Please do NOT forget the '|'
-        on the previous line, it's important.</code></p>
+        on the previous line, it's important.</pre>
         <p>
             Make sure to put the note inside the file in alphabetical order according to the package name. Including a link is required, chose either a <i>bug</i>, <i>homepage</i> or a <i>repo</i> link type (or a combination thereof). And the note can be any relevant text you wish or it can be omitted.
         </p>
@@ -114,11 +86,12 @@ code.codebox {
         </p><p>
             If you know of a package which people should stop using and switch to a different one instead, please make a pull request on GitHub and provide the information by editing the <a href="https://github.com/fedora-python/portingdb/blob/master/data/fedora-update.yaml">data/fedora-update.yaml</a> file. People not acquainted with git can edit the file directly on GitHub by clicking on the little pencil icon on the right side above the contents of the file. Add the following:
         </p>
-        <p class="codebox"><code class="codebox">package-name:
+        <pre>
+package-name:
     status: dropped
     note: |
         Suggested replacement: `other-package-name`
-        You are also encouraged to add a text comment like so.</code></p>
+        You are also encouraged to add a text comment like so.</pre>
         <p>
             Make sure to put the note inside the file in alphabetical order according to the package name.
         </p>
