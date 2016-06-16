@@ -41,7 +41,7 @@
         <p>
             In either case, look a bit further down on the package page in PortingDB and find a link to the associated Bugzilla report (under <i>Links→bug</i> in the sidebar). Go there and join the discussion. Find out what's the status quo and if anyone is working on it. If not, be the one that submits a patch!
         </p><p>
-            If you don't find a link to Bugzilla, you'll need to investigate the issue and <a href="https://fedoraproject.org/wiki/User:Pviktori/Python_3_Bug_Filing">file a bug</a> yourself. A hint will usually provided just under the Fedora heading on the package page. When filing a bug, please make it block the <b>PYTHON3</b> tracking bug.
+            If you don't find a link to Bugzilla, you'll need to investigate the issue and <a href="https://fedoraproject.org/wiki/User:Pviktori/Python_3_Bug_Filing">file a bug</a> yourself. A hint on the nature of the problem will usually be provided just under the Fedora heading on the package page.
         </p><p>
             To aid you in your porting effort, use the <a href="http://python-rpm-porting.readthedocs.io">Python RPM Porting Guide</a>. If you are investigating why a Python 3 subpackage still depends on Python&nbsp;2, take a look at the <a href="http://python-rpm-porting.readthedocs.io/en/latest/application-modules.html#are-shebangs-dragging-you-down-to-python-2">section on <i>shebangs</i></a>.
         </p>
@@ -63,7 +63,7 @@
         </p>
         <h4>Blocked packages</h4>
         <p>
-            The <a href="{{ url_for('hello') }}#blocked">{{ blocked_len }} blocked packages</a> are a bit similar, but not quite. These are Python 2–only packages that, cannot yet be ported because some of their dependencies are still not ported to Python 3 in Fedora.
+            The <a href="{{ url_for('hello') }}#blocked">{{ blocked_len }} blocked packages</a> are a bit similar, but not quite. These are Python 2–only packages that cannot yet be ported because some of their dependencies are still not ported to Python 3 in Fedora.
         </p><p>
             If you do know that some of these packages support Python 3 upstream, open the package here on PortingDB and look for the the Fedora headline in the left sidebar. If there's a {{ badge(released_status) }} next to it, we already know it's ready upstream. Otherwise, please let us know!
         </p><p>
