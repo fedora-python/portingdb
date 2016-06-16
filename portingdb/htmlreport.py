@@ -46,38 +46,35 @@ def hello():
             'data': data,
         }
 
-    total_pkg_count = queries.packages(db).count()
-
     # Main package query
 
     query = queries.packages(db)
+    total_pkg_count = query.count()
 
-    active, query = queries.split(query, tables.Package.status == 'in-progress')
+    active = query.filter(tables.Package.status == 'in-progress')
     active = queries.order_by_weight(db, active)
     active = queries.order_by_name(db, active)
     active = active.options(subqueryload('collection_packages'))
     active = active.options(subqueryload('collection_packages.links'))
 
-    done, query = queries.split(query, tables.Package.status == 'released')
+    done = query.filter(tables.Package.status == 'released')
     done = queries.order_by_name(db, done)
 
-    dropped, query = queries.split(query, tables.Package.status == 'dropped')
+    dropped = query.filter(tables.Package.status == 'dropped')
     dropped = queries.order_by_name(db, dropped)
 
-    mispackaged, query = queries.split(query, tables.Package.status == 'mispackaged')
+    mispackaged = query.filter(tables.Package.status == 'mispackaged')
     mispackaged = mispackaged.options(subqueryload('collection_packages'))
     mispackaged = mispackaged.options(subqueryload('collection_packages.tracking_bugs'))
     mispackaged = queries.order_by_name(db, mispackaged)
 
-    blocked, query = queries.split(query, tables.Package.status == 'blocked')
+    blocked = query.filter(tables.Package.status == 'blocked')
     blocked = blocked.options(subqueryload('requirements'))
     blocked = queries.order_by_name(db, blocked)
 
-    ready, query = queries.split(query, tables.Package.status == 'idle')
+    ready = query.filter(tables.Package.status == 'idle')
     ready = ready.options(subqueryload('requirers'))
     ready = queries.order_by_name(db, ready)
-
-    assert query.count() == 0
 
     active = list(active)
     done = list(done)
@@ -86,6 +83,11 @@ def hello():
     mispackaged = list(mispackaged)
     dropped = list(dropped)
     random_mispackaged = random.choice(mispackaged)
+
+    # Check we account for all the packages
+    sum_by_status = sum(len(x) for x in (active, done, ready, blocked,
+                                         mispackaged, dropped))
+    assert sum_by_status == total_pkg_count
 
     the_score = (len(done) + len(dropped)) / total_pkg_count
 
@@ -142,13 +144,12 @@ def jsonstats():
     db = current_app.config['DB']()
 
     query = queries.packages(db)
-    active, query = queries.split(query, tables.Package.status == 'in-progress')
-    done, query = queries.split(query, tables.Package.status == 'released')
-    dropped, query = queries.split(query, tables.Package.status == 'dropped')
-    mispackaged, query = queries.split(query, tables.Package.status == 'mispackaged')
-    blocked, query = queries.split(query, tables.Package.status == 'blocked')
-    ready, query = queries.split(query, tables.Package.status == 'idle')
-    assert query.count() == 0
+    active = query.filter(tables.Package.status == 'in-progress')
+    done = query.filter(tables.Package.status == 'released')
+    dropped = query.filter(tables.Package.status == 'dropped')
+    mispackaged = query.filter(tables.Package.status == 'mispackaged')
+    blocked = query.filter(tables.Package.status == 'blocked')
+    ready = query.filter(tables.Package.status == 'idle')
 
     stats = {
         'in-progress': active.count(),
@@ -479,34 +480,29 @@ def howto():
     db = current_app.config['DB']()
     query = queries.packages(db)
 
-    # Count the idle and blocked packages
-    idle_query, query = queries.split(query, tables.Package.status == 'idle')
-    idle_len = idle_query.count()
-    blocked_query, query = queries.split(query, tables.Package.status == 'blocked')
+    # Count the blocked packages
+    blocked_query = query.filter(tables.Package.status == 'blocked')
     blocked_len = blocked_query.count()
 
+    # Get all the idle packages
+    idle_query = query.filter(tables.Package.status == 'idle')
+    idle = list(idle_query)
+    idle_len = len(idle)
+
     # Get all the mispackaged packages
-    mispackaged_query, query = queries.split(query, tables.Package.status == 'mispackaged')
+    mispackaged_query = query.filter(tables.Package.status == 'mispackaged')
     mispackaged = list(mispackaged_query)
+
+    # Pick an idle package at random
+    random_idle = random.choice(idle)
 
     # Pick a mispackaged package at random
     random_mispackaged = random.choice(mispackaged)
 
-    # Fedora status: Mispackaged
+    # Status objects
     query = db.query(tables.Status)
-    query = query.filter(tables.Status.ident == 'mispackaged')
-    query = query.join(tables.CollectionPackage)
-    query = query.filter(
-            tables.CollectionPackage.collection_ident == 'fedora')
-    mispackaged_status = query.first()
-
-    # Upstream status: Released
-    query = db.query(tables.Status)
-    query = query.filter(tables.Status.ident == 'released')
-    query = query.join(tables.CollectionPackage)
-    query = query.filter(
-            tables.CollectionPackage.collection_ident == 'upstream')
-    released_status = query.first()
+    mispackaged_status = query.get('mispackaged')
+    released_status = query.get('released')
 
     return render_template(
         'howto.html',
@@ -517,9 +513,10 @@ def howto():
         idle_len=idle_len,
         blocked_len=blocked_len,
         mispackaged=mispackaged,
+        random_idle=random_idle,
         random_mispackaged=random_mispackaged,
-        mispackaged_status = mispackaged_status,
-        released_status = released_status,
+        mispackaged_status=mispackaged_status,
+        released_status=released_status,
     )
 
 
