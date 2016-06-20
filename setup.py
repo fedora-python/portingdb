@@ -20,7 +20,7 @@ class PyTest(TestCommand):
 requires = [
     'sqlalchemy >= 1.0, < 2.0',
     'PyYAML >= 3.11, < 4.0',
-    'click >= 3.3, < 4.0',
+    'click >= 3.3, < 7.0',
     'flask >= 0.10, < 1.0',
     'markdown >= 2.4, < 3.0',
     'dogpile.cache >= 0.5.5, < 1.0'
