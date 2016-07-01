@@ -475,8 +475,12 @@ python-geoclue:
         `dead.package` says: Package is retired
 python-GeoIP: &geoip
     dead-upstream: true
+    status: dropped
     note: |
         The package is no longer supported upstream.
+
+        Suggested replacement: `python-geoip2`. Unfortunately, this is not
+        a drop-in replacement; some porting will be necessary.
 
         PyPI has several alternatives:
 
