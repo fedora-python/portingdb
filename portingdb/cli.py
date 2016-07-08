@@ -391,7 +391,45 @@ def bugless_mispackaged(ctx):
             print()
         else:
             print("\nThere are no packages both 'mispackaged' and "
-                    "not having an associated Bugzilla report:\n")
+                    "not having an associated Bugzilla report.\n")
+    else:
+        for p in results:
+            print("{}".format(p.name))
+
+    if results:
+        exit(1)
+
+@cli.command('closed-mispackaged')
+@click.pass_context
+def closed_mispackaged(ctx):
+    """List mispackaged packages whose BugZilla report is closed.
+
+    Exits with error code 1 if such packages are found.
+
+    Use the --verbose flag to get the output pretty-printed for humans.
+    """
+    db = ctx.obj['db']
+
+    query = db.query(tables.Package)
+    query = query.filter(tables.Package.status == 'mispackaged')
+    query = query.join(tables.CollectionPackage)
+    query = query.filter(
+            tables.CollectionPackage.collection_ident == 'fedora')
+    query = query.join(tables.Link)
+    query = query.filter(tables.Link.type == 'bug')
+    query = query.filter(tables.Link.note.like("CLOSED %"))
+
+    results = list(query)
+    if ctx.obj['verbose'] > 0:
+        if results:
+            print("\nThe following packages are both 'mispackaged' and "
+                    "their associated Bugzilla report is CLOSED:\n")
+            for p in results:
+                print("\t{}".format(p.name))
+            print()
+        else:
+            print("\nThere are no packages both 'mispackaged' and "
+                    "having the associated Bugzilla report CLOSED.\n")
     else:
         for p in results:
             print("{}".format(p.name))
