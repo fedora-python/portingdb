@@ -262,9 +262,17 @@ class Py3QueryCommand(dnf.cli.Command):
             def bug_namegetter(bug):
                 return '{bug.id} {bug.status} {bug.component}'.format(bug=bug)
 
+            rank = ['NEW', 'ASSIGNED', 'POST', 'MODIFIED', 'ON_QA', 'VERIFIED',
+                    'RELEASE_PENDING', 'CLOSED']
+            def key(bug):
+                return rank.index(bug.status), bug.last_change_time
+            bugs = sorted(bugs, key=key)
+
             for bug in progressbar(bugs, 'Merging bugs',
                                    namegetter=bug_namegetter):
                 r = json_output.get(bug.component, {})
+                if 'bug' in r.get('links', {}):
+                    continue
                 url = '{bug.weburl}#{bug.status}'.format(bug=bug)
                 status = bug.status
                 if bug.resolution:
@@ -279,10 +287,6 @@ class Py3QueryCommand(dnf.cli.Command):
                     if tb in ADDITIONAL_TRACKER_BUGS:
                         r.setdefault('tracking_bugs', []) \
                                 .append(BUGZILLA_BUG_URL.format(tb))
-
-                inprogress_statuses = ('ASSIGNED', 'POST', 'MODIFIED', 'ON_QA')
-                inprogress_resolutions = ('CURRENTRELEASE', 'RAWHIDE',
-                                          'ERRATA', 'NEXTRELEASE')
 
                 if any(tb in bug.blocks for tb in MISPACKAGED_TRACKER_BUG_IDS):
                     if r.get('status') == 'idle' and bug.status != 'NEW':
