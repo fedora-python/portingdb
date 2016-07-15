@@ -211,13 +211,15 @@ notify-python:
   note: |
     Last update from upstream was in 2006.
 m2crypto:
-    status: dropped
     note: |
       Suggested replacement: `python-cryptography` (or Python standard library).
 
       While upstream is making progress porting m2crypto, moving to the
       cryptography module, and the cryptography features in Python's standard
       library, seems to be a better long-term option for dependent projects.
+
+      On the other hand with the package ported, downstream users won't
+      have to port their crypto to new library.
 magicor:
     dead-upstream: true
 marave:
