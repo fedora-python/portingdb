@@ -1920,7 +1920,7 @@
   "bacula": {
     "deps": [],
     "rpms": {
-      "bacula-storage-7.4.2-1.fc25": {
+      "bacula-storage-7.4.3-1.fc25": {
         "/usr/bin/python": 2
       }
     },
@@ -3548,7 +3548,7 @@
       ]
     },
     "rpms": {
-      "coccinelle-1.0.4-6.fc25": {
+      "coccinelle-1.0.5-1.fc25": {
         "/usr/bin/python3": 3,
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
@@ -5306,7 +5306,7 @@
       "python"
     ],
     "rpms": {
-      "edk2-tools-python-20160418gita8c39ba-2.fc25": {
+      "edk2-tools-python-20160418gita8c39ba-3.fc25": {
         "python": 2,
         "python = 2.7.12-1.fc25": 2
       }
@@ -8125,7 +8125,7 @@
       "python-psycopg2"
     ],
     "rpms": {
-      "gnumed-server-21.7-1.fc25": {
+      "gnumed-server-21.7-2.fc25": {
         "python": 2,
         "python = 2.7.12-1.fc25": 2
       }
@@ -11368,10 +11368,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-libguestfs-1:1.33.43-2.fc25": {
+      "python2-libguestfs-1:1.33.44-1.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-libguestfs-1:1.33.43-2.fc25": {
+      "python3-libguestfs-1:1.33.44-1.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -12357,12 +12357,12 @@
       "qscintilla"
     ],
     "rpms": {
-      "linkchecker-9.3-4.fc24": {
+      "linkchecker-9.3-6.fc25": {
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "linkchecker-gui-9.3-4.fc24": {
+      "linkchecker-gui-9.3-6.fc25": {
         "/usr/bin/python2": 2
       }
     },
@@ -13939,7 +13939,7 @@
       "python"
     ],
     "rpms": {
-      "nfs-ganesha-utils-2.4.0-0.9dev23.fc25": {
+      "nfs-ganesha-utils-2.4.0-0.11dev25.fc25": {
         "/usr/bin/python": 2,
         "pygobject2": 2,
         "pygobject2 = 2.28.6-15.fc24": 2,
@@ -13953,7 +13953,7 @@
   "nfs-utils": {
     "deps": [],
     "rpms": {
-      "nfs-utils-1:1.3.3-8.rc5.fc25": {
+      "nfs-utils-1:1.3.3-8.rc6.fc25": {
         "/usr/bin/python3": 3
       }
     },
@@ -14235,10 +14235,10 @@
   "nwchem": {
     "deps": [],
     "rpms": {
-      "nwchem-mpich-6.6.27746-26.fc25": {
+      "nwchem-mpich-6.6.27746-27.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "nwchem-openmpi-6.6.27746-26.fc25": {
+      "nwchem-openmpi-6.6.27746-27.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -17156,7 +17156,9 @@
   },
   "pycolumnize": {
     "deps": [
-      "python"
+      "python",
+      "python-backports-shutil_get_terminal_size",
+      "python3"
     ],
     "links": {
       "bug": [
@@ -17166,11 +17168,14 @@
       ]
     },
     "rpms": {
-      "pycolumnize-0.3.8-2.fc23": {
+      "python2-columnize-0.3.9-1.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-columnize-0.3.9-1.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress",
+    "status": "released",
     "tracking_bugs": [
       "https://bugzilla.redhat.com/show_bug.cgi?id=1333770"
     ]
@@ -18244,8 +18249,7 @@
     "deps": [
       "PyQt4",
       "python",
-      "python-dateutil",
-      "pytrailer"
+      "python-dateutil"
     ],
     "links": {
       "bug": [
@@ -22558,10 +22562,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-collada-0.4-11.fc25": {
+      "python2-collada-0.4-12.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-collada-0.4-11.fc25": {
+      "python3-collada-0.4-12.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -29759,11 +29763,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-kerberos-1.2.4-2.fc25": {
+      "python2-kerberos-1.2.5-1.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-kerberos-1.2.4-2.fc25": {
+      "python3-kerberos-1.2.5-1.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -32920,17 +32924,19 @@
       "python",
       "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "python2-numexpr-2.6.0-1.fc25": {
-        "libpython2.7.so.1.0()(64bit)": 2,
+      "python2-numexpr-2.6.1-1.fc25": {
+        "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-numexpr-2.6.0-1.fc25": {
+      "python3-numexpr-2.6.1-1.fc25": {
+        "/usr/bin/python": 2,
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-numpydoc": {
     "deps": [
@@ -34716,11 +34722,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-pecan-1.0.2-5.fc24": {
+      "python2-pecan-1.1.2-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pecan-1.0.2-5.fc24": {
+      "python3-pecan-1.1.2-1.fc25": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -36760,10 +36766,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-pyqtgraph-0.9.10-9.fc25": {
+      "python2-pyqtgraph-0.9.10-11.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-pyqtgraph-0.9.10-9.fc25": {
+      "python3-pyqtgraph-0.9.10-11.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -37589,17 +37595,23 @@
       "sip"
     ],
     "rpms": {
-      "python-qt5-5.6-6.fc25": {
+      "python-qt5-5.6-7.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python-qt5-webkit-5.6-6.fc25": {
+      "python-qt5-webengine-5.6-7.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-qt5-5.6-6.fc25": {
+      "python-qt5-webkit-5.6-7.fc25": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-qt5-5.6-7.fc25": {
         "python(abi) = 3.5": 3
       },
-      "python3-qt5-webkit-5.6-6.fc25": {
+      "python3-qt5-webengine-5.6-7.fc25": {
+        "python(abi) = 3.5": 3
+      },
+      "python3-qt5-webkit-5.6-7.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -45020,7 +45032,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1317896",
         "NEW",
-        "2016-07-20 12:18:31"
+        "2016-07-21 05:57:17"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -45048,15 +45060,15 @@
       ]
     },
     "rpms": {
-      "python-zope-proxy-4.1.6-3.fc24": {
-        "libpython2.7.so.1.0()(64bit)": 2,
-        "python(abi) = 2.7": 2
-      },
-      "python-zope-proxy-devel-4.1.6-3.fc24": {
+      "python-zope-proxy-devel-4.1.6-5.fc25": {
         "python2-devel": 2,
         "python2-devel = 2.7.12-1.fc25": 2
       },
-      "python3-zope-proxy-4.1.6-3.fc24": {
+      "python2-zope-proxy-4.1.6-5.fc25": {
+        "libpython2.7.so.1.0()(64bit)": 2,
+        "python(abi) = 2.7": 2
+      },
+      "python3-zope-proxy-4.1.6-5.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -45156,10 +45168,10 @@
       "python3"
     ],
     "rpms": {
-      "python-zope-testing-4.5.0-3.fc24": {
+      "python2-zope-testing-4.5.0-5.fc25": {
         "python(abi) = 2.7": 2
       },
-      "python3-zope-testing-4.5.0-3.fc24": {
+      "python3-zope-testing-4.5.0-5.fc25": {
         "python(abi) = 3.5": 3
       }
     },
@@ -45515,7 +45527,8 @@
   "pytrailer": {
     "deps": [
       "python",
-      "python-dateutil"
+      "python-dateutil",
+      "python3"
     ],
     "links": {
       "bug": [
@@ -45525,11 +45538,14 @@
       ]
     },
     "rpms": {
-      "pytrailer-0.6.0-9.fc24": {
+      "python2-pytrailer-0.6.1-1.fc25": {
         "python(abi) = 2.7": 2
+      },
+      "python3-pytrailer-0.6.1-1.fc25": {
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "in-progress",
+    "status": "released",
     "tracking_bugs": [
       "https://bugzilla.redhat.com/show_bug.cgi?id=1333770"
     ]
@@ -46790,14 +46806,14 @@
       "python3"
     ],
     "rpms": {
-      "rpm-build-4.13.0-0.rc1.39.fc25": {
+      "rpm-build-4.13.0-0.rc1.40.fc25": {
         "/usr/bin/python": 2
       },
-      "rpm-python-4.13.0-0.rc1.39.fc25": {
+      "rpm-python-4.13.0-0.rc1.40.fc25": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "rpm-python3-4.13.0-0.rc1.39.fc25": {
+      "rpm-python3-4.13.0-0.rc1.40.fc25": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -49537,7 +49553,7 @@
       "python-requests"
     ],
     "rpms": {
-      "testcloud-0.1.8-3.fc25": {
+      "testcloud-0.1.9-1.fc25": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
@@ -51173,21 +51189,21 @@
       "tuna"
     ],
     "rpms": {
-      "tuned-2.6.0-2.fc24": {
+      "tuned-2.7.0-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "tuned-gtk-2.6.0-2.fc24": {
+      "tuned-gtk-2.7.0-1.fc25": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "tuned-profiles-nfv-2.6.0-2.fc24": {
+      "tuned-profiles-nfv-2.7.0-1.fc25": {
         "/usr/bin/python": 2
       },
-      "tuned-utils-2.6.0-2.fc24": {
+      "tuned-utils-2.7.0-1.fc25": {
         "/usr/bin/python": 2
       },
-      "tuned-utils-systemtap-2.6.0-2.fc24": {
+      "tuned-utils-systemtap-2.7.0-1.fc25": {
         "/usr/bin/python": 2
       }
     },
