@@ -269,14 +269,13 @@ policycoreutils:
     note: |
         State of the subpackages (as of 2016-04-26):
 
-        * `policycoreutils-devel`: Mispackaged (needs both py2 and py3),
+        * `policycoreutils-devel`: × Mispackaged (needs both py2 and py3),
           but it seems nothing depends the Python parts
-        * `policycoreutils-gui`: Mispackaged (needs both py2 and py3), but
+        * `policycoreutils-gui`: × Mispackaged (needs both py2 and py3), but
           nothing depends on it
-        * `policycoreutils-python{,3}`: OK
-        * `policycoreutils-python-utils`: py3 only
-        * `policycoreutils-sandbox`: Py2-only, but nothing depends on the
-          Python parts
+        * `policycoreutils-python{,3}`: ✔ Dual packages
+        * `policycoreutils-python-utils`: ✔ py3 only
+        * `policycoreutils-sandbox`: ✔ py3 only
 pungi:
     status: idle
     note: |
