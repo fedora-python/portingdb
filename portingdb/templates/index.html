@@ -4,7 +4,7 @@
 {% endblock breadcrumbs %}
 
 {% block titlecontent -%}
-    {{ (the_score * 100) | round(2) }}% – {{ super() }}
+    {{ (the_score * 100) | round(1) }}% – {{ super() }}
 {%- endblock titlecontent %}
 
 {% block favicon_url -%}
