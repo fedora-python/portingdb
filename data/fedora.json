@@ -129,17 +129,16 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1323228",
-        "NEW",
-        "2016-08-09 12:04:25"
+        "CLOSED RAWHIDE",
+        "2016-08-13 17:48:01"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "FlightCrew-sigil-plugin-0.9.1-2.fc25": {
         "/usr/bin/python": 2
       }
     },
-    "status": "mispackaged",
+    "status": "in-progress",
     "tracking_bugs": [
       "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
     ]
@@ -3608,11 +3607,11 @@
   "collectd": {
     "deps": [],
     "rpms": {
-      "collectd-5.5.2-1.fc25": {
-        "libpython2.7.so.1.0()(64bit)": 2
+      "collectd-python-5.5.2-2.fc26": {
+        "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "comedilib": {
     "deps": [
@@ -5355,7 +5354,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1323190",
         "ASSIGNED",
-        "2016-08-11 13:59:39"
+        "2016-08-12 10:09:53"
       ]
     },
     "rpms": {
@@ -15312,7 +15311,6 @@
   },
   "osc": {
     "deps": [
-      "fuse-python",
       "m2crypto",
       "python",
       "python-lxml",
@@ -15320,8 +15318,8 @@
       "rpm"
     ],
     "rpms": {
-      "osc-0.151.1-166.2.1.fc25": {
-        "/usr/bin/python": 2,
+      "osc-0.155.0-190.1.1.fc26": {
+        "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       }
     },
@@ -15707,7 +15705,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1352472",
         "NEW",
-        "2016-07-26 05:04:51"
+        "2016-08-12 16:13:38"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -21776,7 +21774,6 @@
   },
   "python-bucky": {
     "deps": [
-      "collectd",
       "python",
       "python-setproctitle",
       "python-setuptools",
@@ -37847,6 +37844,64 @@
     },
     "status": "released"
   },
+  "python-pytest-timeout": {
+    "deps": [
+      "pytest",
+      "python",
+      "python3"
+    ],
+    "rpms": {
+      "python2-pytest-timeout-1.0.0-1.fc26": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-pytest-timeout-1.0.0-1.fc26": {
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
+  "python-pytest-watch": {
+    "deps": [
+      "PyYAML",
+      "pytest",
+      "python",
+      "python-argh",
+      "python-colorama",
+      "python-docopt",
+      "python-pathtools",
+      "python-watchdog",
+      "python3"
+    ],
+    "rpms": {
+      "python2-pytest-watch-4.1.0-2.fc26": {
+        "/usr/bin/python2": 2,
+        "python(abi) = 2.7": 2
+      },
+      "python3-pytest-watch-4.1.0-2.fc26": {
+        "/usr/bin/python3": 3,
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
+  "python-pytest-xdist": {
+    "deps": [
+      "pytest",
+      "python",
+      "python-execnet",
+      "python-py",
+      "python3"
+    ],
+    "rpms": {
+      "python2-pytest-xdist-1.14-1.fc26": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-pytest-xdist-1.14-1.fc26": {
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
+  },
   "python-pytg": {
     "deps": [
       "python",
@@ -40445,7 +40500,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1309249",
         "ASSIGNED",
-        "2016-04-27 18:42:06"
+        "2016-08-12 13:34:43"
       ]
     },
     "rpms": {
@@ -50441,7 +50496,7 @@
       "python-txsocksx"
     ],
     "rpms": {
-      "torbrowser-launcher-0.2.4-1.fc25": {
+      "torbrowser-launcher-0.2.6-1.fc26": {
         "/usr/bin/python2": 2,
         "pygtk2": 2,
         "pygtk2 = 2.24.0-15.fc25": 2,
