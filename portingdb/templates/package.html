@@ -98,7 +98,9 @@
                                                 {{ link.last_update | format_time_ago }}
                                             </time>
                                         {% endif %}
-                                        {% if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
+                                        {% if col.ident == 'fedora' and
+                                              link.type == 'bug' and
+                                                "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
                                                 in pkg.list_tracking_bugs %}
                                             <br/>
                                             <b>Patch requested by maintainer</b>
