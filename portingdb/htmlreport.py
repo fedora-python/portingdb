@@ -100,7 +100,6 @@ def hello():
     # Group query
 
     query = db.query(tables.Group)
-    query = query.filter(~tables.Group.hidden)
     query = query.join(tables.Group.packages)
     query = query.join(tables.Package.status_obj)
     query = query.group_by(tables.Group.ident)
@@ -109,11 +108,8 @@ def hello():
     query = query.order_by(tables.Group.name)
     query = query.add_columns(tables.Package.status,
                               func.count(tables.Package.name))
-    groups = OrderedDict()
-    for group, status_ident, count in query:
-        status = db.query(tables.Status).get(status_ident)
-        pd = groups.setdefault(group, OrderedDict())
-        pd[status] = pd.get(status, 0) + count
+    groups = get_groups(db, query.filter(~tables.Group.hidden))
+    hidden_groups = get_groups(db, query.filter(tables.Group.hidden))
 
     return render_template(
         'index.html',
@@ -135,9 +131,19 @@ def hello():
         mispackaged_packages=mispackaged,
         random_mispackaged=random_mispackaged,
         groups=groups,
+        hidden_groups=hidden_groups,
         nonblocking=nonblocking,
         the_score=the_score,
     )
+
+
+def get_groups(db, query):
+    groups = OrderedDict()
+    for group, status_ident, count in query:
+        status = db.query(tables.Status).get(status_ident)
+        pd = groups.setdefault(group, OrderedDict())
+        pd[status] = pd.get(status, 0) + count
+    return groups
 
 
 def jsonstats():
