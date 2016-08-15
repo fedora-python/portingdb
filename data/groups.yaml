@@ -1,5 +1,6 @@
 identity:
   name: Identity Management
+  hidden: true
   packages:
     - freeipa
     - samba
@@ -102,6 +103,7 @@ openstack:
     - python-os-brick
 xfce-spin:
     name: Xfce spin
+    hidden: true
     packages:
     - abrt
     - anaconda
@@ -195,6 +197,7 @@ xfce-spin:
     - yumex
 kde-spin:
     name: KDE spin
+    hidden: true
     packages:
     - PyQt4
     - abrt
@@ -275,15 +278,9 @@ kde-spin:
     - python-xpyb
     - system-config-language
     - telepathy-gabble
-test-group:
-    name: Test Group
-    hidden: true
-    packages:
-    - cinnamon-desktop
-    - mate-desktop
-    - qt-recordmydesktop
 tryton:
     name: Tryton Application Platform
+    hidden: true
     packages:
     - neso
     - python-proteus
@@ -426,9 +423,12 @@ olpc:
     name: OLPC/Sugar
     hidden: true
     packages:
+    - sugar
     - sugar-analyze
+    - sugar-base
     - sugar-castle
     - sugar-countries
+    - sugar-datastore
     - sugar-flipsticks
     - sugar-kuku
     - sugar-labyrinth
@@ -443,14 +443,19 @@ olpc:
     - sugar-runner
     - sugar-srilanka
     - sugar-terminal
+    - sugar-toolkit
+    - sugar-toolkit-gtk3
     - sugar-turtleart
     - sugar-typing-turtle
     - sugar-xoirc
-    - sugar-toolkit-gtk3
-    - olpc-update
-    - olpc-os-builder
+    - dracut-modules-olpc
+    - olpc-contents
     - olpc-netutils
+    - olpc-os-builder
     - olpc-switch-desktop
+    - olpc-update
+    - olpc-utils
+    - python-olpcgames
 xstatic:
     name: XStatic Packages
     packages:
@@ -483,3 +488,41 @@ xstatic:
     - python-XStatic-roboto-fontface
     - python-XStatic-smart-table
     - python-XStatic-termjs
+trac:
+    name: Version Control & Trac
+    hidden: true
+    packages:
+    - trac
+    - trac-CGit-plugin
+    - trac-accountmanager-plugin
+    - trac-advancedticketworkflow-plugin
+    - trac-authopenid-plugin
+    - trac-batchmodify-plugin
+    - trac-bazaar-plugin
+    - trac-blackmagictickettweaks-plugin
+    - trac-code-comments-plugin
+    - trac-condfieldsgenshi-plugin
+    - trac-customfieldadmin-plugin
+    - trac-defaultcc-plugin
+    - trac-doxygen-plugin
+    - trac-fedmsg-plugin
+    - trac-git-plugin
+    - trac-iniadmin-plugin
+    - trac-mastertickets-plugin
+    - trac-mercurial-plugin
+    - trac-monotone-plugin
+    - trac-navadd-plugin
+    - trac-privateticketsplugin
+    - trac-sensitivetickets-plugin
+    - trac-spamfilter-plugin
+    - trac-sphinx-plugin
+    - trac-sumfields-plugin
+    - trac-themeengine-plugin
+    - trac-ticketdelete-plugin
+    - trac-tickettemplate-plugin
+    - trac-tocmacro-plugin
+    - trac-tracnav-plugin
+    - trac-vatar-plugin
+    - trac-watchlist-plugin
+    - trac-workflowadmin-plugin
+    - trac-xmlrpc-plugin
