@@ -550,6 +550,10 @@ python-enum34: &enum
       `enum` is part of the Python 3.4 standard library, so this backport
       is not needed.
 python-enum: *enum
+python-fadvise:
+    status: dropped
+    note: |
+        Python2 only module. Python3 has os.posix_fadvise() natively
 python-fedora:
     nonblocking: true
     note: |
