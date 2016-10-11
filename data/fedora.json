@@ -998,11 +998,11 @@
   "adonthell": {
     "deps": [],
     "rpms": {
-      "adonthell-0.3.5-7.fc24": {
-        "libpython2.7.so.1.0()(64bit)": 2
+      "adonthell-0.3.6-1.fc26": {
+        "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "afflib": {
     "deps": [
@@ -2003,7 +2003,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1285867",
         "NEW",
-        "2016-04-19 14:56:35"
+        "2016-10-11 08:52:43"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -2013,7 +2013,10 @@
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+    ]
   },
   "barry": {
     "deps": [],
@@ -9311,7 +9314,7 @@
   "hexchat": {
     "deps": [],
     "rpms": {
-      "hexchat-2.12.1-6.fc26": {
+      "hexchat-2.12.2-2.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -9351,7 +9354,7 @@
       "python3"
     ],
     "rpms": {
-      "hgsvn-0.4.1-1.fc26": {
+      "hgsvn-0.5.0-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -10629,7 +10632,7 @@
       ]
     },
     "rpms": {
-      "khal-0.8.3-1.fc26": {
+      "khal-0.8.4-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -10645,7 +10648,7 @@
       "python3"
     ],
     "rpms": {
-      "khard-0.11.1-2.fc26": {
+      "khard-0.11.3-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -13329,17 +13332,18 @@
   },
   "mgarepo": {
     "deps": [
+      "python-PyGithub",
       "python-httplib2",
       "python-ldap3",
       "python3",
       "rpm"
     ],
     "rpms": {
-      "mgarepo-1.12.3-2.fc25": {
+      "mgarepo-1.13.1-2.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       },
-      "mgarepo-ldap-1.12.3-2.fc25": {
+      "mgarepo-ldap-1.13.1-2.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -13816,7 +13820,7 @@
   "munin": {
     "deps": [],
     "rpms": {
-      "munin-node-2.0.26-1.fc26": {
+      "munin-node-2.0.26-2.fc26": {
         "/usr/bin/python": 2
       }
     },
@@ -19406,17 +19410,16 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1365040",
-        "NEW",
-        "2016-10-07 17:57:32"
+        "CLOSED WONTFIX",
+        "2016-10-10 15:14:05"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-XStatic-Angular-Cookies-1.2.1.1-5.fc25": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged",
+    "status": "in-progress",
     "tracking_bugs": [
       "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
     ]
@@ -19445,17 +19448,16 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1365041",
-        "NEW",
-        "2016-10-07 18:13:06"
+        "CLOSED RAWHIDE",
+        "2016-10-11 05:00:10"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-XStatic-Angular-Gettext-2.1.0.2-3.fc25": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged",
+    "status": "in-progress",
     "tracking_bugs": [
       "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
     ]
@@ -22896,14 +22898,10 @@
   },
   "python-cltk": {
     "deps": [
-      "python",
       "python3"
     ],
     "rpms": {
-      "python-cltk-0.0.1.2-5.fc25": {
-        "python(abi) = 2.7": 2
-      },
-      "python3-cltk-0.0.1.2-5.fc25": {
+      "python3-cltk-0.1.43-1.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -27166,6 +27164,32 @@
       }
     },
     "status": "released"
+  },
+  "python-flask-admin": {
+    "deps": [
+      "python",
+      "python-flask",
+      "python-wtforms",
+      "python3"
+    ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1282084",
+        "CLOSED ERRATA",
+        "2016-04-19 19:24:35"
+      ]
+    },
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
+    "rpms": {
+      "python-flask-admin-1.4.2-1.fc26": {
+        "python(abi) = 2.7": 2,
+        "python(abi) = 3.5": 3
+      },
+      "python3-flask-admin-1.4.2-1.fc26": {
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "mispackaged"
   },
   "python-flask-assets": {
     "deps": [
@@ -34338,14 +34362,15 @@
     "deps": [
       "python",
       "python-beautifulsoup4",
+      "python-lxml",
       "python-six",
       "python3"
     ],
     "rpms": {
-      "python2-ofxparse-0.15-2.fc26": {
+      "python2-ofxparse-0.15-4.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-ofxparse-0.15-2.fc26": {
+      "python3-ofxparse-0.15-4.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -38602,7 +38627,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1299142",
         "NEW",
-        "2016-10-08 12:27:20"
+        "2016-10-11 07:07:03"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -39452,7 +39477,7 @@
       "python"
     ],
     "rpms": {
-      "python-re2-1.0.4-4.fc25": {
+      "python-re2-1.0.5-1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -41191,11 +41216,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-setuptools-28.2.0-1.fc26": {
+      "python2-setuptools-28.3.0-1.fc26": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-setuptools-28.2.0-1.fc26": {
+      "python3-setuptools-28.3.0-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -45057,10 +45082,10 @@
       ]
     },
     "rpms": {
-      "python2-vatnumber-1.2-2.fc25": {
+      "python2-vatnumber-1.2-3.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-vatnumber-1.2-2.fc25": {
+      "python3-vatnumber-1.2-3.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -48399,7 +48424,7 @@
       "python3"
     ],
     "rpms": {
-      "relval-2.1.4-1.fc26": {
+      "relval-2.1.5-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -48948,7 +48973,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=911509",
         "NEW",
-        "2016-10-07 14:39:44"
+        "2016-10-10 23:02:15"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -54522,7 +54547,7 @@
       "python3"
     ],
     "rpms": {
-      "yamllint-1.4.1-1.fc26": {
+      "yamllint-1.5.0-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
