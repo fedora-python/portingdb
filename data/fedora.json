@@ -3608,7 +3608,7 @@
       "python"
     ],
     "rpms": {
-      "cockpit-docker-119-2.fc26": {
+      "cockpit-docker-120-1.fc26": {
         "python": 2,
         "python = 2.7.12-8.fc26": 2
       }
@@ -7103,12 +7103,12 @@
       ]
     },
     "rpms": {
-      "gdal-python-2.1.1-1.fc26": {
+      "gdal-python-2.1.1-2.fc26": {
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "gdal-python3-2.1.1-1.fc26": {
+      "gdal-python3-2.1.1-2.fc26": {
         "/usr/bin/python3": 3,
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
@@ -7119,7 +7119,7 @@
   "gdb": {
     "deps": [],
     "rpms": {
-      "gdb-headless-7.12-26.fc26": {
+      "gdb-headless-7.12-27.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -7662,7 +7662,7 @@
   "glibc": {
     "deps": [],
     "rpms": {
-      "glibc-benchtests-2.24.90-12.fc26": {
+      "glibc-benchtests-2.24.90-13.fc26": {
         "/usr/bin/python": 2
       }
     },
@@ -7791,7 +7791,7 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "gmsh-common-2.14.0-1.fc26": {
+      "gmsh-common-2.14.0-2.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -8476,6 +8476,7 @@
   },
   "gpaw": {
     "deps": [
+      "openmpi",
       "python",
       "python-ase",
       "python3"
@@ -8488,24 +8489,24 @@
       ]
     },
     "rpms": {
-      "gpaw-1.1.0-26.fc25": {
+      "gpaw-1.1.0-27.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "gpaw-mpich-1.1.0-26.fc25": {
+      "gpaw-mpich-1.1.0-27.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "gpaw-openmpi-1.1.0-26.fc25": {
+      "gpaw-openmpi-1.1.0-27.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python3-gpaw-1.1.0-26.fc25": {
+      "python3-gpaw-1.1.0-27.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "python3-gpaw-mpich-1.1.0-26.fc25": {
+      "python3-gpaw-mpich-1.1.0-27.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3
       },
-      "python3-gpaw-openmpi-1.1.0-26.fc25": {
+      "python3-gpaw-openmpi-1.1.0-27.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -9257,7 +9258,7 @@
   "hexchat": {
     "deps": [],
     "rpms": {
-      "hexchat-2.12.2-2.fc26": {
+      "hexchat-2.12.3-1.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -9699,7 +9700,7 @@
       "vte"
     ],
     "rpms": {
-      "icaro-1.0.5-2.fc26": {
+      "icaro-1.0.6-1.fc26": {
         "/usr/bin/python": 2,
         "pycairo": 2,
         "pycairo = 1.10.0-5.fc25": 2,
@@ -11884,7 +11885,7 @@
       "python3"
     ],
     "rpms": {
-      "libreoffice-pyuno-1:5.2.3.1-2.fc26": {
+      "libreoffice-pyuno-1:5.3.0.0-1.alpha1.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3,
         "python3(x86-64) = 3.5.2-6.fc26": 3
@@ -11985,7 +11986,7 @@
       "python"
     ],
     "rpms": {
-      "libsearpc-3.0.7-2.fc25": {
+      "libsearpc-3.1-1.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -13108,7 +13109,7 @@
       "python"
     ],
     "rpms": {
-      "python-mathgl-2.3.4-3.fc25": {
+      "python-mathgl-2.3.4-4.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -27347,7 +27348,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1282084",
         "CLOSED ERRATA",
-        "2016-10-21 16:46:30"
+        "2016-10-24 09:05:37"
       ]
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
@@ -36200,6 +36201,8 @@
   "python-pdfminer": {
     "deps": [
       "python",
+      "python-chardet",
+      "python-six",
       "python3"
     ],
     "links": {
@@ -36210,11 +36213,11 @@
       ]
     },
     "rpms": {
-      "python2-pdfminer-20160614-4.fc26": {
+      "python2-pdfminer-20160614-5.fc26": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pdfminer-20160614-4.fc26": {
+      "python3-pdfminer-20160614-5.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -40578,10 +40581,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-ripe-atlas-cousteau-1.2-2.fc25": {
+      "python2-ripe-atlas-cousteau-1.3-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-ripe-atlas-cousteau-1.2-2.fc25": {
+      "python3-ripe-atlas-cousteau-1.3-1.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -42297,10 +42300,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-socketIO-client-0.6.7-1.fc25": {
+      "python2-socketIO-client-0.7.0-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-socketIO-client-0.6.7-1.fc25": {
+      "python3-socketIO-client-0.7.0-1.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -42874,7 +42877,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1087355",
         "NEW",
-        "2016-10-22 15:45:22"
+        "2016-10-24 12:52:21"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -48280,11 +48283,11 @@
       "sip"
     ],
     "rpms": {
-      "qgis-python-2.16.3-1.fc26": {
+      "qgis-python-2.18.0-1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "qgis-server-2.16.3-1.fc26": {
+      "qgis-server-2.18.0-1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -49106,7 +49109,7 @@
       "python3"
     ],
     "rpms": {
-      "ripe-atlas-tools-2.0.1-2.fc25": {
+      "ripe-atlas-tools-2.0.2-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -49303,6 +49306,28 @@
         "python(abi) = 3.5": 3
       },
       "rpmconf-1.0.18-2.fc25": {
+        "/usr/bin/python3": 3
+      }
+    },
+    "status": "released"
+  },
+  "rpmdeplint": {
+    "deps": [
+      "libdnf",
+      "librepo",
+      "python",
+      "python-six",
+      "python3",
+      "rpm"
+    ],
+    "rpms": {
+      "python2-rpmdeplint-1.2-2.fc26": {
+        "python(abi) = 2.7": 2
+      },
+      "python3-rpmdeplint-1.2-2.fc26": {
+        "python(abi) = 3.5": 3
+      },
+      "rpmdeplint-1.2-2.fc26": {
         "/usr/bin/python3": 3
       }
     },
