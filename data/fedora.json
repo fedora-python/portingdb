@@ -2866,7 +2866,7 @@
       "boost"
     ],
     "rpms": {
-      "calamares-libs-2.4.80-0.1.20161113gitd6e0e09bc1472.fc26": {
+      "calamares-libs-2.4.80-0.2.20161113gitd6e0e09bc1472.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -7172,11 +7172,11 @@
       "python3"
     ],
     "rpms": {
-      "gdcm-python-2.6.5-1.fc26": {
+      "gdcm-python-2.6.5-3.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-gdcm-2.6.5-1.fc26": {
+      "python3-gdcm-2.6.5-3.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -7200,11 +7200,9 @@
     "status": "idle"
   },
   "geany-plugins": {
-    "deps": [
-      "vte"
-    ],
+    "deps": [],
     "rpms": {
-      "geany-plugins-geanypy-1.28-1.fc26": {
+      "geany-plugins-geanypy-1.29-3.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -7329,7 +7327,7 @@
   "getdp": {
     "deps": [],
     "rpms": {
-      "getdp-2.10.0-1.fc26": {
+      "getdp-2.10.0-2.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -11093,7 +11091,7 @@
       "python3"
     ],
     "rpms": {
-      "lazygal-0.9-1.fc26": {
+      "lazygal-0.9-2.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -16132,6 +16130,7 @@
       "python-matplotlib",
       "python-setuptools",
       "python3",
+      "python3-cairo",
       "pyxdg"
     ],
     "links": {
@@ -16142,9 +16141,11 @@
       ]
     },
     "rpms": {
-      "pitivi-0.97.1-4.fc26": {
+      "pitivi-0.97.1-5.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3,
-        "python(abi) = 3.5": 3
+        "python(abi) = 3.5": 3,
+        "python3-cairo": 3,
+        "python3-cairo = 1.10.0-17.fc25": 3
       }
     },
     "status": "released"
@@ -16301,7 +16302,7 @@
       "wxPython"
     ],
     "rpms": {
-      "playonlinux-4.2.10-9.fc26": {
+      "playonlinux-4.2.10-10.fc26": {
         "/usr/bin/python": 2,
         "python2 = 2.7.12": 2
       }
@@ -22046,11 +22047,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-bloom-0.5.22-2.fc26": {
+      "python2-bloom-0.5.22-3.fc26": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-bloom-0.5.22-2.fc26": {
+      "python3-bloom-0.5.22-3.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -33990,10 +33991,10 @@
       "python3"
     ],
     "rpms": {
-      "python-netaddr-0.7.18-8.fc26": {
+      "python-netaddr-0.7.18-9.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-netaddr-0.7.18-8.fc26": {
+      "python3-netaddr-0.7.18-9.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -34994,7 +34995,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1393781",
         "CLOSED RAWHIDE",
-        "2016-11-14 08:22:30"
+        "2016-11-14 14:58:55"
       ]
     },
     "rpms": {
@@ -35127,10 +35128,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-orderedmultidict-0.7.8-1.fc26": {
+      "python2-orderedmultidict-0.7.11-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-orderedmultidict-0.7.8-1.fc26": {
+      "python3-orderedmultidict-0.7.11-1.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -39051,11 +39052,11 @@
       ]
     },
     "rpms": {
-      "python2-pysaml2-3.0.2-3.fc25": {
+      "python2-pysaml2-3.0.2-4.fc26": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pysaml2-3.0.2-3.fc25": {
+      "python3-pysaml2-3.0.2-4.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -43049,12 +43050,20 @@
       "python-formencode",
       "python-sqlalchemy"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1395152",
+        "NEW",
+        "2016-11-15 09:50:12"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-sprox-0.9.7-2.fc24": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-spur": {
     "deps": [
@@ -44205,24 +44214,40 @@
       "python",
       "python-tgext-crud"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1395150",
+        "NEW",
+        "2016-11-15 09:48:02"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-tgext-admin-0.5.4-7.fc25": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-tgext-crud": {
     "deps": [
       "python",
       "python-sprox"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1395149",
+        "NEW",
+        "2016-11-15 09:45:28"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python-tgext-crud-0.6.0-7.fc25": {
         "python(abi) = 2.7": 2
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-tgfastdata": {
     "deps": [
@@ -44577,10 +44602,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-tqdm-4.9.0-1.fc26": {
+      "python2-tqdm-4.10.0-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-tqdm-4.9.0-1.fc26": {
+      "python3-tqdm-4.10.0-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -46393,7 +46418,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1393840",
         "NEW",
-        "2016-11-14 08:07:52"
+        "2016-11-14 14:04:45"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -47472,18 +47497,18 @@
       "python3"
     ],
     "rpms": {
-      "python2-zmq-15.3.0-2.fc25": {
+      "python2-zmq-16.0.1-1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-zmq-tests-15.3.0-2.fc25": {
+      "python2-zmq-tests-16.0.1-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-zmq-15.3.0-2.fc25": {
+      "python3-zmq-16.0.1-1.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "python3-zmq-tests-15.3.0-2.fc25": {
+      "python3-zmq-tests-16.0.1-1.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -53015,10 +53040,10 @@
       ]
     },
     "rpms": {
-      "python2-tracer-0.6.12-1.fc26": {
+      "python2-tracer-0.6.12-2.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-tracer-0.6.12-1.fc26": {
+      "python3-tracer-0.6.12-2.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -53404,10 +53429,11 @@
     "deps": [
       "python",
       "python-vobject",
-      "pywebdav"
+      "pywebdav",
+      "trytond"
     ],
     "rpms": {
-      "trytond-calendar-2.6.1-7.fc25": {
+      "trytond-calendar-4.0.1-1.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -53416,10 +53442,11 @@
   "trytond-calendar-classification": {
     "deps": [
       "python",
+      "trytond",
       "trytond-calendar"
     ],
     "rpms": {
-      "trytond-calendar-classification-2.6.0-7.fc25": {
+      "trytond-calendar-classification-4.0.1-1.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -53428,10 +53455,11 @@
   "trytond-calendar-scheduling": {
     "deps": [
       "python",
+      "trytond",
       "trytond-calendar"
     ],
     "rpms": {
-      "trytond-calendar-scheduling-2.6.0-7.fc25": {
+      "trytond-calendar-scheduling-4.0.1-1.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -53440,10 +53468,11 @@
   "trytond-calendar-todo": {
     "deps": [
       "python",
+      "trytond",
       "trytond-calendar"
     ],
     "rpms": {
-      "trytond-calendar-todo-2.6.1-7.fc25": {
+      "trytond-calendar-todo-4.0.1-1.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -53569,10 +53598,11 @@
   "trytond-party-vcarddav": {
     "deps": [
       "python",
+      "trytond",
       "trytond-party"
     ],
     "rpms": {
-      "trytond-party-vcarddav-2.6.0-7.fc25": {
+      "trytond-party-vcarddav-4.0.1-1.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -53952,11 +53982,10 @@
       "python",
       "python-jinja2",
       "python-libturpial",
-      "python-setuptools",
-      "pywebkitgtk"
+      "python-setuptools"
     ],
     "rpms": {
-      "turpial-3.0-8.fc25": {
+      "turpial-3.0-9.fc26": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
