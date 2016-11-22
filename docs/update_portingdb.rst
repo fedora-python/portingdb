@@ -53,54 +53,65 @@ Follow the steps below to update `pordingdb` data:
 Package state changes
 *********************
 
-*idle -> mispackaged*
-
-A bug was opened:
+idle -> mispackaged
+    A bug was opened:
 
 * Check the bug, make sure it makes sense. Otherwise let someone know.
 
-*idle -> missing / mispackaged -> missing / released -> missing*
-
-The package was dropped from Fedora or got rid of all dependencies:
+idle -> missing, mispackaged -> missing, released -> missing
+    The package was dropped from Fedora or got rid of all dependencies:
 
 * Find the package in the old version of portingdb, open spec or logs and look for the change that removed all python dependencies or retired the package.
-* Note in the `etherpad` in case of any of the above.
+* Note in the Etherpad or PR description in case of any of the above.
 * If anything else happened, ask the team.
 
-*idle -> released /mispackaged -> released*
-
-Someone has ported the package and it went to Fedora:
+idle -> released, mispackaged -> released
+    Someone has ported the package and it went to Fedora:
 
 * Find the package in the newest version of portingdb and check the bug.
 * Gather information to give a badge to the packager:
 
-  * Find who is the packager. Check the bug or the log of the spec file.
-  * Find the packager's fedora user name in pkdb.
-  * Put four pieces of info into the Etherpad: username, full name, name of the project and name of the bug or commit (to put on the wiki)
+  * Find who is the packager: check the bug or the log of the spec file
+  * Find the packager's fedora user name in pkdb
+  * Put four pieces of info into the Etherpad or PR description:
 
-*mispackaged -> in progress*
+    * username
+    * full name
+    * name of the project
+    * name of the bug or commit (to put on the wiki)
 
-Someone is porting the package:
+mispackaged -> in progress
+    Someone is porting the package:
 
 * Check the bug and make sure it makes sense.
 
-*missing -> released*
-
-New Python 3 package was added to Fedora:
+missing -> released
+    New Python 3 package was added to Fedora:
 
 * Look through the package spec file to check if anything is important.
-* Notify on Etherpad about the new package.
+* Notify in the Etherpad or PR description about the new package.
 
-*missing -> idle*
+missing -> idle
+    The package got added to Fedora only with Python 2 version:
 
-The package got added to Fedora only with Python 2 version:
-
+* Check the rpm list for Python 3 package.
 * Look if the package is Python 3 compatible on upstream.
 * Check package review request for any mention of Python 3 support.
-* Check the upstream code for Python 3 support and file a bug if upstream is Python 3 compatible. Note in review request that Python 3 package was missed.
-* Check the rpm list for Python 3 package.
+* Check the upstream code for Python 3 support and if upstream is Python 3 compatible:
 
-*released -> idle / released -> in-progress*
+  * File a bug
+  * Note in review request that Python 3 package was missed
+
+relesed -> mispackaged
+    There is an issue with Python 3 subpackage:
+
+* Open the package in `portingdb` and check requirements for `python3-` subpackage:
+
+  * If the subpackage is dragging py2 dependency in, check the latest change and find what caused it
+  * File a bug
+
+released -> idle, released -> in-progress
+    There is an issue with the package:
 
 * Let someone know.
 
