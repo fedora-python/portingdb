@@ -2012,8 +2012,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1285867",
-        "ON_QA",
-        "2016-11-13 03:21:27"
+        "CLOSED ERRATA",
+        "2016-11-23 03:53:29"
       ]
     },
     "rpms": {
@@ -3138,7 +3138,7 @@
       ]
     },
     "rpms": {
-      "cdbs-0.4.148-1.fc26": {
+      "cdbs-0.4.150-1.fc26": {
         "/usr/bin/python3": 3
       }
     },
@@ -9506,27 +9506,27 @@
       "python-setuptools"
     ],
     "rpms": {
-      "holland-1.0.12-7.fc25": {
+      "holland-1.0.14-1.fc26": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "holland-common-1.0.12-7.fc25": {
+      "holland-common-1.0.14-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "holland-commvault-1.0.12-7.fc25": {
+      "holland-commvault-1.0.14-1.fc26": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "holland-mysqldump-1.0.12-7.fc25": {
+      "holland-mysqldump-1.0.14-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "holland-mysqllvm-1.0.12-7.fc25": {
+      "holland-mysqllvm-1.0.14-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "holland-pgdump-1.0.12-7.fc25": {
+      "holland-pgdump-1.0.14-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "holland-xtrabackup-1.0.12-7.fc25": {
+      "holland-xtrabackup-1.0.14-1.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -9798,7 +9798,7 @@
       "python3"
     ],
     "rpms": {
-      "ibus-typing-booster-1.5.12-1.fc26": {
+      "ibus-typing-booster-1.5.13-1.fc26": {
         "python3": 3,
         "python3 = 3.5.2-6.fc26": 3
       }
@@ -10567,12 +10567,12 @@
       ]
     },
     "rpms": {
-      "perf-4.9.0-0.rc5.git4.1.fc26": {
+      "perf-4.9.0-0.rc6.git0.1.fc26": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.9.0-0.rc5.git4.1.fc26": {
+      "python-perf-4.9.0-0.rc6.git0.1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -11245,6 +11245,23 @@
       }
     },
     "status": "idle"
+  },
+  "lecm": {
+    "deps": [
+      "PyYAML",
+      "acme-tiny",
+      "pyOpenSSL",
+      "python-prettytable",
+      "python-requests",
+      "python3"
+    ],
+    "rpms": {
+      "lecm-0.0.7-1.fc26": {
+        "/usr/bin/python3": 3,
+        "python(abi) = 3.5": 3
+      }
+    },
+    "status": "released"
   },
   "ledger": {
     "deps": [
@@ -12592,7 +12609,7 @@
   "lilypond": {
     "deps": [],
     "rpms": {
-      "lilypond-2.19.50-1.fc26": {
+      "lilypond-2.19.51-1.fc26": {
         "/usr/bin/python": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       }
@@ -12628,11 +12645,11 @@
       "python3"
     ],
     "rpms": {
-      "link-grammar-python2-5.3.12-1.fc26": {
+      "link-grammar-python2-5.3.13-1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "link-grammar-python3-5.3.12-1.fc26": {
+      "link-grammar-python3-5.3.13-1.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       }
@@ -16493,6 +16510,21 @@
     },
     "status": "mispackaged"
   },
+  "pology": {
+    "deps": [
+      "python",
+      "python-setuptools"
+    ],
+    "rpms": {
+      "pology-0.12-3.fc26": {
+        "/usr/bin/python2": 2
+      },
+      "python2-pology-0.12-3.fc26": {
+        "python(abi) = 2.7": 2
+      }
+    },
+    "status": "idle"
+  },
   "pondus": {
     "deps": [
       "python",
@@ -17046,7 +17078,7 @@
       ]
     },
     "rpms": {
-      "pungi-4.1.11-1.fc26": {
+      "pungi-4.1.11-2.fc26": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -22039,7 +22071,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-blivet-1:2.1.6-3.fc26": {
+      "python3-blivet-1:2.1.7-2.fc26": {
         "python(abi) = 3.5": 3,
         "python3": 3,
         "python3 = 3.5.2-6.fc26": 3
@@ -25437,14 +25469,21 @@
   "python-django-keyedcache": {
     "deps": [
       "python",
-      "python-django"
+      "python-django",
+      "python3"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "python-django-keyedcache-1.5.1-3.fc24": {
-        "python(abi) = 2.7": 2
+      "python2-django-keyedcache3-1.5.3-2.fc26": {
+        "python(abi) = 2.7": 2,
+        "python(abi) = 3.5": 3
+      },
+      "python3-django-keyedcache3-1.5.3-2.fc26": {
+        "python(abi) = 2.7": 2,
+        "python(abi) = 3.5": 3
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-django-kombu": {
     "deps": [
@@ -28620,7 +28659,7 @@
       "python"
     ],
     "rpms": {
-      "python-futures-3.0.4-3.fc25": {
+      "python2-futures-3.0.5-1.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -31071,11 +31110,11 @@
       "python3"
     ],
     "rpms": {
-      "python-jsonschema-2.5.1-2.fc25": {
-        "/usr/bin/python": 2,
+      "python2-jsonschema-2.5.1-3.fc26": {
+        "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-jsonschema-2.5.1-2.fc25": {
+      "python3-jsonschema-2.5.1-3.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -31377,11 +31416,11 @@
       "python3"
     ],
     "rpms": {
-      "python-keyring-9.0-2.fc25": {
+      "python2-keyring-9.0-3.fc26": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-keyring-9.0-2.fc25": {
+      "python3-keyring-9.0-3.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -37061,11 +37100,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-pip-8.1.2-5.fc26": {
+      "python2-pip-9.0.1-1.fc26": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pip-8.1.2-5.fc26": {
+      "python3-pip-9.0.1-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -40550,7 +40589,7 @@
       "python-six"
     ],
     "rpms": {
-      "python-requestbuilder-0.6.0-1.fc25": {
+      "python-requestbuilder-0.7.0-1.fc25": {
         "python(abi) = 2.7": 2
       }
     },
@@ -42504,10 +42543,10 @@
       "python3"
     ],
     "rpms": {
-      "python-sleekxmpp-1.2.0-0.11.git08a0fd5.fc25": {
+      "python2-sleekxmpp-1.3.1-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-sleekxmpp-1.2.0-0.11.git08a0fd5.fc25": {
+      "python3-sleekxmpp-1.3.1-1.fc26": {
         "python(abi) = 3.5": 3
       }
     },
@@ -48718,11 +48757,11 @@
       "python3"
     ],
     "rpms": {
-      "python3-pyxdg-0.25-8.fc24": {
-        "python(abi) = 3.5": 3
-      },
-      "pyxdg-0.25-8.fc24": {
+      "python2-pyxdg-0.25-10.fc26": {
         "python(abi) = 2.7": 2
+      },
+      "python3-pyxdg-0.25-10.fc26": {
+        "python(abi) = 3.5": 3
       }
     },
     "status": "released"
@@ -49076,7 +49115,7 @@
       "python3-pyPEG2"
     ],
     "rpms": {
-      "qutebrowser-0.8.2-1.fc26": {
+      "qutebrowser-0.8.4-1.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.5": 3
       }
@@ -49233,17 +49272,17 @@
       "python3"
     ],
     "rpms": {
-      "python2-rdkit-2016.09.1-1.fc26": {
+      "python2-rdkit-2016.09.1-2.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "pycairo": 2,
         "pycairo = 1.10.0-5.fc26": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-rdkit-2016.09.1-1.fc26": {
+      "python3-rdkit-2016.09.1-2.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3,
         "python(abi) = 3.5": 3
       },
-      "rdkit-2016.09.1-1.fc26": {
+      "rdkit-2016.09.1-2.fc26": {
         "libpython3.5m.so.1.0()(64bit)": 3
       }
     },
@@ -52350,7 +52389,7 @@
       "pyparsing"
     ],
     "rpms": {
-      "systemtap-sdt-devel-3.1-0.20161114git5fb76b5.fc26": {
+      "systemtap-sdt-devel-3.1-0.20161121git09dd8f0.fc26": {
         "/usr/bin/python3": 3
       }
     },
@@ -54487,7 +54526,7 @@
   "vdr-epg-daemon": {
     "deps": [],
     "rpms": {
-      "vdr-epg-daemon-1.1.46-1.fc26": {
+      "vdr-epg-daemon-1.1.47-1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
