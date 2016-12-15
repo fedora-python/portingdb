@@ -66,6 +66,12 @@ def hello():
     mispackaged = query.filter(tables.Package.status == 'mispackaged')
     mispackaged = mispackaged.options(subqueryload('collection_packages'))
     mispackaged = mispackaged.options(subqueryload('collection_packages.tracking_bugs'))
+    mispackaged = mispackaged.join(tables.CollectionPackage)
+    mispackaged = mispackaged.outerjoin(
+        tables.Link,
+        and_(tables.Link.type == 'bug',
+             tables.Link.collection_package_id == tables.CollectionPackage.id))
+    mispackaged = mispackaged.order_by(func.ifnull(tables.Link.last_update, '9999'))
     mispackaged = queries.order_by_name(db, mispackaged)
 
     blocked = query.filter(tables.Package.status == 'blocked')
@@ -111,6 +117,13 @@ def hello():
     groups = get_groups(db, query.filter(~tables.Group.hidden))
     hidden_groups = get_groups(db, query.filter(tables.Group.hidden))
 
+    # Statuses with no. of packages
+    statuses = OrderedDict(
+        db.query(tables.Status, func.count(tables.Package.name))
+        .outerjoin(tables.Status.packages)
+        .group_by(tables.Status.ident)
+        .order_by(tables.Status.order))
+
     return render_template(
         'index.html',
         breadcrumbs=(
@@ -118,8 +131,7 @@ def hello():
         ),
         collections=collections,
         coll_info=coll_info,
-        statuses=list(db.query(tables.Status)
-                .filter(tables.Status.ident != 'unknown').order_by(tables.Status.order)),
+        statuses=statuses,
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
         total_pkg_count=total_pkg_count,
         status_summary=get_status_summary(db),
@@ -711,7 +723,7 @@ def mispackaged():
         'mispackaged.html',
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
-            (url_for('mispackaged'), 'Mispackaged'),
+            (url_for('mispackaged', requested=1), 'Mispackaged'),
         ),
         requested=bool(requested),
         mispackaged=mispackaged,

@@ -8,17 +8,20 @@
 
 <div class="container">
     <div class="col-md-12">
-        <h1>Mispackaged packages</h1>
-        <p>
-            Ordered by last activity.
-        </p>
-        <p style="padding-bottom: 5pt">
-            {% if not requested %}
-                You can view either <i>all the packages</i> or <a href="{{ url_for('mispackaged', requested=1) }}">the packages where the maintainer requested a patch</a>.
-            {% else %}
-                You can view either <a href="{{ url_for('mispackaged') }}">all the packages</a> or <i>the packages where the maintainer requested a patch</i>.
-            {% endif %}
-        </p>
+        <h1>Mispackaged</h1>
+        {% if requested %}
+            <p>
+                Mispackaged packages for which the maintainer requested a patch.
+                Ordered by last activity.
+            </p>
+        {% else %}
+            <p>
+                All mispackaged packages, ordered by last activity.
+            </p>
+            <p style="padding-bottom: 5pt">
+                You can also view only <a href="{{ url_for('mispackaged', requested=1) }}">the packages for which the maintainer requested a patch</a>.
+            </p>
+        {% endif %}
 
         {% if not mispackaged %}
         <p>

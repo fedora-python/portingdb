@@ -288,10 +288,8 @@ class Py3QueryCommand(dnf.cli.Command):
                         r.setdefault('tracking_bugs', []) \
                                 .append(BUGZILLA_BUG_URL.format(tb))
 
-                if any(tb in bug.blocks for tb in MISPACKAGED_TRACKER_BUG_IDS):
-                    if r.get('status') == 'idle' and bug.status != 'NEW':
-                        r['status'] = 'in-progress'
-                    elif r.get('status') == 'idle' and bug.status == 'NEW':
+                if (any(tb in bug.blocks for tb in MISPACKAGED_TRACKER_BUG_IDS)
+                    and r.get('status') == 'idle'):
                         r['status'] = "mispackaged"
                         r['note'] = ('There is a problem in Fedora packaging, ' +
                                     'not necessarily with the software itself. ' +

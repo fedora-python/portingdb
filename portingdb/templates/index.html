@@ -29,7 +29,7 @@
                 {{ config['main-instructions']
                         .replace('$RANDOMPKG', pkglink(random_mispackaged))
                         .replace('$HOWTO_LINK', url_for('howto'))
-                        .replace('$MISPACKAGED_LINK', url_for('mispackaged'))
+                        .replace('$MISPACKAGED_LINK', '#mispackaged')
                     |safe }}
             {% endif %}
             {% if groups %}
@@ -64,36 +64,56 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <h2 id="in-progress">Porting in Progress</h2>
-            <div>
-                We know about {{ len(active_packages) }} packages that
-                someone is actively porting, or which are waiting for review.
-            </div>
-            <table class="table table-striped table-condensed table-hovered">
-               {{ pkglist_table_content(active_packages, collections) }}
-            </table>
+            {% if active_packages %}
+                <h2 id="in-progress">Porting in Progress</h2>
+                <div>
+                    We know about {{ len(active_packages) }} packages that
+                    someone is actively porting, or which are waiting for review.
+                </div>
+                <table class="table table-striped table-condensed table-hovered">
+                {{ pkglist_table_content(active_packages, collections) }}
+                </table>
+            {% endif %}
             {% if mispackaged_packages %}
                 <h2 id="mispackaged">Mispackaged packages</h2>
                 <div>
                     {{ len(mispackaged_packages) }} packages were found to have some kind of packaging problem.
                 </div>
                 <div style="padding-bottom: 7pt">
-                    To find the best package to port, see <a href="{{
-                    url_for('mispackaged') }}">packages ordered by last
-                    activity</a>.<br/>
+                    You can also see <a href="{{
+                    url_for('mispackaged', requested=1) }}">only packages for which the
+                    maintainer requested a patch</a>.<br/>
                     For more information read: <a href="{{ url_for('howto')
                     }}">So you want to contribute?</a>
                 </div>
-                <ul class="simple-pkg-list">
-                {% for pkg in mispackaged_packages %}
-                    <li>
+                <table class="table table-striped table-condensed table-hovered">
+                    <tr>
+                        <th>Package</th>
+                        <th>Last activity</th>
+                    </tr>
+
+                    {% for pkg in mispackaged_packages %}
+                    <tr>
+                        <td>
                             {{ pkglink(pkg) }}
-                            {% if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765" in pkg.list_tracking_bugs %}
-                               (patch requested by maintainer)
+                            {% if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
+                                  in pkg.list_tracking_bugs %}
+                            (patch requested by maintainer)
                             {% endif %}
-                    </li>
-                {% endfor %}
-                </ul>
+                        </td>
+                        <td>
+                            {% if pkg.last_link_update %}
+                                <time title="{{ pkg.last_link_update }}">
+                                    {{ pkg.last_link_update | format_time_ago }}
+                                </time>
+                            {% else %}
+                                no Bugzilla report yet
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
             {% endif %}
             <h2 id="idle">Idle packages</h2>
             <div>
@@ -178,12 +198,14 @@
             {% endif %}
             <h2>Status Legend</h2>
             <ul class="list-group">
-                {% for status in statuses %}
-                    <li class="list-group-item">
-                        {{ minibadge(status) }}
-                        <a href="#{{ status.ident }}">{{ status.name }}</a>
-                        <div><small>{{ status.description }}</small></div>
-                    </li>
+                {% for status, num_packages in statuses.items() %}
+                    {% if num_packages %}
+                        <li class="list-group-item">
+                            {{ minibadge(status) }}
+                            <a href="#{{ status.ident }}">{{ status.name }}</a>
+                            <div><small>{{ status.description }}</small></div>
+                        </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
             <div>
