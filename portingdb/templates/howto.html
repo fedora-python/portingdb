@@ -24,9 +24,9 @@
 
         <h2 id="package-it">Package it</h2>
         <p>
-            There are currently <a href="{{ url_for('mispackaged') }}">{{ len(mispackaged) }} packages</a> that are Python 3–ready upstream (that we know of), but not quite yet Python 3–ready in Fedora. These are labeled as "mispackaged" in PortingDB.
+            There are currently <a href="{{ url_for('hello', _anchor='mispackaged') }}">{{ len(mispackaged) }} packages</a> that are Python 3–ready upstream (that we know of), but not quite yet Python 3–ready in Fedora. These are labeled as "mispackaged" in PortingDB.
         </p><p>
-            You can view the <a href="{{ url_for('mispackaged') }}">mispackaged packages</a> ordered by their last activity, so you can pick one off the top and be relatively sure nobody is currently working on it.
+            You can view the <a href="{{ url_for('hello', _anchor='mispackaged') }}">mispackaged packages</a> ordered by their last activity, so you can pick one off the top and be relatively sure nobody is currently working on it.
             Alternatively, you can pick one of <a href="{{ url_for('mispackaged', requested=1) }}">these packages</a>, where the packager explicitly asked for someone to provide a patch since they don't have the time for it.
         </p><p>
             Now open the package in PortingDB (e.g. {{ pkglink(random_mispackaged) }}): The {{ badge(mispackaged_status) }} next to <i>Fedora</i> in the sidebar indicates that indeed we are dealing with a mispackaged package.

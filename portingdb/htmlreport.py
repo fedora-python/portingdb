@@ -723,7 +723,7 @@ def mispackaged():
         'mispackaged.html',
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
-            (url_for('mispackaged'), 'Mispackaged'),
+            (url_for('mispackaged', requested=1), 'Mispackaged'),
         ),
         requested=bool(requested),
         mispackaged=mispackaged,

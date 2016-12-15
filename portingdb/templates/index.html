@@ -29,7 +29,7 @@
                 {{ config['main-instructions']
                         .replace('$RANDOMPKG', pkglink(random_mispackaged))
                         .replace('$HOWTO_LINK', url_for('howto'))
-                        .replace('$MISPACKAGED_LINK', url_for('mispackaged'))
+                        .replace('$MISPACKAGED_LINK', '#mispackaged')
                     |safe }}
             {% endif %}
             {% if groups %}
