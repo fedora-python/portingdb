@@ -111,6 +111,13 @@ def hello():
     groups = get_groups(db, query.filter(~tables.Group.hidden))
     hidden_groups = get_groups(db, query.filter(tables.Group.hidden))
 
+    # Statuses with no. of packages
+    statuses = OrderedDict(
+        db.query(tables.Status, func.count(tables.Package.name))
+        .outerjoin(tables.Status.packages)
+        .group_by(tables.Status.ident)
+        .order_by(tables.Status.order))
+
     return render_template(
         'index.html',
         breadcrumbs=(
@@ -118,8 +125,7 @@ def hello():
         ),
         collections=collections,
         coll_info=coll_info,
-        statuses=list(db.query(tables.Status)
-                .filter(tables.Status.ident != 'unknown').order_by(tables.Status.order)),
+        statuses=statuses,
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
         total_pkg_count=total_pkg_count,
         status_summary=get_status_summary(db),

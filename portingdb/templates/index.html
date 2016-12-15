@@ -64,14 +64,16 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <h2 id="in-progress">Porting in Progress</h2>
-            <div>
-                We know about {{ len(active_packages) }} packages that
-                someone is actively porting, or which are waiting for review.
-            </div>
-            <table class="table table-striped table-condensed table-hovered">
-               {{ pkglist_table_content(active_packages, collections) }}
-            </table>
+            {% if active_packages %}
+                <h2 id="in-progress">Porting in Progress</h2>
+                <div>
+                    We know about {{ len(active_packages) }} packages that
+                    someone is actively porting, or which are waiting for review.
+                </div>
+                <table class="table table-striped table-condensed table-hovered">
+                {{ pkglist_table_content(active_packages, collections) }}
+                </table>
+            {% endif %}
             {% if mispackaged_packages %}
                 <h2 id="mispackaged">Mispackaged packages</h2>
                 <div>
@@ -178,12 +180,14 @@
             {% endif %}
             <h2>Status Legend</h2>
             <ul class="list-group">
-                {% for status in statuses %}
-                    <li class="list-group-item">
-                        {{ minibadge(status) }}
-                        <a href="#{{ status.ident }}">{{ status.name }}</a>
-                        <div><small>{{ status.description }}</small></div>
-                    </li>
+                {% for status, num_packages in statuses.items() %}
+                    {% if num_packages %}
+                        <li class="list-group-item">
+                            {{ minibadge(status) }}
+                            <a href="#{{ status.ident }}">{{ status.name }}</a>
+                            <div><small>{{ status.description }}</small></div>
+                        </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
             <div>
