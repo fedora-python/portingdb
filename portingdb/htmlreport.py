@@ -66,6 +66,12 @@ def hello():
     mispackaged = query.filter(tables.Package.status == 'mispackaged')
     mispackaged = mispackaged.options(subqueryload('collection_packages'))
     mispackaged = mispackaged.options(subqueryload('collection_packages.tracking_bugs'))
+    mispackaged = mispackaged.join(tables.CollectionPackage)
+    mispackaged = mispackaged.outerjoin(
+        tables.Link,
+        and_(tables.Link.type == 'bug',
+             tables.Link.collection_package_id == tables.CollectionPackage.id))
+    mispackaged = mispackaged.order_by(func.ifnull(tables.Link.last_update, '9999'))
     mispackaged = queries.order_by_name(db, mispackaged)
 
     blocked = query.filter(tables.Package.status == 'blocked')

@@ -80,22 +80,40 @@
                     {{ len(mispackaged_packages) }} packages were found to have some kind of packaging problem.
                 </div>
                 <div style="padding-bottom: 7pt">
-                    To find the best package to port, see <a href="{{
-                    url_for('mispackaged') }}">packages ordered by last
-                    activity</a>.<br/>
+                    You can also see <a href="{{
+                    url_for('mispackaged', requested=1) }}">only packages for which the
+                    maintainer requested a patch</a>.<br/>
                     For more information read: <a href="{{ url_for('howto')
                     }}">So you want to contribute?</a>
                 </div>
-                <ul class="simple-pkg-list">
-                {% for pkg in mispackaged_packages %}
-                    <li>
+                <table class="table table-striped table-condensed table-hovered">
+                    <tr>
+                        <th>Package</th>
+                        <th>Last activity</th>
+                    </tr>
+
+                    {% for pkg in mispackaged_packages %}
+                    <tr>
+                        <td>
                             {{ pkglink(pkg) }}
-                            {% if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765" in pkg.list_tracking_bugs %}
-                               (patch requested by maintainer)
+                            {% if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
+                                  in pkg.list_tracking_bugs %}
+                            (patch requested by maintainer)
                             {% endif %}
-                    </li>
-                {% endfor %}
-                </ul>
+                        </td>
+                        <td>
+                            {% if pkg.last_link_update %}
+                                <time title="{{ pkg.last_link_update }}">
+                                    {{ pkg.last_link_update | format_time_ago }}
+                                </time>
+                            {% else %}
+                                no Bugzilla report yet
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
             {% endif %}
             <h2 id="idle">Idle packages</h2>
             <div>
