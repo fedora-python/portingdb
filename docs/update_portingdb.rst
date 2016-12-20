@@ -80,11 +80,6 @@ idle -> released, mispackaged -> released
     * name of the project
     * name of the bug or commit (to put on the wiki)
 
-mispackaged -> in progress
-    Someone is porting the package:
-
-* Check the bug and make sure it makes sense.
-
 missing -> released
     New Python 3 package was added to Fedora:
 
@@ -110,7 +105,7 @@ relesed -> mispackaged
   * If the subpackage is dragging py2 dependency in, check the latest change and find what caused it
   * File a bug
 
-released -> idle, released -> in-progress
+released -> idle
     There is an issue with the package:
 
 * Let someone know.
