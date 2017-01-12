@@ -47,9 +47,9 @@ BUGZILLA_BUG_URL = "https://bugzilla.redhat.com/show_bug.cgi?id={}"
 
 SEED_PACKAGES = {
     2: [
-        'python-devel', 'python2-devel', 'python', 'python-libs',
+        'python-devel', 'python2-devel', 'python', 'python2', 'python-libs',
         'python(abi) = 2.7', '/usr/bin/python', '/usr/bin/python2',
-        '/usr/bin/python2.7', 'libpython2.7.so.1.0',
+        '/usr/bin/python2.7', 'libpython2.7.so.1.0', 'libpython2.7.so.1.0()(64bit)',
         'pygtk2', 'pygobject2', 'pycairo',
     ],
     3: [
