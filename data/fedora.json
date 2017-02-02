@@ -1329,7 +1329,7 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "antlr-python-2.7.7-43.fc25": {
+      "antlr-python-2.7.7-44.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -1521,7 +1521,7 @@
       "rpm"
     ],
     "rpms": {
-      "atomic-1.15.1-2.fc26": {
+      "atomic-1.15.2-2.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -2422,15 +2422,15 @@
       ]
     },
     "rpms": {
-      "bodhi-client-2.3.3-3.fc26": {
+      "bodhi-client-2.3.3-4.fc26": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "bodhi-server-2.3.3-3.fc26": {
+      "bodhi-server-2.3.3-4.fc26": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-bodhi-2.3.3-3.fc26": {
+      "python2-bodhi-2.3.3-4.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -2914,10 +2914,10 @@
       ]
     },
     "rpms": {
-      "python2-cantor-16.08.3-2.fc26": {
+      "python2-cantor-16.12.1-1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python3-cantor-16.08.3-2.fc26": {
+      "python3-cantor-16.12.1-1.fc26": {
         "libpython3.6m.so.1.0()(64bit)": 3
       }
     },
@@ -3014,12 +3014,16 @@
   },
   "cassandra": {
     "deps": [
+      "javapackages-tools",
       "python-cassandra-driver",
-      "python2"
+      "python2",
+      "pytz"
     ],
     "rpms": {
-      "cassandra-python2-cqlshlib-3.9-2.fc26": {
-        "/usr/bin/python": 2,
+      "cassandra-3.9-3.fc26": {
+        "/usr/bin/python": 2
+      },
+      "cassandra-python2-cqlshlib-3.9-3.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -3357,7 +3361,7 @@
     ],
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "cinnamon-3.2.8-4.fc26": {
+      "cinnamon-3.2.8-7.fc26": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "/usr/bin/python3": 3
@@ -3943,7 +3947,7 @@
       "yum-utils"
     ],
     "rpms": {
-      "copr-backend-1.95-1.fc26": {
+      "copr-backend-1.96-1.fc26": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2
       }
@@ -3977,7 +3981,7 @@
       "rpkg"
     ],
     "rpms": {
-      "copr-dist-git-0.23-1.fc26": {
+      "copr-dist-git-0.24-1.fc26": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2
       }
@@ -4158,13 +4162,13 @@
       "python2"
     ],
     "rpms": {
-      "cryptlib-python2-3.4.3-8.fc26": {
+      "cryptlib-python2-3.4.3-9.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python": 2,
         "python = 2.7.13-2.fc26": 2,
         "python(abi) = 2.7": 2
       },
-      "cryptlib-test-3.4.3-8.fc26": {
+      "cryptlib-test-3.4.3-9.fc26": {
         "/usr/bin/python2": 2
       }
     },
@@ -4176,7 +4180,7 @@
       "python2"
     ],
     "rpms": {
-      "cryptobone-1.1.1-2.fc26": {
+      "cryptobone-1.1.1-3.fc26": {
         "/usr/bin/python": 2,
         "python": 2,
         "python = 2.7.13-2.fc26": 2
@@ -4868,7 +4872,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1342491",
         "MODIFIED",
-        "2017-01-31 10:12:36"
+        "2017-01-31 17:49:01"
       ]
     },
     "rpms": {
@@ -8451,7 +8455,7 @@
   "gnumeric": {
     "deps": [],
     "rpms": {
-      "gnumeric-1:1.12.32-1.fc26": {
+      "gnumeric-1:1.12.33-1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -10143,8 +10147,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1323242",
-        "NEW",
-        "2017-01-10 09:32:52"
+        "POST",
+        "2017-02-01 18:42:58"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -10153,10 +10157,7 @@
         "python(abi) = 2.7": 2
       }
     },
-    "status": "mispackaged",
-    "tracking_bugs": [
-      "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
-    ]
+    "status": "mispackaged"
   },
   "impressive": {
     "deps": [
@@ -10575,11 +10576,11 @@
       "python3"
     ],
     "rpms": {
-      "javapackages-tools-4.7.0-12.fc26": {
+      "javapackages-tools-4.7.0-13.fc26": {
         "python3": 3,
         "python3 = 3.6.0-9.fc26": 3
       },
-      "python3-javapackages-4.7.0-12.fc26": {
+      "python3-javapackages-4.7.0-13.fc26": {
         "python(abi) = 3.6": 3
       }
     },
@@ -10710,12 +10711,12 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "perf-4.10.0-0.rc5.git4.2.fc26": {
+      "perf-4.10.0-0.rc6.git0.1.fc26": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.10.0-0.rc5.git4.2.fc26": {
+      "python-perf-4.10.0-0.rc6.git0.1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -11113,8 +11114,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1370721",
-        "NEW",
-        "2017-01-23 00:17:43"
+        "MODIFIED",
+        "2017-02-01 21:47:33"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -14470,14 +14471,14 @@
       "pyxdg"
     ],
     "rpms": {
-      "nemo-compare-3.2.0-2.fc26": {
+      "nemo-compare-3.2.1-0.1.20170131gitbefdb82.fc26": {
         "/usr/bin/python": 2
       },
-      "nemo-pastebin-3.2.0-2.fc26": {
+      "nemo-pastebin-3.2.1-0.1.20170131gitbefdb82.fc26": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "nemo-python-3.2.0-2.fc26": {
+      "nemo-python-3.2.1-0.1.20170131gitbefdb82.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -17709,12 +17710,9 @@
   },
   "pychess": {
     "deps": [
-      "gnome-python2-desktop",
-      "gstreamer-python",
       "pygobject3",
-      "pygtk2",
-      "pygtksourceview",
-      "python2"
+      "python-gstreamer1",
+      "python3"
     ],
     "links": {
       "bug": [
@@ -17723,14 +17721,13 @@
         "2017-01-31 10:25:32"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "pychess-0.12.4-6.fc25": {
-        "/usr/bin/python": 2,
-        "python(abi) = 2.7": 2
+      "pychess-0.12.4-7.fc26": {
+        "/usr/bin/python3": 3,
+        "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged",
+    "status": "released",
     "tracking_bugs": [
       "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
     ]
@@ -24273,10 +24270,10 @@
       "python3"
     ],
     "rpms": {
-      "python-copr-1.75-2.fc26": {
+      "python-copr-1.76-1.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-copr-1.75-2.fc26": {
+      "python3-copr-1.76-1.fc26": {
         "python(abi) = 3.6": 3
       }
     },
@@ -26925,26 +26922,17 @@
     },
     "status": "released"
   },
-  "python-docs": {
-    "deps": [],
-    "rpms": {
-      "python-docs-2.7.12-2.fc26": {
-        "python": 2
-      }
-    },
-    "status": "idle"
-  },
   "python-docutils": {
     "deps": [
       "python2",
       "python3"
     ],
     "rpms": {
-      "python2-docutils-0.13.1-2.fc26": {
-        "/usr/bin/python": 2,
+      "python2-docutils-0.13.1-3.fc26": {
+        "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-docutils-0.13.1-2.fc26": {
+      "python3-docutils-0.13.1-3.fc26": {
         "python(abi) = 3.6": 3
       }
     },
@@ -27371,10 +27359,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-entrypoints-0.2.2-5.fc26": {
+      "python2-entrypoints-0.2.2-6.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-entrypoints-0.2.2-5.fc26": {
+      "python3-entrypoints-0.2.2-6.fc26": {
         "python(abi) = 3.6": 3
       }
     },
@@ -28711,7 +28699,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-flit-0.9-4.fc26": {
+      "python3-flit-0.9-5.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -41009,29 +40997,29 @@
       "sip"
     ],
     "rpms": {
-      "python-qt5-5.7.1-2.fc26": {
+      "python-qt5-5.7.1-3.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python-qt5-devel-5.7.1-2.fc26": {
+      "python-qt5-devel-5.7.1-3.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python-qt5-webengine-5.7.1-2.fc26": {
+      "python-qt5-webengine-5.7.1-3.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python-qt5-webkit-5.7.1-2.fc26": {
+      "python-qt5-webkit-5.7.1-3.fc26": {
         "python(abi) = 2.7": 2
       },
-      "python3-qt5-5.7.1-2.fc26": {
+      "python3-qt5-5.7.1-3.fc26": {
         "python(abi) = 3.6": 3
       },
-      "python3-qt5-devel-5.7.1-2.fc26": {
+      "python3-qt5-devel-5.7.1-3.fc26": {
         "python(abi) = 3.6": 3
       },
-      "python3-qt5-webengine-5.7.1-2.fc26": {
+      "python3-qt5-webengine-5.7.1-3.fc26": {
         "python(abi) = 3.6": 3
       },
-      "python3-qt5-webkit-5.7.1-2.fc26": {
+      "python3-qt5-webkit-5.7.1-3.fc26": {
         "python(abi) = 3.6": 3
       }
     },
@@ -42480,11 +42468,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-ruamel-yaml-0.12.14-6.fc26": {
+      "python2-ruamel-yaml-0.13.13-1.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-ruamel-yaml-0.12.14-6.fc26": {
+      "python3-ruamel-yaml-0.13.13-1.fc26": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -43950,11 +43938,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-sphinx-1.5.1-4.fc26": {
+      "python2-sphinx-1.5.1-5.fc26": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-sphinx-1.5.1-4.fc26": {
+      "python3-sphinx-1.5.1-5.fc26": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -49546,6 +49534,18 @@
     },
     "status": "idle"
   },
+  "python2-docs": {
+    "deps": [
+      "python2"
+    ],
+    "rpms": {
+      "python2-docs-2.7.13-1.fc26": {
+        "python2": 2,
+        "python2 = 2.7.13-2.fc26": 2
+      }
+    },
+    "status": "idle"
+  },
   "python2-faulthandler": {
     "deps": [
       "python2"
@@ -51604,26 +51604,26 @@
       "yum-utils"
     ],
     "rpms": {
-      "salt-2016.11.1-1.fc26": {
+      "salt-2016.11.2-1.fc26": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "salt-api-2016.11.1-1.fc26": {
+      "salt-api-2016.11.2-1.fc26": {
         "/usr/bin/python": 2
       },
-      "salt-cloud-2016.11.1-1.fc26": {
+      "salt-cloud-2016.11.2-1.fc26": {
         "/usr/bin/python": 2
       },
-      "salt-master-2016.11.1-1.fc26": {
+      "salt-master-2016.11.2-1.fc26": {
         "/usr/bin/python": 2
       },
-      "salt-minion-2016.11.1-1.fc26": {
+      "salt-minion-2016.11.2-1.fc26": {
         "/usr/bin/python": 2
       },
-      "salt-ssh-2016.11.1-1.fc26": {
+      "salt-ssh-2016.11.2-1.fc26": {
         "/usr/bin/python": 2
       },
-      "salt-syndic-2016.11.1-1.fc26": {
+      "salt-syndic-2016.11.2-1.fc26": {
         "/usr/bin/python": 2
       }
     },
@@ -53761,11 +53761,11 @@
       "python2"
     ],
     "rpms": {
-      "system-switch-mail-1.0.1-10.fc25": {
+      "system-switch-mail-1.0.1-11.fc26": {
         "python": 2,
         "python = 2.7.13-2.fc26": 2
       },
-      "system-switch-mail-gnome-1.0.1-10.fc25": {
+      "system-switch-mail-gnome-1.0.1-11.fc26": {
         "/usr/bin/python": 2
       }
     },
@@ -53778,15 +53778,15 @@
       "python3"
     ],
     "rpms": {
-      "systemtap-runtime-python2-3.1-0.20170125gite81970274b46.fc26": {
+      "systemtap-runtime-python2-3.1-0.20170130git575fe91.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "systemtap-runtime-python3-3.1-0.20170125gite81970274b46.fc26": {
+      "systemtap-runtime-python3-3.1-0.20170130git575fe91.fc26": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       },
-      "systemtap-sdt-devel-3.1-0.20170125gite81970274b46.fc26": {
+      "systemtap-sdt-devel-3.1-0.20170130git575fe91.fc26": {
         "/usr/bin/python3": 3
       }
     },
@@ -54049,7 +54049,7 @@
       "wxPython"
     ],
     "rpms": {
-      "timeline-1.12.0-1.fc26": {
+      "timeline-1.13.0-1.fc26": {
         "python(abi) = 2.7": 2
       }
     },
@@ -56072,7 +56072,7 @@
       "subversion"
     ],
     "rpms": {
-      "viewvc-1.1.24-4.fc25": {
+      "viewvc-1.1.26-1.fc26": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
