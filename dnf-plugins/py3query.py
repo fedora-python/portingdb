@@ -135,7 +135,7 @@ def binaries(packages):
     binaries = [
         filepath for pkg in packages
         for filepath in pkg.files
-        if filepath.startswith('/usr/bin')]
+        if filepath.startswith(('/usr/bin', '/usr/sbin'))]
     return len(binaries)
 
 
