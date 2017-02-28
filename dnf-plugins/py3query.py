@@ -130,13 +130,13 @@ def progressbar(seq, text, namegetter=str):
     print(file=sys.stderr)
 
 
-def binaries(packages):
-    """Return the total number of binaries in the packages."""
-    binaries = [
-        filepath for pkg in packages
-        for filepath in pkg.files
-        if filepath.startswith(('/usr/bin', '/usr/sbin'))]
-    return len(binaries)
+def have_binaries(packages):
+    """Check if there are any binaries in the packages."""
+    for pkg in packages:
+        for filepath in pkg.files:
+            if filepath.startswith(('/usr/bin', '/usr/sbin')):
+                return True
+    return False
 
 
 def set_status(result, pkgs, python_versions):
@@ -161,7 +161,7 @@ def set_status(result, pkgs, python_versions):
         # Otherwise, a srpm isn't ported if it has more packages that need py2
         # than those that need py3
         if len(name_by_version[3]) >= len(name_by_version[2]):
-            if binaries(pkg_by_version[2]) and not binaries(pkg_by_version[3]):
+            if have_binaries(pkg_by_version[2]) and not have_binaries(pkg_by_version[3]):
                 # Identify packages with py2 only binaries.
                 result['status'] = 'mispackaged'
                 result['note'] = (
