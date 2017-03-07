@@ -99,6 +99,12 @@ cwiid:
 dpdk:
     note: |
         Python 3 support committed but not yet released. (March 2016)
+dreampie:
+    status: idle
+    note: |
+        There's a python2 and a python3 subpackage, but they do different
+        things. dreampie-python3 is a plugin to run python3 interpreter
+        from within dreampie.
 drobo-utils:
     dead-upstream: true
 dtrx:
@@ -541,6 +547,11 @@ python-halite:
         "Halite is officially retired."
 python-HTMLgen:
     dead-upstream: true
+python-igor:
+    note: |
+        The package is functional under python3, but the executable output
+        is  slightly nicer under python2. So it is on py2 on purpose
+        according to the maintainer.
 python-ipaddr:
     status: dropped
     note: |
@@ -820,6 +831,9 @@ python-webtest1.3:
       ported to the current version of the library as part of porting to
       python3.
       Replacement: `python-webtest`
+python-whisper:
+    note: |
+        Whisper as library is python3 compatible, but the executables not yet.
 python-zbase32: &pyutil-zbase32-cycle
     nonblocking: true
     note: |
