@@ -3489,10 +3489,10 @@
       "xapps"
     ],
     "rpms": {
-      "cinnamon-screensaver-3.2.14-0.2.20170124git5561f3c.fc26": {
+      "cinnamon-screensaver-3.2.14-0.3.20170308git55a26c2.fc27": {
         "/usr/bin/python3": 3
       },
-      "cinnamon-screensaver-unsupported-3.2.14-0.2.20170124git5561f3c.fc26": {
+      "cinnamon-screensaver-unsupported-3.2.14-0.3.20170308git55a26c2.fc27": {
         "/usr/bin/python3": 3
       }
     },
@@ -5239,8 +5239,8 @@
       "unbound"
     ],
     "rpms": {
-      "dnssec-trigger-0.13-2.fc27": {
-        "/usr/libexec/system-python": 3
+      "dnssec-trigger-0.13-3.fc27": {
+        "/usr/bin/python3": 3
       }
     },
     "status": "released"
@@ -6778,7 +6778,7 @@
       "sigul"
     ],
     "rpms": {
-      "flr-0.0.2-1.fc26": {
+      "flr-0.0.3-1.fc27": {
         "python(abi) = 2.7": 2
       }
     },
@@ -11972,7 +11972,8 @@
   "libfreenect": {
     "deps": [
       "numpy",
-      "python2"
+      "python2",
+      "python3"
     ],
     "links": {
       "bug": [
@@ -11981,14 +11982,16 @@
         "2017-03-09 00:17:15"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "libfreenect-python-0.5.3-5.fc26": {
+      "python2-libfreenect-0.5.5-1.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
+      },
+      "python3-libfreenect-0.5.5-1.fc27": {
+        "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "libftdi": {
     "deps": [
@@ -13005,7 +13008,7 @@
       "python2"
     ],
     "rpms": {
-      "libxslt-python-1.1.28-14.fc26": {
+      "libxslt-python-1.1.29-1.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -21692,11 +21695,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-apsw-3.16.2.r1-4.fc26": {
+      "python2-apsw-3.17.0.r1-3.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-apsw-3.16.2.r1-4.fc26": {
+      "python3-apsw-3.17.0.r1-3.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -21851,11 +21854,11 @@
       "scipy"
     ],
     "rpms": {
-      "python2-assimulo-2.9-9.fc26": {
+      "python2-assimulo-2.9-11.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-assimulo-2.9-9.fc26": {
+      "python3-assimulo-2.9-11.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -31323,10 +31326,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-idstools-0.5.4-4.fc26": {
+      "python2-idstools-0.5.6-5.fc27": {
+        "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-idstools-0.5.4-4.fc26": {
+      "python3-idstools-0.5.6-5.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -31744,14 +31748,17 @@
   },
   "python-ipykernel": {
     "deps": [
+      "python-jupyter-client",
+      "python-tornado",
+      "python-traitlets",
       "python2",
       "python3"
     ],
     "rpms": {
-      "python2-ipykernel-4.5.2-4.fc26": {
+      "python2-ipykernel-4.5.2-5.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-ipykernel-4.5.2-4.fc26": {
+      "python3-ipykernel-4.5.2-5.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -33244,11 +33251,11 @@
       "python2"
     ],
     "rpms": {
-      "python-ldaptor-0.0.44-6.20140909gitc30f30d9.fc22": {
+      "python-ldaptor-16.0.1-1.fc27": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "python-ldaptor-tools-0.0.44-6.20140909gitc30f30d9.fc22": {
+      "python-ldaptor-tools-16.0.1-1.fc27": {
         "/usr/bin/python2": 2
       }
     },
@@ -34205,11 +34212,11 @@
       "wxPython"
     ],
     "rpms": {
-      "python2-matplotlib-2.0.0-2.fc26": {
+      "python2-matplotlib-2.0.0-2.fc27.2": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-matplotlib-gtk-2.0.0-2.fc26": {
+      "python2-matplotlib-gtk-2.0.0-2.fc27.2": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "pycairo": 2,
         "pycairo = 1.10.0-6.fc26": 2,
@@ -34217,38 +34224,38 @@
         "pygtk2 = 2.24.0-16.fc26": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-matplotlib-gtk3-2.0.0-2.fc26": {
+      "python2-matplotlib-gtk3-2.0.0-2.fc27.2": {
         "python(abi) = 2.7": 2
       },
-      "python2-matplotlib-qt4-2.0.0-2.fc26": {
+      "python2-matplotlib-qt4-2.0.0-2.fc27.2": {
         "python(abi) = 2.7": 2
       },
-      "python2-matplotlib-qt5-2.0.0-2.fc26": {
+      "python2-matplotlib-qt5-2.0.0-2.fc27.2": {
         "python(abi) = 2.7": 2
       },
-      "python2-matplotlib-tk-2.0.0-2.fc26": {
+      "python2-matplotlib-tk-2.0.0-2.fc27.2": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-matplotlib-wx-2.0.0-2.fc26": {
+      "python2-matplotlib-wx-2.0.0-2.fc27.2": {
         "python(abi) = 2.7": 2
       },
-      "python3-matplotlib-2.0.0-2.fc26": {
+      "python3-matplotlib-2.0.0-2.fc27.2": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3,
         "python3-cairo": 3,
         "python3-cairo = 1.10.0-20.fc26": 3
       },
-      "python3-matplotlib-gtk3-2.0.0-2.fc26": {
+      "python3-matplotlib-gtk3-2.0.0-2.fc27.2": {
         "python(abi) = 3.6": 3
       },
-      "python3-matplotlib-qt4-2.0.0-2.fc26": {
+      "python3-matplotlib-qt4-2.0.0-2.fc27.2": {
         "python(abi) = 3.6": 3
       },
-      "python3-matplotlib-qt5-2.0.0-2.fc26": {
+      "python3-matplotlib-qt5-2.0.0-2.fc27.2": {
         "python(abi) = 3.6": 3
       },
-      "python3-matplotlib-tk-2.0.0-2.fc26": {
+      "python3-matplotlib-tk-2.0.0-2.fc27.2": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -36675,10 +36682,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-openpyxl-2.4.4-1.fc26": {
+      "python2-openpyxl-2.4.5-1.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-openpyxl-2.4.4-1.fc26": {
+      "python3-openpyxl-2.4.5-1.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -38537,11 +38544,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-persistent-4.2.2-4.fc26": {
+      "python2-persistent-4.2.3-1.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-persistent-4.2.2-4.fc26": {
+      "python3-persistent-4.2.3-1.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -41025,10 +41032,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-pyroute2-0.4.10-3.fc26": {
+      "python2-pyroute2-0.4.13-1.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-pyroute2-0.4.10-3.fc26": {
+      "python3-pyroute2-0.4.13-1.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -52381,11 +52388,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-rpy-2.8.5-1.fc26": {
+      "python2-rpy-2.8.5-3.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-rpy-2.8.5-1.fc26": {
+      "python3-rpy-2.8.5-3.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -54756,18 +54763,18 @@
       "python3-cairo"
     ],
     "rpms": {
-      "system-config-printer-1.5.9-2.fc26": {
+      "system-config-printer-1.5.9-3.fc27": {
         "/usr/bin/python3": 3,
         "python3-cairo(x86-64) = 1.10.0-20.fc26": 3
       },
-      "system-config-printer-applet-1.5.9-2.fc26": {
+      "system-config-printer-applet-1.5.9-3.fc27": {
         "/usr/bin/python3": 3
       },
-      "system-config-printer-libs-1.5.9-2.fc26": {
+      "system-config-printer-libs-1.5.9-3.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       },
-      "system-config-printer-udev-1.5.9-2.fc26": {
+      "system-config-printer-udev-1.5.9-3.fc27": {
         "/usr/bin/python3": 3
       }
     },
@@ -55337,13 +55344,14 @@
   },
   "trac-accountmanager-plugin": {
     "deps": [
+      "babel",
       "python-genshi",
       "python-setuptools",
       "python2",
       "trac"
     ],
     "rpms": {
-      "trac-accountmanager-plugin-0.4.4-4.fc24": {
+      "trac-accountmanager-plugin-0.5-0.1.r16056.fc27": {
         "python(abi) = 2.7": 2
       }
     },
