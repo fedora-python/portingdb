@@ -40,6 +40,7 @@ ADDITIONAL_TRACKER_BUGS = [
     1333765,  # PY3PATCH-REQUESTED
     1312032,  # PY3PATCH-AVAILABLE
     1333770,  # PY3PATCH-PUSH
+    1432186,  # Missing PY3-EXECUTABLES
 ]
 
 # Template URL to which you can add the bug ID and get a working URL
