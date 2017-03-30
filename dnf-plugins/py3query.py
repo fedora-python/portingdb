@@ -29,6 +29,7 @@ BUGZILLA_URL = 'bugzilla.redhat.com'
 TRACKER_BUG_IDS = [
     1285816,  # The Python 3 tracking bug
     1322027,  # The Python 3 Upstream Porting tracking bug
+    1432186,  # Missing PY3-EXECUTABLES
 ]
 # Trackers of bugs whose presence indicates the given package is mispackaged.
 MISPACKAGED_TRACKER_BUG_IDS = [
