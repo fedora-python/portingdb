@@ -40,6 +40,7 @@ ADDITIONAL_TRACKER_BUGS = [
     1333765,  # PY3PATCH-REQUESTED
     1312032,  # PY3PATCH-AVAILABLE
     1333770,  # PY3PATCH-PUSH
+    1432186,  # Missing PY3-EXECUTABLES
 ]
 
 # Template URL to which you can add the bug ID and get a working URL
@@ -130,25 +131,45 @@ def progressbar(seq, text, namegetter=str):
     print(file=sys.stderr)
 
 
+def have_binaries(packages):
+    """Check if there are any binaries in the packages."""
+    for pkg in packages:
+        for filepath in pkg.files:
+            if filepath.startswith(('/usr/bin', '/usr/sbin')):
+                return True
+    return False
+
+
 def set_status(result, pkgs, python_versions):
     # Look at the Python dependencies of given packages, based on the
     # name only (this means different arches are grouped into one)
     name_by_version = collections.defaultdict(set)
+    pkg_by_version = collections.defaultdict(set)
     for p in pkgs:
         for v in python_versions[p]:
             name_by_version[v].add(p.name)
+            pkg_by_version[v].add(p)
+
     if name_by_version[2] & name_by_version[3]:
         # If a package depends on *both* py2 and py3, it's not ported
         result['status'] = 'mispackaged'
-        result['note'] = ('A single package depends on both Python 2 and '+
-            'Python 3.\n' +
-            'It should be split into a python2 and python3 subpackages ' +
+        result['note'] = (
+            'A single package depends on both Python 2 and '
+            'Python 3.\n'
+            'It should be split into a python2 and python3 subpackages '
             'to prevent it from always dragging the py2 dependency in.')
     else:
         # Otherwise, a srpm isn't ported if it has more packages that need py2
         # than those that need py3
         if len(name_by_version[3]) >= len(name_by_version[2]):
-            result['status'] = 'released'
+            if have_binaries(pkg_by_version[2]) and not have_binaries(pkg_by_version[3]):
+                # Identify packages with py2 only binaries.
+                result['status'] = 'mispackaged'
+                result['note'] = (
+                    'The Python 3 package is missing binaries available '
+                    'in a Python 2 package.\n')
+            else:
+                result['status'] = 'released'
         else:
             result['status'] = 'idle'
 
