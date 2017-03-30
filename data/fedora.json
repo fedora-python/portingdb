@@ -532,11 +532,12 @@
     ],
     "links": {
       "bug": [
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1342485",
-        "CLOSED RAWHIDE",
-        "2016-09-09 09:31:22"
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1437186",
+        "ASSIGNED",
+        "2017-03-29 18:55:44"
       ]
     },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "PyXB-1.2.5-2.fc26": {
         "/usr/bin/python2": 2,
@@ -546,7 +547,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "PyYAML": {
     "deps": [
@@ -1019,6 +1020,14 @@
       "python3",
       "sympy"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436816",
+        "NEW",
+        "2017-03-28 18:02:53"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "ahkab-0.18-7.fc26": {
         "/usr/bin/python2": 2,
@@ -1030,11 +1039,12 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "ailurus": {
     "deps": [
       "dbus-python",
+      "gnome-python2-desktop",
       "notify-python",
       "pygobject2",
       "pygtk2",
@@ -1253,11 +1263,11 @@
       "python3"
     ],
     "rpms": {
-      "ansible-2.2.2.0-0.4.rc1.fc27": {
+      "ansible-2.2.2.0-2.fc27": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "ansible-python3-2.2.2.0-0.4.rc1.fc27": {
+      "ansible-python3-2.2.2.0-2.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -1637,10 +1647,10 @@
       "python3"
     ],
     "rpms": {
-      "audit-libs-python-2.7.3-1.fc26": {
+      "audit-libs-python-2.7.4-1.fc27": {
         "python(abi) = 2.7": 2
       },
-      "audit-libs-python3-2.7.3-1.fc26": {
+      "audit-libs-python3-2.7.4-1.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -2481,6 +2491,7 @@
       "python-sqlalchemy",
       "python-waitress",
       "python-webhelpers",
+      "python-webob",
       "python-zope-sqlalchemy",
       "python2"
     ],
@@ -2492,15 +2503,15 @@
       ]
     },
     "rpms": {
-      "bodhi-client-2.4.0-3.fc27": {
+      "bodhi-client-2.5.0-1.fc27": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "bodhi-server-2.4.0-3.fc27": {
+      "bodhi-server-2.5.0-1.fc27": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-bodhi-2.4.0-3.fc27": {
+      "python2-bodhi-2.5.0-1.fc27": {
         "python(abi) = 2.7": 2
       }
     },
@@ -3091,10 +3102,10 @@
       "pytz"
     ],
     "rpms": {
-      "cassandra-3.9-5.fc26": {
+      "cassandra-3.9-7.fc27": {
         "/usr/bin/python": 2
       },
-      "cassandra-python2-cqlshlib-3.9-5.fc26": {
+      "cassandra-python2-cqlshlib-3.9-7.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -5107,7 +5118,7 @@
       "python3"
     ],
     "rpms": {
-      "dnfdragora-1.0.0-5.git20170322.798975a.fc27": {
+      "dnfdragora-1.0.0-6.git20170325.b8545aa.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -5326,6 +5337,7 @@
       "python2",
       "python3"
     ],
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "dreampie-1.1.1-14.fc26": {
         "/usr/bin/python": 2,
@@ -5337,7 +5349,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "driconf": {
     "deps": [
@@ -5454,6 +5466,7 @@
     "deps": [
       "dbus-python",
       "gnome-python2",
+      "gnome-python2-desktop",
       "notify-python",
       "pygobject2",
       "pygtk2",
@@ -5657,15 +5670,12 @@
   "enki": {
     "deps": [
       "pyparsing",
-      "python-docutils",
-      "python-markdown",
       "python-qt5",
       "python-qutepart",
-      "python-regex",
       "python3"
     ],
     "rpms": {
-      "enki-16.04.1-6.fc26": {
+      "enki-17.03.0-2.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3,
         "python3": 3,
@@ -7317,6 +7327,7 @@
   },
   "gcompris": {
     "deps": [
+      "gnome-python2-desktop",
       "pygtk2"
     ],
     "rpms": {
@@ -7345,11 +7356,12 @@
     ],
     "links": {
       "bug": [
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1213629",
-        "CLOSED NEXTRELEASE",
-        "2016-03-07 18:02:56"
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1437185",
+        "NEW",
+        "2017-03-29 17:16:21"
       ]
     },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "gdal-python-2.1.3-1.fc26": {
         "/usr/bin/python2": 2,
@@ -7362,7 +7374,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "gdb": {
     "deps": [],
@@ -7379,11 +7391,11 @@
       "python3"
     ],
     "rpms": {
-      "gdcm-python-2.6.5-7.fc26": {
+      "gdcm-python-2.6.5-8.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-gdcm-2.6.5-7.fc26": {
+      "python3-gdcm-2.6.5-8.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -7995,7 +8007,7 @@
   "globus-net-manager": {
     "deps": [],
     "rpms": {
-      "globus-net-manager-0.16-2.fc26": {
+      "globus-net-manager-0.16-3.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -8345,6 +8357,34 @@
       },
       "gnome-python2-gnomevfs-2.28.1-19.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
+        "python(abi) = 2.7": 2
+      }
+    },
+    "status": "idle"
+  },
+  "gnome-python2-desktop": {
+    "deps": [
+      "gnome-desktop",
+      "gnome-python2",
+      "python2"
+    ],
+    "rpms": {
+      "gnome-python2-gnomedesktop-2.32.0-26.fc27": {
+        "python(abi) = 2.7": 2
+      },
+      "gnome-python2-gnomekeyring-2.32.0-26.fc27": {
+        "python(abi) = 2.7": 2
+      },
+      "gnome-python2-libgtop2-2.32.0-26.fc27": {
+        "python(abi) = 2.7": 2
+      },
+      "gnome-python2-libwnck-2.32.0-26.fc27": {
+        "python(abi) = 2.7": 2
+      },
+      "gnome-python2-rsvg-2.32.0-26.fc27": {
+        "python(abi) = 2.7": 2
+      },
+      "gnome-python2-totem-2.32.0-26.fc27": {
         "python(abi) = 2.7": 2
       }
     },
@@ -9532,6 +9572,7 @@
     "deps": [
       "dbus-python",
       "gnome-python2",
+      "gnome-python2-desktop",
       "pygobject3",
       "python2",
       "pyxdg"
@@ -10021,6 +10062,7 @@
   },
   "icaro": {
     "deps": [
+      "gnome-python2-desktop",
       "pycairo",
       "pygtk2",
       "pygtksourceview",
@@ -10773,12 +10815,12 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "perf-4.11.0-0.rc4.git0.1.fc27": {
+      "perf-4.11.0-0.rc4.git1.1.fc27": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.11.0-0.rc4.git0.1.fc27": {
+      "python-perf-4.11.0-0.rc4.git1.1.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -11188,6 +11230,7 @@
   "kupfer": {
     "deps": [
       "dbus-python",
+      "gnome-python2-desktop",
       "keybinder",
       "pygtk2",
       "python-gdata",
@@ -11319,6 +11362,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436812",
+        "NEW",
+        "2017-03-28 17:53:10"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "dpm-python-1.9.0-4.fc26": {
         "libpython2.7.so.1.0()(64bit)": 2,
@@ -11337,7 +11388,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "lcm": {
     "deps": [
@@ -11410,6 +11461,7 @@
   "ldtp": {
     "deps": [
       "gnome-python2",
+      "gnome-python2-desktop",
       "pyatspi",
       "pygtk2",
       "pystatgrab",
@@ -12270,7 +12322,7 @@
       "python3"
     ],
     "rpms": {
-      "libreoffice-pyuno-1:5.3.2.1-1.fc27": {
+      "libreoffice-pyuno-1:5.3.2.1-3.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3,
         "python3(x86-64) = 3.6.1-1.fc27": 3
@@ -13599,6 +13651,7 @@
   "memaker": {
     "deps": [
       "gnome-python2",
+      "gnome-python2-desktop",
       "notify-python",
       "numpy",
       "python-pillow",
@@ -14645,7 +14698,7 @@
   "nfs-utils": {
     "deps": [],
     "rpms": {
-      "nfs-utils-1:2.1.1-2.rc1.fc26": {
+      "nfs-utils-1:2.1.1-3.rc1.fc27": {
         "/usr/bin/python3": 3
       }
     },
@@ -16740,13 +16793,13 @@
       "pygtksourceview"
     ],
     "rpms": {
-      "pluma-1.18.0-1.fc27": {
+      "pluma-1.18.0-2.fc27": {
         "pygobject2": 2,
         "pygobject2 = 2.28.6-17.fc26": 2,
         "pygtk2": 2,
         "pygtk2 = 2.24.0-16.fc26": 2
       },
-      "pluma-data-1.18.0-1.fc27": {
+      "pluma-data-1.18.0-2.fc27": {
         "/usr/bin/python": 2
       }
     },
@@ -17440,14 +17493,17 @@
   "pungi": {
     "deps": [
       "createrepo",
+      "dnf",
       "kobo",
       "koji",
       "libselinux",
       "lorax",
       "pykickstart",
+      "python-enum34",
       "python-jsonschema",
       "python-lockfile",
       "python-lxml",
+      "python-multilib",
       "python-productmd",
       "python2",
       "repoview",
@@ -17463,11 +17519,11 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "pungi-4.1.13-2.fc27": {
+      "pungi-4.1.14-1.fc27": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       },
-      "pungi-utils-4.1.13-2.fc27": {
+      "pungi-utils-4.1.14-1.fc27": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -18612,19 +18668,19 @@
       "python3"
     ],
     "rpms": {
-      "pylint-1.6.5-2.fc27": {
+      "python2-pylint-1.6.5-3.fc27": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "pylint-gui-1.6.5-2.fc27": {
+      "python2-pylint-gui-1.6.5-3.fc27": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-pylint-1.6.5-2.fc27": {
+      "python3-pylint-1.6.5-3.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       },
-      "python3-pylint-gui-1.6.5-2.fc27": {
+      "python3-pylint-gui-1.6.5-3.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -19239,6 +19295,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436813",
+        "NEW",
+        "2017-03-28 17:59:20"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "pystache-0.5.3-10.fc26": {
         "/usr/bin/python": 2,
@@ -19248,7 +19312,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "pystatgrab": {
     "deps": [
@@ -20923,6 +20987,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1437184",
+        "NEW",
+        "2017-03-29 17:16:18"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-aexpect-1.3.1-1.fc26": {
         "/usr/bin/python2": 2,
@@ -20932,7 +21004,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-affinity": {
     "deps": [
@@ -20983,7 +21055,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-aiohttp-2.0.3-1.fc27": {
+      "python3-aiohttp-2.0.4-1.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -22982,6 +23054,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436809",
+        "NEW",
+        "2017-03-28 17:46:23"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-bugzilla-2.0.0-1.fc26": {
         "/usr/bin/python2": 2,
@@ -22991,7 +23071,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-bugzilla2fedmsg": {
     "deps": [
@@ -27173,6 +27253,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436808",
+        "NEW",
+        "2017-03-28 17:43:25"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-docutils-0.13.1-4.fc26": {
         "/usr/bin/python2": 2,
@@ -27182,7 +27270,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-docx": {
     "deps": [
@@ -27222,6 +27310,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436807",
+        "NEW",
+        "2017-03-28 17:41:02"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-doit-0.28.0-7.fc26": {
         "/usr/bin/python": 2,
@@ -27231,7 +27327,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-dopy": {
     "deps": [
@@ -28220,6 +28316,14 @@
       "python3",
       "sympy"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436805",
+        "NEW",
+        "2017-03-28 17:38:41"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-fiat-1.6.0-7.fc26": {
         "/usr/bin/python2": 2,
@@ -28229,7 +28333,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-filelock": {
     "deps": [
@@ -29675,6 +29779,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1437183",
+        "NEW",
+        "2017-03-29 17:16:16"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-gearbox-0.1.1-4.fc26": {
         "/usr/bin/python": 2,
@@ -29684,7 +29796,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-gencpp": {
     "deps": [
@@ -30493,11 +30605,11 @@
       "python3"
     ],
     "rpms": {
-      "python2-gunicorn-19.6.0-4.fc26": {
+      "python2-gunicorn-19.7.1-1.fc27": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-gunicorn-19.6.0-4.fc26": {
+      "python3-gunicorn-19.7.1-1.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -31068,6 +31180,7 @@
       "python2",
       "python3"
     ],
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-igor-0.2-8.20150408git2c2a79d.fc26": {
         "/usr/bin/python2": 2,
@@ -31077,13 +31190,21 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-igraph": {
     "deps": [
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436803",
+        "NEW",
+        "2017-03-28 17:34:25"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-igraph-0.7.1.post6-6.fc26": {
         "/usr/bin/python2": 2,
@@ -31095,7 +31216,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-imagesize": {
     "deps": [
@@ -32085,6 +32206,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436800",
+        "NEW",
+        "2017-03-28 17:32:05"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-jsonschema-2.5.1-5.fc26": {
         "/usr/bin/python2": 2,
@@ -32094,7 +32223,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-junit_xml": {
     "deps": [
@@ -33502,11 +33631,12 @@
     ],
     "links": {
       "bug": [
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1329556",
-        "CLOSED ERRATA",
-        "2016-05-07 11:58:49"
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1437182",
+        "NEW",
+        "2017-03-29 17:15:56"
       ]
     },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-ly-0.9.5-1.fc26": {
         "/usr/bin/python2": 2,
@@ -33516,7 +33646,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-lyricwiki": {
     "deps": [
@@ -35581,6 +35711,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1437181",
+        "NEW",
+        "2017-03-29 17:15:52"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-ngram-3.3.0-9.fc26": {
         "/usr/bin/python2": 2,
@@ -35590,7 +35728,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-nibabel": {
     "deps": [
@@ -36722,7 +36860,7 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "python2-os-brick-1.6.1-3.fc26": {
+      "python2-os-brick-1.6.1-3.fc27": {
         "python(abi) = 2.7": 2
       }
     },
@@ -37039,10 +37177,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-oslo-i18n-3.14.0-1.fc27": {
+      "python2-oslo-i18n-3.15.0-1.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-oslo-i18n-3.14.0-1.fc27": {
+      "python3-oslo-i18n-3.15.0-1.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -37203,11 +37341,12 @@
     ],
     "links": {
       "bug": [
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1326864",
-        "CLOSED NEXTRELEASE",
-        "2016-04-22 12:28:56"
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1437180",
+        "NEW",
+        "2017-03-29 17:15:50"
       ]
     },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-oslo-policy-tests-1.14.0-3.fc26": {
         "python(abi) = 2.7": 2
@@ -37223,7 +37362,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-oslo-privsep": {
     "deps": [
@@ -37238,6 +37377,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1437179",
+        "MODIFIED",
+        "2017-03-30 13:03:23"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-oslo-privsep-1.13.0-1.fc26": {
         "/usr/bin/python2": 2,
@@ -37253,7 +37400,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-oslo-reports": {
     "deps": [
@@ -37314,6 +37461,14 @@
       "python3",
       "subunit"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1436797",
+        "NEW",
+        "2017-03-28 17:27:26"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-oslo-rootwrap-5.1.0-3.fc26": {
         "/usr/bin/python2": 2,
@@ -37329,7 +37484,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-oslo-serialization": {
     "deps": [
@@ -38086,6 +38241,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1437177",
+        "NEW",
+        "2017-03-29 17:15:15"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-pbr-2.0.0-1.fc27": {
         "/usr/bin/python": 2,
@@ -38095,7 +38258,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-pdfkit": {
     "deps": [
@@ -39455,6 +39618,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1432586",
+        "ASSIGNED",
+        "2017-03-17 14:53:53"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-py2neo-3.1.2-3.fc26": {
         "/usr/bin/python2": 2,
@@ -39464,7 +39635,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-py2pack": {
     "deps": [
@@ -40035,8 +40206,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1323256",
-        "ON_QA",
-        "2017-03-24 20:24:04"
+        "CLOSED ERRATA",
+        "2017-03-30 01:20:40"
       ]
     },
     "rpms": {
@@ -41762,23 +41933,23 @@
       "sip"
     ],
     "rpms": {
-      "python-qt5-5.8.1-1.fc27": {
+      "python-qt5-5.8.1-2.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python-qt5-webengine-5.8.1-1.fc27": {
+      "python-qt5-webengine-5.8.1-2.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python-qt5-webkit-5.8.1-1.fc27": {
+      "python-qt5-webkit-5.8.1-2.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-qt5-5.8.1-1.fc27": {
+      "python3-qt5-5.8.1-2.fc27": {
         "python(abi) = 3.6": 3
       },
-      "python3-qt5-webengine-5.8.1-1.fc27": {
+      "python3-qt5-webengine-5.8.1-2.fc27": {
         "python(abi) = 3.6": 3
       },
-      "python3-qt5-webkit-5.8.1-1.fc27": {
+      "python3-qt5-webkit-5.8.1-2.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -41851,7 +42022,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-qutepart-3.0.1-4.fc26": {
+      "python3-qutepart-3.0.1-5.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -43002,6 +43173,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1432570",
+        "NEW",
+        "2017-03-15 17:11:12"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-rosdep-0.11.4-7.fc26": {
         "/usr/bin/python2": 2,
@@ -43011,7 +43190,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-rosdistro": {
     "deps": [
@@ -43044,6 +43223,14 @@
       "python2",
       "python3"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1432565",
+        "NEW",
+        "2017-03-15 17:02:13"
+      ]
+    },
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-rosinstall-0.7.7-6.fc26": {
         "/usr/bin/python2": 2,
@@ -43053,7 +43240,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-rosinstall_generator": {
     "deps": [
@@ -48874,6 +49061,7 @@
       "python2",
       "python3"
     ],
+    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-whisper-0.10.0-0.3.rc1.fc26": {
         "/usr/bin/python2": 2,
@@ -48883,7 +49071,7 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "mispackaged"
   },
   "python-whitenoise": {
     "deps": [
@@ -54013,6 +54201,7 @@
     "deps": [
       "dbus-python",
       "gnome-python2",
+      "gnome-python2-desktop",
       "hippo-canvas",
       "pygtk2",
       "python-dateutil",
@@ -54898,7 +55087,7 @@
   "texworks": {
     "deps": [],
     "rpms": {
-      "texworks-0.6.1-8.fc26": {
+      "texworks-0.6.1-9.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2
       }
     },
@@ -54928,8 +55117,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1183877",
-        "ON_QA",
-        "2017-03-15 04:22:57"
+        "CLOSED ERRATA",
+        "2017-03-29 20:51:51"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -57184,8 +57373,7 @@
   },
   "vim-syntastic": {
     "deps": [
-      "pyflakes",
-      "pylint"
+      "pyflakes"
     ],
     "rpms": {
       "vim-syntastic-python-3.8.0-4.fc26": {
@@ -57621,6 +57809,7 @@
       "avahi",
       "dbus-python",
       "gnome-python2",
+      "gnome-python2-desktop",
       "pygtk2",
       "python-crypto",
       "python-netifaces",
