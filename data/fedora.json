@@ -22,8 +22,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1244234",
-        "CLOSED ERRATA",
-        "2016-11-19 21:11:02"
+        "NEW",
+        "2017-04-02 23:21:30"
       ]
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
@@ -419,23 +419,23 @@
       "sip"
     ],
     "rpms": {
-      "PyQt4-4.12-3.fc26": {
+      "PyQt4-4.12-4.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "PyQt4-assistant-4.12-3.fc26": {
+      "PyQt4-assistant-4.12-4.fc27": {
         "python(abi) = 2.7": 2
       },
-      "PyQt4-webkit-4.12-3.fc26": {
+      "PyQt4-webkit-4.12-4.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-PyQt4-4.12-3.fc26": {
+      "python3-PyQt4-4.12-4.fc27": {
         "python(abi) = 3.6": 3
       },
-      "python3-PyQt4-assistant-4.12-3.fc26": {
+      "python3-PyQt4-assistant-4.12-4.fc27": {
         "python(abi) = 3.6": 3
       },
-      "python3-PyQt4-webkit-4.12-3.fc26": {
+      "python3-PyQt4-webkit-4.12-4.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -1038,7 +1038,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "ailurus": {
     "deps": [
@@ -1212,7 +1215,7 @@
       "rpm"
     ],
     "rpms": {
-      "anaconda-core-27.2-1.fc27": {
+      "anaconda-core-27.3-1.fc27": {
         "/usr/bin/python3": 3,
         "/usr/libexec/system-python": 3,
         "libpython3.6m.so.1.0()(64bit)": 3,
@@ -1220,16 +1223,16 @@
         "python3-libs": 3,
         "python3-libs = 3.6.1-1.fc27": 3
       },
-      "anaconda-dracut-27.2-1.fc27": {
+      "anaconda-dracut-27.3-1.fc27": {
         "/usr/bin/python3": 3
       },
-      "anaconda-gui-27.2-1.fc27": {
+      "anaconda-gui-27.3-1.fc27": {
         "python(abi) = 3.6": 3
       },
-      "anaconda-tui-27.2-1.fc27": {
+      "anaconda-tui-27.3-1.fc27": {
         "python(abi) = 3.6": 3
       },
-      "anaconda-widgets-27.2-1.fc27": {
+      "anaconda-widgets-27.3-1.fc27": {
         "python(abi) = 3.6": 3,
         "python3": 3,
         "python3 = 3.6.1-1.fc27": 3
@@ -1534,7 +1537,7 @@
       "rpm"
     ],
     "rpms": {
-      "atomic-1.17.0-1.fc27": {
+      "atomic-1.17.0-2.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -1847,6 +1850,19 @@
       }
     },
     "status": "idle"
+  },
+  "avogadro2": {
+    "deps": [
+      "avogadro2-libs",
+      "python3"
+    ],
+    "rpms": {
+      "avogadro2-1.90.0-1.fc27": {
+        "python3": 3,
+        "python3 = 3.6.1-1.fc27": 3
+      }
+    },
+    "status": "released"
   },
   "avogadro2-libs": {
     "deps": [
@@ -2687,7 +2703,7 @@
       "python-btrfs"
     ],
     "rpms": {
-      "btrfs-heatmap-5-2.20170222git8c9b111.fc27": {
+      "btrfs-heatmap-6-1.fc27": {
         "/usr/bin/python3": 3
       }
     },
@@ -3399,10 +3415,10 @@
   "chromium": {
     "deps": [],
     "rpms": {
-      "chrome-remote-desktop-57.0.2987.110-3.fc27": {
+      "chrome-remote-desktop-57.0.2987.133-1.fc27": {
         "/usr/bin/python": 2
       },
-      "chromium-57.0.2987.110-3.fc27": {
+      "chromium-57.0.2987.133-1.fc27": {
         "/usr/bin/python": 2
       }
     },
@@ -3741,7 +3757,7 @@
       "python2"
     ],
     "rpms": {
-      "cockpit-docker-134-1.fc27": {
+      "cockpit-docker-137-1.fc27": {
         "python": 2,
         "python = 2.7.13-5.fc26": 2
       }
@@ -5090,20 +5106,19 @@
     "deps": [
       "dbus-python",
       "dnf",
-      "policycoreutils",
       "pygobject3",
       "python2",
       "python3"
     ],
     "rpms": {
-      "dnfdaemon-0.3.16-8.fc27": {
+      "dnfdaemon-0.3.16-11.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       },
-      "python-dnfdaemon-0.3.16-8.fc27": {
+      "python2-dnfdaemon-0.3.16-11.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-dnfdaemon-0.3.16-8.fc27": {
+      "python3-dnfdaemon-0.3.16-11.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -5117,7 +5132,7 @@
       "python3"
     ],
     "rpms": {
-      "dnfdragora-1.0.0-6.git20170325.b8545aa.fc27": {
+      "dnfdragora-1.0.0-8.git20170330.f30c75c.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -7373,7 +7388,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "gdb": {
     "deps": [],
@@ -8050,27 +8068,27 @@
       "pyxattr"
     ],
     "rpms": {
-      "glusterfs-events-3.10.0-1.fc27": {
+      "glusterfs-events-3.10.1-1.fc27": {
         "python2": 2,
         "python2 = 2.7.13-5.fc26": 2
       },
-      "glusterfs-extra-xlators-3.10.0-1.fc27": {
+      "glusterfs-extra-xlators-3.10.1-1.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2,
         "python2": 2,
         "python2 = 2.7.13-5.fc26": 2
       },
-      "glusterfs-ganesha-3.10.0-1.fc27": {
+      "glusterfs-ganesha-3.10.1-1.fc27": {
         "/usr/bin/python": 2
       },
-      "glusterfs-geo-replication-3.10.0-1.fc27": {
+      "glusterfs-geo-replication-3.10.1-1.fc27": {
         "python2": 2,
         "python2 = 2.7.13-5.fc26": 2
       },
-      "glusterfs-server-3.10.0-1.fc27": {
+      "glusterfs-server-3.10.1-1.fc27": {
         "/usr/bin/python": 2
       },
-      "python2-gluster-3.10.0-1.fc27": {
+      "python2-gluster-3.10.1-1.fc27": {
         "python(abi) = 2.7": 2,
         "python2": 2,
         "python2 = 2.7.13-5.fc26": 2
@@ -10814,12 +10832,12 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "perf-4.11.0-0.rc4.git2.1.fc27": {
+      "perf-4.11.0-0.rc4.git3.1.fc27": {
         "/usr/bin/python": 2,
         "/usr/bin/python2": 2,
         "libpython2.7.so.1.0()(64bit)": 2
       },
-      "python-perf-4.11.0-0.rc4.git2.1.fc27": {
+      "python-perf-4.11.0-0.rc4.git3.1.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       }
@@ -10950,7 +10968,7 @@
       ]
     },
     "rpms": {
-      "khal-0.9.3-1.fc27": {
+      "khal-0.9.4-1.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -11387,7 +11405,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "lcm": {
     "deps": [
@@ -12897,7 +12918,7 @@
   "lilypond": {
     "deps": [],
     "rpms": {
-      "lilypond-2.19.57-1.fc27": {
+      "lilypond-2.19.58-1.fc27": {
         "/usr/bin/python": 2
       }
     },
@@ -15130,8 +15151,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1300730",
-        "ON_QA",
-        "2017-03-14 03:21:20"
+        "CLOSED ERRATA",
+        "2017-04-01 16:59:53"
       ]
     },
     "rpms": {
@@ -19312,7 +19333,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "pystatgrab": {
     "deps": [
@@ -20991,7 +21015,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1437184",
         "NEW",
-        "2017-03-29 17:16:18"
+        "2017-03-31 19:00:33"
       ]
     },
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
@@ -21004,7 +21028,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-affinity": {
     "deps": [
@@ -21055,7 +21082,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-aiohttp-2.0.4-1.fc27": {
+      "python3-aiohttp-2.0.5-1.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -21525,7 +21552,7 @@
       "python2"
     ],
     "rpms": {
-      "python-application-1.4.1-5.fc26": {
+      "python2-application-2.1.0-1.fc27": {
         "python(abi) = 2.7": 2
       }
     },
@@ -23011,14 +23038,10 @@
   },
   "python-btrfs": {
     "deps": [
-      "python2",
       "python3"
     ],
     "rpms": {
-      "python2-btrfs-5-2.fc26": {
-        "python(abi) = 2.7": 2
-      },
-      "python3-btrfs-5-2.fc26": {
+      "python3-btrfs-6-1.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -23061,17 +23084,21 @@
         "2017-03-30 23:43:50"
       ]
     },
-    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
-      "python-bugzilla-2.0.0-1.fc26": {
-        "/usr/bin/python2": 2,
+      "python-bugzilla-2.1.0-1.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-bugzilla-2.0.0-1.fc26": {
+      "python-bugzilla-cli-2.1.0-1.fc27": {
+        "/usr/bin/python3": 3
+      },
+      "python3-bugzilla-2.1.0-1.fc27": {
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "released",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-bugzilla2fedmsg": {
     "deps": [
@@ -23301,11 +23328,11 @@
       ]
     },
     "rpms": {
-      "python2-cassandra-driver-3.8.1-2.fc27": {
+      "python2-cassandra-driver-3.8.1-3.fc27": {
         "libpython2.7.so.1.0()(64bit)": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-cassandra-driver-3.8.1-2.fc27": {
+      "python3-cassandra-driver-3.8.1-3.fc27": {
         "libpython3.6m.so.1.0()(64bit)": 3,
         "python(abi) = 3.6": 3
       }
@@ -27270,7 +27297,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-docx": {
     "deps": [
@@ -27327,7 +27357,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-dopy": {
     "deps": [
@@ -28333,7 +28366,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-filelock": {
     "deps": [
@@ -28753,10 +28789,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-flask-oidc-1.0.3-4.fc26": {
+      "python2-flask-oidc-1.1.1-1.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-flask-oidc-1.0.3-4.fc26": {
+      "python3-flask-oidc-1.1.1-1.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -29011,8 +29047,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1312334",
-        "NEW",
-        "2017-03-28 15:09:26"
+        "ON_QA",
+        "2017-04-02 00:51:31"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -29796,7 +29832,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-gencpp": {
     "deps": [
@@ -31216,7 +31255,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-imagesize": {
     "deps": [
@@ -32163,10 +32205,10 @@
       "python3"
     ],
     "rpms": {
-      "python-jsonpickle-0.9.3-3.fc26": {
+      "python2-jsonpickle-0.9.4-2.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-jsonpickle-0.9.3-3.fc26": {
+      "python3-jsonpickle-0.9.4-2.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -32223,7 +32265,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-junit_xml": {
     "deps": [
@@ -32863,7 +32908,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1333823",
         "CLOSED ERRATA",
-        "2017-03-29 01:30:46"
+        "2017-04-01 17:17:15"
       ]
     },
     "rpms": {
@@ -33646,7 +33691,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-lyricwiki": {
     "deps": [
@@ -35728,7 +35776,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-nibabel": {
     "deps": [
@@ -36366,10 +36417,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-oauth2client-3.0.0-4.fc26": {
+      "python2-oauth2client-4.0.0-2.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-oauth2client-3.0.0-4.fc26": {
+      "python3-oauth2client-4.0.0-2.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -36448,8 +36499,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1357690",
-        "ON_QA",
-        "2017-03-16 00:51:00"
+        "CLOSED ERRATA",
+        "2017-04-01 17:08:08"
       ]
     },
     "rpms": {
@@ -37378,7 +37429,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-oslo-privsep": {
     "deps": [
@@ -37400,23 +37454,26 @@
         "2017-03-30 18:53:55"
       ]
     },
-    "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
-      "python2-oslo-privsep-1.13.0-1.fc26": {
+      "python2-oslo-privsep-1.13.0-2.fc27": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python2-oslo-privsep-tests-1.13.0-1.fc26": {
+      "python2-oslo-privsep-tests-1.13.0-2.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-oslo-privsep-1.13.0-1.fc26": {
+      "python3-oslo-privsep-1.13.0-2.fc27": {
+        "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       },
-      "python3-oslo-privsep-tests-1.13.0-1.fc26": {
+      "python3-oslo-privsep-tests-1.13.0-2.fc27": {
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "released",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-oslo-reports": {
     "deps": [
@@ -37500,7 +37557,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-oslo-serialization": {
     "deps": [
@@ -38274,7 +38334,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-pdfkit": {
     "deps": [
@@ -39382,8 +39445,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1403303",
-        "ON_QA",
-        "2017-03-10 23:23:46"
+        "CLOSED ERRATA",
+        "2017-04-01 16:53:36"
       ]
     },
     "rpms": {
@@ -39638,7 +39701,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1432586",
         "CLOSED RAWHIDE",
-        "2017-03-30 18:49:02"
+        "2017-03-31 09:39:28"
       ]
     },
     "rpms": {
@@ -39650,7 +39713,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "released"
+    "status": "released",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-py2pack": {
     "deps": [
@@ -40222,7 +40288,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1323256",
         "CLOSED ERRATA",
-        "2017-03-30 01:20:40"
+        "2017-04-01 17:30:19"
       ]
     },
     "rpms": {
@@ -41236,10 +41302,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-pystray-0.14.2-1.fc27": {
+      "python2-pystray-0.14.3-1.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python3-pystray-0.14.2-1.fc27": {
+      "python3-pystray-0.14.3-1.fc27": {
         "python(abi) = 3.6": 3
       }
     },
@@ -43222,7 +43288,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-rosdistro": {
     "deps": [
@@ -43272,7 +43341,10 @@
         "python(abi) = 3.6": 3
       }
     },
-    "status": "mispackaged"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ]
   },
   "python-rosinstall_generator": {
     "deps": [
@@ -43999,8 +44071,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1309244",
-        "NEW",
-        "2017-03-31 09:10:23"
+        "ON_QA",
+        "2017-04-02 00:51:13"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -44220,14 +44292,13 @@
       "python-decorator",
       "python-designateclient",
       "python-dogpile-cache",
-      "python-heatclient",
+      "python-futures",
       "python-ipaddress",
       "python-ironicclient",
       "python-jmespath",
       "python-jsonpatch",
       "python-keystoneauth1",
       "python-keystoneclient",
-      "python-magnumclient",
       "python-munch",
       "python-netifaces",
       "python-neutronclient",
@@ -44246,11 +44317,11 @@
       ]
     },
     "rpms": {
-      "python2-shade-1.17.0-2.fc27": {
+      "python2-shade-1.18.1-1.fc27": {
         "/usr/bin/python2": 2,
         "python(abi) = 2.7": 2
       },
-      "python3-shade-1.17.0-2.fc27": {
+      "python3-shade-1.18.1-1.fc27": {
         "/usr/bin/python3": 3,
         "python(abi) = 3.6": 3
       }
@@ -47750,14 +47821,14 @@
   },
   "python-txamqp": {
     "deps": [
-      "python-twisted",
-      "python2"
+      "python2",
+      "thrift"
     ],
     "rpms": {
-      "python-txamqp-0.6.2-5.fc26": {
+      "python-txamqp-0.7.0-1.fc27": {
         "python(abi) = 2.7": 2
       },
-      "python-txamqp-thrift-0.6.2-5.fc26": {
+      "python-txamqp-thrift-0.7.0-1.fc27": {
         "python(abi) = 2.7": 2
       }
     },
@@ -51967,7 +52038,7 @@
       "yum-utils"
     ],
     "rpms": {
-      "retrace-server-1.16-4.fc26": {
+      "retrace-server-1.17.0-1.fc27": {
         "/usr/bin/python": 2,
         "python(abi) = 2.7": 2
       }
@@ -52220,7 +52291,6 @@
     "deps": [
       "GitPython",
       "koji",
-      "mock",
       "osbs",
       "osbs-client",
       "python-cccolutils",
@@ -52228,15 +52298,11 @@
       "python-pycurl",
       "python-six",
       "python2",
-      "rpm",
-      "rpmlint"
+      "rpm"
     ],
     "rpms": {
-      "pyrpkg-1.49-1.fc26": {
+      "python2-rpkg-1.49-2.fc27": {
         "python(abi) = 2.7": 2
-      },
-      "rpkg-1.49-1.fc26": {
-        "/usr/bin/python": 2
       }
     },
     "status": "idle"
@@ -55111,7 +55177,7 @@
   "texlive": {
     "deps": [],
     "rpms": {
-      "texlive-de-macro-6:svn26355.1.3-33.fc27.1": {
+      "texlive-de-macro-6:svn26355.1.3-34.fc27.1": {
         "/usr/bin/python": 2
       }
     },
@@ -55151,7 +55217,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1183877",
         "CLOSED ERRATA",
-        "2017-03-29 20:51:51"
+        "2017-04-01 17:04:49"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
