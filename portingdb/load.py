@@ -60,6 +60,7 @@ def _get_pkg(name, collection, info):
         'collection_ident': collection,
         'name': info.get('aka') or name,
         'status': info.get('status') or 'unknown',
+        'py2status': info.get('py2status') or 'unknown',
         'priority': info.get('priority') or 'unknown',
         'deadline': info.get('deadline', None),
         'note': info.get('note', None),
@@ -300,6 +301,7 @@ def load_from_directories(db, directories):
               key_columns=['group_ident', 'package_name'])
 
     queries.update_status_summaries(db)
+    queries.update_py2status_summaries(db)
     queries.update_group_closures(db)
 
     values = data_from_csv(directories, 'history')

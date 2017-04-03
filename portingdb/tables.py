@@ -98,6 +98,9 @@ class Package(TableBase):
     status = Column(
         Unicode(), ForeignKey(Status.ident), nullable=False,
         doc=u"Summarized status")
+    py2status = Column(
+        Unicode(), ForeignKey(Status.ident), nullable=True,
+        doc=u"Status of Python 2 subpackage")
 
     loc_python = Column(
         Integer(), nullable=True,
@@ -116,7 +119,9 @@ class Package(TableBase):
         'CollectionPackage',
         collection_class=mapped_collection(lambda cp: cp.collection.ident))
     status_obj = relationship(
-        'Status', backref=backref('packages'))
+        'Status', backref=backref('packages'), foreign_keys=[status])
+    py2status_obj = relationship(
+        'Status', backref=backref('py2packages'), foreign_keys=[py2status])
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.name)
@@ -210,6 +215,8 @@ class CollectionPackage(TableBase):
         doc=u"The package name, as it appears in this collection")
     status = Column(
         Unicode(), ForeignKey(Status.ident), nullable=False)
+    py2status = Column(
+        Unicode(), ForeignKey(Status.ident), nullable=True)
     priority = Column(
         Unicode(), ForeignKey(Priority.ident), nullable=False)
     deadline = Column(
@@ -227,7 +234,9 @@ class CollectionPackage(TableBase):
     collection = relationship(
         'Collection', backref=backref('collection_packages'))
     status_obj = relationship(
-        'Status', backref=backref('collection_packages'))
+        'Status', backref=backref('collection_packages'), foreign_keys=[status])
+    py2status_obj = relationship(
+        'Status', backref=backref('py2collection_packages'), foreign_keys=[py2status])
     priority_obj = relationship(
         'Priority', backref=backref('collection_packages'))
 

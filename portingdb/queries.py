@@ -78,7 +78,7 @@ def update_status_summaries(db):
     sti = aliased(tables.Status)
     sto = aliased(tables.Status)
     subquery = db.query(func.max(sti.rank).label('max'))
-    subquery = subquery.join(cp)
+    subquery = subquery.join(cp, cp.status == sti.ident)
     subquery = subquery.add_column(cp.package_name.label('package_name'))
     subquery = subquery.group_by('package_name')
     subquery = subquery.subquery()
@@ -119,6 +119,23 @@ def update_status_summaries(db):
     update = update.values(status='blocked')
     rv = db.execute(update)
     print(update, rv.rowcount)
+
+
+def update_py2status_summaries(db):
+    """Update per-package py2status."""
+
+    collection_package = tables.CollectionPackage
+    package = tables.Package
+
+    package_update = package.__table__.update()
+    update = package_update.values(
+        py2status=select(
+            [collection_package.py2status]
+        ).where(
+            # TODO: use status rank if update from upstream needed.
+            collection_package.py2status != 'unknown'
+        ).where(collection_package.package_name == package.name))
+    db.execute(update)
 
 
 def update_group_closures(db):

@@ -174,6 +174,17 @@ def set_status(result, pkgs, python_versions):
         else:
             result['status'] = 'idle'
 
+    set_py2status(result, pkg_by_version)
+
+
+def set_py2status(result, pkg_by_version):
+    """Check if Python 2 subpackages are correctly named."""
+    result['py2status'] = 'released'
+    for pkg in pkg_by_version[2]:
+        if pkg.name.startswith('python-') or pkg.name.endswith('-python'):
+            result['py2status'] = 'mispackaged'
+            break
+
 
 def format_rpm_name(pkg):
     if pkg.epoch:
