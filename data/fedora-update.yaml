@@ -178,13 +178,6 @@ gstreamer-python:
 gtk2: *devel-only
 international-time:
     dead-upstream: true
-kernel-tests:
-    status: released
-    links:
-        repo: https://pagure.io/kernel-tests.git
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1293015
-    note: |
-        [rodrigc](https://github.com/rodrigc) submitted fixes which where accepted upstream.
 krop:
     note: |
         Krop currently does not work with Python 3, therefore it is built with
@@ -320,11 +313,6 @@ pygtksourceview:
       [gtksourceview](https://admin.fedoraproject.org/pkgdb/package/rpms/gtksourceview/)
       uses GObject introspection, it has no own Python code and thus does not
       show up in PortingDB.
-PyKDE:
-    status: dropped
-    note: |
-      PyKDE 3.x is not maintained upstream any more;
-      please switch to `pykde4` when porting (or help package PyKDE 5).
 pyliblzma:
     status: dropped
     note: |
@@ -442,11 +430,6 @@ python-dateutil15:
     note: |
         This is an old version of the dateutil library.
         Replacement: `python-dateutil`
-python-django-celery:
-    status: dropped
-    note: |
-      The package is retired. The feature itself is included in django directly.
-      Suggested replacement: `python-django`
 python-django-dynamite:
     dead-upstream: true
     links:
@@ -483,11 +466,6 @@ python-django-staticfiles:
         part of Django (since 1.3) as `django.contrib.staticfiles`
     links:
         homepage: https://pypi.python.org/pypi/django-staticfiles/1.2.1
-python-docker-registry-core:
-    status: dropped
-    note: |
-        Obsoleted by `docker-distribution`, according to
-        [bugzilla](https://bugzilla.redhat.com/show_bug.cgi?id=1303168).
 python2-docs:
     status: dropped
     note: |
@@ -538,10 +516,6 @@ python-gdata:
     supported by this library.
 
     Suggested replacement: `google-api-python-client`
-python-geoclue:
-    status: dropped
-    note: |
-        `dead.package` says: Package is retired
 python-googlevoice:
     dead-upstream: true
     note: |
@@ -707,11 +681,6 @@ python-peak-rules:
     for upstream.  Note that python-peak-rules and its dependencies interact
     with some low-level pieces of python so porting work is different than
     other packages.
-python-prioritized_methods:
-  status: dropped
-  note: |
-    See the notes for [python-peak-rules](http://fedora.portingdb.xyz/pkg/python-peak-rules/)
-    which this depends upon.
 python-pydns:
   status: dropped
   note: |
@@ -739,16 +708,6 @@ python-subprocess32:
     note: |
       This is a backport of the subprocess module in python-3.2 to python2.
       For python3 code, just use subprocess from the stdlib.
-python-tempest-lib:
-    status: dropped
-    note: |
-        From the [upstream Github page](https://github.com/openstack/tempest-lib):
-
-        *As of the 1.0.0 release tempest-lib as a separate repository and
-        project is deprecated. The library now exists as part of the tempest
-        project, all future development will occur there. To use the library
-        for future releases update your imports from tempest_lib to
-        tempest.lib, and add tempest>=10 to your project requirements.*
 python-tgcaptcha2:
     status: blocked
     note: |
@@ -858,11 +817,6 @@ python2-typing:
     note: |
         The `typing` module is part of the standard library in Python 3.5+;
         no need for this backport there.
-PyQt:
-    status: dropped
-    note: |
-      PyQt 3.x is not maintained upstream any more;
-      please switch to `PyQt4` or `python-qt5` when porting.
 pyutil: *pyutil-zbase32-cycle
 pywebkitgtk:
     status: dropped
@@ -881,9 +835,6 @@ pywebkitgtk:
         [An example] that works with Python 3 is provided on the GTK wiki.
 
         [An example]: https://wiki.gnome.org/Projects/WebKitGtk/ProgrammingGuide/Bindings-libnotify
-skeinforge: &skeinforge
-  status: dropped
-sfact: *skeinforge
 subunit:
     nonblocking: true
     note: |
