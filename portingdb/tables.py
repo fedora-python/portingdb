@@ -98,10 +98,6 @@ class Package(TableBase):
     status = Column(
         Unicode(), ForeignKey(Status.ident), nullable=False,
         doc=u"Summarized status")
-    py2status = Column(
-        Unicode(), ForeignKey(Status.ident), nullable=True,
-        doc=u"Status of Python 2 subpackage")
-
     loc_python = Column(
         Integer(), nullable=True,
         doc="Approximate number of Python lines of code")
@@ -119,9 +115,7 @@ class Package(TableBase):
         'CollectionPackage',
         collection_class=mapped_collection(lambda cp: cp.collection.ident))
     status_obj = relationship(
-        'Status', backref=backref('packages'), foreign_keys=[status])
-    py2status_obj = relationship(
-        'Status', backref=backref('py2packages'), foreign_keys=[py2status])
+        'Status', backref=backref('packages'))
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.name)
@@ -215,8 +209,6 @@ class CollectionPackage(TableBase):
         doc=u"The package name, as it appears in this collection")
     status = Column(
         Unicode(), ForeignKey(Status.ident), nullable=False)
-    py2status = Column(
-        Unicode(), ForeignKey(Status.ident), nullable=True)
     priority = Column(
         Unicode(), ForeignKey(Priority.ident), nullable=False)
     deadline = Column(
@@ -227,6 +219,8 @@ class CollectionPackage(TableBase):
     nonblocking = Column(
         Boolean(), default=False,
         doc=u"If true, does not block dependent packages (even if it's marked as unported)")
+    is_misnamed = Column(
+        Boolean(), doc=u"True if the package does not follow the naming policy")
 
     package = relationship(
         'Package',
@@ -234,9 +228,7 @@ class CollectionPackage(TableBase):
     collection = relationship(
         'Collection', backref=backref('collection_packages'))
     status_obj = relationship(
-        'Status', backref=backref('collection_packages'), foreign_keys=[status])
-    py2status_obj = relationship(
-        'Status', backref=backref('py2collection_packages'), foreign_keys=[py2status])
+        'Status', backref=backref('collection_packages'))
     priority_obj = relationship(
         'Priority', backref=backref('collection_packages'))
 
@@ -279,6 +271,8 @@ class RPM(TableBase):
         ForeignKey(CollectionPackage.id), nullable=False)
     rpm_name = Column(
         Unicode(), index=True, nullable=False)
+    is_misnamed = Column(
+        Boolean(), doc=u"True if the package does not follow the naming policy")
 
     collection_package = relationship(
         'CollectionPackage', backref=backref('rpms', order_by=rpm_name))

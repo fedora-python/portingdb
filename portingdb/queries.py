@@ -121,20 +121,17 @@ def update_status_summaries(db):
     print(update, rv.rowcount)
 
 
-def update_py2status_summaries(db):
-    """Update per-package py2status."""
+def update_naming_summaries(db):
+    """Update per-package is_misnamed attribute."""
 
     collection_package = tables.CollectionPackage
-    package = tables.Package
 
-    package_update = package.__table__.update()
-    update = package_update.values(
-        py2status=select(
-            [collection_package.py2status]
-        ).where(
-            # TODO: use status rank if update from upstream needed.
-            collection_package.py2status != 'unknown'
-        ).where(collection_package.package_name == package.name))
+    cp_update = collection_package.__table__.update()
+    update = cp_update.values(
+        is_misnamed=select(
+            [collection_package.rpms.any(is_misnamed=True)])
+    ).where(
+        collection_package.is_misnamed.is_(None))
     db.execute(update)
 
 

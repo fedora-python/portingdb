@@ -174,16 +174,31 @@ def set_status(result, pkgs, python_versions):
         else:
             result['status'] = 'idle'
 
-    set_py2status(result, pkg_by_version)
+    check_naming_policy(result, pkg_by_version, name_by_version)
 
 
-def set_py2status(result, pkg_by_version):
+def check_naming_policy(result, pkg_by_version, name_by_version):
     """Check if Python 2 subpackages are correctly named."""
-    result['py2status'] = 'released'
     for pkg in pkg_by_version[2]:
-        if pkg.name.startswith('python-') or pkg.name.endswith('-python'):
-            result['py2status'] = 'mispackaged'
-            break
+        # Unversioned python is used in package name (e.g. python-foo).
+        unversioned_prefix = (
+            pkg.name.startswith('python-') or
+            '-python-' in pkg.name or
+            pkg.name.endswith('-python'))
+
+        # Missing python2- prefix (e.g. foo and python3-foo).
+        missing_prefix = (
+            'python' not in pkg.name and
+            # There is a python3-foo package.
+            ('python3-{}'.format(pkg.name) in name_by_version[3] or
+             '{}-python3'.format(pkg.name) in name_by_version[3]) and
+            # There is no python2-foo package.
+            ('python2-{}'.format(pkg.name) not in name_by_version[2] and
+             '{}-python2'.format(pkg.name) not in name_by_version[2]))
+
+        if unversioned_prefix or missing_prefix:
+            rpm_name = format_rpm_name(pkg)
+            result['rpms'].get(rpm_name, {})['is_misnamed'] = True
 
 
 def format_rpm_name(pkg):
@@ -267,10 +282,10 @@ class Py3QueryCommand(dnf.cli.Command):
         for name in progressbar(by_srpm_name, 'Generating output'):
             pkgs = sorted(by_srpm_name[name])
             r = json_output[name] = {}
-            set_status(r, pkgs, python_versions)
             r['rpms'] = {format_rpm_name(p):
-                         {str(d): dep_versions[d] for d in rpm_pydeps[p]}
+                         {'py_deps': {str(d): dep_versions[d] for d in rpm_pydeps[p]}}
                         for p in pkgs}
+            set_status(r, pkgs, python_versions)
             r['deps'] = sorted(set(srpm_names[d]
                                    for p in pkgs
                                    for d in deps_of_pkg.get(p, '')

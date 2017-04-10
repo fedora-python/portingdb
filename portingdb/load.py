@@ -60,7 +60,7 @@ def _get_pkg(name, collection, info):
         'collection_ident': collection,
         'name': info.get('aka') or name,
         'status': info.get('status') or 'unknown',
-        'py2status': info.get('py2status') or 'unknown',
+        'is_misnamed': info.get('is_misnamed'),
         'priority': info.get('priority') or 'unknown',
         'deadline': info.get('deadline', None),
         'note': info.get('note', None),
@@ -251,8 +251,10 @@ def load_from_directories(db, directories):
 
         # RPMs
         values = [{'collection_package_id': col_package_map[k, collection],
-                   'rpm_name': n}
-                  for k, v in package_infos.items() for n in v.get('rpms', ())]
+                   'rpm_name': rpm_name,
+                   'is_misnamed': rpm_data.get('is_misnamed')}
+                  for k, v in package_infos.items()
+                  for rpm_name, rpm_data in v.get('rpms', {}).items()]
         rpm_ids = bulk_load(db, values, tables.RPM.__table__,
                   key_columns=['collection_package_id', 'rpm_name'])
 
@@ -268,7 +270,7 @@ def load_from_directories(db, directories):
         values = [(('name', n), ('py_version', p))
                   for k, v in package_infos.items()
                   for rn, r in get_rpms(v)
-                  for n, p in r.items()]
+                  for n, p in r['py_deps'].items()]
         values = list(dict(p) for p in set(values))
         bulk_load(db, values, tables.PyDependency.__table__,
                   id_column='name')
@@ -278,7 +280,7 @@ def load_from_directories(db, directories):
                    'py_dependency_name': n}
                   for k, v in package_infos.items()
                   for rn, r in get_rpms(v)
-                  for n in r]
+                  for n in r['py_deps']]
         bulk_load(db, values, tables.RPMPyDependency.__table__,
                   key_columns=['rpm_id', 'py_dependency_name'])
 
@@ -301,7 +303,7 @@ def load_from_directories(db, directories):
               key_columns=['group_ident', 'package_name'])
 
     queries.update_status_summaries(db)
-    queries.update_py2status_summaries(db)
+    queries.update_naming_summaries(db)
     queries.update_group_closures(db)
 
     values = data_from_csv(directories, 'history')
