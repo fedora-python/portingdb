@@ -216,6 +216,33 @@
                 Individual package pages list the RPM
                 versions this report is based on.
             </div>
+            <h2>Naming Policy</h2>
+            <div class="progress">
+                {% for status, count in naming_progress %}
+                <div
+                    class="progress-bar" role="progressbar"
+                    aria-valuenow="{{ count }}"
+                    aria-valuemin="0" aria-valuemax="{{ total_pkg_count }}"
+                    style="width: {{ 100 * count / total_pkg_count }}%;
+                           background-color: #{{ status.color }} !important;
+                           color: black;">
+                    {{ count }}
+                    {{ status.term }}
+                </div>
+                {% endfor %}
+            </div>
+            <div>Tracking packages which do not comply with <a href="https://fedoraproject.org/wiki/Packaging:Naming?rd=Packaging:NamingGuidelines#Python_source_package_naming" target="_blank">Python package naming guidelines</a></div>
+            <ul class="list-group">
+                {% for status, count in naming_progress %}
+                <li class="list-group-item">
+                    {% if status.url %}<a href="{{url_for(status.url) }}#misnamed">{% endif %}
+                    {{ count }}
+                    <strong>{{ status.name }}</strong>
+                    {% if status.url %}</a>{% endif %}
+                    <div><small>{{ status.description }}</small></div>
+                </li>
+                {% endfor %}
+            </ul>
             <h2>Where Porting Happens</h2>
             {% for col in collections %}
                 {% set total = coll_info[col]['total'] %}

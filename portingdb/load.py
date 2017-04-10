@@ -270,7 +270,7 @@ def load_from_directories(db, directories):
         values = [(('name', n), ('py_version', p))
                   for k, v in package_infos.items()
                   for rn, r in get_rpms(v)
-                  for n, p in r['py_deps'].items()]
+                  for n, p in r.get('py_deps', {}).items()]
         values = list(dict(p) for p in set(values))
         bulk_load(db, values, tables.PyDependency.__table__,
                   id_column='name')
@@ -280,7 +280,7 @@ def load_from_directories(db, directories):
                    'py_dependency_name': n}
                   for k, v in package_infos.items()
                   for rn, r in get_rpms(v)
-                  for n in r['py_deps']]
+                  for n in r.get('py_deps', {})]
         bulk_load(db, values, tables.RPMPyDependency.__table__,
                   key_columns=['rpm_id', 'py_dependency_name'])
 

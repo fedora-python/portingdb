@@ -1,4 +1,4 @@
-from collections import OrderedDict, Counter
+from collections import OrderedDict, Counter, namedtuple
 import random
 import functools
 import json
@@ -82,6 +82,14 @@ def hello():
     ready = ready.options(subqueryload('requirers'))
     ready = queries.order_by_name(db, ready)
 
+    # Naming policy tracking.
+    query = db.query(tables.CollectionPackage.is_misnamed,
+                     func.count(tables.CollectionPackage.name))
+    query = query.filter(tables.CollectionPackage.collection_ident == 'fedora')
+    query = query.group_by(tables.CollectionPackage.is_misnamed)
+    naming_info = dict(query)
+    naming_progress = get_naming_progress_info(naming_info[False], naming_info[True])
+
     active = list(active)
     done = list(done)
     ready = list(ready)
@@ -146,6 +154,7 @@ def hello():
         hidden_groups=hidden_groups,
         nonblocking=nonblocking,
         the_score=the_score,
+        naming_progress=naming_progress,
     )
 
 
@@ -156,6 +165,15 @@ def get_groups(db, query):
         pd = groups.setdefault(group, OrderedDict())
         pd[status] = pd.get(status, 0) + count
     return groups
+
+
+def get_naming_progress_info(correct_count, misnamed_count):
+    NameStatus = namedtuple('NameStatus', 'name color term url description')
+    return (
+        (NameStatus(name='Correct', color='d9d9d9', term='✔', url=None,
+                    description='Correctly named packages'), correct_count),
+        (NameStatus(name='Misnamed', color='F0AD4E', term='×', url='namingpolicy',
+                    description='Packages that do not follow the naming policy'), misnamed_count))
 
 
 def jsonstats():
@@ -729,6 +747,49 @@ def mispackaged():
         mispackaged=mispackaged,
     )
 
+
+def namingpolicy():
+    """Naming policy tracking.
+    """
+    db = current_app.config['DB']()
+    query = db.query(tables.Package)
+    total_packages = query.count()
+    query = query.join(tables.CollectionPackage)
+    query = query.filter(tables.CollectionPackage.collection_ident == 'fedora')
+    query = query.filter(tables.CollectionPackage.is_misnamed.is_(True))
+    total_misnamed = query.count()
+    total_correct = total_packages - total_misnamed
+
+    # Progress bar info.
+    progress = get_naming_progress_info(total_correct, total_misnamed)
+
+    # Statuses with number of packages
+    statuses = OrderedDict(
+        db.query(tables.Status, func.count(tables.Package.name))
+        .outerjoin(tables.Status.packages)
+        .join(tables.CollectionPackage)
+        .filter(tables.CollectionPackage.collection_ident == 'fedora')
+        .filter(tables.CollectionPackage.is_misnamed.is_(True))
+        .group_by(tables.Status.ident)
+        .order_by(tables.Status.order))
+
+    misnamed = {}
+    for status in statuses:
+        misnamed[status.ident] = query.filter(tables.Package.status == status.ident).all()
+
+    return render_template(
+        'namingpolicy.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('namingpolicy'), 'Naming Policy'),
+        ),
+        misnamed=misnamed,
+        total_packages=total_packages,
+        progress=progress,
+        statuses=statuses,
+    )
+
+
 def format_quantity(num):
     for prefix in ' KMGT':
         if num > 1000:
@@ -816,6 +877,7 @@ def create_app(db_url, cache_config=None):
     _add_route("/by_loc/", by_loc, get_keys={'sort', 'reverse'})
     _add_route("/by_loc/grp/<grp>/", group_by_loc, get_keys={'sort', 'reverse'})
     _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
+    _add_route("/namingpolicy/", namingpolicy)
     _add_route("/history/", history, get_keys={'expand'})
     _add_route("/history/data.csv", history_csv)
     _add_route("/howto/", howto)

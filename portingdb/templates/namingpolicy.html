@@ -1,0 +1,55 @@
+{% extends "_base.html" %}
+
+{% block titlecontent -%}
+    Misnamed Packages – {{ super() }}
+{%- endblock titlecontent %}
+
+{% block bodycontent %}
+
+<div class="container">
+    <div class="col-md-8">
+        <h1>Naming Policy Violations</h1>
+    </div>
+    <div class="col-md-12">
+        {{ progress_summary(progress, total_packages) }}
+    </div>
+    <div class="col-md-12">
+        <p>
+            This is a dashboard to track packages which do not comply with 
+            <a
+               href="https://fedoraproject.org/wiki/Packaging:Naming?rd=Packaging:NamingGuidelines#Python_source_package_naming" 
+               target="_blank">Python package naming guidelines</a>.
+            These packages are to follow the new guidelines before 2020 / Fedora 29,
+            when Python 2 is no longer supported.
+        </p>
+        <h2 id="misnamed">Misnamed Packages</h2>
+    </div>
+    <div class="col-md-9">
+        {% for status in statuses %}
+        <h4 id="{{ status.ident }}">
+            {{ statuses[status] }} misnamed packages with <strong>{{ status.name }}</strong> status
+        </h4>
+        <div>
+           {% for pkg in misnamed[status.ident] %}
+                {{ pkglink(pkg) }}
+           {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-3">
+        <h3>By Status</h3>
+        <ul class="list-group">
+            {% for status in statuses %}
+            <li class="list-group-item">
+                {{ minibadge(status) }}
+                <a href="#{{ status.ident }}">
+                    {{ statuses[status] }}
+                    <strong>{{ status.name }}</strong>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock bodycontent %}

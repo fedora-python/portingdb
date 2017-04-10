@@ -59,6 +59,12 @@
                             {% for rpm in pc.rpms %}
                                 <li>
                                     {{ rpm.rpm_name | format_rpm_name }}
+                                    {% if rpm.is_misnamed %}
+                                    <span class="badge"
+                                          style="background-color: #F0AD4E !important;"
+                                          title="The RPM name does not comply with Python package naming guidelines"
+                                    >x</span>
+                                    {% endif %}
                                     <ul class="fa-ul">
                                         {% for pydep in rpm.py_dependencies %}
                                             <li>
