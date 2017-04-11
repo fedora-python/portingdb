@@ -88,7 +88,8 @@ def hello():
     query = query.filter(tables.CollectionPackage.collection_ident == 'fedora')
     query = query.group_by(tables.CollectionPackage.is_misnamed)
     naming_info = dict(query)
-    naming_progress = get_naming_progress_info(naming_info[False], naming_info[True])
+    naming_progress = get_naming_progress_info(naming_info.get(False, 0),
+                                               naming_info.get(True, 0))
 
     active = list(active)
     done = list(done)
