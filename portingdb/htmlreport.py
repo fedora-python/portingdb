@@ -168,8 +168,10 @@ def get_groups(db, query):
     return groups
 
 
+NameStatus = namedtuple('NameStatus', 'name color term url description')
+
+
 def get_naming_progress_info(correct_count, misnamed_count):
-    NameStatus = namedtuple('NameStatus', 'name color term url description')
     return (
         (NameStatus(name='Correct', color='d9d9d9', term='✔', url=None,
                     description='Correctly named packages'), correct_count),
