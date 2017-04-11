@@ -177,6 +177,12 @@ def set_status(result, pkgs, python_versions):
     check_naming_policy(result, pkg_by_version, name_by_version)
 
 
+def has_pythonX_package(pkg, name_by_version, version):
+    """Check whether pythonX-foo or foo-pythonX exists."""
+    return ('python{}-{}'.format(version, pkg.name) in name_by_version[version] or
+            '{}-python{}'.format(pkg.name, version) in name_by_version[version])
+
+
 def check_naming_policy(result, pkg_by_version, name_by_version):
     """Check if Python 2 subpackages are correctly named."""
     for pkg in pkg_by_version[2]:
@@ -189,12 +195,9 @@ def check_naming_policy(result, pkg_by_version, name_by_version):
         # Missing python2- prefix (e.g. foo and python3-foo).
         missing_prefix = (
             'python' not in pkg.name and
-            # There is a python3-foo package.
-            ('python3-{}'.format(pkg.name) in name_by_version[3] or
-             '{}-python3'.format(pkg.name) in name_by_version[3]) and
-            # There is no python2-foo package.
-            ('python2-{}'.format(pkg.name) not in name_by_version[2] and
-             '{}-python2'.format(pkg.name) not in name_by_version[2]))
+            has_pythonX_package(pkg, name_by_version, 3) and
+            not has_pythonX_package(pkg, name_by_version, 2)
+        )
 
         if unversioned_prefix or missing_prefix:
             rpm_name = format_rpm_name(pkg)
