@@ -216,11 +216,12 @@ def load_from_directories(db, directories):
         bulk_load(db, values, tables.Package.__table__, id_column="name")
 
         # Dependencies
-        values = [{'requirer_name': a, 'requirement_name': b}
+        values = [{'requirer_name': a, 'requirement_name': b,
+                   'requires_misnamed': b in v.get('misnamed_deps', ())}
                   for a, v in package_infos.items() for b in v.get('deps', ())
                   if a != b]
         bulk_load(db, values, tables.Dependency.__table__,
-                  key_columns=['requirer_name', 'requirement_name'])
+                  key_columns=['requirer_name', 'requirement_name', 'requires_misnamed'])
 
         # CollectionPackages
         values = [_get_pkg(k, collection, v) for k, v in package_infos.items()]
