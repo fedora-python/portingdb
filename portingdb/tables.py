@@ -248,6 +248,9 @@ class Dependency(TableBase):
     requirement_name = Column(
         Unicode(), ForeignKey(Package.name), index=True, nullable=False,
         doc=u"The package that is depended upon")
+    unversioned = Column(
+        Boolean(), default=False,
+        doc=u"True if the requirement name should be changed to a versioned one")
 
     requirer = relationship(
         'Package', backref=backref('requirement_dependencies'),

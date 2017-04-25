@@ -216,9 +216,19 @@ def load_from_directories(db, directories):
         bulk_load(db, values, tables.Package.__table__, id_column="name")
 
         # Dependencies
-        values = [{'requirer_name': a, 'requirement_name': b}
+        values = [{'requirer_name': a, 'requirement_name': b, 'unversioned': False}
                   for a, v in package_infos.items() for b in v.get('deps', ())
                   if a != b]
+        for requirement, info in package_infos.items():
+            for requirer in info.get('unversioned_requirers', ()):
+                row = {'requirer_name': requirer,
+                       'requirement_name': requirement,
+                       'unversioned': False}
+                if row in values:
+                    values.remove(row)
+                row['unversioned'] = True
+                values.append(row)
+
         bulk_load(db, values, tables.Dependency.__table__,
                   key_columns=['requirer_name', 'requirement_name'])
 

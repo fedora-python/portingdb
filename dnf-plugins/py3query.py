@@ -177,29 +177,30 @@ def set_status(result, pkgs, python_versions):
     check_naming_policy(result, pkg_by_version, name_by_version)
 
 
-def has_pythonX_package(pkg, name_by_version, version):
+def has_pythonX_package(pkg_name, name_by_version, version):
     """Check whether pythonX-foo or foo-pythonX exists."""
-    return ('python{}-{}'.format(version, pkg.name) in name_by_version[version] or
-            '{}-python{}'.format(pkg.name, version) in name_by_version[version])
+    return ('python{}-{}'.format(version, pkg_name) in name_by_version[version] or
+            '{}-python{}'.format(pkg_name, version) in name_by_version[version])
+
+
+def is_unversioned(name):
+    """Check whether unversioned python is used in name (e.g. python-foo)."""
+    return (
+        name.startswith('python-') or
+        '-python-' in name or
+        name.endswith('-python'))
 
 
 def check_naming_policy(result, pkg_by_version, name_by_version):
     """Check if Python 2 subpackages are correctly named."""
     for pkg in pkg_by_version[2]:
-        # Unversioned python is used in package name (e.g. python-foo).
-        unversioned_prefix = (
-            pkg.name.startswith('python-') or
-            '-python-' in pkg.name or
-            pkg.name.endswith('-python'))
-
         # Missing python2- prefix (e.g. foo and python3-foo).
         missing_prefix = (
             'python' not in pkg.name and
-            has_pythonX_package(pkg, name_by_version, 3) and
-            not has_pythonX_package(pkg, name_by_version, 2)
+            has_pythonX_package(pkg.name, name_by_version, 3) and
+            not has_pythonX_package(pkg.name, name_by_version, 2)
         )
-
-        if unversioned_prefix or missing_prefix:
+        if is_unversioned(pkg.name) or missing_prefix:
             rpm_name = format_rpm_name(pkg)
             result['rpms'].get(rpm_name, {})['is_misnamed'] = True
 
@@ -270,7 +271,8 @@ class Py3QueryCommand(dnf.cli.Command):
 
         # deps_of_pkg: {package: set of packages}
         deps_of_pkg = collections.defaultdict(set)
-        all_provides = {str(r): r for p in python_versions for r in p.provides
+        # all_provides: {provide_name: package}
+        all_provides = {str(r).split()[0]: p for p in python_versions for r in p.provides
                         if not str(r).startswith(PROVIDES_BLACKLIST)}
         for pkg in progressbar(sorted(python_versions.keys()), 'Getting requirements'):
             reqs = set()
@@ -280,6 +282,19 @@ class Py3QueryCommand(dnf.cli.Command):
                 if req in python_versions.keys():
                     deps_of_pkg[req].add(pkg)
 
+        wrong_requirers = self.pkg_query.filter(
+            requires__glob=['python-*', '[!/]*-python-*', '[!/]*-python'])
+        # unversioned_requirers: {srpm_name: set of srpm_names}
+        unversioned_requirers = collections.defaultdict(set)
+        for pkg in progressbar(wrong_requirers, 'Getting unversioned requirers'):
+            for require in pkg.requires + pkg.requires_pre:
+                require = str(require).split()[0]
+                requirement = all_provides.get(require)
+                if is_unversioned(require) and requirement:
+                    requirement_srpm_name = hawkey.split_nevra(requirement.sourcerpm).name
+                    requirer_srpm_name = hawkey.split_nevra(pkg.sourcerpm).name
+                    unversioned_requirers[requirement_srpm_name].add(requirer_srpm_name)
+
         # deps_of_pkg: {srpm name: info}
         json_output = dict()
         for name in progressbar(by_srpm_name, 'Generating output'):
@@ -287,12 +302,15 @@ class Py3QueryCommand(dnf.cli.Command):
             r = json_output[name] = {}
             r['rpms'] = {format_rpm_name(p):
                          {'py_deps': {str(d): dep_versions[d] for d in rpm_pydeps[p]}}
-                        for p in pkgs}
+                         for p in pkgs}
             set_status(r, pkgs, python_versions)
+
             r['deps'] = sorted(set(srpm_names[d]
                                    for p in pkgs
                                    for d in deps_of_pkg.get(p, '')
                                    if srpm_names[d] != name))
+            if unversioned_requirers.get(name):
+                r['unversioned_requirers'] = sorted(unversioned_requirers[name])
 
         # add Bugzilla links
         if self.opts.fetch_bugzilla:
