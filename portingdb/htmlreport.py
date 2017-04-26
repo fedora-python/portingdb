@@ -83,13 +83,13 @@ def hello():
     ready = queries.order_by_name(db, ready)
 
     # Naming policy tracking.
-    query = db.query(tables.CollectionPackage.is_misnamed,
-                     func.count(tables.CollectionPackage.name))
+    query = db.query(tables.NamingData, func.count(tables.CollectionPackage.name))
+    query = query.join(
+        tables.CollectionPackage,
+        tables.NamingData.misnamed == tables.CollectionPackage.is_misnamed)
     query = query.filter(tables.CollectionPackage.collection_ident == 'fedora')
     query = query.group_by(tables.CollectionPackage.is_misnamed)
-    naming_info = dict(query)
-    naming_progress = get_naming_progress_info(naming_info.get(False, 0),
-                                               naming_info.get(True, 0))
+    naming_progress = list(query)
 
     active = list(active)
     done = list(done)
@@ -166,17 +166,6 @@ def get_groups(db, query):
         pd = groups.setdefault(group, OrderedDict())
         pd[status] = pd.get(status, 0) + count
     return groups
-
-
-NameStatus = namedtuple('NameStatus', 'name color term url description')
-
-
-def get_naming_progress_info(correct_count, misnamed_count):
-    return (
-        (NameStatus(name='Correct', color='d9d9d9', term='✔', url=None,
-                    description='Correctly named packages'), correct_count),
-        (NameStatus(name='Misnamed', color='F0AD4E', term='×', url='namingpolicy',
-                    description='Packages that do not follow the naming policy'), misnamed_count))
 
 
 def jsonstats():
@@ -755,30 +744,39 @@ def namingpolicy():
     """Naming policy tracking.
     """
     db = current_app.config['DB']()
-    query = db.query(tables.Package)
-    total_packages = query.count()
-    query = query.join(tables.CollectionPackage)
-    query = query.filter(tables.CollectionPackage.collection_ident == 'fedora')
-    query = query.filter(tables.CollectionPackage.is_misnamed.is_(True))
-    total_misnamed = query.count()
+    all_packages = db.query(tables.Package)
+    misnamed_package_names = (
+        db.query(tables.Package.name)
+        .join(tables.CollectionPackage)
+        .filter(tables.CollectionPackage.collection_ident == 'fedora')
+        .filter(tables.CollectionPackage.is_misnamed.is_(True)))
+
+    misnamed_packages = all_packages.filter(
+        tables.Package.name.in_(misnamed_package_names))
+
+    # Misnamed packages in numbers.
+    total_packages = all_packages.count()
+    total_misnamed = misnamed_packages.count()
     total_correct = total_packages - total_misnamed
 
-    # Progress bar info.
-    progress = get_naming_progress_info(total_correct, total_misnamed)
+    # Misnamed packages progress bar info.
+    naming_data = dict(db.query(tables.NamingData.ident, tables.NamingData))
+    misnamed_progress = (
+        (naming_data['name-correct'], total_correct),
+        (naming_data['name-misnamed'], total_misnamed))
 
-    # Statuses with number of packages
+    # Statuses with number of packages.
     statuses = OrderedDict(
         db.query(tables.Status, func.count(tables.Package.name))
         .outerjoin(tables.Status.packages)
-        .join(tables.CollectionPackage)
-        .filter(tables.CollectionPackage.collection_ident == 'fedora')
-        .filter(tables.CollectionPackage.is_misnamed.is_(True))
+        .filter(tables.Package.name.in_(misnamed_package_names))
         .group_by(tables.Status.ident)
         .order_by(tables.Status.order))
 
-    misnamed = {}
+    misnamed_by_status = {}
     for status in statuses:
-        misnamed[status.ident] = query.filter(tables.Package.status == status.ident).all()
+        misnamed_by_status[status.ident] = misnamed_packages.filter(
+            tables.Package.status == status.ident).all()
 
     return render_template(
         'namingpolicy.html',
@@ -786,9 +784,9 @@ def namingpolicy():
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('namingpolicy'), 'Naming Policy'),
         ),
-        misnamed=misnamed,
+        misnamed=misnamed_by_status,
         total_packages=total_packages,
-        progress=progress,
+        misnamed_progress=misnamed_progress,
         statuses=statuses,
     )
 

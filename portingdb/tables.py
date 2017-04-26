@@ -16,6 +16,36 @@ def IDColumn():
         doc=u"An internal numeric ID")
 
 
+class NamingData(TableBase):
+    u"""Static data for naming policy."""
+    __tablename__ = 'naming'
+    ident = Column(
+        Unicode(), primary_key=True, nullable=False,
+        doc=u"Machine-friendly name")
+    name = Column(
+        Unicode(), nullable=False,
+        doc=u"Display name")
+    color = Column(
+        Unicode(), nullable=False,
+        doc=u"Color for reports (RRGGBB)")
+    term = Column(
+        Unicode(), nullable=False,
+        doc=u"Terminal representation")
+    description = Column(
+        Unicode(), nullable=False,
+        doc=u"Textual description of the status")
+    url = Column(
+        Unicode(), doc=u"Url for the page")
+    misnamed = Column(
+        Boolean(), doc=u"Corresponds to is_misnamed attr of CollectionPackage")
+
+    def __repr__(self):
+        return '<{} {}>'.format(type(self).__qualname__, self.ident)
+
+    def __str__(self):
+        return 'Naming: {}'.format(self.name)
+
+
 class Status(TableBase):
     u"""State a package can be in."""
     __tablename__ = 'statuses'
