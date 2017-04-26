@@ -11,7 +11,7 @@
         <h1>Naming Policy Violations</h1>
     </div>
     <div class="col-md-12">
-        {{ progress_summary(progress, total_packages) }}
+        {{ progress_summary(misnamed_progress, total_packages) }}
     </div>
     <div class="col-md-12">
         <p>
@@ -27,7 +27,7 @@
     <div class="col-md-9">
         {% for status in statuses %}
         <h4 id="{{ status.ident }}">
-            {{ statuses[status] }} misnamed packages with <strong>{{ status.name }}</strong> status
+            {{ statuses[status] }} packages with misnamed subpackages within <strong>{{ status.name }}</strong> status
         </h4>
         <div>
            {% for pkg in misnamed[status.ident] %}
