@@ -1,54 +1,96 @@
 {% extends "_base.html" %}
 
 {% block titlecontent -%}
-    Misnamed Packages – {{ super() }}
+    Naming Policy – {{ super() }}
 {%- endblock titlecontent %}
+
+{% block favicon_url -%}
+    {{ url_for('piechart_namingpolicy') }}?{{ cache_tag }}
+{%- endblock favicon_url %}
 
 {% block bodycontent %}
 
 <div class="container">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <h1>Naming Policy Violations</h1>
     </div>
     <div class="col-md-12">
-        {{ progress_summary(misnamed_progress, total_packages) }}
-    </div>
-    <div class="col-md-12">
+        {{ progress_summary(progress, total_packages) }}
         <p>
-            This is a dashboard to track packages which do not comply with 
-            <a
-               href="https://fedoraproject.org/wiki/Packaging:Naming?rd=Packaging:NamingGuidelines#Python_source_package_naming" 
-               target="_blank">Python package naming guidelines</a>.
-            These packages are to follow the new guidelines before 2020,
-            when Python 2 is no longer supported.
+            This is a dashboard to track various naming scheme violations in Python packages:
+            <ul>
+                {% for (name_status, total), packages in data %}
+                <li>
+                    {{ minibadge(name_status) }}
+                    <strong>{{ name_status.name }}</strong> -
+                    {{ name_status.violation | safe }}
+                </li>
+                {% endfor %}
+            </ul>
+            We encourage to follow the new guidelines to avoid a range of issues
+            when upstream support for Python 2 ends and <i>python</i> means Python 3 in Fedora.
         </p>
-        <h2 id="misnamed">Misnamed Packages</h2>
     </div>
     <div class="col-md-9">
-        {% for status in statuses %}
-        <h4 id="{{ status.ident }}">
-            {{ statuses[status] }} packages with misnamed subpackages within <strong>{{ status.name }}</strong> status
+        {% for (name_status, total), packages in data %}
+        <h3 id="{{ name_status.ident }}">
+            {{ total }} packages - {{ name_status.name }}
+        </h3>
+        <div>{{ name_status.description | safe }}</div>
+        <div>
+            {% for pkg in packages %}
+            <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>
+            {{ pkglink_text(pkg) }}
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <h3>Non Python Packages</h3>
+        <div>There are also non Python packages which are not tracked in Python Porting Database, but depend on Python packages and use the unversioned naming scheme in run-time or build-time requirements.</div>
+        {% for name_status, total, packages in data_outside_portingdb %}
+        <h4 id="{{ name_status.ident }}-non-python">
+            {{ total }} packages - {{ name_status.name }}
         </h4>
         <div>
-           {% for pkg in misnamed[status.ident] %}
-                {{ pkglink(pkg) }}
-           {% endfor %}
+            {% for pkg in packages %}
+            <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>
+            <a target="_blank" href="https://src.fedoraproject.org/cgit/rpms/{{ pkg[0] }}.git/tree/{{ pkg[0] }}.spec">{{ pkg[0] }}</a>
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
     <div class="col-md-3">
-        <h3>By Status</h3>
         <ul class="list-group">
-            {% for status in statuses %}
+            {% for (name_status, total), packages in data %}
             <li class="list-group-item">
-                {{ minibadge(status) }}
-                <a href="#{{ status.ident }}">
-                    {{ statuses[status] }}
-                    <strong>{{ status.name }}</strong>
+                {{ minibadge(name_status) }}
+                <a href="#{{ name_status.ident }}">
+                    {{ total }}
+                    <strong>{{ name_status.name }}</strong>
+                </a>
+                <div><small>{{ name_status.short_description }}</small></div>
+            </li>
+            {% endfor %}
+        </ul>
+        <h3>Non Python Packages</h3>
+        <ul class="list-group">
+            {% for name_status, total, packages in data_outside_portingdb %}
+            <li class="list-group-item">
+                {{ minibadge(name_status) }}
+                <a href="#{{ name_status.ident }}-non-python">
+                    {{ total }}
+                    <strong>{{ name_status.name }}</strong>
                 </a>
             </li>
             {% endfor %}
         </ul>
+        <h3>Visualizations</h3>
+        You can also look at the progress in the form of a
+        <a href="{{ url_for('piechart_namingpolicy') }}">pie chart</a>.
+        <div>
+            <a href="{{ url_for('piechart_namingpolicy') }}">
+                <img src="{{ url_for('piechart_namingpolicy') }}">
+            </a>
+        </div>
     </div>
 </div>
 

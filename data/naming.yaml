@@ -1,28 +1,45 @@
 - ident: name-correct
   name: Correct
-  color: 'd9d9d9'
+  color: '669980'
   term: '✔'
-  description: Correctly named packages
-  misnamed: false
+  short_description: All good
+  description: All good
+  violation: All good
 - ident: name-misnamed
   name: Misnamed
   color: 'F0AD4E'
   term: '×'
-  misnamed: true
-  url: namingpolicy
-  description: Packages that do not follow the naming policy
-- ident: require-correct
-  name: Correct
-  color: 'd9d9d9'
-  term: '✔'
-  description: All requirements are versioned
-- ident: require-misnamed-blocked
-  name: Misnamed
-  color: 'F0AD4E'
+  violation: |
+    using the unversioned naming scheme in binary RPMs, which is against the
+    new <a href="https://fedoraproject.org/wiki/Packaging:Naming?rd=
+    Packaging:NamingGuidelines#Python_source_package_naming"
+    target="_blank">Python package naming guidelines</a>
+  short_description: Naming scheme of (at least) one of the binary RPMs is wrong
+  description: |
+    The naming scheme of (at least) one of the binary RPMs
+    does not comply with the naming policy. Please refer to the
+    <a href="https://python-rpm-porting.readthedocs.io/en/latest/naming-scheme.html">
+    Python RPM Porting Guide</a> for more information and instructions on the changes
+    needed.
+- ident: require-unversioned
+  name: Unversioned Requires
+  color: '8c6699'
   term: '×'
-  description: Some requirements are not versioned because no versioned name is provided
-- ident: require-misnamed-not-blocked
+  violation: |
+    using the unversioned naming scheme in run-time or build-time requirements,
+    although a versioned name is available
+  short_description: The package uses wrong naming scheme in requires
+  description: |
+    Some build-time or run-time requirements are not versioned,
+    although a versioned name is available (can be fixed now).
+- ident: require-misnamed
   name: Blocked
-  color: 'F0AD4E'
+  color: 'a65959'
   term: '×'
-  description: Some requirements are not versioned although a versioned name is provided
+  violation: |
+    using the unversioned naming scheme in run-time or build-time requirements,
+    because the requirement is misnamed and the versioned name is not provided
+  short_description: The package depends on a misnamed package
+  description: |
+    Some build-time or run-time requirements are not versioned, because no
+    versioned name is available (waiting for the misnamed package to be renamed).
