@@ -216,7 +216,7 @@
                 Individual package pages list the RPM
                 versions this report is based on.
             </div>
-            <h2>Naming Policy</h2>
+            <h2><a href="{{url_for('namingpolicy') }}">Naming Policy</a></h2>
             <div class="progress">
                 {% for status, count in naming_progress %}
                 <div
@@ -235,11 +235,9 @@
             <ul class="list-group">
                 {% for status, count in naming_progress %}
                 <li class="list-group-item">
-                    {% if status.url %}<a href="{{url_for(status.url) }}#misnamed">{% endif %}
                     {{ count }}
                     <strong>{{ status.name }}</strong>
-                    {% if status.url %}</a>{% endif %}
-                    <div><small>{{ status.description }}</small></div>
+                    <div><small>{{ status.short_description }}</small></div>
                 </li>
                 {% endfor %}
             </ul>

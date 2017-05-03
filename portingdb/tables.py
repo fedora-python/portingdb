@@ -31,13 +31,15 @@ class NamingData(TableBase):
     term = Column(
         Unicode(), nullable=False,
         doc=u"Terminal representation")
+    violation = Column(
+        Unicode(), nullable=False,
+        doc=u"Violation explanation")
     description = Column(
         Unicode(), nullable=False,
-        doc=u"Textual description of the status")
-    url = Column(
-        Unicode(), doc=u"Url for the page")
-    misnamed = Column(
-        Boolean(), doc=u"Corresponds to is_misnamed attr of CollectionPackage")
+        doc=u"Textual description of the name status")
+    short_description = Column(
+        Unicode(), nullable=False,
+        doc=u"Textual short description of the name status")
 
     def __repr__(self):
         return '<{} {}>'.format(type(self).__qualname__, self.ident)

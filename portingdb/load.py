@@ -120,15 +120,6 @@ def _prepare_statuses(rows):
     return rows
 
 
-def _prepare_namingdata(rows):
-    for row in rows:
-        if 'misnamed' not in row:
-            row['misnamed'] = None
-        if 'url' not in row:
-            row['url'] = None
-    return rows
-
-
 def _merge_updates(base, updates, warnings=None, parent_keys=()):
     for key, new_value in updates.items():
         if (key in base and
@@ -189,7 +180,7 @@ def load_from_directories(db, directories):
     values = _prepare_statuses(data_from_file(directories, 'statuses'))
     bulk_load(db, values, tables.Status.__table__, id_column="ident")
 
-    values = _prepare_namingdata(data_from_file(directories, 'naming'))
+    values = data_from_file(directories, 'naming')
     bulk_load(db, values, tables.NamingData.__table__, id_column="ident")
 
     values = _prepare_priorities(data_from_file(directories, 'priorities'))
