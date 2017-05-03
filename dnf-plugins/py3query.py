@@ -282,17 +282,19 @@ class Py3QueryCommand(dnf.cli.Command):
                 if req in python_versions.keys():
                     deps_of_pkg[req].add(pkg)
 
-        wrong_requirers = self.pkg_query.filter(
-            requires__glob=['python-*', '[!/]*-python-*', '[!/]*-python'])
+        unversioned_wildcards = ['python-*', '[!/]*-python-*', '[!/]*-python']
+        runtime = self.pkg_query.filter(requires__glob=unversioned_wildcards)
+        buildtime = self.src_query.filter(requires__glob=unversioned_wildcards)
         # unversioned_requirers: {srpm_name: set of srpm_names}
         unversioned_requirers = collections.defaultdict(set)
-        for pkg in progressbar(wrong_requirers, 'Getting unversioned requirers'):
+        for pkg in progressbar(runtime + list(buildtime), 'Getting unversioned requirers'):
             for require in pkg.requires + pkg.requires_pre:
                 require = str(require).split()[0]
                 requirement = all_provides.get(require)
                 if is_unversioned(require) and requirement:
                     requirement_srpm_name = hawkey.split_nevra(requirement.sourcerpm).name
-                    requirer_srpm_name = hawkey.split_nevra(pkg.sourcerpm).name
+                    requirer_srpm_name = hawkey.split_nevra(
+                        pkg.sourcerpm).name if pkg.sourcerpm else pkg.name
                     unversioned_requirers[requirement_srpm_name].add(requirer_srpm_name)
 
         # deps_of_pkg: {srpm name: info}
