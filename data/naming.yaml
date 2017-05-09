@@ -6,11 +6,11 @@
   description: All good
   violation: All good
 - ident: name-misnamed
-  name: Misnamed
+  name: Misnamed Subpackage
   color: 'F0AD4E'
   term: '×'
   violation: |
-    using the unversioned naming scheme in binary RPMs, which is against the
+    naming scheme of (at least) one of the binary RPMs does not comply with the
     new <a href="https://fedoraproject.org/wiki/Packaging:Naming?rd=
     Packaging:NamingGuidelines#Python_source_package_naming"
     target="_blank">Python package naming guidelines</a>
@@ -21,25 +21,30 @@
     <a href="https://python-rpm-porting.readthedocs.io/en/latest/naming-scheme.html">
     Python RPM Porting Guide</a> for more information and instructions on the changes
     needed.
-- ident: require-unversioned
-  name: Unversioned Requires
+- ident: require-misnamed
+  name: Misnamed Requires
   color: '8c6699'
   term: '×'
   violation: |
-    using the unversioned naming scheme in run-time or build-time requirements,
-    although a versioned name is available
-  short_description: The package uses wrong naming scheme in requires
+    some build-time or run-time requirements are of type <i>python-foo</i>,
+    although the names with a versioned Python prefix
+    (e.g. <i>python2-foo</i>) are available
+  short_description: The package uses wrong naming scheme in (Build)Requires
   description: |
-    Some build-time or run-time requirements are not versioned,
-    although a versioned name is available (can be fixed now).
-- ident: require-misnamed
+    Some build-time or run-time requirements are of type <i>python-foo</i>,
+    although the names with a versioned Python prefix
+    (e.g. <i>python2-foo</i>) are available and should be used.
+- ident: require-blocked
   name: Blocked
   color: 'a65959'
   term: '×'
   violation: |
-    using the unversioned naming scheme in run-time or build-time requirements,
-    because the requirement is misnamed and the versioned name is not provided
+    some build-time or run-time requirements are of type <i>python-foo</i>,
+    because the dependency is misnamed and the name <i>python2-foo</i>
+    is not available
   short_description: The package depends on a misnamed package
   description: |
-    Some build-time or run-time requirements are not versioned, because no
-    versioned name is available (waiting for the misnamed package to be renamed).
+    Some build-time or run-time requirements are of type <i>python-foo</i>,
+    because the dependency is misnamed and the name with a versioned
+    Python prefix (e.g. <i>python2-foo</i>) is not available.
+    These packages are waiting for some misnamed packages to be renamed.
