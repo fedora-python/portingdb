@@ -747,19 +747,19 @@ def namingpolicy():
     total = sum(dict(progress).values())
 
     # Unversioned requirers within non Python Packages.
-    require_unversioned_all = (
+    require_misnamed_all = (
         db.query(tables.Dependency.requirer_name)
         .filter(tables.Dependency.unversioned.is_(True))
         .outerjoin(tables.Dependency.requirer)
         .filter(tables.Package.name.is_(None)).distinct())
     blocked = (
-        require_unversioned_all
+        require_misnamed_all
         .filter(tables.Dependency.requirement_name.in_(misnamed_package_names)))
-    require_unversioned = sorted(set(require_unversioned_all) - set(blocked))
+    require_misnamed = sorted(set(require_misnamed_all) - set(blocked))
     naming_data = dict(db.query(tables.NamingData.ident, tables.NamingData))
     data_outside_portingdb = (
-        (naming_data['require-unversioned'], len(require_unversioned), require_unversioned),
-        (naming_data['require-misnamed'], blocked.count(), blocked))
+        (naming_data['require-misnamed'], len(require_misnamed), require_misnamed),
+        (naming_data['require-blocked'], blocked.count(), blocked))
 
     return render_template(
         'namingpolicy.html',
@@ -785,7 +785,7 @@ def get_naming_policy_progress(db):
     misnamed_packages = all_packages.filter(
         tables.Package.name.in_(misnamed_package_names))
 
-    require_unversioned_all = (
+    require_misnamed_all = (
         all_packages
         .filter(tables.Package.requirement_dependencies.any(
             tables.Dependency.unversioned.is_(True)),
@@ -793,25 +793,25 @@ def get_naming_policy_progress(db):
 
     requires_misnamed = tables.Package.requirement_dependencies.any(
         tables.Dependency.requirement_name.in_(misnamed_package_names))
-    blocked = require_unversioned_all.filter(requires_misnamed)
-    require_unversioned = require_unversioned_all.filter(~requires_misnamed)
+    blocked = require_misnamed_all.filter(requires_misnamed)
+    require_misnamed = require_misnamed_all.filter(~requires_misnamed)
 
     # Naming policy in numbers.
     total_packages = all_packages.count()
     total_misnamed = misnamed_package_names.count()
     total_blocked = blocked.count()
-    total_require_unversioned = require_unversioned.count()
+    total_require_misnamed = require_misnamed.count()
 
     # Misnamed packages progress bar info.
     naming_data = dict(db.query(tables.NamingData.ident, tables.NamingData))
     progress = (
         (naming_data['name-correct'], total_packages - (
-            total_misnamed + total_blocked + total_require_unversioned)),
+            total_misnamed + total_blocked + total_require_misnamed)),
         (naming_data['name-misnamed'], total_misnamed),
-        (naming_data['require-unversioned'], total_require_unversioned),
-        (naming_data['require-misnamed'], total_blocked))
+        (naming_data['require-misnamed'], total_require_misnamed),
+        (naming_data['require-blocked'], total_blocked))
 
-    data = list(zip(progress[1:], (misnamed_packages, require_unversioned, blocked)))
+    data = list(zip(progress[1:], (misnamed_packages, require_misnamed, blocked)))
     return progress, data
 
 
