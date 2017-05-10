@@ -51,18 +51,18 @@
         </h4>
         <table class="table table-striped table-condensed table-hovered">
             <tr>
-                <th>Fedora Package Database</th>
-                <th>Spec File</th>
+                <th>Package</th>
+                <th>Links</th>
             </tr>
 
             {% for pkg in packages %}
             <tr>
                 <td>
-                    <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>
-                    <a target="_blank" href="https://admin.fedoraproject.org/pkgdb/package/{{ pkg[0] }}/">{{ pkg[0] }}</a>
+                    <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>&nbsp;{{ pkg[0] }}
                 </td>
                 <td>
-                    <a target="_blank" href="https://src.fedoraproject.org/cgit/rpms/{{ pkg[0] }}.git/tree/{{ pkg[0] }}.spec">{{ pkg[0] }}.spec</a>
+                    <a target="_blank" href="https://admin.fedoraproject.org/pkgdb/package/{{ pkg[0] }}/">PkgDB</a>,
+                    <a target="_blank" href="https://src.fedoraproject.org/cgit/rpms/{{ pkg[0] }}.git/tree/{{ pkg[0] }}.spec">spec</a>
                 </td>
             </tr>
             {% endfor %}
