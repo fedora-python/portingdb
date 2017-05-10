@@ -226,8 +226,6 @@
                     style="width: {{ 100 * count / total_pkg_count }}%;
                            background-color: #{{ status.color }} !important;
                            color: black;">
-                    {{ count }}
-                    {{ status.term }}
                 </div>
                 {% endfor %}
             </div>
@@ -236,6 +234,7 @@
                 {% for status, count in naming_progress %}
                 <li class="list-group-item">
                     {{ count }}
+                    {{ minibadge(status) }}
                     <strong>{{ status.name }}</strong>
                     <div><small>{{ status.short_description }}</small></div>
                 </li>
@@ -257,8 +256,6 @@
                                        background-color: #{{ status.color }} !important;
                                        color: black;"
                             >
-                                {{ num }}
-                                {{ status.abbrev }}
                             </div>
                         {% endif %}
                     {% endfor %}

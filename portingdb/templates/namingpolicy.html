@@ -39,8 +39,7 @@
         <div>{{ name_status.description | safe }}</div>
         <div>
             {% for pkg in packages %}
-            <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>
-            {{ pkglink_text(pkg) }}
+            <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>&nbsp;{{ pkglink_text(pkg) }}
             {% endfor %}
         </div>
         {% endfor %}
@@ -50,12 +49,24 @@
         <h4 id="{{ name_status.ident }}-non-python">
             {{ total }} packages - {{ name_status.name }}
         </h4>
-        <div>
+        <table class="table table-striped table-condensed table-hovered">
+            <tr>
+                <th>Fedora Package Database</th>
+                <th>Spec File</th>
+            </tr>
+
             {% for pkg in packages %}
-            <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>
-            <a target="_blank" href="https://src.fedoraproject.org/cgit/rpms/{{ pkg[0] }}.git/tree/{{ pkg[0] }}.spec">{{ pkg[0] }}</a>
+            <tr>
+                <td>
+                    <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>
+                    <a target="_blank" href="https://admin.fedoraproject.org/pkgdb/package/{{ pkg[0] }}/">{{ pkg[0] }}</a>
+                </td>
+                <td>
+                    <a target="_blank" href="https://src.fedoraproject.org/cgit/rpms/{{ pkg[0] }}.git/tree/{{ pkg[0] }}.spec">{{ pkg[0] }}.spec</a>
+                </td>
+            </tr>
             {% endfor %}
-        </div>
+        </table>
         {% endfor %}
     </div>
     <div class="col-md-3">
