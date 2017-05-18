@@ -24,6 +24,10 @@ import dnfpluginscore
 from dnfpluginscore import _
 import bugzilla  # python-bugzilla
 
+from taskotron_python_versions.executables import have_binaries
+from taskotron_python_versions.naming_scheme import check_naming_policy, is_unversioned
+
+
 BUGZILLA_URL = 'bugzilla.redhat.com'
 # Tracker bugs which are used to find all relevant package bugs
 TRACKER_BUG_IDS = [
@@ -132,15 +136,6 @@ def progressbar(seq, text, namegetter=str):
     print(file=sys.stderr)
 
 
-def have_binaries(packages):
-    """Check if there are any binaries in the packages."""
-    for pkg in packages:
-        for filepath in pkg.files:
-            if filepath.startswith(('/usr/bin', '/usr/sbin')):
-                return True
-    return False
-
-
 def set_status(result, pkgs, python_versions):
     # Look at the Python dependencies of given packages, based on the
     # name only (this means different arches are grouped into one)
@@ -179,33 +174,6 @@ def set_status(result, pkgs, python_versions):
         if is_misnamed:
             rpm_name = format_rpm_name(pkg)
             result['rpms'].get(rpm_name, {})['is_misnamed'] = is_misnamed
-
-
-def has_pythonX_package(pkg_name, name_by_version, version):
-    """Check whether pythonX-foo or foo-pythonX exists."""
-    return ('python{}-{}'.format(version, pkg_name) in name_by_version[version] or
-            '{}-python{}'.format(pkg_name, version) in name_by_version[version])
-
-
-def is_unversioned(name):
-    """Check whether unversioned python is used in name (e.g. python-foo)."""
-    return (
-        name.startswith('python-') or
-        '-python-' in name or
-        name.endswith('-python'))
-
-
-def check_naming_policy(pkg, name_by_version):
-    """Check if Python 2 subpackages are correctly named."""
-    # Missing python2- prefix (e.g. foo and python3-foo).
-    missing_prefix = (
-        'python' not in pkg.name and
-        has_pythonX_package(pkg.name, name_by_version, 3) and
-        not has_pythonX_package(pkg.name, name_by_version, 2)
-    )
-    if is_unversioned(pkg.name) or missing_prefix:
-        return True
-    return False
 
 
 def format_rpm_name(pkg):
