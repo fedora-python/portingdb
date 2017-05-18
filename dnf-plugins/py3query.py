@@ -174,7 +174,11 @@ def set_status(result, pkgs, python_versions):
         else:
             result['status'] = 'idle'
 
-    check_naming_policy(result, pkg_by_version, name_by_version)
+    for pkg in pkg_by_version[2]:
+        is_misnamed = check_naming_policy(pkg, name_by_version)
+        if is_misnamed:
+            rpm_name = format_rpm_name(pkg)
+            result['rpms'].get(rpm_name, {})['is_misnamed'] = is_misnamed
 
 
 def has_pythonX_package(pkg_name, name_by_version, version):
@@ -191,18 +195,17 @@ def is_unversioned(name):
         name.endswith('-python'))
 
 
-def check_naming_policy(result, pkg_by_version, name_by_version):
+def check_naming_policy(pkg, name_by_version):
     """Check if Python 2 subpackages are correctly named."""
-    for pkg in pkg_by_version[2]:
-        # Missing python2- prefix (e.g. foo and python3-foo).
-        missing_prefix = (
-            'python' not in pkg.name and
-            has_pythonX_package(pkg.name, name_by_version, 3) and
-            not has_pythonX_package(pkg.name, name_by_version, 2)
-        )
-        if is_unversioned(pkg.name) or missing_prefix:
-            rpm_name = format_rpm_name(pkg)
-            result['rpms'].get(rpm_name, {})['is_misnamed'] = True
+    # Missing python2- prefix (e.g. foo and python3-foo).
+    missing_prefix = (
+        'python' not in pkg.name and
+        has_pythonX_package(pkg.name, name_by_version, 3) and
+        not has_pythonX_package(pkg.name, name_by_version, 2)
+    )
+    if is_unversioned(pkg.name) or missing_prefix:
+        return True
+    return False
 
 
 def format_rpm_name(pkg):
