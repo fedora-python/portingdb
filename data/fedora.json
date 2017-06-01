@@ -1203,6 +1203,26 @@
     },
     "status": "released"
   },
+  "adapt": {
+    "deps": [
+      "pyee",
+      "python2",
+      "python3"
+    ],
+    "rpms": {
+      "python2-adapt-0.3.0-1.fc27": {
+        "py_deps": {
+          "python(abi) = 2.7": 2
+        }
+      },
+      "python3-adapt-0.3.0-1.fc27": {
+        "py_deps": {
+          "python(abi) = 3.6": 3
+        }
+      }
+    },
+    "status": "released"
+  },
   "adonthell": {
     "deps": [],
     "rpms": {
@@ -1243,6 +1263,7 @@
         "2017-03-28 18:02:53"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "ahkab-0.18-7.fc26": {
@@ -2617,13 +2638,13 @@
       "python2"
     ],
     "rpms": {
-      "beaker-client-24.2-1.fc27": {
+      "beaker-client-24.3-1.fc27": {
         "py_deps": {
           "/usr/bin/python": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "beaker-common-24.2-1.fc27": {
+      "beaker-common-24.3-1.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
@@ -2910,7 +2931,7 @@
       "python3"
     ],
     "rpms": {
-      "blivet-gui-2.1.4-1.fc27": {
+      "blivet-gui-2.1.4-2.fc27": {
         "py_deps": {
           "/usr/bin/python3": 3,
           "python(abi) = 3.6": 3,
@@ -4722,7 +4743,7 @@
       "python2"
     ],
     "rpms": {
-      "compose-utils-0.1.13-1.fc27": {
+      "compose-utils-0.1.14-1.fc27": {
         "py_deps": {
           "/usr/bin/python2": 2,
           "python(abi) = 2.7": 2
@@ -5323,8 +5344,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1426737",
-        "POST",
-        "2017-04-18 13:45:39"
+        "MODIFIED",
+        "2017-05-31 07:46:23"
       ]
     },
     "rpms": {
@@ -6531,6 +6552,7 @@
       "python2",
       "python3"
     ],
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "dreampie-1.1.1-14.fc26": {
@@ -6670,7 +6692,7 @@
   "dynafed": {
     "deps": [],
     "rpms": {
-      "dynafed-1.3.0-1.fc27": {
+      "dynafed-1.3.1-1.fc27": {
         "py_deps": {
           "/usr/bin/python": 2,
           "libpython2.7.so.1.0()(64bit)": 2
@@ -9043,6 +9065,7 @@
         "2017-03-29 17:16:21"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "gdal-python-2.1.3-3.fc27": {
@@ -9292,7 +9315,7 @@
   "getdp": {
     "deps": [],
     "rpms": {
-      "getdp-2.11.0-4.fc27": {
+      "getdp-2.11.1-1.fc27": {
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2
         }
@@ -9884,13 +9907,13 @@
       "pyxattr"
     ],
     "rpms": {
-      "glusterfs-events-3.11.0-0.4.rc1.fc27": {
+      "glusterfs-events-3.11.0-1.fc27": {
         "py_deps": {
           "python2": 2,
           "python2 = 2.7.13-10.fc27": 2
         }
       },
-      "glusterfs-extra-xlators-3.11.0-0.4.rc1.fc27": {
+      "glusterfs-extra-xlators-3.11.0-1.fc27": {
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2,
@@ -9898,18 +9921,18 @@
           "python2 = 2.7.13-10.fc27": 2
         }
       },
-      "glusterfs-geo-replication-3.11.0-0.4.rc1.fc27": {
+      "glusterfs-geo-replication-3.11.0-1.fc27": {
         "py_deps": {
           "python2": 2,
           "python2 = 2.7.13-10.fc27": 2
         }
       },
-      "glusterfs-server-3.11.0-0.4.rc1.fc27": {
+      "glusterfs-server-3.11.0-1.fc27": {
         "py_deps": {
           "/usr/bin/python": 2
         }
       },
-      "python2-gluster-3.11.0-0.4.rc1.fc27": {
+      "python2-gluster-3.11.0-1.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2,
           "python2": 2,
@@ -10085,7 +10108,7 @@
       "meld"
     ],
     "rpms": {
-      "gnome-commander-4:1.6.3-1.fc27.1": {
+      "gnome-commander-4:1.6.4-1.fc27": {
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2
         }
@@ -10561,7 +10584,7 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "gobject-introspection-devel-1.52.0-1.fc27": {
+      "gobject-introspection-devel-1.52.1-1.fc27": {
         "py_deps": {
           "/usr/bin/python": 2
         }
@@ -12071,17 +12094,17 @@
       "python3"
     ],
     "rpms": {
-      "hplip-3.17.4-3.fc27": {
+      "hplip-3.17.4-4.fc27": {
         "py_deps": {
           "/usr/bin/python3": 3
         }
       },
-      "hplip-gui-3.17.4-3.fc27": {
+      "hplip-gui-3.17.4-4.fc27": {
         "py_deps": {
           "/usr/bin/python3": 3
         }
       },
-      "hplip-libs-3.17.4-3.fc27": {
+      "hplip-libs-3.17.4-4.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3,
           "python3": 3,
@@ -12311,7 +12334,7 @@
       "pyxdg"
     ],
     "rpms": {
-      "ibus-typing-booster-1.5.32-1.fc27": {
+      "ibus-typing-booster-1.5.32-2.fc27": {
         "py_deps": {
           "python3": 3,
           "python3 = 3.6.1-7.fc27": 3
@@ -13139,6 +13162,21 @@
     },
     "status": "idle"
   },
+  "jumpnbump": {
+    "deps": [
+      "pygtk2"
+    ],
+    "rpms": {
+      "jumpnbump-menu-1.60-1.fc27": {
+        "py_deps": {
+          "/usr/bin/python2": 2,
+          "pygtk2": 2,
+          "pygtk2 = 2.24.0-16.fc26": 2
+        }
+      }
+    },
+    "status": "idle"
+  },
   "jython": {
     "deps": [
       "javapackages-tools",
@@ -13208,7 +13246,7 @@
   "kdevelop-python": {
     "deps": [],
     "rpms": {
-      "kdevelop-python-5.1.0-1.py3.fc27": {
+      "kdevelop-python-5.1.1-1.py3.fc27": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3
         }
@@ -13229,19 +13267,19 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "kernel-tools-4.12.0-0.rc2.git3.1.fc27": {
+      "kernel-tools-4.12.0-0.rc3.git0.2.fc27": {
         "py_deps": {
           "/usr/bin/python": 2
         }
       },
-      "perf-4.12.0-0.rc2.git3.1.fc27": {
+      "perf-4.12.0-0.rc3.git0.2.fc27": {
         "py_deps": {
           "/usr/bin/python": 2,
           "/usr/bin/python2": 2,
           "libpython2.7.so.1.0()(64bit)": 2
         }
       },
-      "python-perf-4.12.0-0.rc2.git3.1.fc27": {
+      "python-perf-4.12.0-0.rc3.git0.2.fc27": {
         "is_misnamed": true,
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
@@ -13915,6 +13953,7 @@
         "2017-03-28 17:53:10"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "dpm-python-1.9.0-4.fc26": {
@@ -15466,12 +15505,12 @@
       ]
     },
     "rpms": {
-      "python2-solv-0.6.27-1.fc27": {
+      "python2-solv-0.6.27-2.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-solv-0.6.27-1.fc27": {
+      "python3-solv-0.6.27-2.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -15990,7 +16029,7 @@
       "slick-greeter"
     ],
     "rpms": {
-      "lightdm-settings-1.0.7-2.fc27": {
+      "lightdm-settings-1.0.9-1.fc27": {
         "py_deps": {
           "/usr/bin/python3": 3
         }
@@ -16980,7 +17019,7 @@
       "python3"
     ],
     "rpms": {
-      "meson-0.40.1-1.fc27": {
+      "meson-0.40.1-2.fc27": {
         "py_deps": {
           "/usr/bin/python3": 3,
           "python(abi) = 3.6": 3
@@ -18300,7 +18339,7 @@
       "python2"
     ],
     "rpms": {
-      "nfs-ganesha-utils-2.5.0-0.7rc7.fc27": {
+      "nfs-ganesha-utils-2.5.0-0.8rc8.fc27": {
         "py_deps": {
           "/usr/bin/python": 2,
           "pygobject2": 2,
@@ -18473,34 +18512,34 @@
       "stomppy"
     ],
     "rpms": {
-      "nordugrid-arc-acix-cache-5.3.0-1.fc27": {
+      "nordugrid-arc-acix-cache-5.3.1-1.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "nordugrid-arc-acix-core-5.3.0-1.fc27": {
+      "nordugrid-arc-acix-core-5.3.1-1.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "nordugrid-arc-acix-index-5.3.0-1.fc27": {
+      "nordugrid-arc-acix-index-5.3.1-1.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "nordugrid-arc-arex-5.3.0-1.fc27": {
+      "nordugrid-arc-arex-5.3.1-1.fc27": {
         "py_deps": {
           "/usr/bin/python": 2
         }
       },
-      "nordugrid-arc-python-5.3.0-1.fc27": {
+      "nordugrid-arc-python-5.3.1-1.fc27": {
         "is_misnamed": true,
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "nordugrid-arc-python3-5.3.0-1.fc27": {
+      "nordugrid-arc-python3-5.3.1-1.fc27": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3,
           "python(abi) = 3.6": 3
@@ -18536,7 +18575,7 @@
       "python2"
     ],
     "rpms": {
-      "nordugrid-arc-nagios-plugins-1.8.4-7.fc26": {
+      "nordugrid-arc-nagios-plugins-1.9.0-1.fc27": {
         "py_deps": {
           "/usr/bin/python": 2,
           "python(abi) = 2.7": 2,
@@ -18695,7 +18734,7 @@
       "python3"
     ],
     "rpms": {
-      "nuvolasdk-1.4.0-1.fc27": {
+      "nuvolasdk-4.4.0-1.fc27": {
         "py_deps": {
           "/usr/bin/python3": 3,
           "python(abi) = 3.6": 3
@@ -19545,17 +19584,17 @@
       "python3"
     ],
     "rpms": {
-      "openvswitch-2.7.0-1.fc27": {
+      "openvswitch-2.7.0-3.fc27": {
         "py_deps": {
           "/usr/bin/python": 2
         }
       },
-      "openvswitch-ovn-docker-2.7.0-1.fc27": {
+      "openvswitch-ovn-docker-2.7.0-3.fc27": {
         "py_deps": {
           "/usr/bin/python": 2
         }
       },
-      "openvswitch-test-2.7.0-1.fc27": {
+      "openvswitch-test-2.7.0-3.fc27": {
         "py_deps": {
           "/usr/bin/python": 2,
           "python(abi) = 2.7": 2,
@@ -19563,14 +19602,14 @@
           "python2 = 2.7.13-10.fc27": 2
         }
       },
-      "python2-openvswitch-2.7.0-1.fc27": {
+      "python2-openvswitch-2.7.0-3.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2,
           "python2": 2,
           "python2 = 2.7.13-10.fc27": 2
         }
       },
-      "python3-openvswitch-2.7.0-1.fc27": {
+      "python3-openvswitch-2.7.0-3.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3,
           "python3": 3,
@@ -23984,12 +24023,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-pysnmp-4.3.5-1.fc27": {
+      "python2-pysnmp-4.3.7-1.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pysnmp-4.3.5-1.fc27": {
+      "python3-pysnmp-4.3.7-1.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -24010,6 +24049,7 @@
         "2017-03-28 17:59:20"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "pystache-0.5.4-1.fc27": {
@@ -26208,6 +26248,7 @@
         "2017-03-31 19:00:33"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-aexpect-1.4.0-1.fc27": {
@@ -27293,6 +27334,7 @@
   "python-astroid": {
     "deps": [
       "python-backports-functools_lru_cache",
+      "python-enum34",
       "python-lazy-object-proxy",
       "python-singledispatch",
       "python-six",
@@ -27301,12 +27343,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-astroid-1.5.2-2.fc27": {
+      "python2-astroid-1.5.2-4.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-astroid-1.5.2-2.fc27": {
+      "python3-astroid-1.5.2-4.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -28963,7 +29005,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-btrfs-6-1.fc27": {
+      "python3-btrfs-7-1.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -29263,12 +29305,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-camel-0.1.1-2.fc27": {
+      "python2-camel-0.1.2-1.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-camel-0.1.1-2.fc27": {
+      "python3-camel-0.1.2-1.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -34993,6 +35035,7 @@
         "2017-03-28 17:43:25"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-docutils-0.13.1-4.fc26": {
@@ -35154,6 +35197,7 @@
         "2017-03-28 17:41:02"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-doit-0.28.0-7.fc26": {
@@ -36660,6 +36704,7 @@
         "2017-03-28 17:38:41"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-fiat-1.6.0-7.fc26": {
@@ -38730,6 +38775,7 @@
         "2017-03-29 17:16:16"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-gearbox-0.1.1-4.fc26": {
@@ -40364,12 +40410,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-httpbin-0.5.0-5.fc26": {
+      "python2-httpbin-0.5.0-6.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-httpbin-0.5.0-5.fc26": {
+      "python3-httpbin-0.5.0-6.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -40685,6 +40731,7 @@
       "python2",
       "python3"
     ],
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-igor-0.2-8.20150408git2c2a79d.fc26": {
@@ -40713,6 +40760,7 @@
         "2017-03-28 17:34:25"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-igraph-0.7.1.post6-6.fc26": {
@@ -42160,6 +42208,7 @@
         "2017-03-28 17:32:05"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-jsonschema-2.5.1-5.fc26": {
@@ -44229,7 +44278,6 @@
       "python-ryu",
       "python-sieve",
       "python-soaplib",
-      "python-upoints",
       "radiotray",
       "relevation",
       "scap-security-guide",
@@ -44256,6 +44304,7 @@
         "2017-03-29 17:15:56"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-ly-0.9.5-1.fc26": {
@@ -44368,12 +44417,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-m2r-0.1.5-2.git539a079.fc27": {
+      "python2-m2r-0.1.6-1.git871d579.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-m2r-0.1.5-2.git539a079.fc27": {
+      "python3-m2r-0.1.6-1.git871d579.fc27": {
         "py_deps": {
           "/usr/bin/python3": 3,
           "python(abi) = 3.6": 3
@@ -46232,12 +46281,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-msrest-0.4.7-1.fc27": {
+      "python2-msrest-0.4.8-2.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-msrest-0.4.7-1.fc27": {
+      "python3-msrest-0.4.8-2.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -50042,6 +50091,7 @@
         "2017-03-29 17:15:50"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-oslo-policy-tests-1.14.0-3.fc26": {
@@ -50206,6 +50256,7 @@
         "2017-05-17 14:59:39"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-oslo-rootwrap-5.1.0-3.fc26": {
@@ -51471,9 +51522,10 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1437177",
         "NEW",
-        "2017-03-29 17:15:15"
+        "2017-06-01 09:08:45"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-pbr-2.0.0-1.fc27": {
@@ -52673,6 +52725,7 @@
       "chromium",
       "gdb-heap",
       "icecat",
+      "nordugrid-arc-nagios-plugins",
       "ovirt-engine-cli",
       "pyke",
       "python-astropy",
@@ -54762,7 +54815,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-pyldap-2.4.35-1.fc27": {
+      "python3-pyldap-2.4.35.1-2.fc27": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3,
           "python(abi) = 3.6": 3
@@ -56148,12 +56201,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-pytest-httpbin-0.2.3-5.fc26": {
+      "python2-pytest-httpbin-0.2.3-6.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pytest-httpbin-0.2.3-5.fc26": {
+      "python3-pytest-httpbin-0.2.3-6.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -58774,6 +58827,7 @@
         "2017-03-15 17:11:12"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-rosdep-0.11.4-7.fc26": {
@@ -58843,6 +58897,7 @@
         "2017-03-15 17:02:13"
       ]
     },
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python-rosinstall-0.7.7-6.fc26": {
@@ -59951,14 +60006,14 @@
       "python3"
     ],
     "rpms": {
-      "python-setproctitle-1.1.9-6.fc26": {
+      "python-setproctitle-1.1.10-1.fc27": {
         "is_misnamed": true,
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-setproctitle-1.1.9-6.fc26": {
+      "python3-setproctitle-1.1.10-1.fc27": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3,
           "python(abi) = 3.6": 3
@@ -67443,27 +67498,32 @@
   },
   "python-upoints": {
     "deps": [
+      "python-aaargh",
       "python-lxml",
-      "python2"
+      "python2",
+      "python3"
     ],
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1309265",
-        "NEW",
-        "2017-05-29 18:20:52"
+        "ON_QA",
+        "2017-06-01 03:22:10"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "python-upoints-0.12.0-4.fc24": {
-        "is_misnamed": true,
+      "python2-upoints-0.12.2-4.fc27": {
         "py_deps": {
-          "/usr/bin/python2": 2,
           "python(abi) = 2.7": 2
+        }
+      },
+      "python3-upoints-0.12.2-4.fc27": {
+        "py_deps": {
+          "/usr/bin/python3": 3,
+          "python(abi) = 3.6": 3
         }
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "python-uranium": {
     "deps": [
@@ -68951,6 +69011,7 @@
       "python2",
       "python3"
     ],
+    "nonblocking": true,
     "note": "The Python 3 package is missing binaries available in a Python 2 package.\n",
     "rpms": {
       "python2-whisper-0.10.0-0.3.rc1.fc26": {
@@ -69863,12 +69924,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-yamlordereddictloader-0.2.2-2.fc27": {
+      "python2-yamlordereddictloader-0.3.0-1.fc27": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-yamlordereddictloader-0.2.2-2.fc27": {
+      "python3-yamlordereddictloader-0.3.0-1.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -70947,17 +71008,16 @@
       "python-zope-interface",
       "python-zope-testing",
       "python2",
-      "python3",
-      "subunit"
+      "python3"
     ],
     "rpms": {
-      "python2-zope-testrunner-4.6.0-2.fc26": {
+      "python2-zope-testrunner-4.7.0-1.fc27": {
         "py_deps": {
           "/usr/bin/python2": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-zope-testrunner-4.6.0-2.fc26": {
+      "python3-zope-testrunner-4.7.0-1.fc27": {
         "py_deps": {
           "/usr/bin/python3": 3,
           "python(abi) = 3.6": 3
@@ -72169,7 +72229,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-pytest-asyncio-0.5.0-4.git917d8a8.fc26": {
+      "python3-pytest-asyncio-0.6.0-1.git72a6c2b.fc27": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -73847,13 +73907,13 @@
       "python3"
     ],
     "rpms": {
-      "python2-rpm-4.13.0.1-22.fc27": {
+      "python2-rpm-4.13.0.1-23.fc27": {
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-rpm-4.13.0.1-22.fc27": {
+      "python3-rpm-4.13.0.1-23.fc27": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3,
           "system-python(abi) = 3.6": 3
@@ -73909,7 +73969,7 @@
       "python2"
     ],
     "rpms": {
-      "rpm-ostree-toolbox-2016.4-4.fc27": {
+      "rpm-ostree-toolbox-2017.1-1.fc27": {
         "py_deps": {
           "pygobject2": 2,
           "pygobject2 = 2.28.6-17.fc26": 2,
@@ -75124,7 +75184,7 @@
   "slick-greeter": {
     "deps": [],
     "rpms": {
-      "slick-greeter-1.0.5-2.fc27": {
+      "slick-greeter-1.0.6-1.fc27": {
         "py_deps": {
           "/usr/bin/python3": 3
         }
@@ -80212,7 +80272,7 @@
       "python2"
     ],
     "rpms": {
-      "python-volume_key-0.3.9-12.fc26": {
+      "python-volume_key-0.3.9-13.fc27": {
         "is_misnamed": true,
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
