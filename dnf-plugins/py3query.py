@@ -161,6 +161,7 @@ def set_status(result, pkgs, python_versions):
             if have_binaries(pkg_by_version[2]) and not have_binaries(pkg_by_version[3]):
                 # Identify packages with py2 only binaries.
                 result['status'] = 'mispackaged'
+                result['nonblocking'] = True
                 result['note'] = (
                     'The Python 3 package is missing binaries available '
                     'in a Python 2 package.\n')
