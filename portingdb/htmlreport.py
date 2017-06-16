@@ -821,6 +821,35 @@ def piechart_namingpolicy():
     return _piechart(summary)
 
 
+def history_naming():
+    return render_template(
+        'history-naming.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('namingpolicy'), 'Naming Policy'),
+            (url_for('history'), 'History'),
+        )
+    )
+
+
+def history_naming_csv():
+    db = current_app.config['DB']()
+
+    query = db.query(tables.HistoryNamingEntry)
+    query = query.order_by(tables.HistoryNamingEntry.date)
+    sio = io.StringIO()
+    writer = csv.DictWriter(sio, ['commit', 'date', 'status', 'num_packages'])
+    writer.writeheader()
+    for row in query:
+        writer.writerow({
+            'commit': row.commit,
+            'date': row.date,
+            'status': row.status,
+            'num_packages': row.num_packages,
+        })
+    return sio.getvalue()
+
+
 def format_quantity(num):
     for prefix in ' KMGT':
         if num > 1000:
@@ -910,6 +939,8 @@ def create_app(db_url, cache_config=None):
     _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
     _add_route("/namingpolicy/", namingpolicy)
     _add_route("/namingpolicy/piechart.svg", piechart_namingpolicy)
+    _add_route("/namingpolicy/history/", history_naming)
+    _add_route("/namingpolicy/history/data.csv", history_naming_csv)
     _add_route("/history/", history, get_keys={'expand'})
     _add_route("/history/data.csv", history_csv)
     _add_route("/howto/", howto)

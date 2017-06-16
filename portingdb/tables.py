@@ -480,6 +480,24 @@ class HistoryEntry(TableBase):
         'Status', backref=backref('history'))
 
 
+class HistoryNamingEntry(TableBase):
+    u"""Stores the database's history for naming policy page."""
+    __tablename__ = 'history_naming_entries'
+    id = IDColumn()
+    __table_args__ = (UniqueConstraint('commit', 'status'), )
+    commit = Column(
+        Unicode(), nullable=False)
+    status = Column(
+        ForeignKey(NamingData.ident), nullable=False)
+    date = Column(
+        Unicode(), nullable=False)
+    num_packages = Column(
+        Integer(), nullable=False)
+
+    status_obj = relationship(
+        'NamingData', backref=backref('history'))
+
+
 Package.requirements = relationship(
     Package,
     secondary=Dependency.__table__,

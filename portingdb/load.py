@@ -323,6 +323,15 @@ def load_from_directories(db, directories):
     bulk_load(db, values, tables.HistoryEntry.__table__,
               key_columns=['commit', 'status'])
 
+    try:
+        values = data_from_csv(directories, 'history-naming')
+    except FileNotFoundError:
+        # File was not added yet.
+        pass
+    else:
+        bulk_load(db, values, tables.HistoryNamingEntry.__table__,
+                  key_columns=['commit', 'status'])
+
     if 'limit' in config:
         db.flush()
         query = db.query(tables.GroupPackage)

@@ -1,0 +1,52 @@
+{% extends "_base.html" %}
+
+{% block style %}
+{{ super() }}
+
+body {
+  /*font: 10px sans-serif;*/
+}
+
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+  shape-rendering: crispEdges;
+}
+
+{% endblock style %}
+
+{% block bodycontent %}
+<script src="{{ url_for('static', filename='d3.v3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='chart.js') }}"></script>
+
+<div class="container">
+    <div class="col-md-12" id="chart-container">
+        <h1>History</h1>
+        <p>
+            This graph shows recorded naming policy state of packages
+            tracked by the {{ config['name'] or '' }} portingdb.
+        </p>
+        <div class="chart">
+        </div>
+    </div>
+</div>
+
+<script>
+
+var colormap = {
+    'Misnamed Subpackage': '#F0AD4E',
+    'Misnamed Requires': '#8c6699',
+    'Blocked': '#a65959',
+};
+
+var key_order = ["Misnamed Subpackage", "Misnamed Requires", "Blocked"];
+
+chart("data.csv", colormap, key_order, false);
+
+var datearray = [];
+var colorrange = [];
+
+</script>
+{% endblock bodycontent %}

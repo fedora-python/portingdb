@@ -22,7 +22,12 @@ from sqlalchemy import create_engine, select, func
 import click
 
 from portingdb import tables
+from portingdb.htmlreport import get_naming_policy_progress
 from portingdb.load import get_db
+
+
+HISTORY_END_COMMIT = '9c4e924da9ede05b4d8903a622240259dfa0e2e5'
+HISTORY_NAMING_END_COMMIT = 'e88b40f45cde37c6956b8ef088f195766f454c0e'
 
 
 def run(args, **kwargs):
@@ -30,7 +35,7 @@ def run(args, **kwargs):
     return subprocess.check_output(args, **kwargs)
 
 
-def git_history(start='HEAD', end='9c4e924da9ede05b4d8903a622240259dfa0e2e5'):
+def git_history(start='HEAD', end=HISTORY_END_COMMIT):
     """Yield commit IDs along the "main" branch of a project"""
     args = ['git', 'log', '--pretty=%H', '--first-parent', start, '^' + end]
     return run(args).strip().splitlines()
@@ -46,18 +51,58 @@ d854079db4d805c4f4f07ad5a4a7c94811030979
 """.splitlines())
 
 
+def get_history_package_numbers(db, commit, date):
+    """Get number of packages for each status.
+    """
+    prev_batch = []
+    all_statuses = [
+        "blocked", "dropped", "idle", "in-progress", "released", "mispackaged"]
+
+    columns = [tables.Package.status, func.count()]
+    query = select(columns).select_from(tables.Package.__table__)
+    query = query.group_by(tables.Package.status)
+
+    package_numbers = {status: num_packages
+                       for status, num_packages
+                       in db.execute(query)}
+    for status in all_statuses:
+        row = {
+            'commit': commit,
+            'date': date,
+            'status': status,
+            'num_packages': package_numbers.get(status, 0),
+        }
+        prev_batch.append(row)
+    return prev_batch
+
+
+def get_history_naming_package_numbers(db, commit, date):
+    """Get number of packages for each naming policy violation.
+    """
+    prev_batch = []
+    progress, _ = get_naming_policy_progress(db)
+    for status, count in progress[1:]:
+        row = {
+            'commit': commit,
+            'date': date,
+            'status': status.name,
+            'num_packages': count,
+        }
+        prev_batch.append(row)
+    return prev_batch
+
+
 @click.command(help=__doc__)
 @click.option('-u', '--update', help='CSV file with existing data')
-def main(update):
+@click.option('-n', '--naming', is_flag=True,
+              help='The CSV file provided is for naming history')
+def main(update, naming):
     excluded = set(BAD_COMMITS)
     tmpdir = tempfile.mkdtemp()
     writer = csv.DictWriter(sys.stdout,
                             ['commit', 'date', 'status', 'num_packages'],
                             lineterminator='\n')
     writer.writeheader()
-
-    all_statuses = [
-        "blocked", "dropped", "idle", "in-progress", "released", "mispackaged"]
 
     prev_date = None
     prev_commit = None
@@ -76,7 +121,9 @@ def main(update):
         run(['git', 'clone', '.', tmpclone])
         prev_data_hash = None
         prev_batch = []
-        for commit in reversed(git_history()):
+
+        end_commit = HISTORY_NAMING_END_COMMIT if naming else HISTORY_END_COMMIT
+        for commit in reversed(git_history(end=end_commit)):
             date = run(['git', 'log', '-n1', '--pretty=%ci', commit]).strip()
             if prev_date and prev_date > date:
                 continue
@@ -99,27 +146,17 @@ def main(update):
             # version.
             run(['git', 'checkout', commit, '--', 'data'], cwd=tmpclone)
             run(['python3', '-m', 'portingdb',
-                    '--datadir', tmpdata,
-                    '--db', tmpdb,
-                    'load'])
+                 '--datadir', tmpdata,
+                 '--db', tmpdb,
+                 'load'])
 
             engine = create_engine('sqlite:///' + os.path.abspath(tmpdb))
             db = get_db(engine=engine)
-            columns = [tables.Package.status, func.count()]
-            query = select(columns).select_from(tables.Package.__table__)
-            query = query.group_by(tables.Package.status)
 
-            package_numbers = {status: num_packages
-                                for status, num_packages
-                                in db.execute(query)}
-            for status in all_statuses:
-                row = {
-                    'commit': commit,
-                    'date': date,
-                    'status': status,
-                    'num_packages': package_numbers.get(status, 0),
-                }
-                prev_batch.append(row)
+            if naming:
+                prev_batch = get_history_naming_package_numbers(db, commit, date)
+            else:
+                prev_batch = get_history_package_numbers(db, commit, date)
 
             os.unlink(tmpdb)
 
