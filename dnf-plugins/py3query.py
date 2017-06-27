@@ -264,7 +264,7 @@ class Py3QueryCommand(dnf.cli.Command):
                             pkg.suggests + pkg.supplements + pkg.enhances):
                 require = str(require).split()[0]
                 requirement = all_provides.get(require)
-                if is_unversioned(require) and requirement:
+                if is_unversioned(require) and requirement and not require.endswith('-doc'):
                     requirement_srpm_name = hawkey.split_nevra(requirement.sourcerpm).name
                     requirer_srpm_name = hawkey.split_nevra(
                         pkg.sourcerpm).name if pkg.sourcerpm else pkg.name
