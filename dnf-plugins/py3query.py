@@ -254,13 +254,11 @@ class Py3QueryCommand(dnf.cli.Command):
                 if req in python_versions.keys():
                     deps_of_pkg[req].add(pkg)
 
-        unversioned_wildcards = ['python-*', '[!/]*-python-*', '[!/]*-python']
-        runtime = self.pkg_query.filter(requires__glob=unversioned_wildcards)
-        buildtime = self.src_query.filter(requires__glob=unversioned_wildcards)
         # unversioned_requirers: {srpm_name: set of srpm_names}
         unversioned_requirers = collections.defaultdict(set)
-        for pkg in progressbar(runtime + list(buildtime), 'Getting unversioned requirers'):
-            for require in pkg.requires + pkg.requires_pre:
+        for pkg in progressbar(self.all_unqualified_requires(), 'Getting unversioned requirers'):
+            for require in (pkg.requires + pkg.requires_pre + pkg.recommends +
+                            pkg.suggests + pkg.supplements + pkg.enhances):
                 require = str(require).split()[0]
                 requirement = all_provides.get(require)
                 if is_unversioned(require) and requirement:
@@ -366,3 +364,24 @@ class Py3QueryCommand(dnf.cli.Command):
         query = self.pkg_query
         query = query.filter(requires=dep)
         return set(query)
+
+    def all_unqualified_requires(self):
+        """Return a set of packages, which have misnamed
+        runtime, buildtime or weak dependencies.
+        """
+        unqualified_wildcards = ['python-*', '[!/]*-python-*', '[!/]*-python']
+        requireres = set()
+
+        # Check runtime dependencies.
+        requireres.update(self.pkg_query.filter(requires__glob=unqualified_wildcards).run())
+
+        # Check weak dependencies.
+        for wildcard in unqualified_wildcards:
+            requireres.update(self.pkg_query.filter(recommends__glob=wildcard).run())
+            requireres.update(self.pkg_query.filter(suggests__glob=wildcard).run())
+            requireres.update(self.pkg_query.filter(supplements__glob=wildcard).run())
+            requireres.update(self.pkg_query.filter(enhances__glob=wildcard).run())
+
+        # Check buildtime dependencies.
+        requireres.update(self.src_query.filter(requires__glob=unqualified_wildcards).run())
+        return requireres
