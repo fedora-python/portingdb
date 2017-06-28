@@ -254,16 +254,18 @@ class Py3QueryCommand(dnf.cli.Command):
                 if req in python_versions.keys():
                     deps_of_pkg[req].add(pkg)
 
-        unversioned_wildcards = ['python-*', '[!/]*-python-*', '[!/]*-python']
-        runtime = self.pkg_query.filter(requires__glob=unversioned_wildcards)
-        buildtime = self.src_query.filter(requires__glob=unversioned_wildcards)
         # unversioned_requirers: {srpm_name: set of srpm_names}
         unversioned_requirers = collections.defaultdict(set)
-        for pkg in progressbar(runtime + list(buildtime), 'Getting unversioned requirers'):
-            for require in pkg.requires + pkg.requires_pre:
+        for pkg in progressbar(self.all_unqualified_requires(),
+                               'Processing packages with unversioned dependencies'):
+            # Ignore Python 3 only packages when checking requires.
+            if python_versions.get(pkg) == {3}:
+                continue
+            for require in (pkg.requires + pkg.requires_pre + pkg.recommends +
+                            pkg.suggests + pkg.supplements + pkg.enhances):
                 require = str(require).split()[0]
                 requirement = all_provides.get(require)
-                if is_unversioned(require) and requirement:
+                if is_unversioned(require) and requirement and not require.endswith('-doc'):
                     requirement_srpm_name = hawkey.split_nevra(requirement.sourcerpm).name
                     requirer_srpm_name = hawkey.split_nevra(
                         pkg.sourcerpm).name if pkg.sourcerpm else pkg.name
@@ -366,3 +368,28 @@ class Py3QueryCommand(dnf.cli.Command):
         query = self.pkg_query
         query = query.filter(requires=dep)
         return set(query)
+
+    def all_unqualified_requires(self):
+        """Return a set of packages, which have misnamed
+        runtime, buildtime or weak dependencies.
+        """
+        unqualified_wildcards = ['python-*', '[!/]*-python-*', '[!/]*-python']
+        bar = iter(progressbar(['Runtime', 'Weak ', 'Buildtime'],
+                               'Querying packages with unversioned dependencies'))
+        requires = set()
+        # Check runtime dependencies.
+        next(bar)
+        requires.update(self.pkg_query.filter(requires__glob=unqualified_wildcards).run())
+
+        # Check weak dependencies.
+        next(bar)
+        for wildcard in unqualified_wildcards:
+            requires.update(self.pkg_query.filter(recommends__glob=wildcard).run())
+            requires.update(self.pkg_query.filter(suggests__glob=wildcard).run())
+            requires.update(self.pkg_query.filter(supplements__glob=wildcard).run())
+            requires.update(self.pkg_query.filter(enhances__glob=wildcard).run())
+
+        # Check buildtime dependencies.
+        next(bar)
+        requires.update(self.src_query.filter(requires__glob=unqualified_wildcards).run())
+        return requires
