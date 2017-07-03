@@ -24,7 +24,7 @@ requires = [
     'flask >= 0.10, < 1.0',
     'markdown >= 2.4, < 3.0',
     'dogpile.cache >= 0.5.5, < 1.0',
-    'taskotron-python-versions',
+    'taskotron-python-versions >= 0.1.dev2',
 ]
 
 tests_require = ['pytest']
