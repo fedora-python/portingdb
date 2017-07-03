@@ -373,7 +373,7 @@ class Py3QueryCommand(dnf.cli.Command):
         """Return a set of packages, which have misnamed
         runtime, buildtime or weak dependencies.
         """
-        unqualified_wildcards = ['python-*', '[!/]*-python-*', '[!/]*-python']
+        unqualified_wildcards = ['python-*', '[!/]*-python-*', '[!/]*-python', 'python']
         bar = iter(progressbar(['Runtime', 'Weak ', 'Buildtime'],
                                'Querying packages with unversioned dependencies'))
         requires = set()
