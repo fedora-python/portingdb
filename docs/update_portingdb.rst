@@ -4,30 +4,32 @@ Update portingdb data
 Setup (to be run just once and if needed)
 *****************************************
 
-To use the `portingdb` update scripts, you will need to install and configure the following:
+To use the portingdb update scripts, you will need to install and configure the following:
 
-#. Put `py3query.py` in DNF plugin directory::
+#. Put ``py3query.py`` in DNF plugin directory::
     
-    sudo cp dnf-plugins/py3query.py /usr/lib/python3.5/site-packages/dnf-plugins/
+    sudo cp dnf-plugins/py3query.py /usr/lib/pythonX.X/site-packages/dnf-plugins/
+
+   Note: replace ``pythonX.X`` with the Python version of your system.
 
 #. Install the rawhide repo definitions::
     
     sudo dnf install fedora-repos-rawhide
 
-#. Install `python3-blessings` which is an additional dependency for `scripts/get-history.py`::
+#. Install ``python3-blessings`` which is an additional dependency for ``scripts/get-history.py``::
 
     sudo dnf install python3-blessings
 
 Update and load data
 ********************
 
-Follow the steps below to update `pordingdb` data:
+Follow the steps below to update pordingdb data:
 
-#. Get the Python 3 porting status using `py3query` dnf plugin. Use `-o` option to write the output directly to `fedora.json`::
+#. Get the Python 3 porting status using ``py3query`` dnf plugin. Use ``-o`` option to write the output directly to ``fedora.json``::
 
     dnf-3 --disablerepo='*' --enablerepo=rawhide --enablerepo=rawhide-source py3query --refresh -o data/fedora.json
 
-#. Get historical status data and update `history.csv`::
+#. Get historical status data and update ``history.csv``::
 
     python3 -u scripts/get-history.py --update data/history.csv | tee history.csv
     mv history.csv data/history.csv
@@ -100,7 +102,7 @@ missing -> idle
 relesed -> mispackaged
     There is an issue with Python 3 subpackage:
 
-* Open the package in `portingdb` and check requirements for `python3-` subpackage:
+* Open the package in portingdb and check requirements for ``python3-`` subpackage:
 
   * If the subpackage is dragging py2 dependency in, check the latest change and find what caused it
   * File a bug
