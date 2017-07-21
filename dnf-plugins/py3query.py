@@ -10,7 +10,6 @@ This will give you a file "fedora.json" with information for portingdb.
 
 from __future__ import print_function
 
-import operator
 import sys
 import json
 import collections
@@ -20,7 +19,6 @@ import hawkey
 import dnf
 import dnf.cli
 import dnf.subject
-import dnfpluginscore
 from dnfpluginscore import _
 import bugzilla  # python-bugzilla
 
@@ -86,21 +84,6 @@ class Py3Query(dnf.Plugin):
         self.cli = cli
         if self.cli is not None:
             self.cli.register_command(Py3QueryCommand)
-
-
-def parse_arguments(args):
-    parser = dnfpluginscore.ArgumentParser(Py3QueryCommand.aliases[0])
-
-    parser.add_argument('--output', '-o', metavar='FILE', action='store',
-                        help=_('write output to the given file'))
-
-    parser.add_argument('--no-bz', dest='fetch_bugzilla', action='store_false',
-                        default=True, help=_("Don't get Bugzilla links"))
-
-    parser.add_argument('--qrepo', dest='py3query_repo', default='rawhide',
-                        help=_("Repo to use for the query"))
-
-    return parser.parse_args(args), parser
 
 
 def progressbar(seq, text, namegetter=str):
@@ -193,21 +176,25 @@ class Py3QueryCommand(dnf.cli.Command):
     summary = _('query the python3 porting status')
     usage = _('[OPTIONS] [KEYWORDS]')
 
-    def configure(self, args):
-        self.opts, self.parser = parse_arguments(args)
-
-        if self.opts.help_cmd:
-            return
-
+    def configure(self):
+        """Setup the demands."""
         demands = self.cli.demands
         demands.sack_activation = True
         demands.available_repos = True
 
-    def run(self, args):
-        if self.opts.help_cmd:
-            print(self.parser.format_help())
-            return
+    @staticmethod
+    def set_argparser(parser):
+        """Parse command line arguments."""
+        parser.add_argument('--output', '-o', metavar='FILE', action='store',
+                            help=_('write output to the given file'))
 
+        parser.add_argument('--no-bz', dest='fetch_bugzilla', action='store_false',
+                            default=True, help=_("Don't get Bugzilla links"))
+
+        parser.add_argument('--qrepo', dest='py3query_repo', default='rawhide',
+                            help=_("Repo to use for the query"))
+
+    def run(self):
         reponame = self.opts.py3query_repo
         self.base_query = self.base.sack.query()
         self.pkg_query = self.base_query.filter(reponame=reponame)
