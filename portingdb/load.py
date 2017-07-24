@@ -297,8 +297,6 @@ def load_from_directories(db, directories):
         bulk_load(db, values, tables.RPMPyDependency.__table__,
                   key_columns=['rpm_id', 'py_dependency_name'])
 
-        # TODO: Contacts
-
     group_values = data_from_file(directories, 'groups')
     values = [{
         'ident': k,

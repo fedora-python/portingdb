@@ -369,28 +369,6 @@ class Link(TableBase):
                                            self.url)
 
 
-class Contact(TableBase):
-    u"""Person associated with a package."""
-    __tablename__ = 'contacts'
-    __table_args__ = (UniqueConstraint('collection_package_id', 'name'), )
-    id = IDColumn()
-    collection_package_id = Column(
-        ForeignKey(CollectionPackage.id), nullable=False)
-    name = Column(
-        Unicode(), nullable=False)
-    role = Column(
-        Enum('owner', 'manager', 'porter'),
-        primary_key=True, nullable=False)
-
-    collection_package = relationship(
-        'CollectionPackage', backref=backref('contacts'))
-
-    def __repr__(self):
-        return '<{} {} for {}: {}>'.format(type(self).__qualname__, self.role,
-                                           self.collection_package.name,
-                                           self.name)
-
-
 class Group(TableBase):
     __tablename__ = 'groups'
     ident = Column(
