@@ -6,6 +6,8 @@ Setup (to be run just once and if needed)
 
 To use the portingdb update scripts, you will need to install and configure the following:
 
+#. Ensure that you run Fedora 26 or higher. The DNF plugin requires DNF-2 released in F26, due to incompatible CLI changes in API methods.
+
 #. Put ``py3query.py`` in DNF plugin directory::
     
     sudo cp dnf-plugins/py3query.py /usr/lib/pythonX.X/site-packages/dnf-plugins/

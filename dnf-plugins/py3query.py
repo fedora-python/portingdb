@@ -1,9 +1,9 @@
 """
-DNF plugin for getting the Python 3 porting status
+DNF plugin for getting the Python 3 porting status.
 
 Put this in your DNF plugin directory, then run:
 
-    $ dnf --enable=rawhide --enable=rawhide-source py3query -o fedora.json
+    $ dnf --enablerepo=rawhide --enablerepo=rawhide-source py3query -o fedora.json
 
 This will give you a file "fedora.json" with information for portingdb.
 """
