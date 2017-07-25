@@ -10,6 +10,12 @@ It checks spec files for using `%if %{?rhel}` conditionals
 and may have false positives.
 
 Usage: ./scripts/check-specs.py
+
+The result of runnig this script is saved in `data/rhel-specs.json` file.
+Use the following command to update contents of the file:
+
+./scripts/check-specs.py --epel -o data/rhel-specs.json
+
 """
 import click
 import json
@@ -18,6 +24,7 @@ import os
 import urllib.request
 import urllib.error
 
+from datetime import datetime
 from multiprocessing import Pool
 
 from sqlalchemy import create_engine
@@ -81,9 +88,7 @@ def check_branches(package):
         response = response.read()
         result = json.loads(response.decode())
         branches = [pkg['collection']['branchname'] for pkg in result['packages']]
-        if 'el6' in branches or 'epel7' in branches:
-            logger.debug('%s has epel branch', package.name)
-            return package
+        return package.name, [el for el in branches if el in ('el6', 'epel7')]
 
 
 def check_packages(packages, check_function):
@@ -106,7 +111,11 @@ def check_packages(packages, check_function):
 @click.command(help=__doc__)
 @click.option('--db', help="Database file path.",
               default=os.path.abspath('portingdb.sqlite'))
-def main(db):
+@click.option('--epel', help="Check if the found packages are built for epel.",
+              is_flag=True)
+@click.option('-o', '--output',
+              help="File path to write the resulted list of packages to.")
+def main(db, epel, output):
     db = get_portingdb(db)
     _, data = get_naming_policy_progress(db)
 
@@ -119,19 +128,26 @@ def main(db):
     total_cross_platform = sum(len(packages) for packages in result.values())
     percentage = total_cross_platform * 100 / total
 
-    logger.info('Checking for epel branches...')
-    pkgdb_result = {}
-    for category, packages in result.items():
-        pkgdb_result[category] = check_packages(packages, check_branches)
-
     print('\nPackages that use {} in spec files: {} of {} ({:.2f}%)'.format(
         ', '.join(MARKERS), total_cross_platform, total, percentage))
     for category, packages in result.items():
         print('  {}: {}'.format(category, len(packages)))
 
-    total_epel = sum(len(packages) for packages in pkgdb_result.values())
-    print('From those {}, have el6 or epel7 branch: {}'.format(
-        total_cross_platform, total_epel))
+    if epel:
+        logger.info('Checking for epel branches...')
+        for category, packages in result.items():
+            result[category] = dict(check_packages(packages, check_branches))
+
+        total_epel = len([pkg for packages in result.values()
+                          for pkg, branches in packages.items() if branches])
+        print('From those {}, have el6 or epel7 branch: {}'.format(
+            total_cross_platform, total_epel))
+
+    if output:
+        with open(output, 'w') as outfile:
+            result['generated_on'] = str(datetime.now())
+            json.dump(result, outfile, indent=2,
+                      default=lambda package: package.name)
 
 
 if __name__ == '__main__':
