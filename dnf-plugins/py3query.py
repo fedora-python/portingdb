@@ -215,7 +215,7 @@ class Py3QueryCommand(dnf.cli.Command):
 
             for dep in progressbar(provides, 'Getting py{} requires'.format(n)):
                 dep_versions[str(dep)] = n
-                for pkg in self.whatrequires(dep):
+                for pkg in self.whatrequires(dep, self.pkg_query):
                     python_versions[pkg].add(n)
                     rpm_pydeps[pkg].add(str(dep))
 
@@ -230,21 +230,28 @@ class Py3QueryCommand(dnf.cli.Command):
 
         # deps_of_pkg: {package: set of packages}
         deps_of_pkg = collections.defaultdict(set)
+        # build_deps_of_srpm: {srpm name: set of packages}
+        build_deps_of_srpm = collections.defaultdict(set)
         # all_provides: {provide_name: package}
         all_provides = {str(r).split()[0]: p for p in python_versions for r in p.provides
                         if not str(r).startswith(PROVIDES_BLACKLIST)}
         for pkg in progressbar(sorted(python_versions.keys()), 'Getting requirements'):
             reqs = set()
+            build_reqs = set()
             for provide in pkg.provides:
-                reqs.update(self.whatrequires(provide))
+                reqs.update(self.whatrequires(provide, self.pkg_query))
+                build_reqs.update(self.whatrequires(provide, self.src_query))
             for req in reqs:
                 if req in python_versions.keys():
                     deps_of_pkg[req].add(pkg)
+            for req in build_reqs:
+                if req.name in by_srpm_name.keys():
+                    build_deps_of_srpm[req.name].add(pkg)
 
         # unversioned_requirers: {srpm_name: set of srpm_names}
         unversioned_requirers = collections.defaultdict(set)
         for pkg in progressbar(self.all_unqualified_requires(),
-                               'Processing packages with unversioned dependencies'):
+                            'Processing packages with unversioned dependencies'):
             # Ignore Python 3 only packages when checking requires.
             if python_versions.get(pkg) == {3}:
                 continue
@@ -271,6 +278,9 @@ class Py3QueryCommand(dnf.cli.Command):
             r['deps'] = sorted(set(srpm_names[d]
                                    for p in pkgs
                                    for d in deps_of_pkg.get(p, '')
+                                   if srpm_names[d] != name))
+            r['build_deps'] = sorted(set(srpm_names[d]
+                                   for d in build_deps_of_srpm.get(name, '')
                                    if srpm_names[d] != name))
             if unversioned_requirers.get(name):
                 r['unversioned_requirers'] = sorted(unversioned_requirers[name])
@@ -351,8 +361,7 @@ class Py3QueryCommand(dnf.cli.Command):
             provides.update(pkg.provides)
         return provides
 
-    def whatrequires(self, dep):
-        query = self.pkg_query
+    def whatrequires(self, dep, query):
         query = query.filter(requires=dep)
         return set(query)
 
