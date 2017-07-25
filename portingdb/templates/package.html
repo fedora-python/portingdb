@@ -76,6 +76,12 @@
                                                     <span class="fa fa-li"> </span>
                                                 {% endif %}
                                                 {{ pydep.name }}
+                                                {% if pydep.name == '/usr/bin/python' %}
+                                                    <span class="badge"
+                                                        style="background-color: #F0AD4E !important;"
+                                                        title="Scripts should explicitly use /usr/bin/python3 or /usr/bin/python2, especially in shebangs"
+                                                    >⅔</span>
+                                                {% endif %}
                                             </li>
                                         {% endfor %}
                                     </ul>
