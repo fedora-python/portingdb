@@ -268,7 +268,7 @@ class Py3QueryCommand(dnf.cli.Command):
         # get extra dependencies
         extra_deps = ['/usr/bin/env']
         for dep in progressbar(extra_deps, 'Getting extra dependencies'):
-            for pkg in self.whatrequires(dep):
+            for pkg in self.whatrequires(dep, self.pkg_query):
                 if pkg in python_versions.keys():
                     rpm_pydeps[pkg].add('/usr/bin/env')
 
