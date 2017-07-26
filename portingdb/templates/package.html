@@ -82,6 +82,12 @@
                                                         title="Scripts should explicitly use /usr/bin/python3 or /usr/bin/python2, especially in shebangs"
                                                     >⅔</span>
                                                 {% endif %}
+                                                {% if pydep.name == '/usr/bin/env' %}
+                                                    <span class="badge"
+                                                        style="background-color: #F0AD4E !important;"
+                                                        title="Scripts should not use /usr/bin/env in shebangs. Except in special circumstances, explicitly using /usr/bin/python3 or /usr/bin/python2 works better."
+                                                    >!</span>
+                                                {% endif %}
                                             </li>
                                         {% endfor %}
                                     </ul>
