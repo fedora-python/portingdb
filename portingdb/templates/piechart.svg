@@ -32,17 +32,20 @@
        "
        id="circle-fg" />
     {% endif %}
-    {% set angle = -tau/4 %}
+    {% set angles = [-tau/4] %}
     {% for status, num in status_summary %}
-    {% set next_angle = angle + (num / total_pkg_count) * tau %}
+
+    {# workaround for https://github.com/pallets/jinja/issues/641 #}
+    {% set _= angles.append(angles[-1] + (num / total_pkg_count) * tau) %}
+
     <path
        d="
         M 8,8
-        M {{ 8 + cos(angle) * 7 }},{{ 8 + sin(angle) * 7 }}
+        M {{ 8 + cos(angles[-2]) * 7 }},{{ 8 + sin(angles[-2]) * 7 }}
         A
             7,7
             0 {{ (num >= total_pkg_count/2) | round|int }} 1
-            {{ 8 + cos(next_angle) * 7 }},{{ 8 + sin(next_angle) * 7 }}
+            {{ 8 + cos(angles[-1]) * 7 }},{{ 8 + sin(angles[-1]) * 7 }}
         L 8,8
         Z"
        style="
@@ -54,7 +57,6 @@
        id="wedge-{{ status.ident }}">
         <title>{{ status.name }}: {{ num }} packages ({{ (num / total_pkg_count * 100)  | round(1) }}%)</title>
     </path>
-    {% set angle = next_angle %}
     {% endfor %}
   </g>
 </svg>
