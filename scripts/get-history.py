@@ -56,7 +56,7 @@ def get_history_package_numbers(db, commit, date):
     """
     prev_batch = []
     all_statuses = [
-        "blocked", "dropped", "idle", "in-progress", "released", "mispackaged"]
+        "blocked", "py3-only", "dropped", "idle", "in-progress", "released", "mispackaged"]
 
     columns = [tables.Package.status, func.count()]
     query = select(columns).select_from(tables.Package.__table__)

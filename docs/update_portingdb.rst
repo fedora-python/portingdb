@@ -114,4 +114,6 @@ released -> idle
 
 * Let someone know.
 
+Treat the "py3-only" state the same as "released".
+
 If you encounter some other transition, let someone know and figure out a process!

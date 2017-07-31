@@ -157,10 +157,19 @@
             </ul>
             <h2 id="released">Released packages</h2>
             <div>
-                {{ len(done_packages) }}  packages are already ported. Yipee!
+                {{ len(released_packages) }}  packages are already ported. Yipee!
             </div>
             <div>
-               {% for pkg in done_packages %}
+               {% for pkg in released_packages %}
+                    {{ pkglink(pkg) }}
+               {% endfor %}
+            </div>
+            <h2 id="py3-only">Python3-only packages</h2>
+            <div>
+                {{ len(py3_only_packages) }} packages support Python 3 only. Yay!
+            </div>
+            <div>
+               {% for pkg in py3_only_packages %}
                     {{ pkglink(pkg) }}
                {% endfor %}
             </div>

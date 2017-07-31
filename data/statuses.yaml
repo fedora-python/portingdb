@@ -1,11 +1,23 @@
+- ident: py3-only
+  name: Python 3 only
+  abbrev: 🗹
+  color: '709966'
+  term: '\e[32;7m🗹\e[0m'
+  weight: 2
+  description: Package only supports Python 3
+  rank: 2
+  instructions:
+    Welcome to the future!
+    This package does not support Python 2 at all.
+    All is good in the world.
 - ident: released
   name: Released
   abbrev: ✔
   color: '5CB85C'
   term: '\e[32;7m✔\e[0m'
-  weight: 2
+  weight: 3
   description: Version with Python 3 support is officially released
-  rank: 2
+  rank: 3
   instructions:
     We are done! This package is released with Python 3 support, and
     all is good in the world.
@@ -14,9 +26,9 @@
   abbrev: P
   color: 'F0AD4E'
   term: '\e[33;7mP\e[0m'
-  weight: 6
+  weight: 7
   description: Actively worked on
-  rank: 5
+  rank: 6
   instructions:
     Someone is working on this package. Please coordinate with them.
 
@@ -27,9 +39,9 @@
   abbrev: M
   color: '5bc0de'
   term: M
-  weight: 5
+  weight: 6
   description: Packaging, rather than code, seems incorrect
-  rank: 6
+  rank: 7
   instructions: |
     This package has a packaging problem, which should be described in the
     notes.
@@ -42,9 +54,9 @@
   abbrev: I
   color: 'DDDDDD'
   term: ' '
-  weight: 4
+  weight: 5
   description: No current activity is recorded
-  rank: 4
+  rank: 5
   instructions: |
     No one is working on this package now. You can visit pkgdb for links to the
     upstream project.
@@ -57,9 +69,9 @@
   abbrev: B
   color: 'D9534F'
   term: 'B'
-  weight: 3
+  weight: 4
   description: Depends on work on another package
-  rank: 3
+  rank: 4
   instructions: |
     This package has some dependencies that do not support Python 3 yet.
     They need to be ported first.

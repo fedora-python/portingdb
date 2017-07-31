@@ -57,10 +57,12 @@ var colormap = {
     'blocked': '#D9534F',
     'released': '#5CB85C',
     'mispackaged': '#5BC0DE',
+    'py3-only': '#70E058',
     'dropped': '#888888',
 };
 
-var key_order = ["dropped", "released", "in-progress", "mispackaged", "idle", "blocked"];
+var key_order = ["dropped", "py3-only", "released", "in-progress",
+                 "mispackaged", "idle", "blocked"];
 
 chart("data.csv", colormap, key_order, {{ expand|tojson }});
 

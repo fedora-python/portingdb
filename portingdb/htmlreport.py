@@ -23,6 +23,8 @@ from . import queries
 
 tau = 2 * math.pi
 
+DONE_STATUSES = {'released', 'dropped', 'py3-only'}
+
 
 def hello():
     db = current_app.config['DB']()
@@ -57,8 +59,11 @@ def hello():
     active = active.options(subqueryload('collection_packages'))
     active = active.options(subqueryload('collection_packages.links'))
 
-    done = query.filter(tables.Package.status == 'released')
-    done = queries.order_by_name(db, done)
+    py3_only = query.filter(tables.Package.status == 'py3-only')
+    py3_only = queries.order_by_name(db, py3_only)
+
+    released = query.filter(tables.Package.status == 'released')
+    released = queries.order_by_name(db, released)
 
     dropped = query.filter(tables.Package.status == 'dropped')
     dropped = queries.order_by_name(db, dropped)
@@ -86,7 +91,8 @@ def hello():
     naming_progress, _ = get_naming_policy_progress(db)
 
     active = list(active)
-    done = list(done)
+    py3_only = list(py3_only)
+    released = list(released)
     ready = list(ready)
     blocked = list(blocked)
     mispackaged = list(mispackaged)
@@ -94,11 +100,11 @@ def hello():
     random_mispackaged = random.choice(mispackaged)
 
     # Check we account for all the packages
-    sum_by_status = sum(len(x) for x in (active, done, ready, blocked,
-                                         mispackaged, dropped))
+    sum_by_status = sum(len(x) for x in (active, released, py3_only, ready,
+                                         blocked, mispackaged, dropped))
     assert sum_by_status == total_pkg_count
 
-    the_score = (len(done) + len(dropped)) / total_pkg_count
+    the_score = (len(py3_only) + len(released) + len(dropped)) / total_pkg_count
 
     # Nonbolocking set query
     query = db.query(tables.Package)
@@ -141,7 +147,8 @@ def hello():
         active_packages=active,
         ready_packages=ready,
         blocked_packages=blocked,
-        done_packages=done,
+        py3_only_packages=py3_only,
+        released_packages=released,
         dropped_packages=dropped,
         mispackaged_packages=mispackaged,
         random_mispackaged=random_mispackaged,
@@ -167,7 +174,8 @@ def jsonstats():
 
     query = queries.packages(db)
     active = query.filter(tables.Package.status == 'in-progress')
-    done = query.filter(tables.Package.status == 'released')
+    released = query.filter(tables.Package.status == 'released')
+    py3_only = query.filter(tables.Package.status == 'py3-only')
     dropped = query.filter(tables.Package.status == 'dropped')
     mispackaged = query.filter(tables.Package.status == 'mispackaged')
     blocked = query.filter(tables.Package.status == 'blocked')
@@ -175,7 +183,8 @@ def jsonstats():
 
     stats = {
         'in-progress': active.count(),
-        'released': done.count(),
+        'released': released.count(),
+        'py3-only': py3_only.count(),
         'dropped': dropped.count(),
         'mispackaged': mispackaged.count(),
         'blocked': blocked.count(),
@@ -286,7 +295,7 @@ def gen_deptree(base, *, seen=None):
     seen = seen or set()
     base = tuple(base)
     for pkg in base:
-        if pkg in seen or pkg.status in ('released', 'dropped', 'idle'):
+        if pkg in seen or pkg.status in {'idle'} | DONE_STATUSES:
             yield pkg, []
         else:
             reqs = sorted(pkg.requirements,
@@ -360,8 +369,7 @@ def graph_json(grp=None, pkg=None):
     if pkg is None:
         db = current_app.config['DB']()
         query = queries.packages(db)
-        query = query.filter(tables.Package.status != 'released')
-        query = query.filter(tables.Package.status != 'dropped')
+        query = query.filter(~tables.Package.status.in_(DONE_STATUSES))
         if grp:
             query = query.join(tables.GroupPackage)
             query = query.filter(tables.GroupPackage.group_ident == grp)
@@ -379,7 +387,7 @@ def graph_json(grp=None, pkg=None):
             if package not in requirements:
                 requirements.add(package)
                 todo.update(p for p in package.requirements
-                            if p.status not in {'released', 'dropped'})
+                            if p.status not in DONE_STATUSES)
         todo = {root_package}
         requirers = set()
         while todo:
@@ -387,7 +395,7 @@ def graph_json(grp=None, pkg=None):
             if package not in requirers:
                 requirers.add(package)
                 todo.update(p for p in package.requirers
-                            if p.status not in {'released', 'dropped'})
+                            if p.status not in DONE_STATUSES)
         packages = list(requirements | requirers | {root_package})
 
     package_names = {p.name for p in packages}

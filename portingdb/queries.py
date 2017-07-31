@@ -106,6 +106,7 @@ def update_status_summaries(db):
     depcp = aliased(tables.CollectionPackage)
     subquery = db.query(depcp)
     subquery = subquery.join(dep, depcp.package_name == dep.name)
+    subquery = subquery.filter(depcp.status != 'py3-only')
     subquery = subquery.filter(depcp.status != 'released')
     subquery = subquery.filter(depcp.status != 'dropped')
     subquery = subquery.filter(depcp.status != 'unknown')

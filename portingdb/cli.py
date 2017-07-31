@@ -90,7 +90,8 @@ def print_status(ctx):
             total = sum(v for k, v in data.items())
             detail = ', '.join('{1} {0}'.format(k, v) for k, v in data.items())
             if total:
-                num_done = data.get('released', 0) + data.get('dropped', 0)
+                num_done = sum(data.get(s, 0)
+                               for s in ('released', 'dropped', 'py3-only'))
                 print('{score:5.1f}% {name}  ({detail}) / {total}'.format(
                     name=collection.name,
                     max_name_len=max_name_len,
@@ -175,7 +176,7 @@ def report(ctx):
         reqs = []
         for req in package.requirements:
             for cp in req.by_collection.values():
-                if cp.status != 'released':
+                if cp.status not in ('released', 'py3-only'):
                     reqs.append(req.name)
                     break
         if reqs:

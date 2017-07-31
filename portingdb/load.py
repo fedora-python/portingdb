@@ -128,11 +128,13 @@ def _merge_updates(base, updates, warnings=None, parent_keys=()):
             _merge_updates(base[key], new_value, warnings,
                            parent_keys + (key, ))
         else:
-            if (warnings is not None and
-                        key == 'status' and
-                        base.get(key) == 'released'):
-                warnings.append(
-                    'overriding "released" status: ' + ': '.join(parent_keys))
+            for good_status in 'released', 'py3-only':
+                if (warnings is not None and
+                            key == 'status' and
+                            base.get(key) == good_status):
+                    warnings.append(
+                        'overriding "{}" status: {}'.format(
+                            good_status, ': '.join(parent_keys)))
             if (warnings is not None and
                         key == 'bug' and
                         base.get(key)):
