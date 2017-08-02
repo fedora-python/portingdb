@@ -172,6 +172,12 @@ gstreamer-python:
 gtk2: *devel-only
 international-time:
     dead-upstream: true
+koji:
+    nonblocking: true
+    note: |
+        Lots of the codebase it ported. This includes the Python library.
+        Dependencies that use the library or call koji binaries directly
+        can begin porting.
 krop:
     note: |
         Krop currently does not work with Python 3, therefore it is built with
