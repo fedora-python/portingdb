@@ -81,9 +81,10 @@ createrepo:
 
         Dependant packages should be ported to `createrepo_c`.
 cryptlib:
+    status: released
     note: |
-        As mentioned in a [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1347294),
-        the Python 3 subpackage is not ready yet.
+        `cryptlib-test` requires both Pythons and it is intended, as it
+        contains tests for all bindings (Pearl, Java, Python2/3).
 cwiid:
     dead-upstream: true
 dnf-plugins-core:
