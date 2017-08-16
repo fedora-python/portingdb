@@ -142,6 +142,11 @@ def _merge_updates(base, updates, warnings=None, parent_keys=()):
                     'overriding bug: {}: {}->{}'.format(
                         ': '.join(parent_keys), base.get(key), new_value))
 
+            # Override misnamed status for rpms in the package.
+            if key == 'is_misnamed':
+                for rpm in base.get('rpms', []):
+                    base['rpms'][rpm][key] = new_value
+
             base[key] = new_value
 
 
