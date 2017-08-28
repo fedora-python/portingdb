@@ -1,11 +1,6 @@
 
 # These are out of order because they define an alias that is used later in the file
 
-python-twisted-lore: &dead-twisted-part
-    status: dropped
-    note: |
-        `dead.package` says: Obsoleted by main python-twisted package.
-
 glib2: &devel-only
     nonblocking: true
     note: |
@@ -86,9 +81,10 @@ createrepo:
 
         Dependant packages should be ported to `createrepo_c`.
 cryptlib:
+    status: released
     note: |
-        As mentioned in a [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1347294),
-        the Python 3 subpackage is not ready yet.
+        `cryptlib-test` requires both Pythons and it is intended, as it
+        contains tests for all bindings (Pearl, Java, Python2/3).
 cwiid:
     dead-upstream: true
 dnf-plugins-core:
@@ -255,10 +251,6 @@ nut:
     note: |
         As discussed in a [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1323261),
         nut is not ready for Python 3.
-osbs:
-    status: dropped
-    note: |
-        Suggested replacement: `osbs-client`
 pcp:
     nonblocking: true
     note: |
@@ -352,10 +344,6 @@ python-aexpect:
         Currently, only the Python 2 based /usr/bin/aexpect-helper
         executable works properly. The upstream maintainer for aexpect
         is aware of this and is looking into it.
-python-appstream:
-    status: dropped
-    note: |
-      As noted in the bug, this package is only intended for EPEL 6.
 python-atfork:
     status: dropped
     note:
@@ -626,12 +614,6 @@ python-netlib:
 python-nss:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=985290
-python-numeric:
-    status: dropped
-    note: |
-        Last released in 2005, Numeric has been replaced by its successor, Numpy.
-
-        Suggested replacement: `numpy`
 python-oauth:
     status: dropped
     note: |
@@ -758,13 +740,6 @@ python-tw-forms:
 python-twiggy:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282112
-python-twisted-conch: *dead-twisted-part
-python-twisted-lore: *dead-twisted-part
-python-twisted-mail: *dead-twisted-part
-python-twisted-names: *dead-twisted-part
-python-twisted-news: *dead-twisted-part
-python-twisted-runner: *dead-twisted-part
-python-twisted-words: *dead-twisted-part
 python-unicodenazi:
     status: dropped
     note: |
@@ -809,11 +784,6 @@ python-zbase32: &pyutil-zbase32-cycle
     note: |
       Only `python-zbase32` depends on `pyutil`, and `pyutil` depends back
       on `python-zbase32`.
-python-zope-interface4:
-    status: dropped
-    note: |
-        This is a forwards compat package for el6.
-        Suggested replacement: `python-zope-interface`
 python2-faulthandler:
     status: dropped
     note: |
