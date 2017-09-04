@@ -690,7 +690,11 @@ python-slip:
   note: |
     The only not ported part is the subpackage `gtk` containing a single
     convenience function for a dropped package `pygtk2`.
-
+python-statistics:
+  status: dropped
+  note: |
+    This is a backport of `statistics`, part of the Python 3.4
+    standard library.
 python-subprocess32:
     status: dropped
     note: |
@@ -853,10 +857,6 @@ will-crash:
         it can test that abrt handles both python2 and python3 tracebacks.
 
         So, the RPM requires both /usr/bin/python2 and /usr/bin/python3.
-xchat:
-    status: dropped
-    note: |
-      Replacement: `hexchat`
 yum:
     status: dropped
     note: |
