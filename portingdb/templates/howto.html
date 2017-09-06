@@ -37,9 +37,9 @@
         </p><p>
             However, sometimes you will find a package that is still mispackaged even though it already has a Python 3 (sub)package. In those cases, something isn't quite right. Usually the Python 3 subpackage depends on both Python 3 <i>and</i> Python 2. That is unfortunate, because it basically renders the porting effort null.
         </p>
-        <h3>Make a Patch</h3>
+        <h3>Open a Pull Request</h3>
         <p>
-            In either case, look a bit further down on the package page in PortingDB and find a link to the associated Bugzilla report (under <i>Links→bug</i> in the sidebar). Go there and join the discussion. Find out what's the status quo and if anyone is working on it. If not, be the one that submits a patch!
+            In either case, look a bit further down on the package page in PortingDB and find a link to the associated Bugzilla report (under <i>Links→bug</i> in the sidebar). Go there and join the discussion. Find out what's the status quo and if anyone is working on it. If not, be the one that opens a Pagure pull request with a fix! The link to the package repository in Fedora Pagure is right next to the Fedora logo on top of the package page in PortingDB (if you are not a Fedora packager yet, you may use remote pull requests).
         </p><p>
             If you don't find a link to Bugzilla, you'll need to investigate the issue and <a href="https://fedoraproject.org/wiki/User:Pviktori/Python_3_Bug_Filing">file a bug</a> yourself. A hint on the nature of the problem will usually be provided just under the Fedora heading on the package page.
         </p><p>
@@ -47,9 +47,9 @@
         </p>
         <h3 id="make-it-happen">Make it Happen</h3>
         <p>
-            When you submit your patch to the associated Bugzilla report (use the <i>"Add an attachment"</i> button), be sure to ask the assgned packager to review and push it. However, as maintainers can be unresponsive for long periods of time, let us know about your patch as well so we can push it if the maintainer is unable.
+            When you have a pull request ready, be sure to post a comment about it in the associated Bugzilla report and ask the assigned packager to review and merge it. However, as maintainers can be unresponsive for long periods of time, let us know about your pull request as well so we can merge it if the maintainer is unable.
         </p><p>
-            To let us know, edit the <i>Blocks</i> field of the Bugzilla report and add the string <b>PY3PATCH-AVAILABLE</b> (you can use space as a separator). That way it will appear in our <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1312032">tracking bug</a> for packages with an available patch. If need be, we'll review your patch and push it for the maintainer.
+            To let us know, edit the <i>Blocks</i> field of the Bugzilla report and add the string <b>PY3PATCH-AVAILABLE</b> (you can use space as a separator). That way it will appear in our <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1312032">tracking bug</a> for packages with an available patch. If need be, we'll review your pull request and merge it for the maintainer.
         </p>
 
         <img src="/static/parselmouth-III.png" class="pull-right" />
@@ -114,7 +114,7 @@ package-name:
         </p>
         <h3>Going Up the Stream</h3>
         <p>
-            Pick an <a href="{{ url_for('hello') }}#idle">idle package</a> you would like to work on (for example {{ pkglink(random_idle) }}) and open it in PortingDB. Now you can click on the package name besides the blue Fedora logo towards the top of the page. This will take you to the corresponding entry in the <i>Fedora Package Database</i> and from there follow the link labelled <i>upstream</i>.
+            Pick an <a href="{{ url_for('hello') }}#idle">idle package</a> you would like to work on (for example {{ pkglink(random_idle) }}) and open it in PortingDB. Now you can click on the package name besides the blue Fedora logo towards the top of the page. This will take you to the corresponding entry in the <i>Fedora Package Database</i> and from there follow the link labeled <i>upstream</i>.
         </p><p>
             Sometimes, however, the upstream link gets broken. In that case go back to the package's page here on PortingDB. Follow the <i>spec file</i> link: what you'll see is a file with the metadata and building instructions for this package. Look for a line beginning with <i>Source0:</i> and try to use its URL (or part of it) to find the upstream project.
         </p>
