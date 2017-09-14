@@ -38,6 +38,9 @@
                     <img src="{{ url_for('piechart_grp', grp=grp.ident) }}">
                 </a>
             </div>
+            <h2>Lines of Code</h2>
+            See <a href="{{ url_for('group_by_loc', grp=grp.ident) }}">Code Stats</a>
+            for {{ grp.name }}.
         </div>
     </div>
 {% endblock bodycontent %}
