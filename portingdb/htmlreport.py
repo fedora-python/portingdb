@@ -9,7 +9,7 @@ import csv
 import datetime
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
-from flask import make_response, request
+from flask import make_response, request, Response
 from flask.json import jsonify
 from sqlalchemy import func, and_, or_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
@@ -579,7 +579,7 @@ def history_csv():
             'status': row.status,
             'num_packages': row.num_packages,
         })
-    return sio.getvalue()
+    return Response(sio.getvalue(), mimetype='text/csv')
 
 
 def group_by_loc(grp):
@@ -855,7 +855,7 @@ def history_naming_csv():
             'status': row.status,
             'num_packages': row.num_packages,
         })
-    return sio.getvalue()
+    return Response(sio.getvalue(), mimetype='text/csv')
 
 
 def format_quantity(num):
