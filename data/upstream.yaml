@@ -79,8 +79,13 @@ abiword:
   links:
     bug: http://bugzilla.abisource.com/show_bug.cgi?id=13746
 alacarte:
+  note: |
+    The current released upstream alacarte (3.11.91, released in 2014) does not
+    support python3, but there is a patch in bugzilla which provides the
+    necessary support.
   links:
     repo: https://github.com/GNOME/alacarte/
+    bug: https://bugzilla.gnome.org/show_bug.cgi?id=787490
 autojump:
   status: released
   links:
@@ -292,6 +297,14 @@ m2crypto:
 meld:
   links:
     homepage: http://meldmerge.org/
+mintlocale:
+  links:
+    homepage: http://developer.linuxmint.com/projects/mint-projects.html
+    repo: https://github.com/linuxmint/mintlocale
+    bug: https://github.com/linuxmint/mintlocale/pull/49
+  note: |
+    A pull request which implements python 3 compatibility has been submitted
+    upstream.
 mpi4py:
     status: released
     links:
@@ -312,6 +325,15 @@ odfpy:
   links:
     repo: https://github.com/eea/odfpy
   note: odfpy is said to support Python 3 as of version 1.3.
+openbox:
+  links:
+    homepage: http://openbox.org/wiki/Main_Page
+    repo: https://github.com/mikachu/openbox
+    bug: https://github.com/Mikachu/openbox/pull/9
+  note: |
+    A pull request resolving very minor python 3 issues was submitted, however
+    the last release was two years ago so it is uncertain if/when the
+    request will be reviewed.
 opencv:
   note: Available since 3.0 release
 openerp-client: *openerp
