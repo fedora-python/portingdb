@@ -254,9 +254,10 @@ class Py3QueryCommand(dnf.cli.Command):
         # unversioned_requirers: {srpm_name: set of srpm_names}
         unversioned_requirers = collections.defaultdict(set)
         for pkg in progressbar(self.all_unqualified_requires(),
-                            'Processing packages with unversioned dependencies'):
-            # Ignore Python 3 only packages when checking requires.
-            if python_versions.get(pkg) == {3}:
+                               'Processing packages with unversioned dependencies'):
+            # Ignore packages that are:
+            if (python_versions.get(pkg) == {3} or  # Python 3 only
+                    pkg.name.endswith('-doc')):  # Documentation
                 continue
             for require in (pkg.requires + pkg.requires_pre + pkg.recommends +
                             pkg.suggests + pkg.supplements + pkg.enhances):
