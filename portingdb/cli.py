@@ -8,6 +8,7 @@ from sqlalchemy import create_engine, func, or_, and_
 from sqlalchemy.orm import eagerload, subqueryload
 
 from portingdb import tables
+from portingdb.htmlreport import get_naming_policy_progress
 from portingdb.load import get_db, load_from_directories
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -437,3 +438,23 @@ def closed_mispackaged(ctx):
 
     if results:
         exit(1)
+
+
+@cli.command()
+@click.argument(
+    'category',
+    type=click.Choice(['misnamed-subpackage', 'ambiguous-requires', 'blocked']))
+@click.pass_context
+def naming(ctx, category):
+    """List packages with selected naming scheme issue."""
+    db = ctx.obj['db']
+    _, data = get_naming_policy_progress(db)
+    data_map = {
+        'misnamed-subpackage': 0,
+        'ambiguous-requires': 1,
+        'blocked': 2
+    }
+    packages_index = data_map.get(category)
+    require_misnamed = [pkg.name for pkg in data[packages_index][1]]
+    for pkg_name in require_misnamed:
+        print(pkg_name)
