@@ -441,11 +441,11 @@ def closed_mispackaged(ctx):
 
 
 @cli.command()
-@click.option(
-    '-l', '--list-packages',
+@click.argument(
+    'category',
     type=click.Choice(['misnamed-subpackage', 'ambiguous-requires', 'blocked']))
 @click.pass_context
-def naming(ctx, list_packages):
+def naming(ctx, category):
     """List packages with selected naming scheme issue."""
     db = ctx.obj['db']
     _, data = get_naming_policy_progress(db)
@@ -454,7 +454,7 @@ def naming(ctx, list_packages):
         'ambiguous-requires': 1,
         'blocked': 2
     }
-    packages_index = data_map.get(list_packages)
+    packages_index = data_map.get(category)
     require_misnamed = [pkg.name for pkg in data[packages_index][1]]
     for pkg_name in require_misnamed:
         print(pkg_name)
