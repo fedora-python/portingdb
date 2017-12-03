@@ -113,6 +113,7 @@ def update_status_summaries(db):
     subquery = subquery.filter(~depcp.nonblocking)
     subquery = subquery.join(tables.Dependency, tables.Dependency.requirement_name == dep.name)
     subquery = subquery.filter(tables.Dependency.requirer_name == tables.Package.name)
+    subquery = subquery.filter(tables.Dependency.requirer_name != tables.Dependency.requirement_name)
 
     update = main_update
     update = update.where(subquery.exists())
