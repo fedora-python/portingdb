@@ -4773,7 +4773,7 @@
       "python3"
     ],
     "rpms": {
-      "calamares-libs-3.1.8-1.fc28": {
+      "calamares-libs-3.1.8-2.fc28": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3
         }
@@ -19019,12 +19019,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-libguestfs-1:1.37.34-2.fc28": {
+      "python2-libguestfs-1:1.37.34-3.fc28": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-libguestfs-1:1.37.34-2.fc28": {
+      "python3-libguestfs-1:1.37.34-3.fc28": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -23441,17 +23441,17 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1404631",
-        "ON_QA",
-        "2017-12-02 22:38:53"
+        "MODIFIED",
+        "2017-12-06 19:47:31"
       ]
     },
     "rpms": {
-      "nbdkit-plugin-python2-1.1.20-1.fc28": {
+      "nbdkit-plugin-python2-1.1.22-1.fc28": {
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2
         }
       },
-      "nbdkit-plugin-python3-1.1.20-1.fc28": {
+      "nbdkit-plugin-python3-1.1.22-1.fc28": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3
         }
@@ -26553,25 +26553,25 @@
       "python3"
     ],
     "rpms": {
-      "python2-petsc4py-mpich-3.8.1-1.fc28": {
+      "python2-petsc4py-mpich-3.8.1-2.fc28": {
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python2-petsc4py-openmpi-3.8.1-1.fc28": {
+      "python2-petsc4py-openmpi-3.8.1-2.fc28": {
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-petsc4py-mpich-3.8.1-1.fc28": {
+      "python3-petsc4py-mpich-3.8.1-2.fc28": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3,
           "python(abi) = 3.6": 3
         }
       },
-      "python3-petsc4py-openmpi-3.8.1-1.fc28": {
+      "python3-petsc4py-openmpi-3.8.1-2.fc28": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3,
           "python(abi) = 3.6": 3
@@ -27515,46 +27515,6 @@
       }
     },
     "status": "released"
-  },
-  "preupgrade-assistant": {
-    "build_deps": [
-      "openscap",
-      "pykickstart",
-      "python-requests",
-      "python-setuptools",
-      "python-six",
-      "python2",
-      "rpm"
-    ],
-    "deps": [
-      "openscap",
-      "pykickstart",
-      "python-requests",
-      "python-setuptools",
-      "python-six",
-      "python2",
-      "rpm"
-    ],
-    "rpms": {
-      "preupgrade-assistant-2.1.9-4.fc27": {
-        "py_deps": {
-          "/usr/bin/python2": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "preupgrade-assistant-devel-2.1.9-4.fc27": {
-        "py_deps": {
-          "/usr/bin/python2": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "preupgrade-assistant-modules-2.1.9-4.fc27": {
-        "py_deps": {
-          "/usr/bin/python": 2
-        }
-      }
-    },
-    "status": "idle"
   },
   "prewikka": {
     "build_deps": [
@@ -29883,7 +29843,6 @@
     "unversioned_requirers": [
       "dnf-plugins-extras",
       "livecd-tools",
-      "preupgrade-assistant",
       "pungi",
       "python-blivet1"
     ]
@@ -39305,6 +39264,14 @@
       "PyYAML",
       "python2"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1359556",
+        "NEW",
+        "2017-12-08 13:53:47"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python2-cliapp-1.20160724-6.fc28": {
         "py_deps": {
@@ -39312,7 +39279,10 @@
         }
       }
     },
-    "status": "idle",
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+    ],
     "unversioned_requirers": [
       "cachedir",
       "cmdtest",
@@ -40795,6 +40765,14 @@
       "python-coverage",
       "python2"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1468071",
+        "NEW",
+        "2017-12-08 13:53:47"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python2-coverage-test-runner-1.11-6.fc28": {
         "py_deps": {
@@ -40802,7 +40780,10 @@
         }
       }
     },
-    "status": "idle",
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+    ],
     "unversioned_requirers": [
       "cmdtest",
       "genbackupdata",
@@ -50766,6 +50747,46 @@
       "python-narcissus-hub",
       "python-tw2-polymaps"
     ]
+  },
+  "python-geopandas": {
+    "build_deps": [
+      "pyproj",
+      "pytest",
+      "python-Rtree",
+      "python-descartes",
+      "python-fiona",
+      "python-matplotlib",
+      "python-mock",
+      "python-nose",
+      "python-pandas",
+      "python-shapely",
+      "python-six",
+      "python2",
+      "python3"
+    ],
+    "deps": [
+      "pyproj",
+      "python-descartes",
+      "python-fiona",
+      "python-pandas",
+      "python-shapely",
+      "python-six",
+      "python2",
+      "python3"
+    ],
+    "rpms": {
+      "python2-geopandas-0.3.0-2.fc28": {
+        "py_deps": {
+          "python(abi) = 2.7": 2
+        }
+      },
+      "python3-geopandas-0.3.0-2.fc28": {
+        "py_deps": {
+          "python(abi) = 3.6": 3
+        }
+      }
+    },
+    "status": "released"
   },
   "python-gerrit": {
     "build_deps": [
@@ -75077,7 +75098,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-qutepart-3.0.1-7.fc27": {
+      "python3-qutepart-3.1-1.fc28": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3,
           "python(abi) = 3.6": 3
@@ -76200,7 +76221,6 @@
       "packagedb-cli",
       "pdc-client",
       "pki-core",
-      "preupgrade-assistant",
       "pykickstart",
       "python-CacheControl",
       "python-OWSLib",
@@ -79122,7 +79142,6 @@
       "planet",
       "pology",
       "pondus",
-      "preupgrade-assistant",
       "protobuf",
       "puddletag",
       "pulsecaster",
@@ -80317,7 +80336,8 @@
     "status": "released",
     "unversioned_requirers": [
       "python-descartes",
-      "python-fiona"
+      "python-fiona",
+      "python-geopandas"
     ]
   },
   "python-shortuuid": {
@@ -81015,7 +81035,6 @@
       "osbs-client",
       "paraview",
       "pki-core",
-      "preupgrade-assistant",
       "protobuf",
       "pychromecast",
       "pykickstart",
@@ -86592,7 +86611,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1400939",
         "NEW",
-        "2017-11-28 22:54:55"
+        "2017-12-05 10:22:52"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -86771,6 +86790,14 @@
     "deps": [
       "python2"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1458531",
+        "NEW",
+        "2017-12-08 12:48:36"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python2-ttystatus-0.34-5.fc28": {
         "py_deps": {
@@ -86778,7 +86805,10 @@
         }
       }
     },
-    "status": "idle",
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+    ],
     "unversioned_requirers": [
       "cmdtest",
       "genbackupdata",
@@ -93235,7 +93265,6 @@
       "pony",
       "postgresql",
       "powerpc-utils-python",
-      "preupgrade-assistant",
       "pseudo",
       "pulsecaster",
       "pungi",
@@ -96494,7 +96523,6 @@
       "mach",
       "osc",
       "ovirt-guest-agent",
-      "preupgrade-assistant",
       "pungi",
       "python-meh",
       "python-rhsm",
