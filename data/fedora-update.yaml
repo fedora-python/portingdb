@@ -268,13 +268,6 @@ policycoreutils:
         * `policycoreutils-python{,3}`: ✔ Dual packages
         * `policycoreutils-python-utils`: ✔ py3 only
         * `policycoreutils-sandbox`: ✔ py3 only
-pungi:
-    status: idle
-    note: |
-      Dependency on both Python 2 and 3 is intentional: Main codebase of
-      Pungi is Python 2 only (mostly due to dependency on koji). However,
-      there is a separate script that depends on pylorax, which is Python 3
-      only. This script is invoked at runtime as a subprocess.
 pydot:
     note: |
       Suggested replacement: `python-pydotplus`
