@@ -135,14 +135,14 @@
       "python3"
     ],
     "rpms": {
-      "python2-COPASI-4.22.170-4.fc28": {
+      "python2-COPASI-4.22.170-5.fc28": {
         "py_deps": {
           "/usr/bin/python2": 2,
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-COPASI-4.22.170-4.fc28": {
+      "python3-COPASI-4.22.170-5.fc28": {
         "py_deps": {
           "/usr/bin/python3": 3,
           "libpython3.6m.so.1.0()(64bit)": 3,
@@ -2093,6 +2093,14 @@
       "python-unidiff",
       "python2"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1526953",
+        "NEW",
+        "2017-12-18 22:41:33"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "ansible-review-0.13.4-1.fc28": {
         "py_deps": {
@@ -2101,7 +2109,10 @@
         }
       }
     },
-    "status": "idle"
+    "status": "mispackaged",
+    "tracking_bugs": [
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
+    ]
   },
   "antimony": {
     "build_deps": [
@@ -4181,7 +4192,7 @@
       "python3"
     ],
     "rpms": {
-      "borgbackup-1.1.3-1.fc28": {
+      "borgbackup-1.1.3-2.fc28": {
         "py_deps": {
           "/usr/bin/python3": 3,
           "libpython3.6m.so.1.0()(64bit)": 3,
@@ -22268,6 +22279,25 @@
     },
     "status": "idle"
   },
+  "mir": {
+    "build_deps": [
+      "gcovr",
+      "glib2",
+      "python-pillow",
+      "python3"
+    ],
+    "deps": [
+      "python3"
+    ],
+    "rpms": {
+      "python3-mir-perf-framework-0.29.0-1.fc28": {
+        "py_deps": {
+          "python(abi) = 3.6": 3
+        }
+      }
+    },
+    "status": "py3-only"
+  },
   "mirage": {
     "build_deps": [
       "python2"
@@ -31514,6 +31544,14 @@
     "deps": [
       "python2"
     ],
+    "links": {
+      "bug": [
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1527370",
+        "NEW",
+        "2017-12-19 10:03:52"
+      ]
+    },
+    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "python2-ImcSdk-0.7.2-7.fc27": {
         "py_deps": {
@@ -31521,7 +31559,7 @@
         }
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "python-Lektor": {
     "build_deps": [
@@ -37139,14 +37177,13 @@
       "python3"
     ],
     "rpms": {
-      "python-blist-1.3.6-12.fc27": {
-        "is_misnamed": true,
+      "python2-blist-1.3.6-13.fc28": {
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-blist-1.3.6-12.fc27": {
+      "python3-blist-1.3.6-13.fc28": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3,
           "python(abi) = 3.6": 3
@@ -38277,13 +38314,13 @@
       "python3"
     ],
     "rpms": {
-      "python2-catkin_lint-1.4.16-1.fc28": {
+      "python2-catkin_lint-1.4.17-1.fc28": {
         "py_deps": {
           "/usr/bin/python2": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-catkin_lint-1.4.16-1.fc28": {
+      "python3-catkin_lint-1.4.17-1.fc28": {
         "py_deps": {
           "/usr/bin/python3": 3,
           "python(abi) = 3.6": 3
@@ -38310,13 +38347,13 @@
       "python3"
     ],
     "rpms": {
-      "python2-catkin_pkg-0.3.8-2.fc28": {
+      "python2-catkin_pkg-0.3.9-2.fc28": {
         "py_deps": {
           "/usr/bin/python2": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-catkin_pkg-0.3.8-2.fc28": {
+      "python3-catkin_pkg-0.3.9-2.fc28": {
         "py_deps": {
           "/usr/bin/python3": 3,
           "python(abi) = 3.6": 3
@@ -41743,17 +41780,18 @@
       "python3"
     ],
     "deps": [
+      "python-docutils",
       "python-lockfile",
       "python2",
       "python3"
     ],
     "rpms": {
-      "python2-daemon-2.1.2-5.fc28": {
+      "python2-daemon-2.1.2-6.fc28": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-daemon-2.1.2-5.fc28": {
+      "python3-daemon-2.1.2-6.fc28": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -45412,7 +45450,6 @@
       "python-catkin_pkg",
       "python-cliff",
       "python-copr",
-      "python-daemon",
       "python-django",
       "python-djvulibre",
       "python-dulwich",
@@ -48049,7 +48086,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1282084",
         "CLOSED ERRATA",
-        "2016-11-11 09:42:50"
+        "2017-12-18 18:17:03"
       ]
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
@@ -50378,8 +50415,7 @@
       "python2"
     ],
     "rpms": {
-      "python-gear-0.5.9-5.fc26": {
-        "is_misnamed": true,
+      "python2-gear-0.5.9-7.fc28": {
         "py_deps": {
           "/usr/bin/python2": 2,
           "python(abi) = 2.7": 2
@@ -56158,12 +56194,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-kitchen-1.2.4-7.fc27": {
+      "python2-kitchen-1.2.5-1.fc28": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-kitchen-1.2.4-7.fc27": {
+      "python3-kitchen-1.2.5-1.fc28": {
         "py_deps": {
           "python(abi) = 3.6": 3,
           "python3": 3,
@@ -75362,6 +75398,7 @@
   "python-redis": {
     "build_deps": [
       "pytest",
+      "python-mock",
       "python-py",
       "python-setuptools",
       "python2",
@@ -75372,12 +75409,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-redis-2.10.5-6.fc28": {
+      "python2-redis-2.10.6-1.fc28": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-redis-2.10.5-6.fc28": {
+      "python3-redis-2.10.6-1.fc28": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -81540,8 +81577,7 @@
       "pytz"
     ],
     "rpms": {
-      "python-soaplib-0.8.1-15.fc27": {
-        "is_misnamed": true,
+      "python2-soaplib-0.8.1-16.fc28": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
@@ -90034,12 +90070,12 @@
       "python3"
     ],
     "rpms": {
-      "python2-webtest-2.0.27-4.fc28": {
+      "python2-webtest-2.0.29-1.fc28": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-webtest-2.0.27-4.fc28": {
+      "python3-webtest-2.0.29-1.fc28": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
@@ -90554,13 +90590,13 @@
       "python3"
     ],
     "rpms": {
-      "python2-wrapt-1.10.10-5.fc28": {
+      "python2-wrapt-1.10.11-1.fc28": {
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-wrapt-1.10.10-5.fc28": {
+      "python3-wrapt-1.10.11-1.fc28": {
         "py_deps": {
           "libpython3.6m.so.1.0()(64bit)": 3,
           "python(abi) = 3.6": 3
@@ -104365,8 +104401,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1482979",
-        "NEW",
-        "2017-12-17 14:39:35"
+        "CLOSED RAWHIDE",
+        "2017-12-18 11:06:45"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -104477,17 +104513,17 @@
       "python3"
     ],
     "rpms": {
-      "python2-vips-8.5.9-2.fc28": {
+      "python2-vips-8.6.0-1.fc28": {
         "py_deps": {
           "python(abi) = 2.7": 2
         }
       },
-      "python3-vips-8.5.9-2.fc28": {
+      "python3-vips-8.6.0-1.fc28": {
         "py_deps": {
           "python(abi) = 3.6": 3
         }
       },
-      "vips-tools-8.5.9-2.fc28": {
+      "vips-tools-8.6.0-1.fc28": {
         "py_deps": {
           "/usr/bin/python2": 2
         }
