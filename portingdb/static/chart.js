@@ -5,7 +5,6 @@ strokecolor = '#000';
 var format = d3.time.format("%Y-%m-%d %H:%M:%S %Z");
 var date_format = d3.time.format("%Y-%m-%d");
 var month_format = d3.time.format("%b");
-//var format = d3.time.format("%m/%d/%y");
 
 var margin = {top: 20, right: 60, bottom: 30, left: 60};
 var width = 600;
@@ -27,14 +26,27 @@ var y = d3.scale.linear()
 var z = d3.scale.ordinal()
     .range(colorrange);
 
+// X Axis scale with year ticks
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
-    .ticks(d3.time.months);
+    .ticks(d3.time.years)
+    .tickSize(20)
+    .outerTickSize(0);
 
+// X Axis scale with month ticks
+var xAxisMonths = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .ticks(d3.time.months)
+    .tickSize(5)
+    .outerTickSize(0);
+
+// Y Axis scale on the left
 var yAxis = d3.svg.axis()
     .scale(y);
 
+// Y Axis scale on the right
 var yAxisr = d3.svg.axis()
     .scale(y);
 
@@ -71,6 +83,10 @@ var graph = d3.csv(csvpath, function(data) {
   });
   data = data.filter( function (d) { return d.date >= new Date(2015, 9, 10); } );
 
+  // If the data spans less than years, we'll want to show month names on the X axis
+  var year_span = data[data.length-1].date.getFullYear() - data[0].date.getFullYear();
+  var show_months = (year_span < 2);
+
   var layers = stack(nest.entries(data));
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
@@ -93,7 +109,19 @@ var graph = d3.csv(csvpath, function(data) {
   .selectAll("text")
     .attr("y", 6)
     .attr("x", 6)
-    .style("text-anchor", "start").text( function (d) {return month_format(d);} );
+    .style("text-anchor", "start")
+    .text( function (d) { return d.getFullYear(); });
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxisMonths)
+  .selectAll("text")
+    .text( function (d) {
+        // Only show month names if there's space (show_months),
+        // and skip month name for January (d.getMonth() == 0)
+        return show_months && d.getMonth() ? month_format(d) : "";
+    });
 
   if (expand) {
     var y_format = function(d) { return d * 100 + '%'; };
