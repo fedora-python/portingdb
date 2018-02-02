@@ -107,8 +107,8 @@ var graph = d3.csv(csvpath, function(data) {
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
   .selectAll("text")
-    .attr("y", 6)
-    .attr("x", 6)
+    .attr("y", 9)
+    .attr("x", 3)
     .style("text-anchor", "start")
     .text( function (d) { return d.getFullYear(); });
 
@@ -117,6 +117,9 @@ var graph = d3.csv(csvpath, function(data) {
       .attr("transform", "translate(0," + height + ")")
       .call(xAxisMonths)
   .selectAll("text")
+    .attr("y", 9)
+    .attr("x", 3)
+    .style("text-anchor", "start")
     .text( function (d) {
         // Only show month names if there's space (show_months),
         // and skip month name for January (d.getMonth() == 0)
