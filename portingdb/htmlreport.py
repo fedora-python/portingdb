@@ -53,12 +53,6 @@ def hello():
     query = queries.packages(db)
     total_pkg_count = query.count()
 
-    active = query.filter(tables.Package.status == 'in-progress')
-    active = queries.order_by_weight(db, active)
-    active = queries.order_by_name(db, active)
-    active = active.options(subqueryload('collection_packages'))
-    active = active.options(subqueryload('collection_packages.links'))
-
     py3_only = query.filter(tables.Package.status == 'py3-only')
     py3_only = queries.order_by_name(db, py3_only)
 
@@ -90,7 +84,6 @@ def hello():
     # Naming policy tracking.
     naming_progress, _ = get_naming_policy_progress(db)
 
-    active = list(active)
     py3_only = list(py3_only)
     released = list(released)
     ready = list(ready)
@@ -100,7 +93,7 @@ def hello():
     random_mispackaged = random.choice(mispackaged)
 
     # Check we account for all the packages
-    sum_by_status = sum(len(x) for x in (active, released, py3_only, ready,
+    sum_by_status = sum(len(x) for x in (released, py3_only, ready,
                                          blocked, mispackaged, dropped))
     assert sum_by_status == total_pkg_count
 
@@ -144,7 +137,6 @@ def hello():
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
         total_pkg_count=total_pkg_count,
         status_summary=get_status_summary(db),
-        active_packages=active,
         ready_packages=ready,
         blocked_packages=blocked,
         py3_only_packages=py3_only,
@@ -173,7 +165,6 @@ def jsonstats():
     db = current_app.config['DB']()
 
     query = queries.packages(db)
-    active = query.filter(tables.Package.status == 'in-progress')
     released = query.filter(tables.Package.status == 'released')
     py3_only = query.filter(tables.Package.status == 'py3-only')
     dropped = query.filter(tables.Package.status == 'dropped')
@@ -182,7 +173,6 @@ def jsonstats():
     ready = query.filter(tables.Package.status == 'idle')
 
     stats = {
-        'in-progress': active.count(),
         'released': released.count(),
         'py3-only': py3_only.count(),
         'dropped': dropped.count(),
@@ -236,8 +226,6 @@ def package(pkg):
 
     dependents = list(queries.dependents(db, package))
 
-    in_progress_deps = [p for p in dependencies if p.status == 'in-progress']
-
     return render_template(
         'package.html',
         breadcrumbs=(
@@ -249,7 +237,6 @@ def package(pkg):
         dependencies=dependencies,
         dependents=dependents,
         deptree=[(package, gen_deptree(dependencies))],
-        in_progress_deps=in_progress_deps,
         len_dependencies=len(dependencies),
         dependencies_status_counts=get_status_counts(dependencies),
     )
@@ -623,7 +610,7 @@ def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
     if query is None:
         query = queries.packages(db)
 
-    query = query.filter(tables.Package.status.in_(('idle', 'in-progress', 'blocked')))
+    query = query.filter(tables.Package.status.in_(('idle', 'blocked')))
     saved = query
     query = query.filter(tables.Package.loc_total)
     if sort_key == 'name':

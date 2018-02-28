@@ -55,11 +55,14 @@ def decode_file(filename):
 
 
 def _get_pkg(name, collection, info):
+    status = info.get('status') or 'unknown'
+    if status == 'in-progress':
+        raise ValueError(name + ": the `in-progress` status should not be used")
     return {
         'package_name': name,
         'collection_ident': collection,
         'name': info.get('aka') or name,
-        'status': info.get('status') or 'unknown',
+        'status': status,
         'is_misnamed': info.get('is_misnamed'),
         'priority': info.get('priority') or 'unknown',
         'deadline': info.get('deadline', None),

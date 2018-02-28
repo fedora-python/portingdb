@@ -64,16 +64,6 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            {% if active_packages %}
-                <h2 id="in-progress">Porting in Progress</h2>
-                <div>
-                    We know about {{ len(active_packages) }} packages that
-                    someone is actively porting, or which are waiting for review.
-                </div>
-                <table class="table table-striped table-condensed table-hovered">
-                {{ pkglist_table_content(active_packages, collections) }}
-                </table>
-            {% endif %}
             {% if mispackaged_packages %}
                 <h2 id="mispackaged">Mispackaged packages</h2>
                 <div>
