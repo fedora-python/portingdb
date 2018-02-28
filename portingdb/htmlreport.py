@@ -131,7 +131,6 @@ def hello():
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
         ),
-        collections=collections,
         coll_info=coll_info,
         statuses=statuses,
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
