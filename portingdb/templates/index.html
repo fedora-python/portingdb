@@ -241,43 +241,6 @@
                 </li>
                 {% endfor %}
             </ul>
-            <h2>Where Porting Happens</h2>
-            {% for col in collections %}
-                {% set total = coll_info[col]['total'] %}
-                <h3>{{ col.name }}</h3>
-                <div class="progress">
-                    {% for status in statuses %}
-                        {% set num = coll_info[col]['data'].get(status.ident, 0) %}
-                        {% if num %}
-                            <div
-                                class="progress-bar" role="progressbar"
-                                aria-valuenow="{{ num }}"
-                                aria-valuemin="0" aria-valuemax="{{ total }}"
-                                style="width: {{ 100 * num / total }}%;
-                                       background-color: #{{ status.color }} !important;
-                                       color: black;"
-                            >
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div>{{ col.description }}</div>
-                <ul class="list-group">
-                    {% for status in statuses %}
-                        {% set num = coll_info[col]['data'].get(status.ident, 0) %}
-                        {% if num %}
-                            <li class="list-group-item">
-                                {{ num }}
-                                {{ badge(status) }}
-                                <strong>{{ status.name }}</strong>
-                                <div><small>
-                                    {{ col.status_description(status) }}
-                                </small></div>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            {% endfor %}
             {% if 'extra-sidebar' in config %}
                 {{ config['extra-sidebar'] |safe }}
             {% endif %}
