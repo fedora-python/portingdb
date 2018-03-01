@@ -218,6 +218,7 @@ def package(pkg):
         dependencies_status_counts=get_status_counts(dependencies),
     )
 
+
 def group(grp):
     db = current_app.config['DB']()
     collections = list(queries.collections(db))
@@ -264,17 +265,19 @@ def gen_deptree(base, *, seen=None):
         else:
             reqs = sorted(pkg.requirements,
                           key=lambda p: (-p.status_obj.weight, p.name))
-            yield pkg, gen_deptree(reqs, seen=seen|{pkg})
+            yield pkg, gen_deptree(reqs, seen=seen | {pkg})
         seen.add(pkg)
 
 
 def markdown_filter(text):
     return Markup(markdown.markdown(text))
 
+
 def format_rpm_name(text):
     name, version, release = text.rsplit('-', 2)
     return Markup('<span class="rpm-name">{}</span>-{}-{}'.format(
         name, version, release))
+
 
 def format_time_ago(date):
     """Displays roughly how long ago the date was in a human readable format"""
@@ -373,7 +376,6 @@ def graph_json(grp=None, pkg=None):
                     set(p[1] for p in linked_pairs))
     if pkg:
         linked_names.add(pkg)
-    not_included = [p for p in packages if p.name not in linked_names]
 
     nodes = [{'name': p.name,
               'status': p.status,
@@ -557,12 +559,13 @@ def group_by_loc(grp):
     query = query.join(tables.Package.group_packages)
     query = query.filter(tables.GroupPackage.group_ident == grp)
 
-    extra_breadcrumbs=(
+    extra_breadcrumbs = (
         (url_for('group_by_loc', grp=grp), group.name),
     )
 
     return by_loc(query=query, extra_breadcrumbs=extra_breadcrumbs,
                   extra_args={'grp': group})
+
 
 def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
     db = current_app.config['DB']()
@@ -838,6 +841,7 @@ def format_quantity(num):
         num = int(num)
     return str(num) + prefix
 
+
 def format_percent(num):
     num *= 100
     if num > 10:
@@ -853,6 +857,7 @@ def format_percent(num):
                 break
         num = rounded
     return str(num) + '%'
+
 
 def create_app(db_url, cache_config=None):
     if cache_config is None:
