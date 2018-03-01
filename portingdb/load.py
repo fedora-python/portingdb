@@ -131,7 +131,7 @@ def _merge_updates(base, updates, warnings=None, parent_keys=()):
             _merge_updates(base[key], new_value, warnings,
                            parent_keys + (key, ))
         else:
-            for good_status in 'released', 'py3-only':
+            for good_status in ('released', 'legacy-leaf', 'py3-only'):
                 if (warnings is not None and
                             key == 'status' and
                             base.get(key) == good_status):

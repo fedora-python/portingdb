@@ -22,7 +22,7 @@ from . import queries
 
 tau = 2 * math.pi
 
-DONE_STATUSES = {'released', 'dropped', 'py3-only'}
+DONE_STATUSES = {'released', 'dropped', 'legacy-leaf', 'py3-only'}
 
 
 def hello():
@@ -34,6 +34,9 @@ def hello():
 
     py3_only = query.filter(tables.Package.status == 'py3-only')
     py3_only = queries.order_by_name(db, py3_only)
+
+    legacy_leaf = query.filter(tables.Package.status == 'legacy-leaf')
+    legacy_leaf = queries.order_by_name(db, legacy_leaf)
 
     released = query.filter(tables.Package.status == 'released')
     released = queries.order_by_name(db, released)
@@ -64,6 +67,7 @@ def hello():
     naming_progress, _ = get_naming_policy_progress(db)
 
     py3_only = list(py3_only)
+    legacy_leaf = list(legacy_leaf)
     released = list(released)
     ready = list(ready)
     blocked = list(blocked)
@@ -72,11 +76,11 @@ def hello():
     random_mispackaged = random.choice(mispackaged)
 
     # Check we account for all the packages
-    sum_by_status = sum(len(x) for x in (released, py3_only, ready,
-                                         blocked, mispackaged, dropped))
+    done_packages = (py3_only, legacy_leaf, released, dropped)
+    sum_by_status = sum(len(x) for x in (ready, blocked, mispackaged) + done_packages)
     assert sum_by_status == total_pkg_count
 
-    the_score = (len(py3_only) + len(released) + len(dropped)) / total_pkg_count
+    the_score = sum(len(x) for x in done_packages) / total_pkg_count
 
     # Nonbolocking set query
     query = db.query(tables.Package)
@@ -117,6 +121,7 @@ def hello():
         ready_packages=ready,
         blocked_packages=blocked,
         py3_only_packages=py3_only,
+        legacy_leaf_packages=legacy_leaf,
         released_packages=released,
         dropped_packages=dropped,
         mispackaged_packages=mispackaged,
@@ -143,6 +148,7 @@ def jsonstats():
 
     query = queries.packages(db)
     released = query.filter(tables.Package.status == 'released')
+    legacy_leaf = query.filter(tables.Package.status == 'legacy-leaf')
     py3_only = query.filter(tables.Package.status == 'py3-only')
     dropped = query.filter(tables.Package.status == 'dropped')
     mispackaged = query.filter(tables.Package.status == 'mispackaged')
@@ -151,6 +157,7 @@ def jsonstats():
 
     stats = {
         'released': released.count(),
+        'legacy_leaf': legacy_leaf.count(),
         'py3-only': py3_only.count(),
         'dropped': dropped.count(),
         'mispackaged': mispackaged.count(),

@@ -5,17 +5,29 @@
   term: '\e[32;7m🗹\e[0m'
   weight: 2
   description: Package only supports Python 3
-  rank: 3
+  rank: 4
   instructions:
     Welcome to the future!
     This package does not support Python 2 at all.
     All is good in the world.
+- ident: legacy-leaf
+  name: Legacy Leaf
+  abbrev: L
+  color: '88cc00'
+  term: L
+  weight: 3
+  description: Released package with legacy leaf Python 2 subpackages
+  rank: 3
+  instructions:
+    Almost there!
+    This package can safely drop it's Python 2 subpackages
+    as they are not required by anything in Fedora.
 - ident: released
   name: Released
   abbrev: ✔
   color: '5CB85C'
   term: '\e[32;7m✔\e[0m'
-  weight: 3
+  weight: 4
   description: Version with Python 3 support is officially released
   rank: 2
   instructions:
@@ -26,9 +38,9 @@
   abbrev: M
   color: '5bc0de'
   term: M
-  weight: 6
+  weight: 7
   description: Packaging, rather than code, seems incorrect
-  rank: 7
+  rank: 8
   instructions: |
     This package has a packaging problem, which should be described in the
     notes.
@@ -41,9 +53,9 @@
   abbrev: I
   color: 'DDDDDD'
   term: ' '
-  weight: 5
+  weight: 6
   description: No current activity is recorded
-  rank: 5
+  rank: 6
   instructions: |
     No one is working on this package now. You can visit pkgdb for links to the
     upstream project.
@@ -56,9 +68,9 @@
   abbrev: B
   color: 'D9534F'
   term: 'B'
-  weight: 4
+  weight: 5
   description: Depends on work on another package
-  rank: 4
+  rank: 5
   instructions: |
     This package has some dependencies that do not support Python 3 yet.
     They need to be ported first.

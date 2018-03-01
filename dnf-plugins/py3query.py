@@ -151,6 +151,10 @@ def set_status(result, pkgs, python_versions):
                 result['note'] = (
                     'The Python 3 package is missing binaries available '
                     'in a Python 2 package.\n')
+            elif all(result['rpms'][format_rpm_name(pkg)]['legacy_leaf']
+                     for pkg in pkg_by_version[2]):
+                # Packages with py2 subpackages not required by anything.
+                result['status'] = 'legacy-leaf'
             else:
                 result['status'] = 'released'
         else:
@@ -235,6 +239,10 @@ class Py3QueryCommand(dnf.cli.Command):
         deps_of_pkg = collections.defaultdict(set)
         # build_deps_of_srpm: {srpm name: set of packages}
         build_deps_of_srpm = collections.defaultdict(set)
+        # requirers_of_pkg: {package: set of srpm}
+        requirers_of_pkg = collections.defaultdict(set)
+        # build_requirers_of_pkg: {pkg name: set of srpm}
+        build_requirers_of_pkg = collections.defaultdict(set)
         # all_provides: {provide_name: package}
         all_provides = {str(r).split()[0]: p for p in python_versions for r in p.provides
                         if not str(r).startswith(PROVIDES_BLACKLIST)}
@@ -244,12 +252,18 @@ class Py3QueryCommand(dnf.cli.Command):
             for provide in pkg.provides:
                 reqs.update(self.whatrequires(provide, self.pkg_query))
                 build_reqs.update(self.whatrequires(provide, self.src_query))
+
             for req in reqs:
                 if req in python_versions.keys():
                     deps_of_pkg[req].add(pkg)
+                # Both Python and non-Python packages here.
+                requirers_of_pkg[pkg].add(hawkey.split_nevra(req.sourcerpm).name)
+
             for req in build_reqs:
                 if req.name in by_srpm_name.keys():
                     build_deps_of_srpm[req.name].add(pkg)
+                # Both Python and non-Python packages here.
+                build_requirers_of_pkg[pkg].add(req.name)
 
         # unversioned_requirers: {srpm_name: set of srpm_names}
         unversioned_requirers = collections.defaultdict(set)
@@ -274,9 +288,18 @@ class Py3QueryCommand(dnf.cli.Command):
         for name in progressbar(by_srpm_name, 'Generating output'):
             pkgs = sorted(by_srpm_name[name])
             r = json_output[name] = {}
-            r['rpms'] = {format_rpm_name(p):
-                         {'py_deps': {str(d): dep_versions[d] for d in rpm_pydeps[p]}}
-                         for p in pkgs}
+            r['rpms'] = {
+                format_rpm_name(p): {
+                    'py_deps': {str(d): dep_versions[d] for d in rpm_pydeps[p]},
+                    'non_python_requirers': {
+                        'build_time': sorted(build_requirers_of_pkg[p] - by_srpm_name.keys()),
+                        'run_time': sorted(requirers_of_pkg[p] - by_srpm_name.keys()),
+                    },
+                    'legacy_leaf': (
+                        2 in python_versions[p] and  # is Python 2 and
+                        not (build_requirers_of_pkg[p] | requirers_of_pkg[p])  # Is not required by anything
+                    ),
+                } for p in pkgs}
             set_status(r, pkgs, python_versions)
 
             r['deps'] = sorted(set(srpm_names[d]
@@ -284,8 +307,8 @@ class Py3QueryCommand(dnf.cli.Command):
                                    for d in deps_of_pkg.get(p, '')
                                    if srpm_names[d] != name))
             r['build_deps'] = sorted(set(srpm_names[d]
-                                   for d in build_deps_of_srpm.get(name, '')
-                                   if srpm_names[d] != name))
+                                         for d in build_deps_of_srpm.get(name, '')
+                                         if srpm_names[d] != name))
             if unversioned_requirers.get(name):
                 r['unversioned_requirers'] = sorted(unversioned_requirers[name])
 

@@ -155,12 +155,12 @@ class Package(TableBase):
     @property
     def pending_requirements(self):
         return [r for r in self.requirements
-                if r.status not in ('released', 'dropped', 'py3-only')]
+                if r.status not in ('released', 'dropped', 'py3-only', 'legacy-leaf')]
 
     @property
     def pending_requirers(self):
         return [r for r in self.requirers
-                if r.status not in ('released', 'dropped', 'py3-only')]
+                if r.status not in ('released', 'dropped', 'py3-only', 'legacy-leaf')]
 
     @property
     def nonblocking(self):
