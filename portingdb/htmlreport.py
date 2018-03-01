@@ -1,4 +1,4 @@
-from collections import OrderedDict, Counter, namedtuple
+from collections import OrderedDict, Counter
 import random
 import functools
 import json
@@ -11,12 +11,11 @@ import datetime
 from flask import Flask, render_template, current_app, Markup, abort, url_for
 from flask import make_response, request
 from flask.json import jsonify
-from sqlalchemy import func, and_, or_, create_engine
+from sqlalchemy import func, and_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
 from jinja2 import StrictUndefined
 import markdown
 from dogpile.cache import make_region
-from dogpile.cache.api import NO_VALUE
 
 from . import tables
 from . import queries
@@ -29,27 +28,7 @@ DONE_STATUSES = {'released', 'dropped', 'py3-only'}
 def hello():
     db = current_app.config['DB']()
 
-    query = queries.collections(db)
-    query = query.options(subqueryload('collection_statuses'))
-    collections = list(query)
-
-    coll_info = {}
-    for i, collection in enumerate(collections):
-        query = db.query(tables.CollectionPackage.status,
-                         func.count(tables.CollectionPackage.id))
-        query = query.filter(tables.CollectionPackage.collection == collection)
-        query = query.join(tables.CollectionPackage.status_obj)
-        query = query.group_by(tables.CollectionPackage.status)
-        query = query.order_by(tables.Status.order)
-        data = OrderedDict(query)
-        total = sum(v for k, v in data.items())
-        coll_info[collection] = {
-            'total': total,
-            'data': data,
-        }
-
     # Main package query
-
     query = queries.packages(db)
     total_pkg_count = query.count()
 
@@ -131,7 +110,6 @@ def hello():
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
         ),
-        coll_info=coll_info,
         statuses=statuses,
         priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
         total_pkg_count=total_pkg_count,
