@@ -208,7 +208,7 @@ class Py3QueryCommand(dnf.cli.Command):
         # rpm_pydeps: {package: set of dep names}
         rpm_pydeps = collections.defaultdict(set)
         # dep_versions: {dep name: Python version}
-        dep_versions = collections.defaultdict(set)
+        dep_versions = collections.defaultdict(int)
         for n, seeds in SEED_PACKAGES.items():
             provides = sorted(self.all_provides(reponame, seeds), key=str)
 
@@ -268,6 +268,13 @@ class Py3QueryCommand(dnf.cli.Command):
                     requirer_srpm_name = hawkey.split_nevra(
                         pkg.sourcerpm).name if pkg.sourcerpm else pkg.name
                     unversioned_requirers[requirement_srpm_name].add(requirer_srpm_name)
+
+        # get extra dependencies
+        extra_deps = ['/usr/bin/env']
+        for dep in progressbar(extra_deps, 'Getting extra dependencies'):
+            for pkg in self.whatrequires(dep, self.pkg_query):
+                if pkg in python_versions.keys():
+                    rpm_pydeps[pkg].add('/usr/bin/env')
 
         # deps_of_pkg: {srpm name: info}
         json_output = dict()
