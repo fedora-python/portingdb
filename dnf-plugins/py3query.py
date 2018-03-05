@@ -257,13 +257,16 @@ class Py3QueryCommand(dnf.cli.Command):
                 if req in python_versions.keys():
                     deps_of_pkg[req].add(pkg)
                 # Both Python and non-Python packages here.
-                requirers_of_pkg[pkg].add(hawkey.split_nevra(req.sourcerpm).name)
+                req_srpm_name = hawkey.split_nevra(req.sourcerpm).name
+                if srpm_names[pkg] != req_srpm_name:  # ignore self requires
+                    requirers_of_pkg[pkg].add(req_srpm_name)
 
             for req in build_reqs:
                 if req.name in by_srpm_name.keys():
                     build_deps_of_srpm[req.name].add(pkg)
                 # Both Python and non-Python packages here.
-                build_requirers_of_pkg[pkg].add(req.name)
+                if srpm_names[pkg] != req.name:  # ignore self requires
+                    build_requirers_of_pkg[pkg].add(req.name)
 
         # unversioned_requirers: {srpm_name: set of srpm_names}
         unversioned_requirers = collections.defaultdict(set)
