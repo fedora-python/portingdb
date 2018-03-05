@@ -64,6 +64,7 @@ def _get_pkg(name, collection, info):
         'name': info.get('aka') or name,
         'status': status,
         'is_misnamed': info.get('is_misnamed'),
+        'legacy_leaf': info.get('legacy_leaf', False),
         'priority': info.get('priority') or 'unknown',
         'deadline': info.get('deadline', None),
         'note': info.get('note', None),
@@ -275,7 +276,8 @@ def load_from_directories(db, directories):
         # RPMs
         values = [{'collection_package_id': col_package_map[k, collection],
                    'rpm_name': rpm_name,
-                   'is_misnamed': rpm_data.get('is_misnamed')}
+                   'is_misnamed': rpm_data.get('is_misnamed'),
+                   'legacy_leaf': rpm_data.get('legacy_leaf')}
                   for k, v in package_infos.items()
                   for rpm_name, rpm_data in v.get('rpms', {}).items()]
         rpm_ids = bulk_load(db, values, tables.RPM.__table__,

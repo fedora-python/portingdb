@@ -253,6 +253,8 @@ class CollectionPackage(TableBase):
         doc=u"If true, does not block dependent packages (even if it's marked as unported)")
     is_misnamed = Column(
         Boolean(), doc=u"True if the package does not follow the naming policy")
+    legacy_leaf = Column(
+        Boolean(), doc=u"True if the package is not needed by anything")
 
     package = relationship(
         'Package',
@@ -308,6 +310,8 @@ class RPM(TableBase):
         Unicode(), index=True, nullable=False)
     is_misnamed = Column(
         Boolean(), doc=u"True if the package does not follow the naming policy")
+    legacy_leaf = Column(
+        Boolean(), doc=u"True if the package is not needed by anything")
 
     collection_package = relationship(
         'CollectionPackage', backref=backref('rpms', order_by=rpm_name))

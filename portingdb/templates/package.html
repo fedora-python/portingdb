@@ -56,6 +56,12 @@
                                           title="The RPM name does not comply with Python package naming guidelines"
                                     >x</span>
                                     {% endif %}
+                                    {% if rpm.legacy_leaf %}
+                                    <span class="badge"
+                                          style="background-color: #ffff33 !important;"
+                                          title="The RPM is not required by anything in Fedora and can be dropped"
+                                    >legacy leaf</span>
+                                    {% endif %}
                                     <ul class="fa-ul">
                                         {% for pydep in rpm.py_dependencies %}
                                             <li>
