@@ -92,7 +92,7 @@ def print_status(ctx):
             detail = ', '.join('{1} {0}'.format(k, v) for k, v in data.items())
             if total:
                 num_done = sum(data.get(s, 0)
-                               for s in ('released', 'dropped', 'py3-only'))
+                               for s in ('released', 'dropped', 'legacy-leaf', 'py3-only'))
                 print('{score:5.1f}% {name}  ({detail}) / {total}'.format(
                     name=collection.name,
                     max_name_len=max_name_len,
@@ -177,7 +177,7 @@ def report(ctx):
         reqs = []
         for req in package.requirements:
             for cp in req.by_collection.values():
-                if cp.status not in ('released', 'py3-only'):
+                if cp.status not in ('released', 'legacy-leaf', 'py3-only'):
                     reqs.append(req.name)
                     break
         if reqs:
@@ -242,7 +242,7 @@ def deps(ctx, package, exclude, trim, skip, graph):
         for col in collections:
             cp = pkg.by_collection.get(col.ident)
             if cp:
-                if cp.status not in ('released', 'dropped'):
+                if cp.status not in ('released', 'legacy-leaf', 'dropped'):
                     return False
                 result = True
         return result
