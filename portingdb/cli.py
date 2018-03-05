@@ -170,12 +170,12 @@ def report(ctx):
     query = db.query(tables.Package)
     query = query.order_by(func.lower(tables.Package.name))
     query = query.options(eagerload(tables.Package.by_collection))
-    query = query.options(subqueryload(tables.Package.requirements))
+    query = query.options(subqueryload(tables.Package.run_time_requirements))
     for package in query:
         print_collection_info(package, collections)
         print(' ' + package.name, end=' ')
         reqs = []
-        for req in package.requirements:
+        for req in package.run_time_requirements:
             for cp in req.by_collection.values():
                 if cp.status not in ('released', 'legacy-leaf', 'py3-only'):
                     reqs.append(req.name)
@@ -262,7 +262,7 @@ def deps(ctx, package, exclude, trim, skip, graph):
             e = '✔'
         else:
             seen.add(pkg)
-            reqs = [p for p in pkg.requirements if p is not pkg]
+            reqs = [p for p in pkg.run_time_requirements if p is not pkg]
             if skip:
                 reqs = [r for r in reqs
                         if not (can_ignore(r) or r.name in exclude)]

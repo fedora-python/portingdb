@@ -210,6 +210,15 @@ def package(pkg):
 
     dependents = list(queries.dependents(db, package))
 
+    query = queries.build_dependencies(db, package)
+    query = query.options(eagerload('status_obj'))
+    query = query.options(subqueryload('collection_packages'))
+    query = query.options(subqueryload('collection_packages.links'))
+    query = query.options(eagerload('collection_packages.status_obj'))
+    build_dependencies = list(query)
+
+    build_dependents = list(queries.build_dependents(db, package))
+
     return render_template(
         'package.html',
         breadcrumbs=(
@@ -221,6 +230,9 @@ def package(pkg):
         dependencies=dependencies,
         dependents=dependents,
         deptree=[(package, gen_deptree(dependencies))],
+        build_dependencies=build_dependencies,
+        build_dependents=build_dependents,
+        build_deptree=[(package, gen_deptree(build_dependencies, run_time=False, build_time=True))],
         len_dependencies=len(dependencies),
         dependencies_status_counts=get_status_counts(dependencies),
     )
@@ -263,16 +275,19 @@ def group(grp):
     )
 
 
-def gen_deptree(base, *, seen=None):
+def gen_deptree(base, *, seen=None, run_time=True, build_time=False):
     seen = seen or set()
     base = tuple(base)
     for pkg in base:
         if pkg in seen or pkg.status in {'idle'} | DONE_STATUSES:
             yield pkg, []
         else:
-            reqs = sorted(pkg.requirements,
-                          key=lambda p: (-p.status_obj.weight, p.name))
-            yield pkg, gen_deptree(reqs, seen=seen | {pkg})
+            reqs = sorted(
+                set(pkg.run_time_requirements if run_time else [] +
+                    pkg.build_time_requirements if build_time else []),
+                key=lambda p: (-p.status_obj.weight, p.name))
+            yield pkg, gen_deptree(reqs, seen=seen | {pkg},
+                                   run_time=run_time, build_time=build_time)
         seen.add(pkg)
 
 
@@ -347,7 +362,7 @@ def graph_json(grp=None, pkg=None):
         if grp:
             query = query.join(tables.GroupPackage)
             query = query.filter(tables.GroupPackage.group_ident == grp)
-        query = query.options(joinedload(tables.Package.requirers))
+        query = query.options(joinedload(tables.Package.run_time_requirers))
         packages = list(query)
     else:
         query = db.query(tables.Package)
@@ -360,7 +375,7 @@ def graph_json(grp=None, pkg=None):
             package = todo.pop()
             if package not in requirements:
                 requirements.add(package)
-                todo.update(p for p in package.requirements
+                todo.update(p for p in package.run_time_requirements
                             if p.status not in DONE_STATUSES)
         todo = {root_package}
         requirers = set()
@@ -368,12 +383,13 @@ def graph_json(grp=None, pkg=None):
             package = todo.pop()
             if package not in requirers:
                 requirers.add(package)
-                todo.update(p for p in package.requirers
+                todo.update(p for p in package.run_time_requirers
                             if p.status not in DONE_STATUSES)
         packages = list(requirements | requirers | {root_package})
 
     package_names = {p.name for p in packages}
     query = db.query(tables.Dependency)
+    query = query.filter(tables.Dependency.run_time)
     linked_pairs = {(d.requirer_name, d.requirement_name)
                     for d in query
                     if d.requirer_name in package_names
