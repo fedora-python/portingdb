@@ -230,11 +230,11 @@ def package(pkg):
         dependencies=dependencies,
         dependents=dependents,
         deptree=[(package, gen_deptree(dependencies))],
+        dependencies_status_counts=get_status_counts(dependencies),
         build_dependencies=build_dependencies,
         build_dependents=build_dependents,
         build_deptree=[(package, gen_deptree(build_dependencies, run_time=False, build_time=True))],
-        len_dependencies=len(dependencies),
-        dependencies_status_counts=get_status_counts(dependencies),
+        build_dependencies_status_counts=get_status_counts(build_dependencies),
     )
 
 

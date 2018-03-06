@@ -195,10 +195,20 @@
         <div class="col-md-1"></div>
         <div class="col-md-8">
             <h2>Dependencies</h2>
+            <h4>Run time</h4>
             {{ progress_summary_legend(dependencies_status_counts.items()) }}
             {% if dependencies %}
                 <table class="table table-striped table-condensed table-hovered">
                     {{ pkglist_table_content(dependencies, collections, show_nonblocking=1) }}
+                </table>
+            {% else %}
+                None.
+            {% endif %}
+            <h4>Build time</h4>
+            {{ progress_summary_legend(build_dependencies_status_counts.items()) }}
+            {% if build_dependencies %}
+                <table class="table table-striped table-condensed table-hovered">
+                    {{ pkglist_table_content(build_dependencies, collections, show_nonblocking=1) }}
                 </table>
             {% else %}
                 None.
