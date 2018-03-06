@@ -11,28 +11,30 @@
     This package does not support Python 2 at all.
     All is good in the world.
 - ident: legacy-leaf
-  name: Legacy Leaf
+  name: Py2 leaf
   abbrev: L
   color: '88cc00'
   term: L
   weight: 3
-  description: Released package with legacy leaf Python 2 subpackages
+  description:
+    Package with dual support whose Python 2 subpackage(s)
+    aren't needed elsewhere in Fedora
   rank: 3
   instructions:
-    Almost there!
-    This package can safely drop it's Python 2 subpackages
-    as they are not required by anything in Fedora.
+    The Python 2 subpackage(s) are not required by anything in Fedora.
+    They can be dropped if the maintainer wishes.
 - ident: released
-  name: Released
+  name: Dual support
   abbrev: ✔
   color: '5CB85C'
   term: '\e[32;7m✔\e[0m'
   weight: 4
-  description: Version with Python 3 support is officially released
+  description: Supports both Python 3 and Python 2
   rank: 2
   instructions:
-    We are done! This package is released with Python 3 support, and
-    all is good in the world.
+    This package is released with dual support for Python 2 and Python 3.
+    To move things forward, you can start making dependent packages use the
+    Python 3 version.
 - ident: mispackaged
   name: Mispackaged
   abbrev: M

@@ -145,19 +145,20 @@
                    </li>
                {% endfor %}
             </ul>
-            <h2 id="released">Released packages</h2>
+            <h2 id="released">Packages with dual support</h2>
             <div>
-                {{ len(released_packages) }}  packages are already ported. Yipee!
+                {{ len(released_packages) }} packages support both Python 2 and 3. Yipee!
             </div>
             <div>
                {% for pkg in released_packages %}
                     {{ pkglink(pkg) }}
                {% endfor %}
             </div>
-            <h2 id="legacy-leaf">Released packages with legacy leaf subpackages</h2>
+            <h2 id="legacy-leaf">Packages with leaf Python 2 subpackages</h2>
             <div>
-                {{ len(legacy_leaf_packages) }} packages can drop their
-                Python 2 subpackages as they are not required by anything in Fedora.
+                The Python 2 versions of {{ len(legacy_leaf_packages) }} packages
+                are not required by anything else in Fedora.
+                The subpackages can be dropped if the maintainer wishes.
             </div>
             <div>
                {% for pkg in legacy_leaf_packages %}

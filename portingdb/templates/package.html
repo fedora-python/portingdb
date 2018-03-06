@@ -58,9 +58,9 @@
                                     {% endif %}
                                     {% if rpm.legacy_leaf %}
                                     <span class="badge"
-                                          style="background-color: #ffff33 !important;"
-                                          title="The RPM is not required by anything in Fedora and can be dropped"
-                                    >legacy leaf</span>
+                                          style="background-color: #444 !important; color: #fd3;"
+                                          title="The RPM is not required by other packages in Fedora {% if pkg.status == "legacy-leaf" %} and can be dropped if the maintainer wishes{% endif %}"
+                                    ><i class="fa fa-leaf"></i></span>
                                     {% endif %}
                                     <ul class="fa-ul">
                                         {% for pydep in rpm.py_dependencies %}
