@@ -270,7 +270,7 @@ def group(grp):
         grp=group,
         packages=packages,
         len_packages=len(packages),
-        deptree=list(gen_deptree(seed_groups)),
+        deptree=list(gen_deptree(seed_groups, run_time=True, build_time=True)),
         status_counts=get_status_counts(packages),
     )
 
@@ -283,8 +283,8 @@ def gen_deptree(base, *, seen=None, run_time=True, build_time=False):
             yield pkg, []
         else:
             reqs = sorted(
-                set(pkg.run_time_requirements if run_time else [] +
-                    pkg.build_time_requirements if build_time else []),
+                set((pkg.run_time_requirements if run_time else []) +
+                    (pkg.build_time_requirements if build_time else [])),
                 key=lambda p: (-p.status_obj.weight, p.name))
             yield pkg, gen_deptree(reqs, seen=seen | {pkg},
                                    run_time=run_time, build_time=build_time)
