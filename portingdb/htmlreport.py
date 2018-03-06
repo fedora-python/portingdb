@@ -22,7 +22,7 @@ from . import queries
 
 tau = 2 * math.pi
 
-DONE_STATUSES = {'released', 'dropped', 'py3-only'}
+DONE_STATUSES = {'released', 'dropped', 'legacy-leaf', 'py3-only'}
 
 
 def hello():
@@ -34,6 +34,9 @@ def hello():
 
     py3_only = query.filter(tables.Package.status == 'py3-only')
     py3_only = queries.order_by_name(db, py3_only)
+
+    legacy_leaf = query.filter(tables.Package.status == 'legacy-leaf')
+    legacy_leaf = queries.order_by_name(db, legacy_leaf)
 
     released = query.filter(tables.Package.status == 'released')
     released = queries.order_by_name(db, released)
@@ -64,6 +67,7 @@ def hello():
     naming_progress, _ = get_naming_policy_progress(db)
 
     py3_only = list(py3_only)
+    legacy_leaf = list(legacy_leaf)
     released = list(released)
     ready = list(ready)
     blocked = list(blocked)
@@ -72,11 +76,11 @@ def hello():
     random_mispackaged = random.choice(mispackaged)
 
     # Check we account for all the packages
-    sum_by_status = sum(len(x) for x in (released, py3_only, ready,
-                                         blocked, mispackaged, dropped))
+    done_packages = (py3_only, legacy_leaf, released, dropped)
+    sum_by_status = sum(len(x) for x in (ready, blocked, mispackaged) + done_packages)
     assert sum_by_status == total_pkg_count
 
-    the_score = (len(py3_only) + len(released) + len(dropped)) / total_pkg_count
+    the_score = sum(len(x) for x in done_packages) / total_pkg_count
 
     # Nonbolocking set query
     query = db.query(tables.Package)
@@ -117,6 +121,7 @@ def hello():
         ready_packages=ready,
         blocked_packages=blocked,
         py3_only_packages=py3_only,
+        legacy_leaf_packages=legacy_leaf,
         released_packages=released,
         dropped_packages=dropped,
         mispackaged_packages=mispackaged,
@@ -143,6 +148,7 @@ def jsonstats():
 
     query = queries.packages(db)
     released = query.filter(tables.Package.status == 'released')
+    legacy_leaf = query.filter(tables.Package.status == 'legacy-leaf')
     py3_only = query.filter(tables.Package.status == 'py3-only')
     dropped = query.filter(tables.Package.status == 'dropped')
     mispackaged = query.filter(tables.Package.status == 'mispackaged')
@@ -151,6 +157,7 @@ def jsonstats():
 
     stats = {
         'released': released.count(),
+        'legacy_leaf': legacy_leaf.count(),
         'py3-only': py3_only.count(),
         'dropped': dropped.count(),
         'mispackaged': mispackaged.count(),
@@ -218,6 +225,7 @@ def package(pkg):
         dependencies_status_counts=get_status_counts(dependencies),
     )
 
+
 def group(grp):
     db = current_app.config['DB']()
     collections = list(queries.collections(db))
@@ -264,17 +272,19 @@ def gen_deptree(base, *, seen=None):
         else:
             reqs = sorted(pkg.requirements,
                           key=lambda p: (-p.status_obj.weight, p.name))
-            yield pkg, gen_deptree(reqs, seen=seen|{pkg})
+            yield pkg, gen_deptree(reqs, seen=seen | {pkg})
         seen.add(pkg)
 
 
 def markdown_filter(text):
     return Markup(markdown.markdown(text))
 
+
 def format_rpm_name(text):
     name, version, release = text.rsplit('-', 2)
     return Markup('<span class="rpm-name">{}</span>-{}-{}'.format(
         name, version, release))
+
 
 def format_time_ago(date):
     """Displays roughly how long ago the date was in a human readable format"""
@@ -373,7 +383,6 @@ def graph_json(grp=None, pkg=None):
                     set(p[1] for p in linked_pairs))
     if pkg:
         linked_names.add(pkg)
-    not_included = [p for p in packages if p.name not in linked_names]
 
     nodes = [{'name': p.name,
               'status': p.status,
@@ -557,12 +566,13 @@ def group_by_loc(grp):
     query = query.join(tables.Package.group_packages)
     query = query.filter(tables.GroupPackage.group_ident == grp)
 
-    extra_breadcrumbs=(
+    extra_breadcrumbs = (
         (url_for('group_by_loc', grp=grp), group.name),
     )
 
     return by_loc(query=query, extra_breadcrumbs=extra_breadcrumbs,
                   extra_args={'grp': group})
+
 
 def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
     db = current_app.config['DB']()
@@ -838,6 +848,7 @@ def format_quantity(num):
         num = int(num)
     return str(num) + prefix
 
+
 def format_percent(num):
     num *= 100
     if num > 10:
@@ -853,6 +864,7 @@ def format_percent(num):
                 break
         num = rounded
     return str(num) + '%'
+
 
 def create_app(db_url, cache_config=None):
     if cache_config is None:
