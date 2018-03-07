@@ -230,18 +230,33 @@ def load_from_directories(db, directories):
         bulk_load(db, values, tables.Package.__table__, id_column="name")
 
         # Dependencies
-        values = [{'requirer_name': a, 'requirement_name': b, 'unversioned': False}
-                  for a, v in package_infos.items() for b in v.get('deps', ())
-                  if a != b]
+        ambiguous_deps = {}
         for requirement, info in package_infos.items():
             for requirer in info.get('unversioned_requirers', ()):
-                row = {'requirer_name': requirer,
-                       'requirement_name': requirement,
-                       'unversioned': False}
-                if row in values:
-                    values.remove(row)
-                row['unversioned'] = True
-                values.append(row)
+                ambiguous_deps[(requirer, requirement)] = True
+
+        values = []
+        for package, info in package_infos.items():
+            for dep in set(info.get('deps', ()) + info.get('build_deps', ())):
+                if package != dep:
+                    values.append(
+                        {'requirer_name': package,
+                         'requirement_name': dep,
+                         'run_time': dep in info.get('deps', ()),
+                         'build_time': dep in info.get('build_deps', ()),
+                         'unversioned': ambiguous_deps.pop((package, dep), False)}
+                    )
+
+        # Add the rest of ambiguous deps, which are not in portingdb (non-Python).
+        for requirer, requirement in ambiguous_deps:
+            values.append(
+                {'requirer_name': requirer,
+                 'requirement_name': requirement,
+                 # Ambiguous deps are not categorized into build
+                 # and run time. And do not need to be.
+                 'run_time': False, 'build_time': False,
+                 'unversioned': True}
+            )
 
         bulk_load(db, values, tables.Dependency.__table__,
                   key_columns=['requirer_name', 'requirement_name'])

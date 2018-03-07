@@ -38,9 +38,8 @@ def order_by_weight(db, query):
     return query
 
 
-def _deps(db, package, forward=True):
+def _deps(db, package, forward=True, run_time=True, build_time=False):
     query = packages(db)
-    package_table = aliased(tables.Package)
 
     if forward:
         col_a = tables.Dependency.requirement_name
@@ -50,6 +49,10 @@ def _deps(db, package, forward=True):
         col_b = tables.Dependency.requirement_name
     query = query.outerjoin(tables.Dependency, col_a == tables.Package.name)
     query = query.filter(col_b == package.name)
+
+    query = query.filter(
+        or_(tables.Dependency.run_time == run_time,
+            tables.Dependency.build_time == build_time))
 
     query = query.join(tables.Status, tables.Status.ident == tables.Package.status)
     query = query.order_by(-tables.Status.weight)
@@ -64,6 +67,14 @@ def dependencies(db, package):
 
 def dependents(db, package):
     return _deps(db, package, False)
+
+
+def build_dependencies(db, package):
+    return _deps(db, package, True, False, True)
+
+
+def build_dependents(db, package):
+    return _deps(db, package, False, False, True)
 
 
 def order_by_name(db, query):
@@ -115,6 +126,7 @@ def update_status_summaries(db):
     subquery = subquery.join(tables.Dependency, tables.Dependency.requirement_name == dep.name)
     subquery = subquery.filter(tables.Dependency.requirer_name == tables.Package.name)
     subquery = subquery.filter(tables.Dependency.requirer_name != tables.Dependency.requirement_name)
+    subquery = subquery.filter(tables.Dependency.run_time)
 
     update = main_update
     update = update.where(subquery.exists())

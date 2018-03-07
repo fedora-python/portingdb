@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey, MetaData, extract, desc
-from sqlalchemy import UniqueConstraint
+from sqlalchemy import UniqueConstraint, and_
 from sqlalchemy.types import Boolean, Integer, Unicode, UnicodeText, Date, DateTime
 from sqlalchemy.types import Enum
 from sqlalchemy.orm import backref, relationship
@@ -154,12 +154,12 @@ class Package(TableBase):
 
     @property
     def pending_requirements(self):
-        return [r for r in self.requirements
+        return [r for r in self.run_time_requirements
                 if r.status not in ('released', 'dropped', 'py3-only', 'legacy-leaf')]
 
     @property
     def pending_requirers(self):
-        return [r for r in self.requirers
+        return [r for r in self.run_time_requirers
                 if r.status not in ('released', 'dropped', 'py3-only', 'legacy-leaf')]
 
     @property
@@ -285,6 +285,8 @@ class Dependency(TableBase):
     unversioned = Column(
         Boolean(), default=False,
         doc=u"True if the requirement name should be changed to a versioned one")
+    build_time = Column(Boolean())
+    run_time = Column(Boolean())
 
     requirer = relationship(
         'Package', backref=backref('requirement_dependencies'),
@@ -486,6 +488,20 @@ Package.requirements = relationship(
     primaryjoin=Package.name == Dependency.requirer_name,
     secondaryjoin=Package.name == Dependency.requirement_name,
     backref="requirers")
+
+Package.run_time_requirements = relationship(
+    Package,
+    secondary=Dependency.__table__,
+    primaryjoin=and_(Package.name == Dependency.requirer_name, Dependency.run_time),
+    secondaryjoin=Package.name == Dependency.requirement_name,
+    backref="run_time_requirers")
+
+Package.build_time_requirements = relationship(
+    Package,
+    secondary=Dependency.__table__,
+    primaryjoin=and_(Package.name == Dependency.requirer_name, Dependency.build_time),
+    secondaryjoin=Package.name == Dependency.requirement_name,
+    backref="build_time_requirers")
 
 Package.groups = relationship(
     Group,
