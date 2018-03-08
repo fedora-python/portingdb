@@ -99,7 +99,7 @@ def progressbar(seq, text, namegetter=str):
         else:
             r = '\r'
         line = '{}[{}] {}/{} {}: {}{} '.format(
-            r, progress, i, total,text, name, ' ' * pad_len)
+            r, progress, i, total, text, name, ' ' * pad_len)
         print(line, end='', file=sys.stderr)
         sys.stderr.flush()
         return len(name)
@@ -255,7 +255,6 @@ class Py3QueryCommand(dnf.cli.Command):
         all_provides = {str(r).split()[0]: p for p in python_versions for r in p.provides
                         if not str(r).startswith(PROVIDES_BLACKLIST)}
         for pkg in progressbar(sorted(python_versions.keys()), 'Getting requirements'):
-
             reqs = set()
             build_reqs = set()
             for provide in pkg.provides:
@@ -345,8 +344,10 @@ class Py3QueryCommand(dnf.cli.Command):
 
             rank = ['NEW', 'ASSIGNED', 'POST', 'MODIFIED', 'ON_QA', 'VERIFIED',
                     'RELEASE_PENDING', 'CLOSED']
+
             def key(bug):
                 return rank.index(bug.status), bug.last_change_time
+
             bugs = sorted(bugs, key=key)
 
             for bug in progressbar(bugs, 'Merging bugs',
@@ -354,27 +355,27 @@ class Py3QueryCommand(dnf.cli.Command):
                 r = json_output.get(bug.component, {})
                 if 'bug' in r.get('links', {}):
                     continue
-                url = '{bug.weburl}#{bug.status}'.format(bug=bug)
                 status = bug.status
                 if bug.resolution:
                     status += ' ' + bug.resolution
                 # Let's get the datetime of the last comment and convert to string
-                last_change_datetime = time.strftime('%Y-%m-%d %H:%M:%S',
-                        bug.last_change_time.timetuple())
-                r.setdefault('links', {})['bug'] = [bug.weburl, status,
-                        last_change_datetime]
+                last_change_datetime = time.strftime(
+                    '%Y-%m-%d %H:%M:%S',
+                    bug.last_change_time.timetuple())
+                r.setdefault('links', {})['bug'] = [
+                    bug.weburl, status, last_change_datetime]
 
                 for tb in bug.blocks:
                     if tb in ADDITIONAL_TRACKER_BUGS:
-                        r.setdefault('tracking_bugs', []) \
-                                .append(BUGZILLA_BUG_URL.format(tb))
+                        r.setdefault('tracking_bugs', []).append(
+                            BUGZILLA_BUG_URL.format(tb))
 
-                if (any(tb in bug.blocks for tb in MISPACKAGED_TRACKER_BUG_IDS)
-                    and r.get('status') == 'idle'):
-                        r['status'] = "mispackaged"
-                        r['note'] = ('There is a problem in Fedora packaging, ' +
-                                    'not necessarily with the software itself. ' +
-                                    'See the linked Fedora bug.')
+                if (any(tb in bug.blocks for tb in MISPACKAGED_TRACKER_BUG_IDS) and
+                        r.get('status') == 'idle'):
+                    r['status'] = "mispackaged"
+                    r['note'] = ('There is a problem in Fedora packaging, '
+                                 'not necessarily with the software itself. '
+                                 'See the linked Fedora bug.')
 
         # Print out output
 
