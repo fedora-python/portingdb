@@ -176,6 +176,14 @@ def format_rpm_name(pkg):
         pkg=pkg, epoch=epoch)
 
 
+def get_srpm_name(pkg):
+    return hawkey.split_nevra(pkg.sourcerpm).name if pkg.sourcerpm else pkg.name
+
+
+def get_srpm_names(pkgs):
+    return {get_srpm_name(pkg) for pkg in pkgs}
+
+
 class Py3QueryCommand(dnf.cli.Command):
 
     """The util command there is extending the dnf command line."""
@@ -231,22 +239,23 @@ class Py3QueryCommand(dnf.cli.Command):
         srpm_names = {}
         by_srpm_name = collections.defaultdict(set)
         for pkg in progressbar(python_versions.keys(), 'Getting SRPMs'):
-            srpm_name = hawkey.split_nevra(pkg.sourcerpm).name
+            srpm_name = get_srpm_name(pkg)
             srpm_names[pkg] = srpm_name
             by_srpm_name[srpm_name].add(pkg)
 
         # deps_of_pkg: {package: set of packages}
         deps_of_pkg = collections.defaultdict(set)
-        # build_deps_of_srpm: {srpm name: set of packages}
+        # build_deps_of_srpm: {srpm: set of packages}
         build_deps_of_srpm = collections.defaultdict(set)
         # requirers_of_pkg: {package: set of srpm}
         requirers_of_pkg = collections.defaultdict(set)
-        # build_requirers_of_pkg: {pkg name: set of srpm}
+        # build_requirers_of_pkg: {pkg: set of srpm}
         build_requirers_of_pkg = collections.defaultdict(set)
         # all_provides: {provide_name: package}
         all_provides = {str(r).split()[0]: p for p in python_versions for r in p.provides
                         if not str(r).startswith(PROVIDES_BLACKLIST)}
         for pkg in progressbar(sorted(python_versions.keys()), 'Getting requirements'):
+
             reqs = set()
             build_reqs = set()
             for provide in pkg.provides:
@@ -257,21 +266,18 @@ class Py3QueryCommand(dnf.cli.Command):
                 if req in python_versions.keys():
                     deps_of_pkg[req].add(pkg)
                 # Both Python and non-Python packages here.
-                req_srpm_name = hawkey.split_nevra(req.sourcerpm).name
-                if srpm_names[pkg] != req_srpm_name:  # ignore self requires
-                    requirers_of_pkg[pkg].add(req_srpm_name)
+                requirers_of_pkg[pkg].add(req)
 
             for req in build_reqs:
                 if req.name in by_srpm_name.keys():
                     build_deps_of_srpm[req.name].add(pkg)
                 # Both Python and non-Python packages here.
-                if srpm_names[pkg] != req.name:  # ignore self requires
-                    build_requirers_of_pkg[pkg].add(req.name)
+                build_requirers_of_pkg[pkg].add(req)
 
         # unversioned_requirers: {srpm_name: set of srpm_names}
         unversioned_requirers = collections.defaultdict(set)
-        for pkg in progressbar(self.all_unqualified_requires(),
-                               'Processing packages with unversioned dependencies'):
+        for pkg in progressbar(set.union(*requirers_of_pkg.values(), *build_requirers_of_pkg.values()),
+                               'Processing packages with ambiguous dependencies'):
             # Ignore packages that are:
             if (python_versions.get(pkg) == {3} or  # Python 3 only
                     pkg.name.endswith('-doc')):  # Documentation
@@ -281,9 +287,8 @@ class Py3QueryCommand(dnf.cli.Command):
                 require = str(require).split()[0]
                 requirement = all_provides.get(require)
                 if is_unversioned(require) and requirement and not require.endswith('-doc'):
-                    requirement_srpm_name = hawkey.split_nevra(requirement.sourcerpm).name
-                    requirer_srpm_name = hawkey.split_nevra(
-                        pkg.sourcerpm).name if pkg.sourcerpm else pkg.name
+                    requirement_srpm_name = get_srpm_name(requirement)
+                    requirer_srpm_name = get_srpm_name(pkg)
                     unversioned_requirers[requirement_srpm_name].add(requirer_srpm_name)
 
         # deps_of_pkg: {srpm name: info}
@@ -295,12 +300,13 @@ class Py3QueryCommand(dnf.cli.Command):
                 format_rpm_name(p): {
                     'py_deps': {str(d): dep_versions[d] for d in rpm_pydeps[p]},
                     'non_python_requirers': {
-                        'build_time': sorted(build_requirers_of_pkg[p] - by_srpm_name.keys()),
-                        'run_time': sorted(requirers_of_pkg[p] - by_srpm_name.keys()),
+                        'build_time': sorted(get_srpm_names(build_requirers_of_pkg[p]) - by_srpm_name.keys()),
+                        'run_time': sorted(get_srpm_names(requirers_of_pkg[p]) - by_srpm_name.keys()),
                     },
                     'legacy_leaf': (
-                        2 in python_versions[p] and  # is Python 2 and
-                        not (build_requirers_of_pkg[p] | requirers_of_pkg[p])  # Is not required by anything
+                        # is Python 2 and is not required by anything
+                        2 in python_versions[p] and
+                        not get_srpm_names(build_requirers_of_pkg[p] | requirers_of_pkg[p]) - {name}
                     ),
                 } for p in pkgs}
             set_status(r, pkgs, python_versions)
@@ -394,28 +400,3 @@ class Py3QueryCommand(dnf.cli.Command):
     def whatrequires(self, dep, query):
         query = query.filter(requires=dep)
         return set(query)
-
-    def all_unqualified_requires(self):
-        """Return a set of packages, which have misnamed
-        runtime, buildtime or weak dependencies.
-        """
-        unqualified_wildcards = ['python-*', '[!/]*-python-*', '[!/]*-python', 'python']
-        bar = iter(progressbar(['Runtime', 'Weak ', 'Buildtime'],
-                               'Querying packages with unversioned dependencies'))
-        requires = set()
-        # Check runtime dependencies.
-        next(bar)
-        requires.update(self.pkg_query.filter(requires__glob=unqualified_wildcards).run())
-
-        # Check weak dependencies.
-        next(bar)
-        for wildcard in unqualified_wildcards:
-            requires.update(self.pkg_query.filter(recommends__glob=wildcard).run())
-            requires.update(self.pkg_query.filter(suggests__glob=wildcard).run())
-            requires.update(self.pkg_query.filter(supplements__glob=wildcard).run())
-            requires.update(self.pkg_query.filter(enhances__glob=wildcard).run())
-
-        # Check buildtime dependencies.
-        next(bar)
-        requires.update(self.src_query.filter(requires__glob=unqualified_wildcards).run())
-        return requires
