@@ -56,11 +56,11 @@ def hello():
     mispackaged = queries.order_by_name(db, mispackaged)
 
     blocked = query.filter(tables.Package.status == 'blocked')
-    blocked = blocked.options(subqueryload('requirements'))
+    blocked = blocked.options(subqueryload('run_time_requirements'))
     blocked = queries.order_by_name(db, blocked)
 
     ready = query.filter(tables.Package.status == 'idle')
-    ready = ready.options(subqueryload('requirers'))
+    ready = ready.options(subqueryload('run_time_requirers'))
     ready = queries.order_by_name(db, ready)
 
     # Naming policy tracking.

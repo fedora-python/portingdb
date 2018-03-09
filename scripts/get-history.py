@@ -11,7 +11,6 @@ Outputs to stdout.
 """
 
 import subprocess
-import functools
 import tempfile
 import shutil
 import csv
@@ -56,7 +55,8 @@ def get_history_package_numbers(db, commit, date):
     """
     prev_batch = []
     all_statuses = [
-        "blocked", "py3-only", "dropped", "idle", "in-progress", "released", "mispackaged"]
+        "blocked", "py3-only", "dropped", "idle", "in-progress",
+        "released", "legacy-leaf", "mispackaged"]
 
     columns = [tables.Package.status, func.count()]
     query = select(columns).select_from(tables.Package.__table__)
