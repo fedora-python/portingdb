@@ -285,7 +285,8 @@ class Py3QueryCommand(dnf.cli.Command):
                             pkg.suggests + pkg.supplements + pkg.enhances):
                 require = str(require).split()[0]
                 requirement = all_provides.get(require)
-                if is_unversioned(require) and requirement and not require.endswith('-doc'):
+                if (is_unversioned(require) and requirement and not
+                        (require.endswith('-doc') or python_versions.get(requirement) == {3})):
                     requirement_srpm_name = get_srpm_name(requirement)
                     requirer_srpm_name = get_srpm_name(pkg)
                     unversioned_requirers[requirement_srpm_name].add(requirer_srpm_name)
