@@ -201,6 +201,7 @@
                 <table class="table table-striped table-condensed table-hovered">
                     {{ pkglist_table_content(dependencies, collections, show_nonblocking=1) }}
                 </table>
+                <p>See the dependencies in a <a href="{{ url_for('graph_pkg', pkg=pkg.name) }}">graph</a>.</p>
             {% else %}
                 None.
             {% endif %}
