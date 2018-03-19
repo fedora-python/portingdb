@@ -21,9 +21,6 @@ pkgwat: &pypi-trove-compatible
 pki-core:
   links:
     repo: https://git.fedorahosted.org/cgit/pki.git/
-  note: |
-    `pki-base` subpackage as a `pki-base-python3` equivalent, however, the
-    `pki-server` (and probably `pki-tools`) are not yet ported upstream.
 python-PSI: *pypi-trove-compatible
 python-altgraph: *pypi-trove-compatible
 python-barbicanclient: *pypi-trove-compatible
@@ -31,7 +28,6 @@ python-bashate: *pypi-trove-compatible
 python-bucky: *pypi-trove-compatible
 python-cloud-sptheme: *pypi-trove-compatible
 python-concurrentloghandler: *pypi-trove-compatible
-python-django-ckeditor: *pypi-trove-compatible
 python-django-threadedcomments: *pypi-trove-compatible
 python-django-tinymce: *pypi-trove-compatible
 python-flask-classy: *pypi-trove-compatible
@@ -462,20 +458,12 @@ python-django-haystack:
   links:
     homepage: http://haystacksearch.org/
     repo: https://pypi.python.org/pypi/django-haystack/2.5.0
-python-django-helpdesk:
-  links:
-    repo: https://pypi.python.org/pypi/django-helpdesk
-    bug: https://github.com/rossp/django-helpdesk/pull/417/files
 python-django-keyedcache:
   links:
     repo: https://github.com/kunaldeo/django-keyedcache3
     homepage: https://pypi.python.org/pypi/django-keyedcache3
   note: |
     A Python 3 fork from [Bruce Kroeze's repo](http://bitbucket.org/bkroeze/django-keyedcache/) and [PyPI](https://pypi.python.org/pypi/django-keyedcache).
-python-django-openid-auth:
-  links:
-    homepage: https://pypi.python.org/pypi/django-openid-auth
-    repo: https://launchpad.net/django-openid-auth
 python-django-pipeline:
   status: released
   links:
@@ -485,11 +473,6 @@ python-django-pyscss:
   status: released
   links:
     homepage: https://pypi.python.org/pypi/django-pyscss/2.0.2
-python-django-setuptest:
-  status: released
-  links:
-    homepage: https://github.com/praekelt/django-setuptest
-    repo: https://pypi.python.org/pypi/django-setuptest/0.2.1
 python-django-stopforumspam:
   status: released
   links:
