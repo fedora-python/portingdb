@@ -3,6 +3,8 @@
 import os
 import logging
 
+import redis
+
 from portingdb import htmlreport
 
 level = logging.INFO
@@ -34,4 +36,13 @@ application = htmlreport.create_app(db_url=db_url, cache_config=cache_config)
 
 
 if __name__ == '__main__':
+    if redis_configured:
+        # Clear the Redis cache
+        r = redis.StrictRedis(
+            host=os.environ['REDIS_SERVICE_HOST'],
+            port=os.environ['REDIS_SERVICE_PORT'],
+            password=os.environ['REDIS_PASSWORD'],
+            db=0,
+        )
+        r.flushdb()
     application.run(host='0.0.0.0', port=8080)
