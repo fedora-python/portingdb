@@ -325,6 +325,12 @@ def load_from_directories(db, directories):
                   key_columns=['rpm_id', 'py_dependency_name'])
 
     group_values = data_from_file(directories, 'groups')
+    try:
+        more_groups = data_from_file(directories, 'groups-update')
+    except FileNotFoundError:
+        pass
+    else:
+        group_values = {**group_values, **more_groups}
     values = [{
         'ident': k,
         'name': v['name'],
