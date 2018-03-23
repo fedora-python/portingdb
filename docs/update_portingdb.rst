@@ -25,7 +25,7 @@ To use the portingdb update scripts, you will need to install and configure the 
 Update and load data
 ********************
 
-Follow the steps below to update pordingdb data:
+The following steps are needed to update pordingdb data. You can run them all with a single command ``./scripts/update_portingdb.sh``:
 
 #. Get the Python 3 porting status using ``py3query`` dnf plugin. Use ``-o`` option to write the output directly to ``fedora.json``::
 
@@ -35,6 +35,11 @@ Follow the steps below to update pordingdb data:
 
     python3 -u scripts/get-history.py --update data/history.csv | tee history.csv
     mv history.csv data/history.csv
+
+#. Get historical status for *Naming Policy* page and update ``history-naming.csv``::
+
+    python3 -u scripts/get-history.py -n --update data/history-naming.csv | tee history-naming.csv
+    mv history-naming.csv data/history-naming.csv
 
 #. Load the newly generated data into the database::
 
@@ -48,7 +53,7 @@ Follow the steps below to update pordingdb data:
 
     python3 scripts/jsondiff.py <(git show HEAD:data/fedora.json) data/fedora.json
 
-   At this point, make sure to take a closer look at the output of the command and for each change of package state find the appropriate actions in `Package state changes`_.
+   At this point, make sure to take a closer look at the output of the command and for each change of package state find the appropriate actions in `Package state changes`_. You will have to do it manually or try to automate it :) The output of the command can be used as a base for the PR description or commit message.
 
 #. Commit changes, push to a fork and create a PR::
 
@@ -66,7 +71,7 @@ idle -> missing, mispackaged -> missing, released -> missing
     The package was dropped from Fedora or got rid of all dependencies:
 
 * Find the package in the old version of portingdb, open spec or logs and look for the change that removed all python dependencies or retired the package.
-* Note in the Etherpad or PR description in case of any of the above.
+* Note in the PR description in case of any of the above.
 * If anything else happened, ask the team.
 
 idle -> released, mispackaged -> released
@@ -75,14 +80,12 @@ idle -> released, mispackaged -> released
 * Find the package in the newest version of portingdb and check the bug.
 * Gather information to give a badge to the packager:
 
-  * Find who is the packager: check the bug or the log of the spec file
-  * Find the packager's fedora user name in pkdb
-  * Put four pieces of info into the Etherpad or PR description:
+  * Find who ported the package: check the bug or the log of the spec file
+  * Find the packager's Fedora user name in Pagure
+  * Add packager's name and commit to `Open Badges/Python3Log`_ wiki page
+  * In case the packager is entitled to get a badge, note the Fedora user name and type of the badge in the PR description 
 
-    * username
-    * full name
-    * name of the project
-    * name of the bug or commit (to put on the wiki)
+.. _Open Badges/Python3Log: https://fedoraproject.org/wiki/Open_Badges/Python3Log
 
 missing -> released
     New Python 3 package was added to Fedora:
@@ -101,7 +104,7 @@ missing -> idle
   * File a bug
   * Note in review request that Python 3 package was missed
 
-relesed -> mispackaged
+released -> mispackaged
     There is an issue with Python 3 subpackage:
 
 * Open the package in portingdb and check requirements for ``python3-`` subpackage:
@@ -112,8 +115,8 @@ relesed -> mispackaged
 released -> idle
     There is an issue with the package:
 
-* Let someone know.
+* Check what happened and file a bug.
 
-Treat the "py3-only" state the same as "released".
+Treat the "py3-only" and "legacy-leaf" states the same as "released".
 
 If you encounter some other transition, let someone know and figure out a process!
