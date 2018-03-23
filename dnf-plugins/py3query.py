@@ -206,14 +206,23 @@ class Py3QueryCommand(dnf.cli.Command):
         parser.add_argument('--no-bz', dest='fetch_bugzilla', action='store_false',
                             default=True, help=_("Don't get Bugzilla links"))
 
-        parser.add_argument('--qrepo', dest='py3query_repo', default='rawhide',
-                            help=_("Repo to use for the query"))
+        parser.add_argument('--qrepo', dest='py3query_repo', action='append',
+                            help=_("Repo(s) to use for the query"))
+
+        parser.add_argument('--repo-groups', dest='repo_groups_file',
+                            default=None, metavar='FILE', action='store',
+                            help=_("Optional filename of a 'groups.json' file "
+                                   "that will record which package comes from "
+                                   "which repositories"))
 
     def run(self):
-        reponame = self.opts.py3query_repo
+        reponames = self.opts.py3query_repo
+        if not reponames:
+            reponames = ['rawhide']
         self.base_query = self.base.sack.query()
-        self.pkg_query = self.base_query.filter(reponame=reponame)
-        self.src_query = self.base_query.filter(reponame=reponame + '-source').filter(arch=['src'])
+        self.pkg_query = self.base_query.filter(reponame=list(reponames))
+        source_reponames = [n + '-source' for n in reponames]
+        self.src_query = self.base_query.filter(reponame=source_reponames).filter(arch=['src'])
 
         # python_versions: {package: set of Python versions}
         python_versions = collections.defaultdict(set)
@@ -222,7 +231,7 @@ class Py3QueryCommand(dnf.cli.Command):
         # dep_versions: {dep name: Python version}
         dep_versions = collections.defaultdict(set)
         for n, seeds in SEED_PACKAGES.items():
-            provides = sorted(self.all_provides(reponame, seeds), key=str)
+            provides = sorted(self.all_provides(reponames, seeds), key=str)
 
             # This effectively includes packages that still need
             # Python 3.4 while Rawhide only provides Python 3.5
@@ -238,10 +247,13 @@ class Py3QueryCommand(dnf.cli.Command):
         # by_srpm_name: {srpm name: set of packages}
         srpm_names = {}
         by_srpm_name = collections.defaultdict(set)
+        # repo_srpms: {repo name: set of srpm names}
+        repo_srpms = {}
         for pkg in progressbar(python_versions.keys(), 'Getting SRPMs'):
             srpm_name = get_srpm_name(pkg)
             srpm_names[pkg] = srpm_name
             by_srpm_name[srpm_name].add(pkg)
+            repo_srpms.setdefault(pkg.reponame, set()).add(srpm_name)
 
         # deps_of_pkg: {package: set of packages}
         deps_of_pkg = collections.defaultdict(set)
@@ -387,12 +399,21 @@ class Py3QueryCommand(dnf.cli.Command):
             json.dump(json_output, sys.stdout, indent=2, sort_keys=True)
             sys.stdout.flush()
 
-    def all_provides(self, reponame, seeds):
+        # Write out a groups.json
+        if self.opts.repo_groups_file:
+            output = {repo_name: {'name': repo_name,
+                                  'packages': sorted(srpm_names)}
+                      for repo_name, srpm_names in repo_srpms.items()}
+            with open(self.opts.repo_groups_file, 'w') as f:
+                json.dump(output, f, indent=2, sort_keys=True)
+
+
+    def all_provides(self, reponames, seeds):
         pkgs = set()
         for seed in seeds:
             query = dnf.subject.Subject(seed, ignore_case=True).get_best_query(
                 self.base.sack, with_provides=False)
-            query = query.filter(reponame=reponame)
+            query = query.filter(reponame=list(reponames))
             pkgs.update(query.run())
         provides = set()
         for pkg in sorted(pkgs):
