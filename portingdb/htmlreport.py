@@ -375,16 +375,18 @@ def graph_json(grp=None, pkg=None):
             package = todo.pop()
             if package not in requirements:
                 requirements.add(package)
-                todo.update(p for p in package.run_time_requirements
-                            if p.status not in DONE_STATUSES)
+                todo.update(p for p in package.requirements
+                            if p.status not in DONE_STATUSES and
+                            not p.nonblocking)
         todo = {root_package}
         requirers = set()
         while todo:
             package = todo.pop()
             if package not in requirers:
                 requirers.add(package)
-                todo.update(p for p in package.run_time_requirers
-                            if p.status not in DONE_STATUSES)
+                todo.update(p for p in package.requirers
+                            if p.status not in DONE_STATUSES and
+                            not p.nonblocking)
         packages = list(requirements | requirers | {root_package})
 
     package_names = {p.name for p in packages}
