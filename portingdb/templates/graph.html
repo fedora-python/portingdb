@@ -67,6 +67,29 @@
             Bigger nodes mean more Python (+C extension) code.
         </p>
         <p>
+            {% if all_deps %}
+                Both build time and run time dependencies are displayed on the graph. You can 
+                {% if grp %}
+                    <a href="{{ url_for('graph_grp', grp=grp) }}">
+                {% elif pkg %}
+                    <a href="{{ url_for('graph_pkg', pkg=pkg) }}">
+                {% else %}
+                    <a href="{{ url_for('graph') }}">
+                {% endif %}
+                load run time dependencies only</a>.
+            {% else %}
+                The graph shows only run time dependencies. To see a bigger picture
+                {% if grp %}
+                    <a href="{{ url_for('graph_grp', grp=grp, all_deps=1) }}">
+                {% elif pkg %}
+                    <a href="{{ url_for('graph_pkg', pkg=pkg, all_deps=1) }}">
+                {% else %}
+                    <a href="{{ url_for('graph', all_deps=1) }}">
+                {% endif %}
+                load build time dependencies</a> as well.
+            {% endif %}
+        </p>
+        <p>
             Large graphs are quite CPU-hungry. Sorry for that!
         </p>
     </div>
@@ -92,11 +115,11 @@ var svg = d3.select("#graph-goes-here").append("svg")
 
 d3.json(
     {% if grp %}
-        "{{ url_for('graph_json_grp', grp=grp) }}"
+        "{{ url_for('graph_json_grp', grp=grp, all_deps=all_deps) }}"
     {% elif pkg %}
-        "{{ url_for('graph_json_pkg', pkg=pkg) }}"
+        "{{ url_for('graph_json_pkg', pkg=pkg, all_deps=all_deps) }}"
     {% else %}
-        "portingdb.json"
+        "{{ url_for('graph_json', all_deps=all_deps) }}"
     {% endif %}
     , function(error, graph) {
   if (error) throw error;

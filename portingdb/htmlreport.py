@@ -334,6 +334,11 @@ def format_time_ago(date):
 
 
 def graph(grp=None, pkg=None):
+    # Parameters
+    all_deps = request.args.get('all_deps', None)
+    if all_deps not in ('1', None):
+        abort(400)  # Bad request
+
     return render_template(
         'graph.html',
         breadcrumbs=(
@@ -342,6 +347,7 @@ def graph(grp=None, pkg=None):
         ),
         grp=grp,
         pkg=pkg,
+        all_deps=all_deps,
     )
 
 
@@ -354,6 +360,11 @@ def graph_pkg(pkg):
 
 
 def graph_json(grp=None, pkg=None):
+    # Parameters
+    all_deps = request.args.get('all_deps', None)
+    if all_deps not in ('1', None):
+        abort(400)  # Bad request
+
     db = current_app.config['DB']()
     if pkg is None:
         db = current_app.config['DB']()
@@ -362,7 +373,8 @@ def graph_json(grp=None, pkg=None):
         if grp:
             query = query.join(tables.GroupPackage)
             query = query.filter(tables.GroupPackage.group_ident == grp)
-        query = query.options(joinedload(tables.Package.run_time_requirers))
+        query = query.options(joinedload(
+            tables.Package.requirers if all_deps else tables.Package.run_time_requirers))
         packages = list(query)
     else:
         query = db.query(tables.Package)
@@ -375,7 +387,8 @@ def graph_json(grp=None, pkg=None):
             package = todo.pop()
             if package not in requirements:
                 requirements.add(package)
-                todo.update(p for p in package.requirements
+                pkg_requirements = package.requirements if all_deps else package.run_time_requirements
+                todo.update(p for p in pkg_requirements
                             if p.status not in DONE_STATUSES and
                             not p.nonblocking)
         todo = {root_package}
@@ -384,14 +397,16 @@ def graph_json(grp=None, pkg=None):
             package = todo.pop()
             if package not in requirers:
                 requirers.add(package)
-                todo.update(p for p in package.requirers
+                pkg_requirers = package.requirers if all_deps else package.run_time_requirers
+                todo.update(p for p in pkg_requirers
                             if p.status not in DONE_STATUSES and
                             not p.nonblocking)
         packages = list(requirements | requirers | {root_package})
 
     package_names = {p.name for p in packages}
     query = db.query(tables.Dependency)
-    query = query.filter(tables.Dependency.run_time)
+    if not all_deps:
+        query = query.filter(tables.Dependency.run_time)
     linked_pairs = {(d.requirer_name, d.requirement_name)
                     for d in query
                     if d.requirer_name in package_names
@@ -927,15 +942,15 @@ def create_app(db_url, cache_config=None):
     _add_route("/stats.json", jsonstats)
     _add_route("/pkg/<pkg>/", package)
     _add_route("/grp/<grp>/", group)
-    _add_route("/graph/", graph)
-    _add_route("/graph/portingdb.json", graph_json)
+    _add_route("/graph/", graph, get_keys={'all_deps'})
+    _add_route("/graph/portingdb.json", graph_json, get_keys={'all_deps'})
     _add_route("/piechart.svg", piechart_svg)
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
     _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
-    _add_route("/grp/<grp>/graph/", graph_grp)
-    _add_route("/grp/<grp>/graph/data.json", graph_json_grp)
-    _add_route("/pkg/<pkg>/graph/", graph_pkg)
-    _add_route("/pkg/<pkg>/graph/data.json", graph_json_pkg)
+    _add_route("/grp/<grp>/graph/", graph_grp, get_keys={'all_deps'})
+    _add_route("/grp/<grp>/graph/data.json", graph_json_grp, get_keys={'all_deps'})
+    _add_route("/pkg/<pkg>/graph/", graph_pkg, get_keys={'all_deps'})
+    _add_route("/pkg/<pkg>/graph/data.json", graph_json_pkg, get_keys={'all_deps'})
     _add_route("/by_loc/", by_loc, get_keys={'sort', 'reverse'})
     _add_route("/by_loc/grp/<grp>/", group_by_loc, get_keys={'sort', 'reverse'})
     _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
