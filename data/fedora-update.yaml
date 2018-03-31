@@ -228,6 +228,11 @@ m2crypto:
       Possible replacement: `python-cryptography` (or Python standard library).
 magicor:
     dead-upstream: true
+mailman:
+    note: |
+        Mailman 3 with Python 3 support is ready but should be packaged separately.
+        More info on the status of the new package can be found in a
+        [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1363871).
 marave:
     dead-upstream: true
 notify-python:
@@ -639,6 +644,8 @@ python-pyudev:
   nonblocking: true
   note: |
     Some backends are not yet ported.
+  links:
+    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1560484
 python-simpletal:
   status: dropped
   note: |
