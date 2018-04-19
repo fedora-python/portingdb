@@ -263,18 +263,11 @@ pcp:
     note: |
         As of 2016-07-01, only the `pcp-pmda-json` package is not ported, and
         nothing depends on that.
-policycoreutils:
+postgresql:
     nonblocking: true
     note: |
-        State of the subpackages (as of 2016-04-26):
-
-        * `policycoreutils-devel`: × Mispackaged (needs both py2 and py3),
-          but it seems nothing depends the Python parts
-        * `policycoreutils-gui`: × Mispackaged (needs both py2 and py3), but
-          nothing depends on it
-        * `policycoreutils-python{,3}`: ✔ Dual packages
-        * `policycoreutils-python-utils`: ✔ py3 only
-        * `policycoreutils-sandbox`: ✔ py3 only
+        Only postgresql-upgrade depends on both Pythons, but this is intentional
+        as discussed in a [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1571215).
 pydot:
     note: |
       Suggested replacement: `python-pydotplus`
