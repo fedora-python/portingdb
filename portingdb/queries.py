@@ -111,6 +111,26 @@ def update_status_summaries(db):
         status='idle').where(tables.Package.status == 'unknown')
     db.execute(update)
 
+
+    # Convert "released" packages with all ported RPMs to "py3-only"
+
+    query = db.query(tables.PyDependency)
+    query = query.filter(tables.PyDependency.py_version == 2)
+    if query.count():
+        subquery = db.query(tables.CollectionPackage)
+        subquery = subquery.join(tables.RPM)
+        subquery = subquery.join(tables.RPMPyDependency)
+        subquery = subquery.join(tables.PyDependency)
+        subquery = subquery.filter(tables.CollectionPackage.package_name ==
+                                tables.Package.name)
+        subquery = subquery.filter(tables.PyDependency.py_version == 2)
+
+        update = main_update
+        update = update.where(tables.Package.status == 'released')
+        update = update.where(~subquery.exists())
+        update = update.values(status='py3-only')
+        rv = db.execute(update)
+
     # Convert "idle" packages with un-ported dependencies to "blocked"
 
     dep = aliased(tables.Package)
@@ -133,7 +153,6 @@ def update_status_summaries(db):
     update = update.where(tables.Package.status == 'idle')
     update = update.values(status='blocked')
     rv = db.execute(update)
-    print(update, rv.rowcount)
 
 
 def update_naming_summaries(db):
