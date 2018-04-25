@@ -136,6 +136,8 @@ def main(update, naming):
                 prev_commit = commit
                 for row in prev_batch:
                     writer.writerow(row)
+            elif not prev_date:
+                prev_date = date
             else:
                 prev_commit = commit
                 print('{},{} - skipping'.format(prev_commit, prev_date),
@@ -145,10 +147,15 @@ def main(update, naming):
             # Note: we don't remove files that didn't exist in the old
             # version.
             run(['git', 'checkout', commit, '--', 'data'], cwd=tmpclone)
-            run(['python3', '-m', 'portingdb',
-                 '--datadir', tmpdata,
-                 '--db', tmpdb,
-                 'load'])
+            try:
+                run(['python3', '-m', 'portingdb',
+                    '--datadir', tmpdata,
+                    '--db', tmpdb,
+                    'load'])
+            except Exception as e:
+                typename = type(e).__name__
+                print(f'{prev_commit},{prev_date} - ERROR: {typename}: {e}',
+                      file=sys.stderr)
 
             engine = create_engine('sqlite:///' + os.path.abspath(tmpdb))
             db = get_db(engine=engine)
