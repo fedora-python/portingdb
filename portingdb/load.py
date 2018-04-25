@@ -56,8 +56,6 @@ def decode_file(filename):
 
 def _get_pkg(name, collection, info):
     status = info.get('status') or 'unknown'
-    if status == 'in-progress':
-        raise ValueError(name + ": the `in-progress` status should not be used")
     return {
         'package_name': name,
         'collection_ident': collection,
@@ -168,6 +166,16 @@ def load_from_directory(db, directory):
     load_from_directories(db, [directory])
 
 
+def _get_rpms_dict(pkg_info):
+    """Return dict of RPM information"""
+    rpms = pkg_info.get('rpms', {})
+    if isinstance(rpms, dict):
+        return rpms
+    else:
+        # Old format without dependency info
+        return {name: {} for name in rpms}
+
+
 def load_from_directories(db, directories):
     """Add data from a directory to a database
     """
@@ -237,13 +245,13 @@ def load_from_directories(db, directories):
 
         values = []
         for package, info in package_infos.items():
-            for dep in set(info.get('deps', ()) + info.get('build_deps', ())):
+            for dep in set(info.get('deps', []) + info.get('build_deps', [])):
                 if package != dep:
                     values.append(
                         {'requirer_name': package,
                          'requirement_name': dep,
                          'run_time': dep in info.get('deps', ()),
-                         'build_time': dep in info.get('build_deps', ()),
+                         'build_time': dep in info.get('build_deps', []),
                          'unversioned': ambiguous_deps.pop((package, dep), False)}
                     )
 
@@ -294,22 +302,14 @@ def load_from_directories(db, directories):
                    'is_misnamed': rpm_data.get('is_misnamed'),
                    'legacy_leaf': rpm_data.get('legacy_leaf')}
                   for k, v in package_infos.items()
-                  for rpm_name, rpm_data in v.get('rpms', {}).items()]
+                  for rpm_name, rpm_data in _get_rpms_dict(v).items()]
         rpm_ids = bulk_load(db, values, tables.RPM.__table__,
                   key_columns=['collection_package_id', 'rpm_name'])
 
         # PyDependencies
-        def get_rpms(v):
-            rpms = v.get('rpms', {})
-            if isinstance(rpms, dict):
-                return rpms.items()
-            else:
-                # Old format without dependency info
-                return []
-
         values = [(('name', n), ('py_version', p))
                   for k, v in package_infos.items()
-                  for rn, r in get_rpms(v)
+                  for rn, r in _get_rpms_dict(v).items()
                   for n, p in r.get('py_deps', {}).items()]
         values = list(dict(p) for p in set(values))
         bulk_load(db, values, tables.PyDependency.__table__,
@@ -319,7 +319,7 @@ def load_from_directories(db, directories):
         values = [{'rpm_id': rpm_ids[col_package_map[k, collection], rn],
                    'py_dependency_name': n}
                   for k, v in package_infos.items()
-                  for rn, r in get_rpms(v)
+                  for rn, r in _get_rpms_dict(v).items()
                   for n in r.get('py_deps', {})]
         bulk_load(db, values, tables.RPMPyDependency.__table__,
                   key_columns=['rpm_id', 'py_dependency_name'])
