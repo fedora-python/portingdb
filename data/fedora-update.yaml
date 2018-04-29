@@ -48,6 +48,7 @@ binclock:
 bmpanel2:
     dead-upstream: true
 bodhi:
+    nonblocking: true
     note: |
         The `bodhi-server` subpackage depends on `python-fedora-turbogears`
          (part of `python-fedora`),
@@ -217,11 +218,6 @@ lunatic-python:
         Suggested replacement: `python-lupa`
 
         [Lupa](https://github.com/scoder/lupa) is a better alternative which supports Python 3.
-mirrormanager:
-    status: blocked
-    note: |
-        Depends on `python-fedora-turbogears`  (part of `python-fedora`),
-        which is not ported (as of 2016-05-02).
 notify-python:
   dead-upstream: true
   note: |
