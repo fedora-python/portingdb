@@ -1,26 +1,6 @@
 {% extends "_base.html" %}
 
-{% block style %}
-{{ super() }}
-
-body {
-  /*font: 10px sans-serif;*/
-}
-
-
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  stroke-width: 2px;
-  shape-rendering: crispEdges;
-}
-
-{% endblock style %}
-
 {% block bodycontent %}
-<script src="{{ url_for('static', filename='d3.v3.min.js') }}"></script>
-<script src="{{ url_for('static', filename='chart.js') }}"></script>
-
 <div class="container">
     <div class="col-md-12" id="chart-container">
         <h1>History</h1>
@@ -44,31 +24,8 @@ body {
             is evolving over time; for example the "mispackaged" status
             was added at the end of January 2016.)
         </p>
-        <div class="chart">
-        </div>
+        {{ graph|safe }}
     </div>
 </div>
 
-<script>
-
-var colormap = {
-    'idle': '#AAAAAA',
-    'in-progress': '#F0AD4E',
-    'blocked': '#D9534F',
-    'released': '#5CB85C',
-    'mispackaged': '#5BC0DE',
-    'py3-only': '#709966',
-    'legacy-leaf': '#88cc00',
-    'dropped': '#888888',
-};
-
-var key_order = ["dropped", "py3-only", "legacy-leaf", "released",
-                 "in-progress", "mispackaged", "idle", "blocked"];
-
-chart("data.csv", colormap, key_order, {{ expand|tojson }});
-
-var datearray = [];
-var colorrange = [];
-
-</script>
 {% endblock bodycontent %}
