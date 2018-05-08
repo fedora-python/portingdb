@@ -25,6 +25,7 @@ requires = [
     'markdown >= 2.4, < 3.0',
     'dogpile.cache >= 0.5.5, < 1.0',
     'taskotron-python-versions >= 0.1.dev2',
+    'plotly >= 2.5.1, < 3.0',
 ]
 
 tests_require = ['pytest']

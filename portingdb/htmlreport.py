@@ -19,6 +19,7 @@ from dogpile.cache import make_region
 
 from . import tables
 from . import queries
+from .history_graph import history_graph
 
 tau = 2 * math.pi
 
@@ -557,35 +558,33 @@ def howto():
 
 
 def history():
+    db = current_app.config['DB']()
     expand = request.args.get('expand', None)
     if expand not in ('1', None):
         abort(400)  # Bad request
+
+    query = db.query(tables.HistoryEntry)
+    query = query.filter(tables.HistoryEntry.date > '2015-10-10')
+
+    status_query = db.query(tables.Status)
+    status_query = status_query.order_by(tables.Status.order)
+
+    graph = history_graph(
+        query=query,
+        status_query=status_query,
+        title='portingdb history',
+        expand=bool(expand),
+    )
+
     return render_template(
         'history.html',
+        graph=graph,
+        expand=bool(expand),
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('history'), 'History'),
         ),
-        expand=bool(expand),
     )
-
-
-def history_csv():
-    db = current_app.config['DB']()
-
-    query = db.query(tables.HistoryEntry)
-    query = query.order_by(tables.HistoryEntry.date)
-    sio = io.StringIO()
-    w = csv.DictWriter(sio, ['commit', 'date', 'status', 'num_packages'])
-    w.writeheader()
-    for row in query:
-        w.writerow({
-            'commit': row.commit,
-            'date': row.date,
-            'status': row.status,
-            'num_packages': row.num_packages,
-        })
-    return Response(sio.getvalue(), mimetype='text/csv')
 
 
 def group_by_loc(grp):
@@ -837,8 +836,20 @@ def piechart_namingpolicy():
 
 
 def history_naming():
+    db = current_app.config['DB']()
+    query = db.query(tables.HistoryNamingEntry)
+    status_query = db.query(tables.NamingData)
+
+    graph = history_graph(
+        query=query,
+        status_query=status_query,
+        title='portingdb naming history',
+        show_percent=False,
+    )
+
     return render_template(
         'history-naming.html',
+        graph=graph,
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('namingpolicy'), 'Naming Policy'),
@@ -957,9 +968,7 @@ def create_app(db_url, cache_config=None):
     _add_route("/namingpolicy/", namingpolicy)
     _add_route("/namingpolicy/piechart.svg", piechart_namingpolicy)
     _add_route("/namingpolicy/history/", history_naming)
-    _add_route("/namingpolicy/history/data.csv", history_naming_csv)
     _add_route("/history/", history, get_keys={'expand'})
-    _add_route("/history/data.csv", history_csv)
     _add_route("/howto/", howto)
 
     return app
