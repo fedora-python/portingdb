@@ -10,6 +10,7 @@ STATUS_ORDER = (
     'legacy-leaf',
     'released',
     'in-progress',
+    None,  # status not found
     'mispackaged',
     'idle',
     'blocked',
@@ -19,7 +20,7 @@ def order_key(status_ident):
     try:
         return STATUS_ORDER.index(status_ident)
     except ValueError:
-        return 4
+        return STATUS_ORDER.index(None)
 
 def history_graph(query, status_query=(), title='History',
                   expand=False, show_percent=True):
