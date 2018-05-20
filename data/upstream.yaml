@@ -161,17 +161,6 @@ evemu:
 exo:
   note: |
     Upstream does not use Python at all, it's Fedora only dependency.
-fabric:
-  links:
-    bug: https://github.com/fabric/fabric/issues/1378
-  note: |
-    [Mathias Ertl](https://github.com/mathiasertl) submitted
-    [Python 3 patches](https://github.com/fabric/fabric/issues/1378)
-    to the Fabric maintainer.  These patches stopped compatibility with
-    Python 2.5 and earlier, so the Fabric maintainer did not accept them.
-    Mathias forked the code and
-    [released the fork to pypi](https://pypi.python.org/pypi/Fabric3).
-    It can be installed with `pip install Fabric3`.
 fail2ban:
   links:
       repo: https://github.com/fail2ban/fail2ban
@@ -978,7 +967,3 @@ wxPython:
   links:
     homepage: https://pypi.python.org/pypi/wxPython/4.0.0a2
     repo: https://github.com/wxWidgets/Phoenix
-xpra:
-  note: Tied with a GTK3 port as well, so may be delayed
-  links:
-    bug: https://www.xpra.org/trac/ticket/640
