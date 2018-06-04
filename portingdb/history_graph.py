@@ -71,24 +71,17 @@ def history_graph(query, status_query=(), title='History',
                     value=value, percent=round(100 * value / total, 1)))
             else:
                 trace.text.append(str(value))
-            trace.hoverinfo.append('text+name' if value else 'skip')
+            trace.hoverinfo.append('text+name+x' if value else 'x')
 
     dates = list(data.keys())
-
-    # HACK: An extra trace to show date on hover
-    traces.append(Scatter(
-        x=dates,
-        y=[0 for d in dates],
-        text=dates,
-        hoverinfo='x',
-        line=dict(width=0.5, color='fff'),
-        name='',
-    ))
 
     layout = Layout(
         title=title,
         hoverdistance=50,
         hovermode='x',
+        yaxis=dict(
+            rangemode='nonnegative',
+        ),
     )
 
     fig = Figure(data=traces, layout=layout)
