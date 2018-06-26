@@ -41,32 +41,27 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1244234",
-        "MODIFIED",
-        "2018-06-14 15:58:49"
+        "ON_QA",
+        "2018-06-23 21:21:21"
       ]
     },
-    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "389-ds-base-1.4.0.10-2.fc29": {
+      "389-ds-base-1.4.0.11-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": [
             "389-admin",
             "389-ds",
-            "jemalloc",
             "migrationtools",
-            "neovim",
-            "redis",
             "slapi-nis"
           ]
         },
         "py_deps": {
-          "/usr/bin/python2": 2,
           "/usr/bin/python3": 3
         }
       },
-      "cockpit-389-ds-1.4.0.10-2.fc29": {
+      "cockpit-389-ds-1.4.0.11-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -77,7 +72,7 @@
           "python3 = 3.6.5-4.fc29": 3
         }
       },
-      "python3-389-ds-base-tests-1.4.0.10-2.fc29": {
+      "python3-389-ds-base-tests-1.4.0.11-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -89,7 +84,7 @@
           "python3 = 3.6.5-4.fc29": 3
         }
       },
-      "python3-lib389-1.4.0.10-2.fc29": {
+      "python3-lib389-1.4.0.11-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -102,7 +97,7 @@
         }
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "5minute": {
     "build_deps": [
@@ -2993,14 +2988,16 @@
   },
   "ansible-lint": {
     "build_deps": [
+      "PyYAML",
       "ansible",
       "python-setuptools",
-      "python2",
+      "python-six",
       "python3"
     ],
     "deps": [
+      "PyYAML",
       "ansible",
-      "python2",
+      "python-six",
       "python3"
     ],
     "links": {
@@ -3011,18 +3008,7 @@
       ]
     },
     "rpms": {
-      "python2-ansible-lint-3.4.21-1.fc29": {
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "/usr/bin/python2": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-ansible-lint-3.4.21-1.fc29": {
+      "python3-ansible-lint-3.4.23-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -4106,7 +4092,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-audit-2.8.3-3.fc29": {
+      "python2-audit-2.8.4-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -4118,7 +4104,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-audit-2.8.3-3.fc29": {
+      "python3-audit-2.8.4-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -4697,7 +4683,7 @@
       "python3"
     ],
     "rpms": {
-      "awscli-1.15.40-1.fc29": {
+      "awscli-1.15.45-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -5156,7 +5142,9 @@
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
-          "run_time": []
+          "run_time": [
+            "beakerlib-libraries"
+          ]
         },
         "py_deps": {
           "/usr/bin/python2": 2,
@@ -5576,7 +5564,6 @@
       "python3"
     ],
     "deps": [
-      "389-ds-base",
       "OpenColorIO",
       "numpy",
       "python-requests"
@@ -5706,7 +5693,7 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "blueberry-1.2.1-1.fc29": {
+      "blueberry-1.2.2-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -5728,7 +5715,7 @@
       "python2"
     ],
     "rpms": {
-      "bluefish-2.2.10-8.fc28": {
+      "bluefish-2.2.10-9.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -5738,7 +5725,7 @@
           "libpython2.7.so.1.0()(64bit)": 2
         }
       },
-      "bluefish-shared-data-2.2.10-8.fc28": {
+      "bluefish-shared-data-2.2.10-9.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -6377,7 +6364,7 @@
       ]
     },
     "rpms": {
-      "brltty-5.6-21.fc29": {
+      "brltty-5.6-24.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -6387,7 +6374,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python3-brlapi-0.6.7-21.fc29": {
+      "python3-brlapi-0.6.7-24.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -7101,7 +7088,7 @@
       "sip"
     ],
     "rpms": {
-      "calibre-3.26.1-1.fc29": {
+      "calibre-3.26.1-2.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -7134,7 +7121,7 @@
       ]
     },
     "rpms": {
-      "cantor-18.04.2-1.fc29": {
+      "cantor-18.04.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -7144,7 +7131,7 @@
           "libpython3.6m.so.1.0()(64bit)": 3
         }
       },
-      "python2-cantor-18.04.2-1.fc29": {
+      "python2-cantor-18.04.2-3.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -7154,7 +7141,7 @@
           "libpython2.7.so.1.0()(64bit)": 2
         }
       },
-      "python3-cantor-18.04.2-1.fc29": {
+      "python3-cantor-18.04.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -7883,7 +7870,7 @@
       "pytz"
     ],
     "rpms": {
-      "python2-certbot-0.25.1-1.fc29": {
+      "python2-certbot-0.25.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -7894,7 +7881,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-certbot-0.25.1-1.fc29": {
+      "python3-certbot-0.25.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -8187,7 +8174,7 @@
       "python-psutil"
     ],
     "rpms": {
-      "chrome-remote-desktop-67.0.3396.79-1.fc29": {
+      "chrome-remote-desktop-67.0.3396.87-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -8197,7 +8184,7 @@
           "/usr/bin/python2": 2
         }
       },
-      "chromium-common-67.0.3396.79-1.fc29": {
+      "chromium-common-67.0.3396.87-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -9147,7 +9134,7 @@
       "python3"
     ],
     "rpms": {
-      "compose-utils-0.1.20-1.fc29": {
+      "compose-utils-0.1.21-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -9157,7 +9144,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python2-compose-utils-0.1.20-1.fc29": {
+      "python2-compose-utils-0.1.21-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -9167,7 +9154,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-compose-utils-0.1.20-1.fc29": {
+      "python3-compose-utils-0.1.21-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -9574,6 +9561,7 @@
       "python-pygments",
       "python-pylibravatar",
       "python-redis",
+      "python-simplejson",
       "python-six",
       "python-sphinx",
       "python-sphinxcontrib-httpdomain",
@@ -9604,6 +9592,7 @@
       "python-pygments",
       "python-pylibravatar",
       "python-redis",
+      "python-simplejson",
       "python-wtforms",
       "python-zmq",
       "pytz"
@@ -9616,7 +9605,7 @@
       ]
     },
     "rpms": {
-      "copr-frontend-1.132-1.fc29": {
+      "copr-frontend-1.133-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -10826,7 +10815,6 @@
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
-            "NetworkManager",
             "certmonger",
             "dbus",
             "telepathy-haze",
@@ -10851,6 +10839,7 @@
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
+            "NetworkManager",
             "backintime",
             "bolt"
           ],
@@ -13216,7 +13205,7 @@
       "python2"
     ],
     "rpms": {
-      "edk2-tools-python-20180529gitee3198e672e2-1.fc29": {
+      "edk2-tools-python-20180529gitee3198e672e2-2.fc29": {
         "is_misnamed": true,
         "legacy_leaf": true,
         "non_python_requirers": {
@@ -13586,7 +13575,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "environment-modules-4.1.2-2.fc29": {
+      "environment-modules-4.1.3-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -13994,7 +13983,7 @@
     ],
     "deps": [],
     "rpms": {
-      "exo-0.12.0-3.fc29": {
+      "exo-0.12.2-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -14540,27 +14529,6 @@
     },
     "status": "released"
   },
-  "fedora-productimg-workstation": {
-    "build_deps": [
-      "python3"
-    ],
-    "deps": [
-      "python3"
-    ],
-    "rpms": {
-      "fedora-productimg-workstation-27-2.fc28": {
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 3.6": 3
-        }
-      }
-    },
-    "status": "released"
-  },
   "fedora-review": {
     "build_deps": [
       "python-BeautifulSoup",
@@ -14791,7 +14759,7 @@
       "python-suds"
     ],
     "rpms": {
-      "fence-agents-alom-4.2.1-1.fc29": {
+      "fence-agents-alom-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14801,7 +14769,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-amt-4.2.1-1.fc29": {
+      "fence-agents-amt-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14811,7 +14779,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-amt-ws-4.2.1-1.fc29": {
+      "fence-agents-amt-ws-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14821,7 +14789,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-apc-4.2.1-1.fc29": {
+      "fence-agents-apc-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14831,7 +14799,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-apc-snmp-4.2.1-1.fc29": {
+      "fence-agents-apc-snmp-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14841,7 +14809,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-aws-4.2.1-1.fc29": {
+      "fence-agents-aws-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14851,7 +14819,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-azure-arm-4.2.1-1.fc29": {
+      "fence-agents-azure-arm-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14861,7 +14829,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-bladecenter-4.2.1-1.fc29": {
+      "fence-agents-bladecenter-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14871,7 +14839,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-brocade-4.2.1-1.fc29": {
+      "fence-agents-brocade-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14881,7 +14849,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-cisco-mds-4.2.1-1.fc29": {
+      "fence-agents-cisco-mds-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14891,7 +14859,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-cisco-ucs-4.2.1-1.fc29": {
+      "fence-agents-cisco-ucs-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14901,7 +14869,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-common-4.2.1-1.fc29": {
+      "fence-agents-common-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14911,7 +14879,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-compute-4.2.1-1.fc29": {
+      "fence-agents-compute-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14921,7 +14889,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-docker-4.2.1-1.fc29": {
+      "fence-agents-docker-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14931,7 +14899,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-drac-4.2.1-1.fc29": {
+      "fence-agents-drac-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14941,7 +14909,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-drac5-4.2.1-1.fc29": {
+      "fence-agents-drac5-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14951,7 +14919,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-eaton-snmp-4.2.1-1.fc29": {
+      "fence-agents-eaton-snmp-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14961,7 +14929,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-emerson-4.2.1-1.fc29": {
+      "fence-agents-emerson-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14971,7 +14939,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-eps-4.2.1-1.fc29": {
+      "fence-agents-eps-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14981,7 +14949,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-gce-4.2.1-1.fc29": {
+      "fence-agents-gce-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -14991,7 +14959,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-hds-cb-4.2.1-1.fc29": {
+      "fence-agents-hds-cb-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15001,7 +14969,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-heuristics-ping-4.2.1-1.fc29": {
+      "fence-agents-heuristics-ping-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15011,7 +14979,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-hpblade-4.2.1-1.fc29": {
+      "fence-agents-hpblade-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15021,7 +14989,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ibmblade-4.2.1-1.fc29": {
+      "fence-agents-ibmblade-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15031,7 +14999,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ifmib-4.2.1-1.fc29": {
+      "fence-agents-ifmib-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15041,7 +15009,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ilo-moonshot-4.2.1-1.fc29": {
+      "fence-agents-ilo-moonshot-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15051,7 +15019,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ilo-mp-4.2.1-1.fc29": {
+      "fence-agents-ilo-mp-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15061,7 +15029,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ilo-ssh-4.2.1-1.fc29": {
+      "fence-agents-ilo-ssh-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15071,7 +15039,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ilo2-4.2.1-1.fc29": {
+      "fence-agents-ilo2-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15081,7 +15049,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-intelmodular-4.2.1-1.fc29": {
+      "fence-agents-intelmodular-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15091,7 +15059,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ipdu-4.2.1-1.fc29": {
+      "fence-agents-ipdu-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15101,7 +15069,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ipmilan-4.2.1-1.fc29": {
+      "fence-agents-ipmilan-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15111,7 +15079,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ironic-4.2.1-1.fc29": {
+      "fence-agents-ironic-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15121,7 +15089,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ldom-4.2.1-1.fc29": {
+      "fence-agents-ldom-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15131,7 +15099,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-lpar-4.2.1-1.fc29": {
+      "fence-agents-lpar-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15141,7 +15109,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-mpath-4.2.1-1.fc29": {
+      "fence-agents-mpath-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15151,7 +15119,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-netio-4.2.1-1.fc29": {
+      "fence-agents-netio-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15161,17 +15129,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-ovh-4.2.1-1.fc29": {
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "/usr/bin/python2": 2
-        }
-      },
-      "fence-agents-pve-4.2.1-1.fc29": {
+      "fence-agents-ovh-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15181,7 +15139,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-raritan-4.2.1-1.fc29": {
+      "fence-agents-pve-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15191,7 +15149,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-rcd-serial-4.2.1-1.fc29": {
+      "fence-agents-raritan-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15201,7 +15159,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-rhevm-4.2.1-1.fc29": {
+      "fence-agents-rcd-serial-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15211,7 +15169,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-rsa-4.2.1-1.fc29": {
+      "fence-agents-rhevm-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15221,7 +15179,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-rsb-4.2.1-1.fc29": {
+      "fence-agents-rsa-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15231,7 +15189,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-sanbox2-4.2.1-1.fc29": {
+      "fence-agents-rsb-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15241,7 +15199,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-sbd-4.2.1-1.fc29": {
+      "fence-agents-sanbox2-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15251,7 +15209,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-scsi-4.2.1-1.fc29": {
+      "fence-agents-sbd-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15261,7 +15219,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-vbox-4.2.1-1.fc29": {
+      "fence-agents-scsi-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15271,7 +15229,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-virsh-4.2.1-1.fc29": {
+      "fence-agents-vbox-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15281,7 +15239,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-vmware-4.2.1-1.fc29": {
+      "fence-agents-virsh-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15291,7 +15249,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-vmware-rest-4.2.1-1.fc29": {
+      "fence-agents-vmware-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15301,17 +15259,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-vmware-soap-4.2.1-1.fc29": {
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "/usr/bin/python2": 2
-        }
-      },
-      "fence-agents-vmware-vcloud-4.2.1-1.fc29": {
+      "fence-agents-vmware-rest-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15321,7 +15269,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-wti-4.2.1-1.fc29": {
+      "fence-agents-vmware-soap-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15331,7 +15279,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-xenapi-4.2.1-1.fc29": {
+      "fence-agents-vmware-vcloud-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15341,7 +15289,27 @@
           "/usr/bin/python3": 3
         }
       },
-      "fence-agents-zvm-4.2.1-1.fc29": {
+      "fence-agents-wti-4.2.1-2.fc29": {
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "/usr/bin/python3": 3
+        }
+      },
+      "fence-agents-xenapi-4.2.1-2.fc29": {
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "/usr/bin/python3": 3
+        }
+      },
+      "fence-agents-zvm-4.2.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15352,7 +15320,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "released"
   },
   "file": {
     "build_deps": [
@@ -15654,7 +15622,7 @@
     ],
     "deps": [],
     "rpms": {
-      "flatpak-0.11.8.3-1.fc29": {
+      "flatpak-0.99.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -15749,13 +15717,12 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1592744",
-        "NEW",
-        "2018-06-19 08:34:32"
+        "ON_QA",
+        "2018-06-19 16:57:43"
       ]
     },
-    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "fleet-commander-admin-0.10.8-3.fc29": {
+      "fleet-commander-admin-0.10.8-5.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -15765,12 +15732,10 @@
           "pygobject2": 2,
           "pygobject2 = 2.28.7-2.fc29": 2,
           "python2": 2,
-          "python2 = 2.7.15-2.fc29": 2,
-          "python3": 3,
-          "python3 = 3.6.5-4.fc29": 3
+          "python2 = 2.7.15-2.fc29": 2
         }
       },
-      "fleet-commander-logger-0.10.8-3.fc29": {
+      "fleet-commander-logger-0.10.8-5.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -15783,7 +15748,7 @@
         }
       }
     },
-    "status": "mispackaged"
+    "status": "legacy-leaf"
   },
   "fleet-commander-client": {
     "build_deps": [
@@ -16223,7 +16188,7 @@
       "python3"
     ],
     "rpms": {
-      "fonttools-3.27.1-1.fc29": {
+      "fonttools-3.28.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -16239,7 +16204,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python2-fonttools-3.27.1-1.fc29": {
+      "python2-fonttools-3.28.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -16254,7 +16219,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-fonttools-3.27.1-1.fc29": {
+      "python3-fonttools-3.28.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16404,7 +16369,7 @@
       ]
     },
     "rpms": {
-      "freeipa-client-4.6.90.pre2-3.fc29": {
+      "freeipa-client-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16414,7 +16379,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "freeipa-server-4.6.90.pre2-3.fc29": {
+      "freeipa-server-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16426,7 +16391,7 @@
           "python3 = 3.6.5-4.fc29": 3
         }
       },
-      "freeipa-server-dns-4.6.90.pre2-3.fc29": {
+      "freeipa-server-dns-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16436,7 +16401,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "freeipa-server-trust-ad-4.6.90.pre2-3.fc29": {
+      "freeipa-server-trust-ad-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16448,7 +16413,7 @@
           "python3 = 3.6.5-4.fc29": 3
         }
       },
-      "python2-ipaclient-4.6.90.pre2-3.fc29": {
+      "python2-ipaclient-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16458,7 +16423,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-ipalib-4.6.90.pre2-3.fc29": {
+      "python2-ipalib-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16470,7 +16435,7 @@
           "python2 = 2.7.15-2.fc29": 2
         }
       },
-      "python2-ipaserver-4.6.90.pre2-3.fc29": {
+      "python2-ipaserver-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16480,7 +16445,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-ipatests-4.6.90.pre2-3.fc29": {
+      "python2-ipatests-4.6.90.pre2-7.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -16491,7 +16456,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-ipaclient-4.6.90.pre2-3.fc29": {
+      "python3-ipaclient-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16501,7 +16466,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-ipalib-4.6.90.pre2-3.fc29": {
+      "python3-ipalib-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16511,7 +16476,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-ipaserver-4.6.90.pre2-3.fc29": {
+      "python3-ipaserver-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -16521,7 +16486,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-ipatests-4.6.90.pre2-3.fc29": {
+      "python3-ipatests-4.6.90.pre2-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -17428,7 +17393,7 @@
       "python3"
     ],
     "rpms": {
-      "aeidon-1.0-6.fc28": {
+      "aeidon-1.4-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -17438,7 +17403,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "gaupol-1.0-6.fc28": {
+      "gaupol-1.4-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -17629,7 +17594,7 @@
     ],
     "deps": [],
     "rpms": {
-      "gdb-headless-8.1.50.20180613-21.fc29": {
+      "gdb-headless-8.1.50.20180618-24.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -18536,7 +18501,6 @@
             "steghide",
             "syslinux",
             "systemd",
-            "tcpdump",
             "tcsh",
             "tig",
             "tomcatjss",
@@ -18746,7 +18710,7 @@
     ],
     "deps": [],
     "rpms": {
-      "git-publish-1.4.3-1.fc29": {
+      "git-publish-1.4.4-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -20222,7 +20186,7 @@
     ],
     "deps": [],
     "rpms": {
-      "glibc-benchtests-2.27.9000-22.fc29": {
+      "glibc-benchtests-2.27.9000-27.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -20241,7 +20205,7 @@
     ],
     "deps": [],
     "rpms": {
-      "global-6.6.2-1.fc28": {
+      "global-6.6.2-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -20889,7 +20853,7 @@
     ],
     "deps": [],
     "rpms": {
-      "gnome-photos-tests-3.28.0-1.fc29": {
+      "gnome-photos-tests-3.29.3-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -21475,8 +21439,8 @@
       "wxPython"
     ],
     "rpms": {
-      "gnuradio-3.7.13.3-1.fc29": {
-        "legacy_leaf": true,
+      "gnuradio-3.7.13.3-2.fc29": {
+        "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -21489,7 +21453,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "gnuradio-examples-3.7.13.3-1.fc29": {
+      "gnuradio-examples-3.7.13.3-2.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -22472,13 +22436,14 @@
     "deps": [
       "PyQt4",
       "PyQwt",
+      "gnuradio",
       "numpy",
       "python-zmq",
       "python2",
       "scipy"
     ],
     "rpms": {
-      "gr-air-modes-0-0.57.20160831git3bad1f5d.fc28": {
+      "gr-air-modes-0-0.58.20160831git3bad1f5d.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -22539,10 +22504,11 @@
   "gr-iqbal": {
     "build_deps": [],
     "deps": [
+      "gnuradio",
       "python2"
     ],
     "rpms": {
-      "gr-iqbal-0.37.2-28.fc28": {
+      "gr-iqbal-0.37.2-29.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -22587,11 +22553,12 @@
   "gr-rds": {
     "build_deps": [],
     "deps": [
+      "gnuradio",
       "gr-osmosdr",
       "python2"
     ],
     "rpms": {
-      "gr-rds-0-0.31.20150513git201f32b.fc28": {
+      "gr-rds-1.1.0-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -22691,7 +22658,7 @@
       "pytz"
     ],
     "rpms": {
-      "graphite-api-1.1.3-7.fc28": {
+      "graphite-api-1.1.3-8.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -22791,7 +22758,7 @@
     ],
     "rpms": {
       "grass-7.4.1-1.fc29": {
-        "legacy_leaf": true,
+        "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -23750,7 +23717,6 @@
             "xboard",
             "xcdroast",
             "xcowsay",
-            "xdemorse",
             "xdialog",
             "xfbib",
             "xfburn",
@@ -23909,7 +23875,7 @@
       "python3"
     ],
     "rpms": {
-      "gtts-2.0.0-1.fc29": {
+      "gtts-2.0.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -23919,7 +23885,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python2-gtts-2.0.0-1.fc29": {
+      "python2-gtts-2.0.1-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -23929,7 +23895,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-gtts-2.0.0-1.fc29": {
+      "python3-gtts-2.0.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -24288,7 +24254,7 @@
       "python2"
     ],
     "rpms": {
-      "python2-hamlib-3.2-1.fc29": {
+      "python2-hamlib-3.2-2.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -25226,6 +25192,7 @@
   "ibus": {
     "build_deps": [
       "GConf2",
+      "git",
       "gobject-introspection",
       "gtk-doc",
       "gtk2",
@@ -25242,7 +25209,7 @@
       "python3"
     ],
     "rpms": {
-      "ibus-1.5.18-5.fc29": {
+      "ibus-1.5.18-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -25273,7 +25240,7 @@
           "python3 = 3.6.5-4.fc29": 3
         }
       },
-      "ibus-py2override-1.5.18-5.fc29": {
+      "ibus-py2override-1.5.18-7.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -25285,7 +25252,7 @@
           "python2 = 2.7.15-2.fc29": 2
         }
       },
-      "ibus-pygtk2-1.5.18-5.fc29": {
+      "ibus-pygtk2-1.5.18-7.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -25299,7 +25266,7 @@
           "python2 = 2.7.15-2.fc29": 2
         }
       },
-      "ibus-setup-1.5.18-5.fc29": {
+      "ibus-setup-1.5.18-7.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -25458,7 +25425,7 @@
       "pyxdg"
     ],
     "rpms": {
-      "ibus-typing-booster-2.0.0-1.fc29": {
+      "ibus-typing-booster-2.0.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -26501,7 +26468,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-iscsi-initiator-utils-6.2.0.874-9.git86e8892.fc28": {
+      "python2-iscsi-initiator-utils-6.2.0.876-1.git4ef9261.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -26512,7 +26479,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-iscsi-initiator-utils-6.2.0.874-9.git86e8892.fc28": {
+      "python3-iscsi-initiator-utils-6.2.0.876-1.git4ef9261.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -27082,7 +27049,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-jpype-0.6.2-4.fc29": {
+      "python2-jpype-0.6.3-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -27093,7 +27060,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-jpype-0.6.2-4.fc29": {
+      "python3-jpype-0.6.3-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -27338,12 +27305,12 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1536656",
-        "MODIFIED",
-        "2018-06-19 00:47:00"
+        "CLOSED ERRATA",
+        "2018-06-23 20:47:40"
       ]
     },
     "rpms": {
-      "kernel-tools-4.17.0-1.fc29": {
+      "kernel-tools-4.18.0-0.rc1.git0.1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -27353,7 +27320,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "perf-4.17.0-1.fc29": {
+      "perf-4.18.0-0.rc1.git0.1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -27366,7 +27333,7 @@
           "libpython2.7.so.1.0()(64bit)": 2
         }
       },
-      "python2-perf-4.17.0-1.fc29": {
+      "python2-perf-4.18.0-0.rc1.git0.1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -27377,7 +27344,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-perf-4.17.0-1.fc29": {
+      "python3-perf-4.18.0-0.rc1.git0.1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -29555,7 +29522,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-blockdev-2.17-1.fc29": {
+      "python3-blockdev-2.18-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -30471,7 +30438,7 @@
       "python-pyudev"
     ],
     "rpms": {
-      "libinput-utils-1.11.0-1.fc29": {
+      "libinput-utils-1.11.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -30582,7 +30549,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-libkml-1.3.0-10.fc28": {
+      "python2-libkml-1.3.0-12.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -30593,7 +30560,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-libkml-1.3.0-10.fc28": {
+      "python3-libkml-1.3.0-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31625,9 +31592,7 @@
       "python2-libselinux-2.8-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [
-            "pki-console"
-          ],
+          "build_time": [],
           "run_time": []
         },
         "py_deps": {
@@ -31638,7 +31603,9 @@
       "python3-libselinux-2.8-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [],
+          "build_time": [
+            "pki-console"
+          ],
           "run_time": []
         },
         "py_deps": {
@@ -31889,7 +31856,7 @@
       ]
     },
     "rpms": {
-      "libstoragemgmt-1.6.2-1.fc29": {
+      "libstoragemgmt-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31901,7 +31868,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "libstoragemgmt-arcconf-plugin-1.6.2-1.fc29": {
+      "libstoragemgmt-arcconf-plugin-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31912,7 +31879,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "libstoragemgmt-hpsa-plugin-1.6.2-1.fc29": {
+      "libstoragemgmt-hpsa-plugin-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31923,7 +31890,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "libstoragemgmt-local-plugin-1.6.2-1.fc29": {
+      "libstoragemgmt-local-plugin-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31934,7 +31901,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "libstoragemgmt-megaraid-plugin-1.6.2-1.fc29": {
+      "libstoragemgmt-megaraid-plugin-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31945,7 +31912,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "libstoragemgmt-netapp-plugin-1.6.2-1.fc29": {
+      "libstoragemgmt-netapp-plugin-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31956,7 +31923,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "libstoragemgmt-nfs-plugin-1.6.2-1.fc29": {
+      "libstoragemgmt-nfs-plugin-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31967,7 +31934,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "libstoragemgmt-nfs-plugin-clibs-1.6.2-1.fc29": {
+      "libstoragemgmt-nfs-plugin-clibs-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31978,7 +31945,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "libstoragemgmt-nstor-plugin-1.6.2-1.fc29": {
+      "libstoragemgmt-nstor-plugin-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -31989,7 +31956,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "libstoragemgmt-smis-plugin-1.6.2-1.fc29": {
+      "libstoragemgmt-smis-plugin-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -32000,7 +31967,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "libstoragemgmt-targetd-plugin-1.6.2-1.fc29": {
+      "libstoragemgmt-targetd-plugin-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -32011,7 +31978,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-libstoragemgmt-1.6.2-1.fc29": {
+      "python3-libstoragemgmt-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -32022,7 +31989,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-libstoragemgmt-clibs-1.6.2-1.fc29": {
+      "python3-libstoragemgmt-clibs-1.6.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -32248,7 +32215,7 @@
       ]
     },
     "rpms": {
-      "python2-tevent-0.9.36-1.fc29": {
+      "python2-tevent-0.9.36-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -32259,7 +32226,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-tevent-0.9.36-1.fc29": {
+      "python3-tevent-0.9.36-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33093,7 +33060,7 @@
       "python3"
     ],
     "rpms": {
-      "lollypop-0.9.514-1.fc29": {
+      "lollypop-0.9.515-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33106,7 +33073,7 @@
           "python3-cairo = 1.16.3-1.fc29": 3
         }
       },
-      "lollypop-cli-0.9.514-1.fc29": {
+      "lollypop-cli-0.9.515-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33116,7 +33083,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "lollypop-portal-0.9.514-1.fc29": {
+      "lollypop-portal-0.9.515-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33233,7 +33200,7 @@
       ]
     },
     "rpms": {
-      "composer-cli-29.7-1.fc29": {
+      "composer-cli-29.8-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33244,7 +33211,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "lorax-29.7-1.fc29": {
+      "lorax-29.8-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33255,7 +33222,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "lorax-composer-29.7-1.fc29": {
+      "lorax-composer-29.8-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33528,7 +33495,7 @@
       ]
     },
     "rpms": {
-      "lvm2-dbusd-2.02.178-1.fc29": {
+      "lvm2-dbusd-2.02.179-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33539,7 +33506,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "lvm2-testsuite-2.02.178-1.fc29": {
+      "lvm2-testsuite-2.02.179-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33549,7 +33516,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python3-lvm-deprecated-2.02.178-1.fc29": {
+      "python3-lvm-deprecated-2.02.179-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -33870,21 +33837,19 @@
       "gtk2"
     ],
     "deps": [],
-    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "maliit-framework-examples-0.94.2-15.fc29": {
-        "legacy_leaf": true,
+      "maliit-framework-examples-0.94.2-16.fc29": {
+        "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python2": 2,
           "/usr/bin/python3": 3
         }
       }
     },
-    "status": "mispackaged"
+    "status": "released"
   },
   "manuale": {
     "build_deps": [
@@ -35959,7 +35924,7 @@
       "python3"
     ],
     "rpms": {
-      "module-build-service-2.2.4-1.fc29": {
+      "module-build-service-2.3.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -36257,7 +36222,7 @@
       "python2"
     ],
     "rpms": {
-      "mozo-1.20.0-1.fc28": {
+      "mozo-1.20.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -36973,7 +36938,7 @@
       ]
     },
     "rpms": {
-      "nbdkit-plugin-python2-1.3.3-1.fc29": {
+      "nbdkit-plugin-python2-1.3.4-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -36983,7 +36948,7 @@
           "libpython2.7.so.1.0()(64bit)": 2
         }
       },
-      "nbdkit-plugin-python3-1.3.3-1.fc29": {
+      "nbdkit-plugin-python3-1.3.4-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -37065,7 +37030,7 @@
       "pyxdg"
     ],
     "rpms": {
-      "nemo-compare-3.8.0-3.fc29": {
+      "nemo-compare-3.8.0-4.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -37077,7 +37042,7 @@
           "pygtk2 = 2.24.0-21.fc28": 2
         }
       },
-      "nemo-pastebin-3.8.0-3.fc29": {
+      "nemo-pastebin-3.8.0-4.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -37088,7 +37053,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-nemo-3.8.0-3.fc29": {
+      "python2-nemo-3.8.0-4.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -37668,6 +37633,35 @@
       }
     },
     "status": "released"
+  },
+  "nodejs": {
+    "build_deps": [
+      "python2",
+      "systemtap"
+    ],
+    "deps": [],
+    "rpms": {
+      "npm-1:6.1.0-1.10.5.0.1.fc29": {
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [
+            "kosmtik",
+            "nodejs-es5-shim",
+            "nodejs-fill-keys",
+            "nodejs-object-dot-entries",
+            "nodejs-shelljs-nodecli",
+            "nodejs-yarn"
+          ],
+          "run_time": [
+            "kosmtik"
+          ]
+        },
+        "py_deps": {
+          "/usr/bin/python2": 2
+        }
+      }
+    },
+    "status": "idle"
   },
   "nodejs-emojione": {
     "build_deps": [
@@ -39254,9 +39248,7 @@
             "uglify-js",
             "uglify-js1"
           ],
-          "run_time": [
-            "nodejs"
-          ]
+          "run_time": []
         },
         "py_deps": {
           "/usr/bin/python3": 3
@@ -39564,7 +39556,7 @@
       ]
     },
     "rpms": {
-      "python2-notmuch-0.26.2-0.fc29": {
+      "python2-notmuch-0.27-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -39576,7 +39568,7 @@
           "python2 = 2.7.15-2.fc29": 2
         }
       },
-      "python3-notmuch-0.26.2-0.fc29": {
+      "python3-notmuch-0.27-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -39793,7 +39785,6 @@
             "nuvola-app-google-play-music",
             "nuvola-app-groove",
             "nuvola-app-jango",
-            "nuvola-app-kexp",
             "nuvola-app-logitech-media-server",
             "nuvola-app-mixcloud",
             "nuvola-app-owncloud-music",
@@ -40194,7 +40185,7 @@
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "odcs-0.2.6.1-1.fc29": {
+      "odcs-0.2.7-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -40205,7 +40196,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "odcs-client-0.2.6.1-1.fc29": {
+      "odcs-client-0.2.7-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -40215,7 +40206,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python2-odcs-client-0.2.6.1-1.fc29": {
+      "python2-odcs-client-0.2.7-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -40225,7 +40216,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-odcs-common-0.2.6.1-1.fc29": {
+      "python2-odcs-common-0.2.7-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -40235,7 +40226,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-odcs-client-0.2.6.1-1.fc29": {
+      "python3-odcs-client-0.2.7-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -40245,7 +40236,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-odcs-common-0.2.6.1-1.fc29": {
+      "python3-odcs-common-0.2.7-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -41301,7 +41292,7 @@
       "python2"
     ],
     "rpms": {
-      "openvibe-1.1.0-7.fc27": {
+      "openvibe-1.1.0-9.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -41694,7 +41685,7 @@
     ],
     "deps": [],
     "rpms": {
-      "ostree-tests-2018.5-1.fc29": {
+      "ostree-tests-2018.6-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -42010,7 +42001,7 @@
       "python2"
     ],
     "rpms": {
-      "pagekite-0.5.9.2-4.fc29": {
+      "pagekite-0.5.9.3-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -42227,7 +42218,7 @@
       "python2"
     ],
     "rpms": {
-      "paraview-5.5.0-15.fc29": {
+      "paraview-5.5.2-15.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -42237,7 +42228,7 @@
           "libpython2.7.so.1.0()(64bit)": 2
         }
       },
-      "paraview-mpich-5.5.0-15.fc29": {
+      "paraview-mpich-5.5.2-15.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -42247,7 +42238,7 @@
           "libpython2.7.so.1.0()(64bit)": 2
         }
       },
-      "paraview-openmpi-5.5.0-15.fc29": {
+      "paraview-openmpi-5.5.2-15.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -42413,13 +42404,15 @@
   },
   "pcapy": {
     "build_deps": [
-      "python2"
+      "python2",
+      "python3"
     ],
     "deps": [
-      "python2"
+      "python2",
+      "python3"
     ],
     "rpms": {
-      "pcapy-0.10.8-14.fc29": {
+      "python2-pcapy-0.11.4-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -42429,9 +42422,20 @@
           "libpython2.7.so.1.0()(64bit)": 2,
           "python(abi) = 2.7": 2
         }
+      },
+      "python3-pcapy-0.11.4-1.fc29": {
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "libpython3.6m.so.1.0()(64bit)": 3,
+          "python(abi) = 3.6": 3
+        }
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "pcl": {
     "build_deps": [
@@ -42667,7 +42671,7 @@
       ]
     },
     "rpms": {
-      "pdc-client-1.8.0-6.fc29": {
+      "pdc-client-1.8.0-8.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -42677,7 +42681,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python2-pdc-client-1.8.0-6.fc29": {
+      "python2-pdc-client-1.8.0-8.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -42687,7 +42691,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pdc-client-1.8.0-6.fc29": {
+      "python3-pdc-client-1.8.0-8.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -43003,7 +43007,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-petsc4py-mpich-3.9.0-1.fc29": {
+      "python2-petsc4py-mpich-3.9.0-2.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -43014,7 +43018,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-petsc4py-openmpi-3.9.0-1.fc29": {
+      "python2-petsc4py-openmpi-3.9.0-2.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -43025,7 +43029,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-petsc4py-mpich-3.9.0-1.fc29": {
+      "python3-petsc4py-mpich-3.9.0-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -43036,7 +43040,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-petsc4py-openmpi-3.9.0-1.fc29": {
+      "python3-petsc4py-openmpi-3.9.0-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -43660,7 +43664,6 @@
     "build_deps": [
       "git",
       "libselinux",
-      "policycoreutils",
       "pyflakes",
       "pylint",
       "python-cryptography",
@@ -43671,7 +43674,6 @@
       "python-requests",
       "python-six",
       "python-sphinx",
-      "python2",
       "python3"
     ],
     "deps": [
@@ -43683,11 +43685,10 @@
       "python-nss",
       "python-requests",
       "python-six",
-      "python2",
       "python3"
     ],
     "rpms": {
-      "pki-server-10.6.1-2.fc29": {
+      "pki-server-10.6.2-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -43699,17 +43700,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python2-pki-10.6.1-2.fc29": {
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-pki-10.6.1-2.fc29": {
+      "python3-pki-10.6.2-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -44047,7 +44038,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-podman-0.6.4-1.gitb43677c.fc29": {
+      "python3-podman-0.6.5-2.gite89bbd6.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -44137,7 +44128,7 @@
       ]
     },
     "rpms": {
-      "policycoreutils-dbus-2.8-1.fc29": {
+      "policycoreutils-dbus-2.8-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -44147,7 +44138,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "policycoreutils-devel-2.8-1.fc29": {
+      "policycoreutils-devel-2.8-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -44161,7 +44152,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "policycoreutils-gui-2.8-1.fc29": {
+      "policycoreutils-gui-2.8-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -44172,11 +44163,10 @@
           "python(abi) = 3.6": 3
         }
       },
-      "policycoreutils-python-utils-2.8-1.fc29": {
+      "policycoreutils-python-utils-2.8-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
-            "pki-console",
             "rOCCI-server"
           ],
           "run_time": [
@@ -44197,7 +44187,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "policycoreutils-sandbox-2.8-1.fc29": {
+      "policycoreutils-sandbox-2.8-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -44209,12 +44199,10 @@
           "/usr/bin/python3": 3
         }
       },
-      "python2-policycoreutils-2.8-1.fc29": {
+      "python2-policycoreutils-2.8-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [
-            "pki-console"
-          ],
+          "build_time": [],
           "run_time": [
             "dokuwiki"
           ]
@@ -44224,7 +44212,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-policycoreutils-2.8-1.fc29": {
+      "python3-policycoreutils-2.8-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -45548,7 +45536,7 @@
       "python-qt5"
     ],
     "rpms": {
-      "pulseaudio-qpaeq-11.99.1-1.fc29": {
+      "pulseaudio-qpaeq-12.0-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -46061,7 +46049,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-pybind11-2.2.2-3.fc29": {
+      "python2-pybind11-2.2.3-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -46071,7 +46059,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pybind11-2.2.2-3.fc29": {
+      "python3-pybind11-2.2.3-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -46721,7 +46709,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-pyelftools-0.22-0.16.git20130619.a1d9681.fc29": {
+      "python2-pyelftools-0.24-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -46735,7 +46723,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pyelftools-0.22-0.16.git20130619.a1d9681.fc29": {
+      "python3-pyelftools-0.24-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -46873,12 +46861,10 @@
       "python3"
     ],
     "rpms": {
-      "python2-pyflakes-2.0.0-1.fc29": {
+      "python2-pyflakes-2.0.0-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [
-            "pki-console"
-          ],
+          "build_time": [],
           "run_time": []
         },
         "py_deps": {
@@ -46886,7 +46872,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pyflakes-2.0.0-1.fc29": {
+      "python3-pyflakes-2.0.0-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -47141,7 +47127,6 @@
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
-            "NetworkManager",
             "xed"
           ],
           "run_time": [
@@ -47181,6 +47166,7 @@
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
+            "NetworkManager",
             "libmodulemd"
           ],
           "run_time": []
@@ -48492,7 +48478,7 @@
       "python3"
     ],
     "rpms": {
-      "pyotherside-1.5.3-7.fc29": {
+      "pyotherside-1.5.3-9.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -52868,7 +52854,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-adal-0.6.0-1.fc29": {
+      "python2-adal-1.0.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -52878,7 +52864,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-adal-0.6.0-1.fc29": {
+      "python3-adal-1.0.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -52992,8 +52978,8 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1437184",
-        "ON_QA",
-        "2018-06-15 16:34:57"
+        "CLOSED ERRATA",
+        "2018-06-23 20:46:45"
       ]
     },
     "rpms": {
@@ -54562,7 +54548,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-apsw-3.22.0.r1-3.fc29": {
+      "python2-apsw-3.23.1.r1-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -54573,7 +54559,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-apsw-3.22.0.r1-3.fc29": {
+      "python3-apsw-3.23.1.r1-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -54889,7 +54875,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-asn1crypto-0.24.0-1.fc29": {
+      "python2-asn1crypto-0.24.0-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -54899,7 +54885,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-asn1crypto-0.24.0-1.fc29": {
+      "python3-asn1crypto-0.24.0-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -57383,7 +57369,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-black-18.6b2-2.fc29": {
+      "python3-black-18.6b4-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -57457,7 +57443,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-blessed-1.14.1-6.fc28": {
+      "python2-blessed-1.15.0-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -57467,7 +57453,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-blessed-1.14.1-6.fc28": {
+      "python3-blessed-1.15.0-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -57505,6 +57491,28 @@
         }
       },
       "python3-blessings-1.5-15.fc28": {
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 3.6": 3
+        }
+      }
+    },
+    "status": "released"
+  },
+  "python-blindspin": {
+    "build_deps": [
+      "python-setuptools",
+      "python3"
+    ],
+    "deps": [
+      "python3"
+    ],
+    "rpms": {
+      "python3-blindspin-2.0.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -58040,7 +58048,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-botocore-1.9.1-2.fc29": {
+      "python2-botocore-1.10.41-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -58050,7 +58058,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-botocore-1.9.1-2.fc29": {
+      "python3-botocore-1.10.41-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -58661,12 +58669,12 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1560724",
         "NEW",
-        "2018-05-10 07:52:24"
+        "2018-06-20 07:59:54"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "python2-caja-1:1.20.0-2.fc29": {
+      "python2-caja-1:1.20.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -58685,7 +58693,8 @@
       "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
     ],
     "unversioned_requirers": [
-      "nextcloud-client"
+      "nextcloud-client",
+      "python-caja"
     ]
   },
   "python-camel": {
@@ -61359,7 +61368,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-cltk-0.1.85-1.fc29": {
+      "python3-cltk-0.1.87-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -63325,9 +63334,7 @@
       "python2-cryptography-2.2.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [
-            "pki-console"
-          ],
+          "build_time": [],
           "run_time": []
         },
         "py_deps": {
@@ -63366,7 +63373,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-cryptography-vectors-2.2.1-1.fc29": {
+      "python2-cryptography-vectors-2.2.1-4.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -63376,7 +63383,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-cryptography-vectors-2.2.1-1.fc29": {
+      "python3-cryptography-vectors-2.2.1-4.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -67059,7 +67066,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-dns-lexicon-2.4.0-1.fc29": {
+      "python2-dns-lexicon-2.4.3-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -67070,7 +67077,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-dns-lexicon-2.4.0-1.fc29": {
+      "python3-dns-lexicon-2.4.3-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -67112,7 +67119,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-docker-3.3.0-1.fc29": {
+      "python2-docker-3.4.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -67122,7 +67129,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-docker-3.3.0-1.fc29": {
+      "python3-docker-3.4.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -70588,9 +70595,7 @@
       "python2-flake8-3.5.0-4.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [
-            "pki-console"
-          ],
+          "build_time": [],
           "run_time": []
         },
         "py_deps": {
@@ -72689,50 +72694,6 @@
       }
     },
     "status": "idle"
-  },
-  "python-fmn-sse": {
-    "build_deps": [
-      "fedmsg",
-      "python-flake8",
-      "python-mock",
-      "python-pika",
-      "python-setuptools",
-      "python-six",
-      "python-twisted",
-      "python2",
-      "python3"
-    ],
-    "deps": [
-      "fedmsg",
-      "python-pika",
-      "python-six",
-      "python-twisted",
-      "python2",
-      "python3"
-    ],
-    "rpms": {
-      "python2-fmn-sse-0.2.1-5.fc28": {
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-fmn-sse-0.2.1-5.fc28": {
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 3.6": 3
-        }
-      }
-    },
-    "status": "legacy-leaf"
   },
   "python-fmn-web": {
     "build_deps": [
@@ -77440,7 +77401,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-hupper-0.4.2-4.fc28": {
+      "python2-hupper-1.3-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -77450,7 +77411,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-hupper-0.4.2-4.fc28": {
+      "python3-hupper-1.3-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -78410,6 +78371,40 @@
         }
       },
       "python3-interfile-0.3.1-7.fc28": {
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 3.6": 3
+        }
+      }
+    },
+    "status": "legacy-leaf"
+  },
+  "python-intervaltree": {
+    "build_deps": [
+      "python2",
+      "python3"
+    ],
+    "deps": [
+      "python-sortedcontainers",
+      "python2",
+      "python3"
+    ],
+    "rpms": {
+      "python2-intervaltree-2.1.0-1.fc29": {
+        "legacy_leaf": true,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 2.7": 2
+        }
+      },
+      "python3-intervaltree-2.1.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -82531,9 +82526,7 @@
       "python2-ldap-3.1.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [
-            "pki-console"
-          ],
+          "build_time": [],
           "run_time": []
         },
         "py_deps": {
@@ -82797,10 +82790,7 @@
         }
       }
     },
-    "status": "released",
-    "unversioned_requirers": [
-      "freeipa"
-    ]
+    "status": "released"
   },
   "python-lexicon": {
     "build_deps": [
@@ -84070,7 +84060,6 @@
         "non_python_requirers": {
           "build_time": [
             "hunspell-ko",
-            "pki-console",
             "scap-security-guide"
           ],
           "run_time": [
@@ -84186,6 +84175,7 @@
       "pytest",
       "python-deprecation",
       "python-pkgconfig",
+      "python-psutil",
       "python-pytest-runner",
       "python-setuptools",
       "python-setuptools_scm",
@@ -84200,7 +84190,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-lz4-1.1.0-2.fc29": {
+      "python2-lz4-2.0.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -84211,7 +84201,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-lz4-1.1.0-2.fc29": {
+      "python3-lz4-2.0.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -86612,7 +86602,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-moksha-hub-1.5.9-1.fc29": {
+      "python2-moksha-hub-1.5.10-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -86627,7 +86617,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-moksha-hub-1.5.9-1.fc29": {
+      "python3-moksha-hub-1.5.10-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -88663,6 +88653,44 @@
     },
     "status": "idle"
   },
+  "python-neo": {
+    "build_deps": [
+      "numpy",
+      "python-quantities",
+      "python-setuptools",
+      "python2",
+      "python3"
+    ],
+    "deps": [
+      "numpy",
+      "python-quantities",
+      "python2",
+      "python3"
+    ],
+    "rpms": {
+      "python2-neo-0.6.1-2.fc29": {
+        "legacy_leaf": true,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 2.7": 2
+        }
+      },
+      "python3-neo-0.6.1-2.fc29": {
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 3.6": 3
+        }
+      }
+    },
+    "status": "legacy-leaf"
+  },
   "python-neo4j-driver": {
     "build_deps": [
       "python-setuptools",
@@ -88713,7 +88741,7 @@
       "pytz"
     ],
     "rpms": {
-      "python2-neomodel-3.2.8-2.fc29": {
+      "python2-neomodel-3.2.8-4.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -88724,7 +88752,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-neomodel-3.2.8-2.fc29": {
+      "python3-neomodel-3.2.8-4.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -88832,7 +88860,7 @@
       ]
     },
     "rpms": {
-      "python2-netaddr-0.7.19-8.fc29": {
+      "python2-netaddr-0.7.19-9.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -88845,7 +88873,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-netaddr-0.7.19-8.fc29": {
+      "python3-netaddr-0.7.19-9.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -90218,7 +90246,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-notario-0.0.13-1.fc29": {
+      "python2-notario-0.0.14-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -90228,7 +90256,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-notario-0.0.13-1.fc29": {
+      "python3-notario-0.0.14-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -90495,9 +90523,7 @@
       "python2-nss-1.0.1-9.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [
-            "pki-console"
-          ],
+          "build_time": [],
           "run_time": []
         },
         "py_deps": {
@@ -95184,7 +95210,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-paramiko-2.4.1-1.fc29": {
+      "python2-paramiko-2.4.1-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -95194,7 +95220,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-paramiko-2.4.1-1.fc29": {
+      "python3-paramiko-2.4.1-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -96589,7 +96615,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-persist-queue-0.3.6-1.fc29": {
+      "python2-persist-queue-0.4.0-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -96599,7 +96625,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-persist-queue-0.3.6-1.fc29": {
+      "python3-persist-queue-0.4.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -96708,7 +96734,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-pg8000-1.11.0-3.fc29": {
+      "python2-pg8000-1.12.1-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -96718,7 +96744,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pg8000-1.11.0-3.fc29": {
+      "python3-pg8000-1.12.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -97109,7 +97135,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-pika-0.11.2-4.fc29": {
+      "python2-pika-0.12.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -97119,7 +97145,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pika-0.11.2-4.fc29": {
+      "python3-pika-0.12.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -98522,7 +98548,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-productmd-1.14-1.fc29": {
+      "python2-productmd-1.15-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -98532,7 +98558,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-productmd-1.14-1.fc29": {
+      "python3-productmd-1.15-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -98993,7 +99019,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-psycopg2-2.7.4-3.fc29": {
+      "python2-psycopg2-2.7.5-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -99004,7 +99030,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-psycopg2-debug-2.7.4-3.fc29": {
+      "python2-psycopg2-debug-2.7.5-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -99014,7 +99040,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-psycopg2-tests-2.7.4-3.fc29": {
+      "python2-psycopg2-tests-2.7.5-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -99024,7 +99050,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-psycopg2-2.7.4-3.fc29": {
+      "python3-psycopg2-2.7.5-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -99035,7 +99061,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-psycopg2-debug-2.7.4-3.fc29": {
+      "python3-psycopg2-debug-2.7.5-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -99045,7 +99071,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-psycopg2-tests-2.7.4-3.fc29": {
+      "python3-psycopg2-tests-2.7.5-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -99930,7 +99956,7 @@
       "python3"
     ],
     "rpms": {
-      "pycdlib-tools-1.4.0-1.fc29": {
+      "pycdlib-tools-1.5.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -99940,7 +99966,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python2-pycdlib-1.4.0-1.fc29": {
+      "python2-pycdlib-1.5.0-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -99950,7 +99976,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pycdlib-1.4.0-1.fc29": {
+      "python3-pycdlib-1.5.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -102967,20 +102993,18 @@
       "python2",
       "python3"
     ],
-    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "python2-pyro-4.71-1.fc29": {
+      "python2-pyro-4.71-2.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python3": 3,
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pyro-4.71-1.fc29": {
+      "python3-pyro-4.71-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -102992,7 +103016,7 @@
         }
       }
     },
-    "status": "mispackaged"
+    "status": "legacy-leaf"
   },
   "python-pyroute2": {
     "build_deps": [
@@ -103004,7 +103028,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-pyroute2-0.4.21-1.fc28": {
+      "python2-pyroute2-0.5.2-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -103014,7 +103038,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pyroute2-0.4.21-1.fc28": {
+      "python3-pyroute2-0.5.2-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -103286,7 +103310,8 @@
     "status": "released",
     "unversioned_requirers": [
       "python-matplotlib",
-      "python-pyside"
+      "python-pyside",
+      "python-visvis"
     ]
   },
   "python-pysmell": {
@@ -105590,7 +105615,7 @@
       "sip"
     ],
     "rpms": {
-      "python2-qt5-5.10.2-0.1.dev1805251538.fc29": {
+      "python2-qt5-5.10.2-0.3.dev1805251538.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -105601,7 +105626,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-qt5-base-5.10.2-0.1.dev1805251538.fc29": {
+      "python2-qt5-base-5.10.2-0.3.dev1805251538.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -105611,7 +105636,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-qt5-webengine-5.10.2-0.1.dev1805251538.fc29": {
+      "python2-qt5-webengine-5.10.2-0.3.dev1805251538.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -105621,7 +105646,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-qt5-webkit-5.10.2-0.1.dev1805251538.fc29": {
+      "python2-qt5-webkit-5.10.2-0.3.dev1805251538.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -105631,7 +105656,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-qt5-5.10.2-0.1.dev1805251538.fc29": {
+      "python3-qt5-5.10.2-0.3.dev1805251538.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -105641,7 +105666,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-qt5-base-5.10.2-0.1.dev1805251538.fc29": {
+      "python3-qt5-base-5.10.2-0.3.dev1805251538.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -105651,7 +105676,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-qt5-webengine-5.10.2-0.1.dev1805251538.fc29": {
+      "python3-qt5-webengine-5.10.2-0.3.dev1805251538.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -105661,7 +105686,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-qt5-webkit-5.10.2-0.1.dev1805251538.fc29": {
+      "python3-qt5-webkit-5.10.2-0.3.dev1805251538.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -105744,7 +105769,7 @@
     ],
     "rpms": {
       "python2-quantities-0.12.1-3.fc28": {
-        "legacy_leaf": true,
+        "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -105764,7 +105789,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "released"
   },
   "python-queuelib": {
     "build_deps": [
@@ -106368,7 +106393,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-regex-2018.06.06-1.fc29": {
+      "python2-regex-2018.06.09-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -106379,7 +106404,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-regex-2018.06.06-1.fc29": {
+      "python3-regex-2018.06.09-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -106611,11 +106636,10 @@
       "PyYAML",
       "babel",
       "git",
+      "python-certifi",
       "python-dulwich",
-      "python-oslo-sphinx",
       "python-pbr",
       "python-setuptools",
-      "python-six",
       "python-sphinx",
       "python2",
       "python3"
@@ -106624,6 +106648,7 @@
       "PyYAML",
       "babel",
       "git",
+      "python-certifi",
       "python-dulwich",
       "python-pbr",
       "python-six",
@@ -106631,7 +106656,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-reno-2.0.3-5.fc28": {
+      "python2-reno-2.9.2-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -106642,7 +106667,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-reno-2.0.3-5.fc28": {
+      "python3-reno-2.9.2-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -107211,8 +107236,7 @@
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
-            "mod_nss",
-            "pki-console"
+            "mod_nss"
           ],
           "run_time": [
             "dist-git"
@@ -107476,7 +107500,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-requests-mock-1.3.0-4.fc29": {
+      "python2-requests-mock-1.5.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -107486,7 +107510,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-requests-mock-1.3.0-4.fc29": {
+      "python3-requests-mock-1.5.0-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -111779,7 +111803,6 @@
   "python-simpleline": {
     "build_deps": [
       "pygobject3",
-      "python-pocketlint",
       "python-setuptools",
       "python3"
     ],
@@ -111788,7 +111811,7 @@
       "rpm"
     ],
     "rpms": {
-      "python3-simpleline-1.3-1.fc29": {
+      "python3-simpleline-1.3-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -112152,7 +112175,6 @@
         "non_python_requirers": {
           "build_time": [
             "mingw-spice-gtk",
-            "pki-console",
             "tarantool"
           ],
           "run_time": []
@@ -112172,7 +112194,6 @@
             "nuvola-app-google-play-music",
             "nuvola-app-groove",
             "nuvola-app-jango",
-            "nuvola-app-kexp",
             "nuvola-app-logitech-media-server",
             "nuvola-app-mixcloud",
             "nuvola-app-owncloud-music",
@@ -113125,7 +113146,7 @@
     ],
     "rpms": {
       "python2-sortedcontainers-2.0.1-1.fc29": {
-        "legacy_leaf": true,
+        "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -113145,7 +113166,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "released"
   },
   "python-sparklines": {
     "build_deps": [
@@ -113291,7 +113312,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-sphinx-1:1.7.2-2.fc29": {
+      "python2-sphinx-1:1.7.5-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -113320,7 +113341,6 @@
             "nextcloud-client",
             "osgearth",
             "owncloud-client",
-            "pki-console",
             "python2-docs",
             "rpm-ostree",
             "seqan2",
@@ -113334,7 +113354,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-sphinx-1:1.7.2-2.fc29": {
+      "python3-sphinx-1:1.7.5-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -113350,6 +113370,7 @@
             "lua-argparse",
             "mame",
             "mpc",
+            "pki-console",
             "py3c",
             "xtl",
             "zathura"
@@ -122428,6 +122449,42 @@
     },
     "status": "released"
   },
+  "python-visvis": {
+    "build_deps": [
+      "python-setuptools",
+      "python2",
+      "python3"
+    ],
+    "deps": [
+      "numpy",
+      "python-pyopengl",
+      "python2",
+      "python3"
+    ],
+    "rpms": {
+      "python2-visvis-1.11.1-3.fc29": {
+        "legacy_leaf": true,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 2.7": 2
+        }
+      },
+      "python3-visvis-1.11.1-3.fc29": {
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 3.6": 3
+        }
+      }
+    },
+    "status": "legacy-leaf"
+  },
   "python-vitrageclient": {
     "build_deps": [
       "git",
@@ -127181,7 +127238,6 @@
             "mythes-sk",
             "mythes-sl",
             "non-ntk",
-            "octave-symbolic",
             "ompl",
             "openambit",
             "opencc",
@@ -127196,7 +127252,6 @@
             "php-patchwork-utf8",
             "php-pear-Auth-OpenID",
             "php-punic",
-            "pki-console",
             "pseudo",
             "putty",
             "python2-docs",
@@ -127239,7 +127294,6 @@
             "virglrenderer",
             "webkit2gtk3",
             "xorg-x11-drv-amdgpu",
-            "xorg-x11-drv-intel",
             "yubioath-desktop",
             "yum-rhn-plugin",
             "zn_poly",
@@ -127306,14 +127360,12 @@
             "mozjs38",
             "mozjs45",
             "mozjs52",
-            "nodejs",
             "novnc",
             "oddjob",
             "openscad",
             "openvswitch-ovn-kubernetes",
             "oscap-anaconda-addon",
             "petsc",
-            "pki-console",
             "pony",
             "py3c",
             "python-basemap-data",
@@ -127334,7 +127386,6 @@
             "sugar-xoeditor",
             "sundials",
             "sunpinyin",
-            "swig",
             "system-config-httpd",
             "telepathy-farstream",
             "telepathy-logger-qt",
@@ -127874,6 +127925,7 @@
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
+            "NetworkManager",
             "catch",
             "cinnamon-menus",
             "crypto-policies",
@@ -127900,6 +127952,7 @@
             "mint-themes",
             "netpbm",
             "nodejs-highlight-js",
+            "octave-symbolic",
             "open62541",
             "pki-console",
             "qemu",
@@ -127911,7 +127964,8 @@
             "umockdev",
             "vmod-querystring",
             "vulkan",
-            "wget"
+            "wget",
+            "xorg-x11-drv-intel"
           ],
           "run_time": []
         },
@@ -128564,7 +128618,7 @@
       ]
     },
     "rpms": {
-      "pythonqt-3.2-9.fc29": {
+      "pythonqt-3.2-11.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -128827,7 +128881,7 @@
       "python-six"
     ],
     "rpms": {
-      "python3-pywbem-0.12.3-1.fc29": {
+      "python3-pywbem-0.12.3-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -129148,6 +129202,7 @@
       "PyQt4",
       "PyYAML",
       "gdal",
+      "grass",
       "python-OWSLib",
       "python-httplib2",
       "python-jinja2",
@@ -129160,7 +129215,7 @@
       "sip"
     ],
     "rpms": {
-      "python2-qgis-2.18.16-4.fc29": {
+      "python2-qgis-2.18.20-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -129171,7 +129226,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "qgis-grass-2.18.16-4.fc29": {
+      "qgis-grass-2.18.20-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -129181,7 +129236,7 @@
           "/usr/bin/python2": 2
         }
       },
-      "qgis-server-2.18.16-4.fc29": {
+      "qgis-server-2.18.20-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -129468,7 +129523,7 @@
       "sip"
     ],
     "rpms": {
-      "python2-qscintilla-2.10.4-1.fc29": {
+      "python2-qscintilla-2.10.5-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -129478,7 +129533,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-qscintilla-qt5-2.10.4-1.fc29": {
+      "python2-qscintilla-qt5-2.10.5-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -129488,7 +129543,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-qscintilla-2.10.4-1.fc29": {
+      "python3-qscintilla-2.10.5-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -129498,7 +129553,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-qscintilla-qt5-2.10.4-1.fc29": {
+      "python3-qscintilla-qt5-2.10.5-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -129525,13 +129580,13 @@
     "links": {
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1592146",
-        "NEW",
-        "2018-06-17 21:16:30"
+        "CLOSED RAWHIDE",
+        "2018-06-23 11:33:21"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "qt5-qtbase-devel-5.11.0-2.fc29": {
+      "qt5-qtbase-devel-5.11.1-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [
@@ -130348,7 +130403,8 @@
           ]
         },
         "py_deps": {
-          "/usr/bin/python2": 2
+          "/usr/bin/python2": 2,
+          "/usr/bin/python3": 3
         }
       }
     },
@@ -130541,7 +130597,7 @@
       "python3-pyPEG2"
     ],
     "rpms": {
-      "qutebrowser-1.3.2-1.fc29": {
+      "qutebrowser-1.3.3-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -131394,7 +131450,7 @@
       "python2"
     ],
     "rpms": {
-      "resultsdb-2.1.0-1.fc29": {
+      "resultsdb-2.1.1-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -132357,7 +132413,7 @@
       "rpm"
     ],
     "rpms": {
-      "rpmlint-1.10-13.fc29": {
+      "rpmlint-1.10-15.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -132430,13 +132486,15 @@
   "rrdtool": {
     "build_deps": [
       "python-setuptools",
-      "python2"
+      "python2",
+      "python3"
     ],
     "deps": [
-      "python2"
+      "python2",
+      "python3"
     ],
     "rpms": {
-      "python2-rrdtool-1.7.0-12.fc29": {
+      "python2-rrdtool-1.7.0-13.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -132448,9 +132506,22 @@
           "python2": 2,
           "python2 = 2.7.15-2.fc29": 2
         }
+      },
+      "python3-rrdtool-1.7.0-13.fc29": {
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "libpython3.6m.so.1.0()(64bit)": 3,
+          "python(abi) = 3.6": 3,
+          "python3": 3,
+          "python3 = 3.6.5-4.fc29": 3
+        }
       }
     },
-    "status": "idle"
+    "status": "released"
   },
   "rss2email": {
     "build_deps": [],
@@ -132671,7 +132742,7 @@
     ],
     "deps": [],
     "rpms": {
-      "rust-src-1.26.2-4.fc29": {
+      "rust-src-1.27.0-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -132699,7 +132770,7 @@
       "python3"
     ],
     "rpms": {
-      "python3-rust2rpm-5-6.fc29": {
+      "python3-rust2rpm-5-8.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -134591,7 +134662,7 @@
     ],
     "deps": [],
     "rpms": {
-      "skrooge-2.13.0-2.fc29": {
+      "skrooge-2.13.0-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135472,7 +135543,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-libipa_hbac-1.16.1-9.fc29": {
+      "python2-libipa_hbac-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135483,7 +135554,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-libsss_nss_idmap-1.16.1-9.fc29": {
+      "python2-libsss_nss_idmap-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135494,7 +135565,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-sss-1.16.1-9.fc29": {
+      "python2-sss-1.16.2-3.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -135505,7 +135576,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-sss-murmur-1.16.1-9.fc29": {
+      "python2-sss-murmur-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135516,7 +135587,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-sssdconfig-1.16.1-9.fc29": {
+      "python2-sssdconfig-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135526,7 +135597,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-libipa_hbac-1.16.1-9.fc29": {
+      "python3-libipa_hbac-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135537,7 +135608,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-libsss_nss_idmap-1.16.1-9.fc29": {
+      "python3-libsss_nss_idmap-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135548,7 +135619,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-sss-1.16.1-9.fc29": {
+      "python3-sss-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135559,7 +135630,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-sss-murmur-1.16.1-9.fc29": {
+      "python3-sss-murmur-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135570,7 +135641,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "python3-sssdconfig-1.16.1-9.fc29": {
+      "python3-sssdconfig-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -135580,7 +135651,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "sssd-tools-1.16.1-9.fc29": {
+      "sssd-tools-1.16.2-3.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -136157,7 +136228,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1342508",
         "CLOSED ERRATA",
-        "2017-02-26 00:53:53"
+        "2018-06-23 05:28:41"
       ]
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
@@ -138149,12 +138220,8 @@
       "python2-sympy-1.1.1-4.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [
-            "octave-symbolic"
-          ],
-          "run_time": [
-            "octave-symbolic"
-          ]
+          "build_time": [],
+          "run_time": []
         },
         "py_deps": {
           "/usr/bin/python2": 2,
@@ -138164,8 +138231,12 @@
       "python3-sympy-1.1.1-4.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
+          "build_time": [
+            "octave-symbolic"
+          ],
+          "run_time": [
+            "octave-symbolic"
+          ]
         },
         "py_deps": {
           "/usr/bin/python3": 3,
@@ -138386,7 +138457,7 @@
       "glib2"
     ],
     "rpms": {
-      "syslog-ng-devel-3.15.1-3.fc29": {
+      "syslog-ng-devel-3.16.1-2.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -138704,7 +138775,7 @@
       "xfsprogs"
     ],
     "rpms": {
-      "system-storage-manager-0.5-1.fc28": {
+      "system-storage-manager-1.0-0.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -138865,7 +138936,6 @@
             "libcouchbase",
             "libmemcached",
             "libvirt",
-            "nodejs",
             "perl",
             "pg_top",
             "php",
@@ -138909,33 +138979,6 @@
             "gluster-block",
             "tcmu-runner"
           ]
-        },
-        "py_deps": {
-          "/usr/bin/python3": 3,
-          "python(abi) = 3.6": 3
-        }
-      }
-    },
-    "status": "released"
-  },
-  "targetd": {
-    "build_deps": [
-      "python3"
-    ],
-    "deps": [
-      "PyYAML",
-      "lvm2",
-      "nfs-utils",
-      "python-rtslib",
-      "python-setproctitle",
-      "python3"
-    ],
-    "rpms": {
-      "targetd-0.8.6-4.fc28": {
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
         },
         "py_deps": {
           "/usr/bin/python3": 3,
@@ -139268,7 +139311,7 @@
     },
     "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
-      "texlive-de-macro-7:20180414-11.fc29": {
+      "texlive-de-macro-7:20180414-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -139280,7 +139323,7 @@
           "/usr/bin/python2": 2
         }
       },
-      "texlive-dviasm-7:20180414-11.fc29": {
+      "texlive-dviasm-7:20180414-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -139292,7 +139335,7 @@
           "/usr/bin/python2": 2
         }
       },
-      "texlive-ebong-7:20180414-11.fc29": {
+      "texlive-ebong-7:20180414-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -139304,7 +139347,7 @@
           "/usr/bin/python2": 2
         }
       },
-      "texlive-latex-papersize-7:20180414-11.fc29": {
+      "texlive-latex-papersize-7:20180414-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -139316,7 +139359,7 @@
           "/usr/bin/python2": 2
         }
       },
-      "texlive-lilyglyphs-7:20180414-11.fc29": {
+      "texlive-lilyglyphs-7:20180414-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -139328,7 +139371,7 @@
           "/usr/bin/python2": 2
         }
       },
-      "texlive-pdfbook2-7:20180414-11.fc29": {
+      "texlive-pdfbook2-7:20180414-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -139340,7 +139383,7 @@
           "/usr/bin/python2": 2
         }
       },
-      "texlive-pygmentex-7:20180414-11.fc29": {
+      "texlive-pygmentex-7:20180414-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -139352,7 +139395,7 @@
           "/usr/bin/python2": 2
         }
       },
-      "texlive-pythontex-7:20180414-11.fc29": {
+      "texlive-pythontex-7:20180414-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -139365,7 +139408,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "texlive-texliveonfly-7:20180414-11.fc29": {
+      "texlive-texliveonfly-7:20180414-12.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -143029,7 +143072,7 @@
       "uhd"
     ],
     "rpms": {
-      "urh-2.1.0-1.fc29": {
+      "urh-2.1.1-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -144411,7 +144454,7 @@
       "python3"
     ],
     "rpms": {
-      "python2-vips-8.6.2-5.fc29": {
+      "python2-vips-8.6.4-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -144421,7 +144464,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-vips-8.6.2-5.fc29": {
+      "python3-vips-8.6.4-1.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -144431,7 +144474,7 @@
           "python(abi) = 3.6": 3
         }
       },
-      "vips-tools-8.6.2-5.fc29": {
+      "vips-tools-8.6.4-1.fc29": {
         "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
@@ -144457,7 +144500,7 @@
       "python3"
     ],
     "rpms": {
-      "virt-bootstrap-1.1.0-1.fc29": {
+      "virt-bootstrap-1.1.0-2.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
@@ -144712,7 +144755,7 @@
     },
     "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
-      "vte-0.28.2-24.fc29": {
+      "vte-0.28.2-25.fc29": {
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
