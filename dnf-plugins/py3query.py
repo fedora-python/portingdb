@@ -162,7 +162,7 @@ def set_status(result, pkgs, python_versions):
 
     for pkg in pkg_by_version[2]:
         is_misnamed = check_naming_policy(pkg, name_by_version)
-        if is_misnamed:
+        if is_misnamed and pkg.name != 'python-unversioned-command':
             rpm_name = format_rpm_name(pkg)
             result['rpms'].get(rpm_name, {})['is_misnamed'] = is_misnamed
 
