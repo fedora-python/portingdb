@@ -96,11 +96,11 @@ def handle_entrypoints(result, config):
             # Checked as commands in /usr/bin
             pass
         elif section in ('pytest11', ):
+            result['keep'] = True
             result['notes'].append('Pytest plugin')
             result['plugin_pytest'] = section
         else:
             # Possibly a plugin
-            result['keep'] = True
             result['needs_investigation'] = True
             result['plugin_unknown'] = section
 
