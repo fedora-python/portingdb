@@ -177,6 +177,7 @@ def handle_entrypoints(result, config):
                          'beaker.backends', # only beaker has this
                          'sphinx_themes', # we only keep non leafs
                          'sphinx.html_themes',
+                         'tw2.widgets', # plugins for a framework, not app
                         ):
             # Decided to be useless and/or self contained
             pass
