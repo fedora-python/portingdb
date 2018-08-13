@@ -95,10 +95,59 @@ def handle_entrypoints(result, config):
         if section in ('console_scripts', 'gui_scripts'):
             # Checked as commands in /usr/bin
             pass
+        elif section in ('distutils.setup_keywords',
+                         'distutils.commands',
+                         'cliff.formatter.show',
+                         'openstack.congressclient.v1',
+                         'fiona.fio_commands',
+                         'python.templating.engines',
+                         'turbomail.transports',
+                         'twine.registered_commands',
+                         'paste.app_factory',
+                         'buildutils.optional_commands',
+                         'zaqarclient.transport',
+                         'apscheduler.triggers',
+                         'zest.releaser.releaser.middle',
+                         'babel.extractors',  # babel has this +1 unused pkg
+                         'babel.checkers',
+                         'moksha.consumer',
+                         'cliff.formatter.list',
+                         'openstack.cli.extension', # the CLI should use py3
+                         'beaker.backends', # only beaker has this
+                         'sphinx_themes', # we only keep non leafs
+                         'sphinx.html_themes',
+                        ):
+            # Decided to be useless and/or self contained
+            pass
+        elif section.startswith('paste.'):
+            pass
+        elif (section == 'envisage.plugins'
+              and result['name'] == 'python2-envisage'):
+            pass
         elif section in ('pytest11', ):
             result['keep'] = True
             result['notes'].append('Pytest plugin')
             result['plugin_pytest'] = section
+        elif section in ('trac.plugins', ):
+            result['keep'] = True
+            result['notes'].append('Trac plugin')
+            result['plugin_trac'] = section
+        elif section.startswith('avocado.plugins'):
+            result['keep'] = True
+            result['notes'].append('Avocado plugin')
+            result['plugin_avocado'] = section
+        elif section.startswith('pylama.linter'):
+            result['keep'] = True
+            result['notes'].append('Flake 8 / PyLama plugin')
+            result['plugin_pylama'] = section
+        elif section.startswith('pulp.extensions'):
+            result['keep'] = True
+            result['notes'].append('Pulp plugin')
+            result['plugin_pulp'] = section
+        elif section == 'certbot.plugins':
+            result['keep'] = True
+            result['notes'].append('Certobot plugin')
+            result['plugin_certbot'] = section
         else:
             # Possibly a plugin
             result['needs_investigation'] = True
