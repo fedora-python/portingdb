@@ -10,6 +10,7 @@ from sqlalchemy.orm import eagerload, subqueryload
 from portingdb import tables
 from portingdb.htmlreport import get_naming_policy_progress
 from portingdb.load import get_db, load_from_directories
+from portingdb.check_drops import check_drops
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -458,3 +459,6 @@ def naming(ctx, category):
     require_misnamed = [pkg.name for pkg in data[packages_index][1]]
     for pkg_name in require_misnamed:
         print(pkg_name)
+
+
+cli.add_command(check_drops)
