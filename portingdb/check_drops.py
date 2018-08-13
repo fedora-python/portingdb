@@ -63,29 +63,90 @@ def handle_filename(result, filename):
         result['notes'].add('Python 2 module')
         result['ignore'] = False
     elif filename.startswith((
+        '/usr/lib/python3.7/',
+        '/usr/lib64/python3.7/',
+    )):
+        # Python 3 module; ignore here, but freak out
+        result['notes'].add('Python 3 module')
+    elif filename.startswith((
         '/usr/share/doc/',
+        '/usr/share/gtk-doc/',
         '/usr/share/man/',
         '/usr/share/licenses/',
     )):
         # Doc/licence; doesn't block dropping
         result['notes'].add('Docs/Licences')
     elif filename.startswith((
+        '/usr/share/locale/',
+    )) or '/LC_MESSAGES/' in filename:
+        # Locales; doesn't block dropping
+        result['notes'].add('Locales')
+    elif filename.startswith((
+        '/usr/share/icons/',
+        '/usr/share/pixmaps/',
+    )):
+        # Icons; doesn't block dropping
+        result['notes'].add('Icons')
+    elif filename.startswith((
+        '/usr/share/pygtk/2.0/defs/',
+    )) or filename.endswith((
+        '.glade',
+        '.ui',
+    )):
+        # UIs; doesn't block dropping
+        result['notes'].add('UIs')
+    elif filename.endswith((
+        '.html',
+        '.jinja2',
+    )) or 'templates' in filename:
+        # Templates; doesn't block dropping
+        result['notes'].add('Templates')
+    elif filename.startswith((
+        '/var/cache/',
+        '/var/lib/',
+        '/var/log/',
+        '/var/run/',
+        '/var/spool/',
+        '/var/tmp/',
+        '/etc/',
+    )) and not filename.startswith((
+        '/etc/fedmsg.d/',  # needs investigating
+    )):
+        # Logs/Cache/Config; doesn't block dropping
+        result['notes'].add('Logs/Cache/Config')
+    elif filename.startswith((
         '/usr/lib/.build-id/',
     )) or filename == '/usr/lib/.build-id':
         # Build ID; doesn't block dropping
         result['notes'].add('Build ID')
+    elif filename in (
+        '/usr/bin/tg-admin', # self contained for the module (TurboGears)
+    ):
+        # Those are hardcoded commands we don't care about
+        result['notes'].add('Ignored command')
+        result['filename_command_ignored'] = filename
     elif filename.startswith((
         '/usr/bin/',
         '/usr/sbin/',
+        '/usr/libexec/',
+        '/usr/lib/systemd/system/',
     )):
         # Command; might be needed
         result['notes'].add('Command')
         result['keep'] = True
         result['filename_command'] = filename
+    elif filename.startswith((
+        '/usr/share/appdata/',
+        '/usr/share/applications/',
+        '/usr/share/metainfo/',
+    )):
+        # Application; might be needed
+        result['notes'].add('Application')
+        result['keep'] = True
+        result['filename_application'] = filename
     else:
         # Something else; might be needed
         result['notes'].add('Unknown file')
-        result['keep'] = True
         result['filename_unknown'] = filename
 
 
@@ -136,7 +197,7 @@ def handle_entrypoints(result, config):
             result['keep'] = True
             result['notes'].append('Avocado plugin')
             result['plugin_avocado'] = section
-        elif section.startswith('pylama.linter'):
+        elif section.startswith(('pylama.linter', 'flake8')):
             result['keep'] = True
             result['notes'].append('Flake 8 / PyLama plugin')
             result['plugin_pylama'] = section
