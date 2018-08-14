@@ -87,8 +87,10 @@ def handle_filename(result, filename):
     )):
         # Icons; doesn't block dropping
         result['notes'].add('Icons')
-    elif filename.startswith((
-        '/usr/share/pygtk/2.0/defs/',
+    elif dir_or_exact(filename, (
+        '/usr/share/pygtk/2.0/defs',
+        '/usr/share/gst-python/0.10/defs',
+        '/usr/share/pygtk/2.0/argtypes',
     )) or filename.endswith((
         '.glade',
         '.ui',
@@ -102,6 +104,12 @@ def handle_filename(result, filename):
         # Templates; doesn't block dropping
         result['notes'].add('Templates')
     elif filename.startswith((
+        '/usr/lib/tmpfiles.d/',
+        '/usr/lib/udev/rules.d/',
+        '/usr/lib/pkgconfig/',
+        '/usr/lib64/pkgconfig/',
+        '/usr/share/bash-completion/',
+        '/usr/src/',
         '/var/cache/',
         '/var/lib/',
         '/var/log/',
@@ -109,16 +117,37 @@ def handle_filename(result, filename):
         '/var/spool/',
         '/var/tmp/',
         '/etc/',
-    )) and not filename.startswith((
-        '/etc/fedmsg.d/',  # needs investigating
     )):
         # Logs/Cache/Config; doesn't block dropping
         result['notes'].add('Logs/Cache/Config')
-    elif filename.startswith((
-        '/usr/lib/.build-id/',
-    )) or filename == '/usr/lib/.build-id':
+    elif dir_or_exact(filename, (
+        '/usr/lib/.build-id',
+    )):
         # Build ID; doesn't block dropping
         result['notes'].add('Build ID')
+    elif dir_or_exact(filename, (
+        '/usr/lib/qt4/plugins/designer',
+        '/usr/lib64/qt4/plugins/designer',
+        '/usr/share/autocloud',
+        '/usr/share/conda',
+        '/usr/share/fmn.web',
+        '/usr/share/genmsg',
+        '/usr/share/gst-python',
+        '/usr/share/libavogadro',
+        '/usr/share/myhdl',
+        '/usr/share/ocio',
+        '/usr/share/os-brick',
+        '/usr/share/pgu',
+        '/usr/share/pygtk',
+        '/usr/share/pygtkchart',
+        '/usr/share/python-dmidecode',
+        '/usr/share/python-ldaptor',
+        '/usr/share/tomoe',
+        '/usr/share/viewvc',
+        '/usr/share/pygtk/2.0',
+    )):
+        # Various self contained files
+        result['notes'].add('Self Contained Files')
     elif filename in (
         '/usr/bin/tg-admin', # self contained for the module (TurboGears)
     ):
@@ -217,6 +246,11 @@ def handle_entrypoints(result, config):
             result['needs_investigation'] = True
             result['plugin_unknown'] = section
 
+
+def dir_or_exact(filename, patterns):
+    patterns = tuple(p[:-1] if p.endswith('/') else p for p in patterns)
+    dirs = tuple(p + '/' for p in patterns)
+    return filename.startswith(dirs) or filename in patterns
 
 
 class SaxFilesHandler(xml.sax.ContentHandler):
