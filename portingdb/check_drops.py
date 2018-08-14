@@ -378,6 +378,16 @@ def check_drops(ctx, filelist, cache_sax, cache_rpms):
         if result:
             result['legacy_leaf'] = rpm.legacy_leaf
 
+    # hardcoded packages
+
+    # catfish is seriously mispackaged,
+    # see https://src.fedoraproject.org/rpms/catfish/pull-request/1
+    if 'catfish' in results:
+        results['catfish']['needs_investigation'] = True
+
+    # rpkg needs to stay for 3rd party consumers
+    results['python2-rpkg']['keep'] = True
+
     for result in results.values():
         if result.get('needs_investigation'):
             result['verdict'] = 'investigate'
