@@ -52,16 +52,23 @@ def log(*args, **kwargs):
 
 def handle_filename(result, filename):
     """Look at a filename a RPM installs, and update "result" accordingly"""
-    if filename.endswith('info/entry_points.txt'):
-        result['notes'].add('Entrypoint')
-        result.setdefault('entrypoints', []).append(filename)
-    elif filename.startswith((
+    if filename.startswith((
         '/usr/lib/python2.7/',
         '/usr/lib64/python2.7/',
     )):
         # Importable module; consider this for dropping
         result['notes'].add('Python 2 module')
         result['ignore'] = False
+
+    if filename.endswith('info/entry_points.txt'):
+        result['notes'].add('Entrypoint')
+        result.setdefault('entrypoints', []).append(filename)
+    elif filename.startswith((
+        '/usr/lib/python2.7/site-packages/libtaskotron/ext/',
+    )):
+        # Taskotron extension
+        result['notes'].add('Taskotron extension')
+        result['keep'] = True
     elif filename.startswith((
         '/usr/lib/python3.7/',
         '/usr/lib64/python3.7/',
@@ -173,7 +180,10 @@ def handle_filename(result, filename):
         result['notes'].add('Application')
         result['keep'] = True
         result['filename_application'] = filename
-    else:
+    elif not filename.startswith((
+        '/usr/lib/python2.7/',
+        '/usr/lib64/python2.7/',
+    )):
         # Something else; might be needed
         result['notes'].add('Unknown file')
         result['filename_unknown'] = filename
