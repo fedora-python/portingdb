@@ -35,13 +35,17 @@ from portingdb import tables
 
 cache_dir = Path('./_check_drops')
 
-default_filelist = list(Path('/var/cache/dnf').glob(
-    'rawhide-????????????????/repodata/*-filelists.xml.gz'))
+xml_default = {}
+xml_option_args = {}
 
-if len(default_filelist) == 1:
-    filelist_option_args = {'default': default_filelist[0]}
-else:
-    filelist_option_args = {'required': True}
+for x in 'filelists', 'primary':
+    xml_default[x] = list(Path('/var/cache/dnf').glob(
+        f'rawhide-????????????????/repodata/*-{x}.xml.gz'))
+
+    if len(xml_default[x]) == 1:
+        xml_option_args[x] = {'default': xml_default[x][0]}
+    else:
+        xml_option_args[x] = {'required': True}
 
 
 def log(*args, **kwargs):
@@ -303,10 +307,53 @@ class SaxFilesHandler(xml.sax.ContentHandler):
             self.filename_parts.append(content)
 
 
+class SaxPrimaryHandler(xml.sax.ContentHandler):
+    def __init__(self):
+        super().__init__()
+        self._sources = collections.defaultdict(set)
+        self.name_parts = None
+        self.source_parts = None
+
+    @property
+    def sources(self):
+        return {k: list(v) for k, v in self._sources.items()}
+
+    def startElement(self, name, attrs):
+        if name == 'package' and attrs['type'] == 'rpm':
+            self.current_result = {}
+        elif name == 'name':
+            self.name_parts = []
+        elif name == 'rpm:sourcerpm':
+            self.source_parts = []
+
+    def endElement(self, name):
+        if name == 'package':
+            log(self.current_result)
+            source = self.current_result['source'].rsplit('-', 2)[0]
+            self._sources[source].add(self.current_result['name'])
+            del self.current_result
+        elif name == 'name':
+            self.current_result['name'] = ''.join(self.name_parts)
+            self.name_parts = None
+        elif name == 'rpm:sourcerpm':
+            self.current_result['source'] = ''.join(self.source_parts)
+            self.source_parts = None
+
+    def characters(self, content):
+        if self.name_parts is not None:
+            self.name_parts.append(content)
+        elif self.source_parts is not None:
+            self.source_parts.append(content)
+
+
 @click.command(name='check-drops')
 @click.option('-f', '--filelist', type=click.File('rb'),
-              **filelist_option_args,
+              **xml_option_args['filelists'],
               help='Location of the filelist xml.gz file '
+              '(required if not found automatically)')
+@click.option('-p', '--primary', type=click.File('rb'),
+              **xml_option_args['primary'],
+              help='Location of the primary xml.gz file '
               '(required if not found automatically)')
 @click.option('--cache-sax/--no-cache-sax',
               help='Use cached results of filelist parsing, if available '
@@ -315,19 +362,19 @@ class SaxFilesHandler(xml.sax.ContentHandler):
               help='Use previously downloaded RPMs '
               '(crude; use when hacking on other parts of the code)')
 @click.pass_context
-def check_drops(ctx, filelist, cache_sax, cache_rpms):
+def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
     """Check packages that should be dropped from the distribution."""
     db = ctx.obj['db']
 
     cache_dir.mkdir(exist_ok=True)
 
-    # Analyze filelists.xml.gz
+    # Analyze filelists.xml.gz and primary.xml.gz
 
     cache_path = cache_dir / 'sax_results.json'
 
     if (cache_sax and cache_path.exists()):
         with cache_path.open('r') as f:
-            results = json.load(f)
+            results, sources = json.load(f)
     else:
         filelist = gzip.GzipFile(fileobj=filelist, mode='r')
 
@@ -336,8 +383,15 @@ def check_drops(ctx, filelist, cache_sax, cache_rpms):
 
         results = handler.results
 
+        primary = gzip.GzipFile(fileobj=primary, mode='r')
+
+        handler = SaxPrimaryHandler()
+        xml.sax.parse(primary, handler)
+
+        sources = handler.sources
+
         with cache_path.open('w') as f:
-            json.dump(results, f)
+            json.dump([results, sources], f)
 
     log('Packages considered: ', len(results))
 
@@ -442,6 +496,24 @@ def check_drops(ctx, filelist, cache_sax, cache_rpms):
         else:
             result['verdict'] = 'drop_later'
 
+    # Set sources and determine retirement action
+    for name, result in results.items():
+        result['source'], *_ = (s for s, p in sources.items() if name in p)
+    for source, pkgs in sources.items():
+        local_results = [r for r in results.values() if r['name'] in pkgs]
+        if len(local_results) < len(pkgs):
+            # subpackages we know nothing about
+            source_verdict = 'keep'
+        elif all(r['verdict'] == 'drop_now' for r in local_results):
+            source_verdict = 'retire_now'
+        elif all(r['verdict'].startswith('drop_') for r in local_results):
+            source_verdict = 'retire_later'
+        else:
+            source_verdict = 'keep'
+
+        for result in local_results:
+            result['source_verdict'] = source_verdict
+
     # Output it all
 
     print(json.dumps(results, indent=2))
@@ -449,6 +521,10 @@ def check_drops(ctx, filelist, cache_sax, cache_rpms):
     with open(cache_dir / ('results.json'), 'w') as f:
         json.dump(results, f, indent=2)
 
+    with open(cache_dir / ('results-sources.json'), 'w') as f:
+        json.dump(sources, f, indent=2)
+
+    log('\nBinary packages:')
     stats_counter = collections.Counter(r['verdict'] for r in results.values())
     for package, number in stats_counter.most_common():
         log('{}: {}'.format(number, package))
@@ -459,4 +535,21 @@ def check_drops(ctx, filelist, cache_sax, cache_rpms):
             json.dump(filtered, f, indent=2)
         with open(cache_dir / ('results-' + verdict + '.txt'), 'w') as f:
             for name in filtered:
+                print(name, file=f)
+
+    log('\nSource packages:')
+    # we will loose some information here, but that is OK for stats
+    source_results = {result['source']: result for result in results.values()}
+    stats_counter = collections.Counter(r['source_verdict'] for r in source_results.values())
+    for package, number in stats_counter.most_common():
+        log('{}: {}'.format(number, package))
+
+    for verdict in stats_counter:
+        if verdict == 'keep':
+            continue
+        filtered = {n: r for n, r in results.items() if r['source_verdict'] == verdict}
+        with open(cache_dir / ('results-' + verdict + '-srpms.json'), 'w') as f:
+            json.dump(filtered, f, indent=2)
+        with open(cache_dir / ('results-' + verdict + '-srpms.txt'), 'w') as f:
+            for name in set(r['source'] for r in filtered.values()):
                 print(name, file=f)
