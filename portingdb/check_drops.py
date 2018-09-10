@@ -10,7 +10,7 @@ To run this:
     python3 -m portingdb --datadir data/ load
 
 - Run this script:
-  python -m portingdb check-drops > drops.json
+  python -m portingdb check-drops
 
 The script creates the directory `_check_drops`, containing cached stuff and
 some result files.
