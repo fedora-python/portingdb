@@ -483,8 +483,27 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
     if 'catfish' in results:
         results['catfish']['needs_investigation'] = True
 
+    def keep_manually(name, reason):
+        if name in results:
+            results[name]['keep'] = True
+            results[name]['notes'].append(reason)
+
     # rpkg needs to stay for 3rd party consumers
-    results['python2-rpkg']['keep'] = True
+    keep_manually('python2-rpkg', 'rhpkg+rfpkg dependency')
+
+    # Fedora QA stuff runs on all this
+    # https://pagure.io/fedora-qa/fedora_openqa/blob/master/f/setup.py#_55
+    # https://pagure.io/fedora-qa/autocloudreporter/blob/master/f/install.requires
+    for pkg in (
+        'python2-fedfind',
+        'python2-fedmsg',
+        'python2-openqa_client',
+        'python2-resultsdb_api',
+        'python2-resultsdb_conventions',
+        'python2-resultsdb_conventions-fedora',
+        'python2-wikitcms',
+    ):
+        keep_manually(pkg, 'Fedora QA')
 
     for result in results.values():
         if result.get('needs_investigation'):
