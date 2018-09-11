@@ -79,6 +79,11 @@ def handle_filename(result, filename):
     )):
         # Python 3 module; ignore here, but freak out
         result['notes'].add('Python 3 module')
+    elif '/bin/cgi/' in filename:
+        # CGI script; might be needed
+        result['notes'].add('CGI script')
+        result['keep'] = True
+        result['filename_cgi'] = filename
     elif filename.startswith((
         '/usr/share/doc/',
         '/usr/share/gtk-doc/',
