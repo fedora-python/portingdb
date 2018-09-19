@@ -496,6 +496,9 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
     # rpkg needs to stay for 3rd party consumers
     keep_manually('python2-rpkg', 'rhpkg+rfpkg dependency')
 
+    # https://bugzilla.redhat.com/show_bug.cgi?id=1629435
+    keep_manually('python2-q', 'debugging tool')
+
     # Fedora QA stuff runs on all this
     # https://pagure.io/fedora-qa/fedora_openqa/blob/master/f/setup.py#_55
     # https://pagure.io/fedora-qa/autocloudreporter/blob/master/f/install.requires
