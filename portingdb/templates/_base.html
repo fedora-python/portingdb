@@ -61,52 +61,39 @@
     {% endfor %}
 {%- endmacro %}
 
-{% macro pkglist_table_head(collections) -%}
+{% macro pkglist_table_head() -%}
     <thead>
         <tr>
             <th>Package</th>
-            {% for col in collections %}
-                <th data-x-colspan="2" class="th-collection">{{col.name}}</th>
-            {% endfor %}
+            <th data-x-colspan="2" class="th-collection">Status</th>
         </tr>
     </thead>
 {%- endmacro %}
 
-{% macro pkglist_table_content(packages, collections, show_nonblocking=False) -%}
-    {{ pkglist_table_head(collections) }}
+{% macro pkglist_table_content(packages, show_nonblocking=False) -%}
+    {{ pkglist_table_head() }}
     <tbody>
         {% for pkg in packages %}
             <tr>
-                {{ package_tr_content(cname, pkg, collections, show_nonblocking=show_nonblocking) }}
+                {{ package_tr_content(cname, pkg, show_nonblocking=show_nonblocking) }}
             </tr>
         {% endfor %}
     </tbody>
 {%- endmacro %}
 
-{% macro package_tr_content(category_name, pkg, collections, show_nonblocking=False) -%}
+{% macro package_tr_content(category_name, pkg, show_nonblocking=False) -%}
     <td>
         {{ pkglink(pkg) }}
         {% if show_nonblocking and pkg.nonblocking %}
             <small>(nonblocking)</small>
         {% endif %}
     </td>
-    {% for col in collections %}
-        {% set cp = pkg.by_collection.get(col.ident) %}
-        {% if cp %}
-            <td>
-                {{ badge(cp.status_obj) }}
-                {% for link in cp.links %}
-                    {{ iconlink(link) }}
-                {% endfor %}
-            </td>
-            <!--
-            <td>
-            </td>
-            -->
-        {% else %}
-            <td data-x-colspan="2">&nbsp;</td>
-        {% endif %}
-    {% endfor %}
+    <td>
+        {{ badge(pkg.status_obj) }}
+        {% for link in pkg.links %}
+            {{ iconlink(link) }}
+        {% endfor %}
+    </td>
 {%- endmacro %}
 
 {% macro iconlink_class(link) -%}

@@ -141,6 +141,29 @@ def get_status_counts(pkgs):
 
 
 def package(pkg):
+    data = current_app.config['data']
+    statuses = data['statuses']
+
+    try:
+        package = data['packages'][pkg]
+    except KeyError:
+        abort(404)
+
+    return render_template(
+        'package.html',
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('package', pkg=pkg), pkg),
+        ),
+        pkg=package,
+        #dependents=dependents,
+        #deptree=[(package, gen_deptree(dependencies))],
+        dependencies_status_counts=summarize_statuses(statuses, package['deps'].values()),
+        #build_dependents=build_dependents,
+        #build_deptree=[(package, gen_deptree(build_dependencies, run_time=False, build_time=True))],
+        build_dependencies_status_counts=summarize_statuses(statuses, package['build_deps'].values()),
+    )
+
     db = current_app.config['DB']()
     collections = list(queries.collections(db))
 

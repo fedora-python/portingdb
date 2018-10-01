@@ -24,33 +24,21 @@
             </div>
         </div>
         <div class="col-md-3">
-            {% for col in collections %}
-                {% set pc = pkg.by_collection.get(col.ident) %}
+                {% set pc = pkg %}
                 {% if pc %}
-                    <h3>
-                        {{ col.name }}
-                        <small style="float: right">
-                            {{ badge(pc.status_obj) }}
-                            <!--{{ badge(pc.priority_obj) }}-->
-                        </small>
-                    </h3>
-                    {% if pc.note %}
+                    {% if 'note' in pc %}
                         <div>
                             {{ pc.note | md }}
-                        </div>
-                    {% else %}
-                        <div class="note">
-                            {{ col.status_description(pc.status_obj) | md }}
                         </div>
                     {% endif %}
                     {% if pc.rpms %}
                         <div>
-                            <strong>RPMs</strong>
+                            <h3>RPMs</h3>
                             <ul class="rpm-list">
-                            {% for rpm in pc.rpms %}
+                            {% for rpm_name, rpm in pc.rpms.items() %}
                                 <li>
-                                    {{ rpm.rpm_name | format_rpm_name }}
-                                    {% if rpm.is_misnamed %}
+                                    {{ rpm_name | format_rpm_name }}
+                                    {% if rpm.get('is_misnamed') %}
                                     <span class="badge"
                                           style="background-color: #F0AD4E !important;"
                                           title="The RPM name does not comply with Python package naming guidelines"
@@ -63,7 +51,7 @@
                                     ><i class="fa fa-leaf"></i></span>
                                     {% endif %}
                                     <ul class="fa-ul">
-                                        {% for pydep in rpm.py_dependencies %}
+                                        {% for pydep in rpm.get('py_dependencies', ()) %}
                                             <li>
                                                 {% if pydep.py_version == 3 %}
                                                     <span class="fa fa-li">✔</span>
@@ -87,11 +75,11 @@
                             </ul>
                         </div>
                     {% endif %}
-                    {% if pc.links %}
+                    {% if 'links' in pc %}
                         <div>
-                            <strong>Links</strong>
+                            <h3>Links</h3>
                             <ul class="pkg-link-list fa-ul">
-                                {% for link in pc.links %}
+                                {% for link in pc.get('links', ()) %}
                                     <li>
                                         <i class="fa-li {{ iconlink_class(link) }}"></i>
                                         {{ link.type }}:
@@ -120,7 +108,7 @@
                         </div>
                     {% endif %}
                 {% endif %}
-            {% endfor %}
+            {# XXX
             <h3>Dependent packages</h3>
             <h4>Run time</h4>
             {% if dependents %}
@@ -142,12 +130,13 @@
             {% else %}
                 None.
             {% endif %}
+            #}
             <h3>Dependency Tree</h3>
             <h4>Run time</h4>
-            {{ print_deptree(deptree) }}
+            {#{ print_deptree(deptree) }#}
             <h4>Build time</h4>
-            {{ print_deptree(build_deptree) }}
-            {% if pkg['loc_total'] %}
+            {#{ print_deptree(build_deptree) }#}
+            {% if 'loc_total' in pkg %}
                 <h3>Project Size</h3>
                 {{ loc_chart(pkg) }}
                 <div>
@@ -179,7 +168,7 @@
                     (approximation as of {{ pkg['loc_version'] }})
                 </div>
             {% endif %}
-            {% if pkg.groups %}
+            {% if 'groups' in pkg %}
                 <h3>Groups</h3>
                 <ul>
                     {% for grp in pkg.groups | sort(attribute='name') %}
@@ -196,19 +185,19 @@
         <div class="col-md-8">
             <h2>Dependencies</h2>
             <h4>Run time</h4>
-            {{ progress_summary_legend(dependencies_status_counts.items()) }}
-            {% if dependencies %}
+            {{ progress_summary_legend(dependencies_status_counts) }}
+            {% if pkg['deps'] %}
                 <table class="table table-striped table-condensed table-hovered">
-                    {{ pkglist_table_content(dependencies, collections, show_nonblocking=1) }}
+                    {{ pkglist_table_content(pkg['deps'].values(), show_nonblocking=1) }}
                 </table>
             {% else %}
                 None.
             {% endif %}
             <h4>Build time</h4>
-            {{ progress_summary_legend(build_dependencies_status_counts.items()) }}
-            {% if build_dependencies %}
+            {{ progress_summary_legend(build_dependencies_status_counts) }}
+            {% if pkg['build_deps'] %}
                 <table class="table table-striped table-condensed table-hovered">
-                    {{ pkglist_table_content(build_dependencies, collections, show_nonblocking=1) }}
+                    {{ pkglist_table_content(pkg['build_deps'].values(), show_nonblocking=1) }}
                 </table>
             {% else %}
                 None.

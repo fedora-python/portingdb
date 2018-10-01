@@ -116,6 +116,25 @@ def load_from_directories(data, directories):
     for name, package in packages.items():
         package['status_obj'] = statuses[package['status']]
 
+    # Convert bug info
+    for name, package in packages.items():
+        links = []
+        for link_type, link_info in package.get('links', {}).items():
+            if isinstance(link_info, str):
+                url = link_info
+                note = None
+                time = None
+            else:
+                url, note, time = link_info
+                time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+            links.append({
+                'url': url,
+                'type': link_type,
+                'note': note,
+                'last_update': time,
+            })
+        package['links'] = links
+
     # Update groups
     for ident, group in groups.items():
         group['ident'] = ident
