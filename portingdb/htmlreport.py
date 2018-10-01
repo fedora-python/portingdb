@@ -1,4 +1,4 @@
-from collections import OrderedDict, Counter
+from collections import OrderedDict, Counter, defaultdict
 import random
 import functools
 import json
@@ -28,88 +28,19 @@ DONE_STATUSES = {'released', 'dropped', 'legacy-leaf', 'py3-only'}
 
 
 def hello():
-    db = current_app.config['DB']()
+    data = current_app.config['data']
 
-    # Main package query
-    query = queries.packages(db)
-    total_pkg_count = query.count()
+    statuses = data['statuses']
+    packages = data['packages']
 
-    py3_only = query.filter(tables.Package.status == 'py3-only')
-    py3_only = queries.order_by_name(db, py3_only)
+    by_status = defaultdict(list)
+    for package in packages.values():
+        by_status[package['status']].append(package)
 
-    legacy_leaf = query.filter(tables.Package.status == 'legacy-leaf')
-    legacy_leaf = queries.order_by_name(db, legacy_leaf)
+    the_score = sum(len(by_status[s]) for s in DONE_STATUSES) / len(packages)
 
-    released = query.filter(tables.Package.status == 'released')
-    released = queries.order_by_name(db, released)
-
-    dropped = query.filter(tables.Package.status == 'dropped')
-    dropped = queries.order_by_name(db, dropped)
-
-    mispackaged = query.filter(tables.Package.status == 'mispackaged')
-    mispackaged = mispackaged.options(subqueryload('collection_packages'))
-    mispackaged = mispackaged.options(subqueryload('collection_packages.tracking_bugs'))
-    mispackaged = mispackaged.join(tables.CollectionPackage)
-    mispackaged = mispackaged.outerjoin(
-        tables.Link,
-        and_(tables.Link.type == 'bug',
-             tables.Link.collection_package_id == tables.CollectionPackage.id))
-    mispackaged = mispackaged.order_by(func.ifnull(tables.Link.last_update, '9999'))
-    mispackaged = queries.order_by_name(db, mispackaged)
-
-    blocked = query.filter(tables.Package.status == 'blocked')
-    blocked = blocked.options(subqueryload('run_time_requirements'))
-    blocked = queries.order_by_name(db, blocked)
-
-    ready = query.filter(tables.Package.status == 'idle')
-    ready = ready.options(subqueryload('run_time_requirers'))
-    ready = queries.order_by_name(db, ready)
-
-    # Naming policy tracking.
-    naming_progress, _ = get_naming_policy_progress(db)
-
-    py3_only = list(py3_only)
-    legacy_leaf = list(legacy_leaf)
-    released = list(released)
-    ready = list(ready)
-    blocked = list(blocked)
-    mispackaged = list(mispackaged)
-    dropped = list(dropped)
-    random_mispackaged = random.choice(mispackaged)
-
-    # Check we account for all the packages
-    done_packages = (py3_only, legacy_leaf, released, dropped)
-    sum_by_status = sum(len(x) for x in (ready, blocked, mispackaged) + done_packages)
-    assert sum_by_status == total_pkg_count
-
-    the_score = sum(len(x) for x in done_packages) / total_pkg_count
-
-    # Nonbolocking set query
-    query = db.query(tables.Package)
-    query = query.outerjoin(tables.Package.collection_packages)
-    query = query.filter(tables.CollectionPackage.nonblocking)
-    nonblocking = set(query)
-
-    # Group query
-
-    query = db.query(tables.Group)
-    query = query.join(tables.Group.packages)
-    query = query.join(tables.Package.status_obj)
-    query = query.group_by(tables.Group.ident)
-    query = query.group_by(tables.Package.status)
-    query = query.order_by(tables.Status.order)
-    query = query.order_by(tables.Group.name)
-    query = query.add_columns(tables.Package.status,
-                              func.count(tables.Package.name))
-    groups = get_groups(db, query.filter(~tables.Group.hidden))
-    hidden_groups = get_groups(db, query.filter(tables.Group.hidden))
-
-    # Statuses with no. of packages
-    statuses = OrderedDict(
-        db.query(tables.Status, func.count(tables.Package.name))
-        .outerjoin(tables.Status.packages)
-        .group_by(tables.Status.ident)
-        .order_by(tables.Status.order))
+    status_summary = [(status, len(by_status[name]))
+                      for name, status in statuses.items()]
 
     return render_template(
         'index.html',
@@ -117,22 +48,19 @@ def hello():
             (url_for('hello'), 'Python 3 Porting Database'),
         ),
         statuses=statuses,
-        priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
-        total_pkg_count=total_pkg_count,
-        status_summary=get_status_summary(db),
-        ready_packages=ready,
-        blocked_packages=blocked,
-        py3_only_packages=py3_only,
-        legacy_leaf_packages=legacy_leaf,
-        released_packages=released,
-        dropped_packages=dropped,
-        mispackaged_packages=mispackaged,
-        random_mispackaged=random_mispackaged,
-        groups=groups,
-        hidden_groups=hidden_groups,
-        nonblocking=nonblocking,
+        total_pkg_count=len(packages),
+        status_summary=status_summary,
+        ready_packages=by_status.get('idle', ()),
+        blocked_packages=by_status.get('blocked', ()),
+        py3_only_packages=by_status.get('py3_only', ()),
+        legacy_leaf_packages=by_status.get('legacy_leaf', ()),
+        released_packages=by_status.get('released', ()),
+        dropped_packages=by_status.get('dropped', ()),
+        mispackaged_packages=by_status.get('mispackaged', ()),
+        groups=(), #XXX
+        hidden_groups=(), #XXX,
         the_score=the_score,
-        naming_progress=naming_progress,
+        naming_progress=(), # XXX,
     )
 
 

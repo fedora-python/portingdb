@@ -86,7 +86,7 @@
                         <td>
                             {{ pkglink(pkg) }}
                             {% if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
-                                  in pkg.list_tracking_bugs %}
+                                  in pkg.tracking_bugs %}
                             (patch requested by maintainer)
                             {% endif %}
                         </td>
@@ -117,7 +117,7 @@
                 {% for pkg in ready_packages %}
                    <li>
                         {{ pkglink(pkg) }}
-                        {% if pkg not in nonblocking and pkg.pending_requirers %}
+                        {% if not pkg['nonblocking'] and pkg.pending_requirers %}
                            (needed for
                                {% for req in pkg.pending_requirers %}
                                    {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
@@ -209,6 +209,7 @@
             <h2>Status Legend</h2>
             <ul class="list-group">
                 {% for status, num_packages in statuses.items() %}
+                    {% set status = statuses[status] %}
                     {% if num_packages %}
                         <li class="list-group-item">
                             {{ minibadge(status) }}

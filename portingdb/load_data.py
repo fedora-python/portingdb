@@ -4,9 +4,6 @@ import datetime
 import csv
 
 import yaml
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.sql.expression import select, and_
 
 from . import tables
 from . import queries
@@ -53,3 +50,19 @@ def decode_file(filename):
 def load_from_directories(data, directories):
     config = data.setdefault('config', {})
     config.update(data_from_file(directories, 'config'))
+
+    statuses = data.setdefault('statuses', {})
+    statuses.update({s['ident']: s
+                     for s in data_from_file(directories, 'statuses')})
+
+    collection_name = config['collection']
+    packages = data.setdefault('packages', {})
+    packages.update(data_from_file(directories, collection_name))
+
+    for name, package in packages.items():
+        package['name'] = name
+        package['status_obj'] = statuses[package['status']]
+        package.setdefault('tracking_bugs', ())
+        package.setdefault('nonblocking', False)
+        package.setdefault('pending_requirers', [])
+        package.setdefault('last_link_update', None)
