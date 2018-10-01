@@ -161,10 +161,6 @@ glade3:
         Suggested replacement: `glade`
 glue-validator:
     dead-upstream: true
-gmpy:
-    status: dropped
-    note: |
-      Suggested replacement: `python-gmpy2`
 gnome-desktop:
     status: dropped
     note: |
@@ -185,10 +181,6 @@ gnome-desktop:
       uses GObject introspection, it has no own Python code and thus does not
       show up in PortingDB.
 gnome-python2:
-    status: dropped
-    note: |
-      Suggested replacement: `pygobject3`
-gnome-python2-desktop:
     status: dropped
     note: |
       Suggested replacement: `pygobject3`
@@ -328,13 +320,6 @@ python2-astropy:
     status: dropped
     note: |
         Replacement: `python-astropy`
-python-atfork:
-    status: dropped
-    note:
-        As mentioned in the upstream pull request, upstream considers this
-        project dead.
-
-        Since nothing depends on it in Fedora, porting it does not seem useful.
 python-backports:
     status: dropped
     note: |
@@ -359,20 +344,10 @@ python-backports-ssl_match_hostname:
     status: dropped
     note: |
         Included in Python 3.2
-python-batchhttp:
-    dead-upstream: true
-    links:
-        repo: https://github.com/saymedia/batchhttp
-    note: |
-        Last release 2010
 python-BeautifulSoup:
     status: dropped
     note: |
         Replacement: `python-beautifulsoup4`
-python-blivet1:
-    status: dropped
-    note: |
-        Replacement: `python-blivet`
 python-bunch:
     status: dropped
     note: |
@@ -392,20 +367,11 @@ python-cloudfiles:
     note: |
         Upstream no longer exists.
         Suggested replacement: `python3-swiftclient`
-python-clientform:
-    status: dropped
-    note: |
-        The functionality provided by this module is now part of mechanize.
-        Replacement: `python-mechanize`
 python-dateutil15:
     status: dropped
     note: |
         This is an old version of the dateutil library.
         Replacement: `python-dateutil`
-python2-docs:
-    status: dropped
-    note: |
-        Replacement: `python3-docs`
 python2-django1.11:
     status: dropped
     note: |
@@ -465,12 +431,6 @@ python-googlevoice:
     dead-upstream: true
     note: |
         "Project is defunct. Please look to other solutions."
-python-halite:
-    dead-upstream: true
-    note: |
-        "Halite is officially retired."
-python-HTMLgen:
-    dead-upstream: true
 python-igor:
     note: |
         The package is functional under python3, but the executable output
@@ -495,13 +455,6 @@ python-inotify:
 python-instant:
     note: |
       spec file updated and built in rawhide by [fab](http://fabian-affolter.ch).
-python-irclib:
-    note: |
-        Update with python3 support has been [packaged in copr](https://copr-fe.cloud.fedoraproject.org/coprs/toshio/python-irclib-update/).
-        Requires additional packages to build (which are present in the copr repository).
-
-        Copr packager doesn't have time to maintain the package so needs Fedora maintainers
-        to take over maintenance.
 python-kerberos:
     note: |
       Suggested replacement: `python-gssapi`
@@ -565,11 +518,6 @@ python-oauth:
     status: dropped
     note: |
         The project is dead. Use another library, like `python-oauth2`, instead.
-python-odict:
-    status: dropped
-    note: |
-      Included in Python 2.7 / 3.1 standard library as
-      [`collections.OrderedDict`](https://docs.python.org/3/library/collections.html#collections.OrderedDict).
 python-openid:
     status: dropped
     note: |
@@ -624,10 +572,6 @@ python-pylons:
   status: dropped
   note: |
     Recommended replacement: `python-pyramid`
-python-pypubsub3.3.0:
-    status: dropped
-    note: |
-      Recommended replacement: `python-pypubsub`
 python-pyudev:
   nonblocking: true
   note: |
@@ -697,11 +641,6 @@ python-tw-forms:
 python-twiggy:
     links:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282112
-python-unicodenazi:
-    status: dropped
-    note: |
-      As the upstream page says, this package is "only useful when porting over
-      libraries from Python 2 to Python 3."
 python-upoints:
     note: |
       Depends on [aaargh](https://pypi.python.org/pypi/aaargh/0.7.1),
@@ -714,18 +653,6 @@ python-urlgrabber:
       lack of test coverage).
       Suggested replacement: `python-pycurl` which covers most of the
       functionality
-python-weakrefmethod:
-    status: dropped
-    note: |
-      This is a backport of [weakref.WeakMethod](https://docs.python.org/3/library/weakref.html#weakref.WeakMethod) from Python 3.4+.
-      Use the stdlib version in Python 3.
-python-webob1.1:
-    status: dropped
-    note: |
-      This is a backwards compatibility package.  Code that uses this should be
-      ported to the current version of the library as part of porting to
-      python3.
-      Replacement: `python-webob`
 python-webtest1.3:
     status: dropped
     note: |
@@ -753,10 +680,6 @@ python2-ipython:
     status: dropped
     note: |
       Replacement: `ipython`
-python2-lxc:
-    status: dropped
-    note: |
-      Replacement: `python3-lxc`
 python2-typing:
     status: dropped
     note: |
