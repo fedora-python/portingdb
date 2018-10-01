@@ -57,6 +57,10 @@ def load_from_directories(data, directories):
     statuses.update({s['ident']: s
                      for s in data_from_file(directories, 'statuses')})
 
+    naming = data.setdefault('naming', {})
+    naming.update({s['ident']: s
+                   for s in data_from_file(directories, 'naming')})
+
     collection_name = config['collection']
     packages = data.setdefault('packages', {})
     _pkgs = data_from_file(directories, collection_name)
@@ -72,6 +76,9 @@ def load_from_directories(data, directories):
     for name, package in packages.items():
         package['name'] = name
         package.setdefault('nonblocking', False)
+
+        package['is_misnamed'] = any(rpm.get('is_misnamed')
+                                     for rpm in package['rpms'].values())
 
         # XXX: Bugs
         package.setdefault('tracking_bugs', ())

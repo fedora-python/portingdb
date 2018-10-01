@@ -44,6 +44,7 @@ def summarize_statuses(statuses, package_list):
 
 
 def hello():
+    db = current_app.config['DB']()
     data = current_app.config['data']
 
     statuses = data['statuses']
@@ -63,6 +64,8 @@ def hello():
             if grp['hidden'] == hidden
         ]
 
+    naming_progress, _ = get_naming_policy_progress(db)
+
     return render_template(
         'index.html',
         breadcrumbs=(
@@ -81,7 +84,7 @@ def hello():
         groups=groups_by_hidden[False],
         hidden_groups=groups_by_hidden[True],
         the_score=the_score,
-        naming_progress=(), # XXX,
+        naming_progress=naming_progress,
     )
 
 
