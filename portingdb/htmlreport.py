@@ -20,6 +20,7 @@ from dogpile.cache import make_region
 from . import tables
 from . import queries
 from .history_graph import history_graph
+from .load_data import get_data
 
 tau = 2 * math.pi
 
@@ -910,16 +911,16 @@ def format_percent(num):
     return str(num) + '%'
 
 
-def create_app(db_url, cache_config=None):
+def create_app(db_url, directories, cache_config=None):
     if cache_config is None:
         cache_config = {'backend': 'dogpile.cache.null'}
     cache = make_region().configure(**cache_config)
     app = Flask(__name__)
     app.config['DB'] = sessionmaker(bind=create_engine(db_url))
     db = app.config['DB']()
+    app.config['data'] = data = get_data('data/')
     app.config['Cache'] = cache
-    app.config['CONFIG'] = {c.key: json.loads(c.value)
-                            for c in db.query(tables.Config)}
+    app.config['CONFIG'] = data['config']
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
     app.jinja_env.filters['format_rpm_name'] = format_rpm_name
@@ -974,6 +975,6 @@ def create_app(db_url, cache_config=None):
     return app
 
 
-def main(db_url, cache_config=None, debug=False, port=5000):
-    app = create_app(db_url, cache_config=cache_config)
+def main(db_url, directories, cache_config=None, debug=False, port=5000):
+    app = create_app(db_url, directories, cache_config=cache_config)
     app.run(debug=debug, port=port)
