@@ -66,6 +66,9 @@ def load_from_directories(data, directories):
     )
     packages.update(_pkgs)
 
+    groups = data.setdefault('groups', {})
+    groups.update(data_from_file(directories, 'groups'))
+
     for name, package in packages.items():
         package['name'] = name
         package.setdefault('nonblocking', False)
@@ -105,3 +108,22 @@ def load_from_directories(data, directories):
     # Add `status_obj`
     for name, package in packages.items():
         package['status_obj'] = statuses[package['status']]
+
+    # Update groups
+    for ident, group in groups.items():
+        group['ident'] = ident
+        group.setdefault('hidden', False)
+        names_to_add = {p for p in group['packages'] if p in packages}
+        names_added = set()
+        group['packages'] = pkgs = {}
+        while names_to_add:
+            name = names_to_add.pop()
+            if name in names_added:
+                continue
+            names_added.add(name)
+            pkgs[name] = packages[name]
+            if packages[name]['status'] != 'dropped':
+                for dep in packages[name]['deps']:
+                    names_to_add.add(dep)
+                for dep in packages[name]['build_deps']:
+                    names_to_add.add(dep)

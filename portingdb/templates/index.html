@@ -36,18 +36,18 @@
                 {% if 'groups-note' in config %}
                     {{ config['groups-note'] |safe }}
                 {% endif %}
-                {% for grp, statuses in groups.items() %}
+                {% for grp, statuses in groups %}
                     <h3>
                         <a href="{{ url_for('group', grp=grp.ident) }}">
                             {{ grp.name }}
                         </a>
                     </h3>
-                    {{ progress_summary(statuses.items(), len(grp.packages)) }}
+                    {{ progress_summary(statuses, len(grp.packages)) }}
                 {% endfor %}
                 {% if hidden_groups %}
                     <h3>Other Groups</h3>
                 {% endif %}
-                {% for grp, statuses in hidden_groups.items() %}
+                {% for grp, statuses in hidden_groups %}
                     <div>
                         <a href="{{ url_for('group', grp=grp.ident) }}">
                             <img
@@ -57,7 +57,7 @@
                             {{ grp.name }} –
                         </a>
                         {{len(grp.packages)}} packages:
-                        {% for status, count in statuses.items() %}
+                        {% for status, count in statuses %}
                             {{ count }} {{status.ident}}{% if not loop.last %};{% endif %}
                         {% endfor %}
                     </div>

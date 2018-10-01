@@ -27,21 +27,41 @@ tau = 2 * math.pi
 DONE_STATUSES = {'released', 'dropped', 'legacy-leaf', 'py3-only'}
 
 
+def group_by_status(package_list):
+    by_status = defaultdict(list)
+    for package in package_list:
+        by_status[package['status']].append(package)
+    return by_status
+
+
+def summarize_statuses(statuses, package_list):
+    by_status = group_by_status(package_list)
+    return [
+        (status, len(by_status[name]))
+        for name, status in statuses.items()
+        if len(by_status[name])
+    ]
+
+
 def hello():
     data = current_app.config['data']
 
     statuses = data['statuses']
     packages = data['packages']
 
-    by_status = defaultdict(list)
-    for package in packages.values():
-        by_status[package['status']].append(package)
+    by_status = group_by_status(packages.values())
 
     the_score = sum(len(by_status[s]) for s in DONE_STATUSES) / len(packages)
 
-    status_summary = [(status, len(by_status[name]))
-                      for name, status in statuses.items()
-                      if len(by_status[name])]
+    status_summary = summarize_statuses(statuses, packages.values())
+
+    groups_by_hidden = {}
+    for hidden in True, False:
+        groups_by_hidden[hidden] = [
+            (grp, summarize_statuses(statuses, grp['packages'].values()))
+            for grp in data['groups'].values()
+            if grp['hidden'] == hidden
+        ]
 
     return render_template(
         'index.html',
@@ -58,8 +78,8 @@ def hello():
         released_packages=by_status.get('released', ()),
         dropped_packages=by_status.get('dropped', ()),
         mispackaged_packages=by_status.get('mispackaged', ()),
-        groups=(), #XXX
-        hidden_groups=(), #XXX,
+        groups=groups_by_hidden[False],
+        hidden_groups=groups_by_hidden[True],
         the_score=the_score,
         naming_progress=(), # XXX,
     )
