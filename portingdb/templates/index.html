@@ -27,7 +27,6 @@
         <div class="col-md-8">
             {% if 'main-instructions' in config %}
                 {{ config['main-instructions']
-                        .replace('$RANDOMPKG', pkglink(random_mispackaged))
                         .replace('$HOWTO_LINK', url_for('howto'))
                         .replace('$MISPACKAGED_LINK', '#mispackaged')
                     |safe }}
