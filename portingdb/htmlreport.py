@@ -40,7 +40,8 @@ def hello():
     the_score = sum(len(by_status[s]) for s in DONE_STATUSES) / len(packages)
 
     status_summary = [(status, len(by_status[name]))
-                      for name, status in statuses.items()]
+                      for name, status in statuses.items()
+                      if len(by_status[name])]
 
     return render_template(
         'index.html',
@@ -52,8 +53,8 @@ def hello():
         status_summary=status_summary,
         ready_packages=by_status.get('idle', ()),
         blocked_packages=by_status.get('blocked', ()),
-        py3_only_packages=by_status.get('py3_only', ()),
-        legacy_leaf_packages=by_status.get('legacy_leaf', ()),
+        py3_only_packages=by_status.get('py3-only', ()),
+        legacy_leaf_packages=by_status.get('legacy-leaf', ()),
         released_packages=by_status.get('released', ()),
         dropped_packages=by_status.get('dropped', ()),
         mispackaged_packages=by_status.get('mispackaged', ()),

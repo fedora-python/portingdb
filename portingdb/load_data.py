@@ -4,9 +4,11 @@ import datetime
 import csv
 
 import yaml
+import click
 
 from . import tables
 from . import queries
+from .load import _merge_updates
 
 try:
     SafeLoader = yaml.CSafeLoader
@@ -57,12 +59,49 @@ def load_from_directories(data, directories):
 
     collection_name = config['collection']
     packages = data.setdefault('packages', {})
-    packages.update(data_from_file(directories, collection_name))
+    _pkgs = data_from_file(directories, collection_name)
+    _merge_updates(
+        _pkgs,
+        data_from_file(directories, collection_name + '-update')
+    )
+    packages.update(_pkgs)
 
     for name, package in packages.items():
         package['name'] = name
-        package['status_obj'] = statuses[package['status']]
-        package.setdefault('tracking_bugs', ())
         package.setdefault('nonblocking', False)
-        package.setdefault('pending_requirers', [])
+
+        # XXX: Bugs
+        package.setdefault('tracking_bugs', ())
         package.setdefault('last_link_update', None)
+
+        # XXX: Pending requirements
+        package.setdefault('pending_requirers', [])
+        package.setdefault('pending_requirements', [])
+
+    # Convert lists of dependency names to dicts of the package entries
+    for name, package in packages.items():
+        for attr in 'deps', 'build_deps':
+            package[attr] = {name: packages[name] for name in package[attr]}
+
+    # Convert "released" packages with all ported RPMs to "py3-only"
+    for name, package in packages.items():
+        if package['status'] == 'released':
+            for rpm in package['rpms'].values():
+                if any(version == 2 for version in rpm['py_deps'].values()):
+                    break
+            else:
+                package['status'] = 'py3-only'
+
+    # Convert "idle" packages with un-ported dependencies to "blocked"
+    for name, package in packages.items():
+        if package['status'] == 'idle':
+            for dname, dpackage in package['deps'].items():
+                if dpackage['status'] not in ('py3-only', 'legacy-leaf',
+                                              'released', 'dropped',
+                                              'unknown'):
+                    package['status'] = 'blocked'
+                    break
+
+    # Add `status_obj`
+    for name, package in packages.items():
+        package['status_obj'] = statuses[package['status']]
