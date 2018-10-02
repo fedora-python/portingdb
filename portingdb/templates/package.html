@@ -52,17 +52,17 @@
                                     ><i class="fa fa-leaf"></i></span>
                                     {% endif %}
                                     <ul class="fa-ul">
-                                        {% for pydep in rpm.get('py_dependencies', ()) %}
+                                        {% for pydep, ver in rpm.get('py_deps', {}).items() %}
                                             <li>
-                                                {% if pydep.py_version == 3 %}
+                                                {% if ver == 3 %}
                                                     <span class="fa fa-li">✔</span>
-                                                {% elif pydep.py_version == 2 %}
+                                                {% elif ver == 2 %}
                                                     <span class="fa fa-li">×</span>
                                                 {% else %}
                                                     <span class="fa fa-li"> </span>
                                                 {% endif %}
-                                                {{ pydep.name }}
-                                                {% if pydep.name == '/usr/bin/python' %}
+                                                {{ pydep }}
+                                                {% if pydep == '/usr/bin/python' %}
                                                     <span class="badge"
                                                         style="background-color: #F0AD4E !important;"
                                                         title="Scripts should explicitly use /usr/bin/python3 or /usr/bin/python2, especially in shebangs"
@@ -76,7 +76,7 @@
                             </ul>
                         </div>
                     {% endif %}
-                    {% if 'links' in pc %}
+                    {% if pc.get('links') %}
                         <div>
                             <h3>Links</h3>
                             <ul class="pkg-link-list fa-ul">
