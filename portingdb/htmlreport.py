@@ -150,7 +150,7 @@ def generate_deptree(base, *, seen=None, key='deps', include_all=True):
         else:
             reqs = sorted(
                 pkg[key].values(),
-                key=lambda p: (-p['status_obj']['weight'], p['name']),
+                key=status_sort_key,
             )
             yield pkg, generate_deptree(
                 reqs, seen=seen | {pkg['name']}, key=key, include_all=False)
@@ -221,6 +221,13 @@ def gen_deptree(base, *, seen=None, run_time=True, build_time=False):
 
 def markdown_filter(text):
     return Markup(markdown.markdown(text))
+
+
+def status_sort_key(package):
+    return -package['status_obj']['weight'], package['name']
+
+def sort_by_status(packages):
+    return sorted(packages, key=status_sort_key)
 
 
 def format_rpm_name(text):
@@ -739,6 +746,7 @@ def create_app(db_url, directories, cache_config=None):
     app.jinja_env.filters['format_quantity'] = format_quantity
     app.jinja_env.filters['format_percent'] = format_percent
     app.jinja_env.filters['format_time_ago'] = format_time_ago
+    app.jinja_env.filters['sort_by_status'] = sort_by_status
 
     @app.context_processor
     def add_template_globals():

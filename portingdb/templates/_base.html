@@ -73,7 +73,7 @@
 {% macro pkglist_table_content(packages, show_nonblocking=False) -%}
     {{ pkglist_table_head() }}
     <tbody>
-        {% for pkg in packages %}
+        {% for pkg in packages|sort_by_status %}
             <tr>
                 {{ package_tr_content(cname, pkg, show_nonblocking=show_nonblocking) }}
             </tr>
