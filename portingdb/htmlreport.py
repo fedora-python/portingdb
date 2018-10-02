@@ -175,62 +175,10 @@ def package(pkg):
             (url_for('package', pkg=pkg), pkg),
         ),
         pkg=package,
-        #dependents=dependents,
         deptree=generate_deptree([package]),
         dependencies_status_counts=summarize_statuses(statuses, package['deps'].values()),
-        #build_dependents=build_dependents,
         build_deptree=generate_deptree([package], key='build_deps'),
         build_dependencies_status_counts=summarize_statuses(statuses, package['build_deps'].values()),
-    )
-
-    db = current_app.config['DB']()
-    collections = list(queries.collections(db))
-
-    query = db.query(tables.Package)
-    query = query.options(eagerload('status_obj'))
-    query = query.options(subqueryload('collection_packages'))
-    query = query.options(subqueryload('collection_packages.links'))
-    query = query.options(eagerload('collection_packages.status_obj'))
-    query = query.options(subqueryload('collection_packages.rpms'))
-    query = query.options(eagerload('collection_packages.rpms.py_dependencies'))
-    package = query.get(pkg)
-    if package is None:
-        abort(404)
-
-    query = queries.dependencies(db, package)
-    query = query.options(eagerload('status_obj'))
-    query = query.options(subqueryload('collection_packages'))
-    query = query.options(subqueryload('collection_packages.links'))
-    query = query.options(eagerload('collection_packages.status_obj'))
-    dependencies = list(query)
-
-    dependents = list(queries.dependents(db, package))
-
-    query = queries.build_dependencies(db, package)
-    query = query.options(eagerload('status_obj'))
-    query = query.options(subqueryload('collection_packages'))
-    query = query.options(subqueryload('collection_packages.links'))
-    query = query.options(eagerload('collection_packages.status_obj'))
-    build_dependencies = list(query)
-
-    build_dependents = list(queries.build_dependents(db, package))
-
-    return render_template(
-        'package.html',
-        breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
-            (url_for('package', pkg=pkg), pkg),
-        ),
-        collections=collections,
-        pkg=package,
-        dependencies=dependencies,
-        dependents=dependents,
-        deptree=[(package, gen_deptree(dependencies))],
-        dependencies_status_counts=get_status_counts(dependencies),
-        build_dependencies=build_dependencies,
-        build_dependents=build_dependents,
-        build_deptree=[(package, gen_deptree(build_dependencies, run_time=False, build_time=True))],
-        build_dependencies_status_counts=get_status_counts(build_dependencies),
     )
 
 

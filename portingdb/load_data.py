@@ -80,6 +80,9 @@ def load_from_directories(data, directories):
         package['is_misnamed'] = any(rpm.get('is_misnamed')
                                      for rpm in package['rpms'].values())
 
+        package.setdefault('dependents', {})
+        package.setdefault('build_dependents', {})
+
         # XXX: Bugs
         package.setdefault('tracking_bugs', ())
         package.setdefault('last_link_update', None)
@@ -134,6 +137,13 @@ def load_from_directories(data, directories):
                 'last_update': time,
             })
         package['links'] = links
+
+    # Add dependent packages
+    for name, package in packages.items():
+        for pkg in package['deps'].values():
+            pkg['dependents'][package['name']] = package
+        for pkg in package['build_deps'].values():
+            pkg['build_dependents'][package['name']] = package
 
     # Update groups
     for ident, group in groups.items():

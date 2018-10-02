@@ -109,29 +109,27 @@
                         </div>
                     {% endif %}
                 {% endif %}
-            {# XXX
             <h3>Dependent packages</h3>
             <h4>Run time</h4>
-            {% if dependents %}
+            {% if pkg['dependents'] %}
                 <ul class="simple-pkg-list">
-                    {% for pkg in dependents %}
-                        <li>{{ pkglink(pkg) }}</li>
+                    {% for p in pkg['dependents'].values() %}
+                        <li>{{ pkglink(p) }}</li>
                     {% endfor %}
                 </ul>
             {% else %}
                 None.
             {% endif %}
             <h4>Build time</h4>
-            {% if build_dependents %}
+            {% if pkg['build_dependents'] %}
                 <ul class="simple-pkg-list">
-                    {% for pkg in build_dependents %}
-                        <li>{{ pkglink(pkg) }}</li>
+                    {% for p in pkg['build_dependents'].values() %}
+                        <li>{{ pkglink(p) }}</li>
                     {% endfor %}
                 </ul>
             {% else %}
                 None.
             {% endif %}
-            #}
             <h3>Dependency Tree</h3>
             <h4>Run time</h4>
             {{ print_deptree(deptree) }}
