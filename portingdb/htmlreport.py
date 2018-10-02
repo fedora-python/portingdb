@@ -195,22 +195,6 @@ def group(grp):
     )
 
 
-def gen_deptree(base, *, seen=None, run_time=True, build_time=False):
-    seen = seen or set()
-    base = tuple(base)
-    for pkg in base:
-        if pkg in seen or pkg.status in {'idle'} | DONE_STATUSES:
-            yield pkg, []
-        else:
-            reqs = sorted(
-                set((pkg.run_time_requirements if run_time else []) +
-                    (pkg.build_time_requirements if build_time else [])),
-                key=lambda p: (-p.status_obj.weight, p.name))
-            yield pkg, gen_deptree(reqs, seen=seen | {pkg},
-                                   run_time=run_time, build_time=build_time)
-        seen.add(pkg)
-
-
 def markdown_filter(text):
     return Markup(markdown.markdown(text))
 
