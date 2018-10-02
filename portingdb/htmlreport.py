@@ -131,23 +131,55 @@ def get_status_counts(pkgs):
     return ordered
 
 
-def generate_deptree(base, *, seen=None, key='deps', include_all=True):
-    seen = seen or set()
-    base = tuple(base)
-    for pkg in base:
-        if (not include_all
-            and (pkg['name'] in seen
-                 or pkg['status'] in {'idle'} | DONE_STATUSES)
-        ):
-            yield pkg, []
+def generate_deptree(
+    package, *, keys=('deps', 'build_deps'),
+    skip_statuses=frozenset({'idle'} | DONE_STATUSES),
+    max_depth=3,
+):
+    seen = set()
+    def generate_subtree(pkg, depth):
+        run_names = set(pkg[keys[0]])
+        build_names = set(pkg[keys[1]])
+        packages = {
+            pkg['name']: pkg
+            for pkg in list(pkg[keys[0]].values()) + list(pkg[keys[1]].values())
+        }
+        children = sorted(
+            packages.values(),
+            key=status_sort_key,
+        )
+        for child in children:
+            kinds = set()
+            if child['name'] in run_names:
+                kinds.add('run')
+            if child['name'] in build_names:
+                kinds.add('build')
+
+            was_seen = (child['name'] in seen)
+            seen.add(child['name'])
+
+            if child['status'] in skip_statuses:
+                tree = ()
+            elif was_seen or depth >= max_depth:
+                tree = ()
+                kinds.add('elided')
+            else:
+                tree = list(generate_subtree(child, depth+1))
+
+            yield child, kinds, tree
+
+    return list(generate_subtree(package, 0))
+
+def generate_deptrees(
+    packages, skip_statuses=frozenset({'idle'} | DONE_STATUSES), **kwargs
+):
+    packages = sorted(packages, key=status_sort_key)
+    for pkg in packages:
+        if pkg['status'] in skip_statuses:
+            tree = ()
         else:
-            reqs = sorted(
-                pkg[key].values(),
-                key=status_sort_key,
-            )
-            yield pkg, generate_deptree(
-                reqs, seen=seen | {pkg['name']}, key=key, include_all=False)
-        seen.add(pkg['name'])
+            tree = generate_deptree(pkg, skip_statuses=skip_statuses, **kwargs)
+        yield pkg, set(), tree
 
 
 def package(pkg):
@@ -166,10 +198,15 @@ def package(pkg):
             (url_for('package', pkg=pkg), pkg),
         ),
         pkg=package,
-        deptree=generate_deptree([package]),
+        deptree=generate_deptree(package),
         dependencies_status_counts=summarize_statuses(statuses, package['deps'].values()),
-        build_deptree=generate_deptree([package], key='build_deps'),
-        build_dependencies_status_counts=summarize_statuses(statuses, package['build_deps'].values()),
+        build_dependencies_status_counts=summarize_statuses(
+            statuses, package['build_deps'].values()),
+        dependent_tree=generate_deptree(
+            package,
+            keys=('dependents', 'build_dependents'),
+            skip_statuses=frozenset(('py3-only', 'dropped')),
+        ),
     )
 
 
@@ -191,7 +228,7 @@ def group(grp):
             (url_for('group', grp=grp), group['name']),
         ),
         grp=group,
-        deptree=generate_deptree(group['seed_packages'].values(), include_all=False),
+        deptree=generate_deptrees(group['seed_packages'].values()),
         status_summary=status_summary,
     )
 

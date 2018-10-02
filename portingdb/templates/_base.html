@@ -51,9 +51,12 @@
 {%- endmacro %}
 
 {% macro sub_deptree(pkgs) -%}
-    {% for pkg, subtree in pkgs %}
+    {% for pkg, kinds, subtree in pkgs %}
         <li>
             {{ pkglink(pkg) }}
+            {% if 'run' in kinds %}<i class="dep-kind fa fa-rocket"></i>{% endif %}
+            {% if 'build' in kinds %}<i class="dep-kind fa fa-wrench"></i>{% endif %}
+            {% if 'elided' in kinds %}…{% endif %}
             <ul class="simple-pkg-list" style="border-left: 1px solid #EEE">
                 {{ sub_deptree(subtree) }}
             </ul>
