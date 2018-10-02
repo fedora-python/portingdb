@@ -78,7 +78,9 @@ def hello():
         legacy_leaf_packages=by_status.get('legacy-leaf', ()),
         released_packages=by_status.get('released', ()),
         dropped_packages=by_status.get('dropped', ()),
-        mispackaged_packages=by_status.get('mispackaged', ()),
+        mispackaged_packages=sorted(
+            by_status.get('mispackaged', ()),
+            key=lambda p: (-bool(p['last_link_update']), p['last_link_update'])),
         groups=groups_by_hidden[False],
         hidden_groups=groups_by_hidden[True],
         the_score=the_score,

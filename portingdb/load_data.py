@@ -86,7 +86,6 @@ def load_from_directories(data, directories):
         package.setdefault('dependents', {})
         package.setdefault('build_dependents', {})
 
-        # XXX: Bugs
         package.setdefault('tracking_bugs', ())
         package.setdefault('last_link_update', None)
 
@@ -119,6 +118,7 @@ def load_from_directories(data, directories):
     # Convert bug info
     for name, package in packages.items():
         links = []
+        link_updates = []
         for link_type, link_info in package.get('links', {}).items():
             if isinstance(link_info, str):
                 url = link_info
@@ -127,6 +127,7 @@ def load_from_directories(data, directories):
             else:
                 url, note, time = link_info
                 time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+                link_updates.append(time)
             links.append({
                 'url': url,
                 'type': link_type,
@@ -134,6 +135,8 @@ def load_from_directories(data, directories):
                 'last_update': time,
             })
         package['links'] = links
+        if link_updates:
+            package['last_link_update'] = max(link_updates)
 
     # Add dependent packages
     for name, package in packages.items():
