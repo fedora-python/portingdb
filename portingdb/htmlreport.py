@@ -265,10 +265,6 @@ def graph_grp(grp):
     return graph(grp=grp)
 
 
-def graph_pkg(pkg):
-    return graph(pkg=pkg)
-
-
 def graph_json(grp=None, pkg=None):
     # Parameters
     all_deps = request.args.get('all_deps', None)
@@ -357,10 +353,6 @@ def graph_json(grp=None, pkg=None):
 
 def graph_json_grp(grp):
     return graph_json(grp=grp)
-
-
-def graph_json_pkg(pkg):
-    return graph_json(pkg=pkg)
 
 
 def graph_color(package):
@@ -723,8 +715,6 @@ def create_app(db_url, directories, cache_config=None):
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
     _add_route("/grp/<grp>/graph/", graph_grp, get_keys={'all_deps'})
     _add_route("/grp/<grp>/graph/data.json", graph_json_grp, get_keys={'all_deps'})
-    _add_route("/pkg/<pkg>/graph/", graph_pkg, get_keys={'all_deps'})
-    _add_route("/pkg/<pkg>/graph/data.json", graph_json_pkg, get_keys={'all_deps'})
     _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
     _add_route("/namingpolicy/", namingpolicy)
     _add_route("/namingpolicy/piechart.svg", piechart_namingpolicy)
