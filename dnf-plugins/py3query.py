@@ -151,7 +151,7 @@ def set_status(result, pkgs, python_versions):
                 result['note'] = (
                     'The Python 3 package is missing binaries available '
                     'in a Python 2 package.\n')
-            elif all(result['rpms'][format_rpm_name(pkg)]['legacy_leaf']
+            elif all(result['rpms'][format_rpm_name(pkg)]['almost_leaf']
                      for pkg in pkg_by_version[2]):
                 # Packages with py2 subpackages not required by anything.
                 result['status'] = 'legacy-leaf'
@@ -316,10 +316,16 @@ class Py3QueryCommand(dnf.cli.Command):
                         'build_time': sorted(get_srpm_names(build_requirers_of_pkg[p]) - by_srpm_name.keys()),
                         'run_time': sorted(get_srpm_names(requirers_of_pkg[p]) - by_srpm_name.keys()),
                     },
+                    'almost_leaf': (
+                        # is Python 2 and is not required by anything EXCEPT
+                        # sibling subpackages
+                        2 in python_versions[p] and
+                        not get_srpm_names(build_requirers_of_pkg[p] | requirers_of_pkg[p]) - {name}
+                    ),
                     'legacy_leaf': (
                         # is Python 2 and is not required by anything
                         2 in python_versions[p] and
-                        not get_srpm_names(build_requirers_of_pkg[p] | requirers_of_pkg[p]) - {name}
+                        not get_srpm_names(build_requirers_of_pkg[p] | requirers_of_pkg[p])
                     ),
                 } for p in pkgs}
             set_status(r, pkgs, python_versions)
