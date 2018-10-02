@@ -160,10 +160,10 @@
                     (approximation as of {{ pkg['loc_version'] }})
                 </div>
             {% endif %}
-            {% if 'groups' in pkg %}
+            {% if pkg['groups'] %}
                 <h3>Groups</h3>
                 <ul>
-                    {% for grp in pkg.groups | sort(attribute='name') %}
+                    {% for grp in pkg.groups.values() | sort(attribute='name') %}
                         <li>
                             <a href="{{ url_for('group', grp=grp.ident) }}">
                                 {{ grp.name }}

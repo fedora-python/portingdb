@@ -85,7 +85,7 @@ def load_from_directories(data, directories):
 
         package.setdefault('dependents', {})
         package.setdefault('build_dependents', {})
-
+        package.setdefault('groups', {})
         package.setdefault('tracking_bugs', ())
         package.setdefault('last_link_update', None)
 
@@ -168,9 +168,11 @@ def load_from_directories(data, directories):
             if name in names_added:
                 continue
             names_added.add(name)
-            pkgs[name] = packages[name]
-            if packages[name]['status'] != 'dropped':
-                for dep in packages[name]['deps']:
+            package = packages[name]
+            pkgs[name] = package
+            package['groups'][ident] = group
+            if package['status'] != 'dropped':
+                for dep in package['deps']:
                     names_to_add.add(dep)
                 for dep in packages[name]['build_deps']:
                     names_to_add.add(dep)
