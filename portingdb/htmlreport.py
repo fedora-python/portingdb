@@ -402,54 +402,35 @@ def status_svg(status):
 
 
 def piechart_svg():
-    db = current_app.config['DB']()
+    data = current_app.config['data']
+    statuses = data['statuses']
+    packages = data['packages']
 
-    return _piechart(get_status_summary(db))
+    status_summary = summarize_statuses(statuses, packages.values())
+
+    return _piechart(status_summary)
 
 
 def piechart_grp(grp):
-    db = current_app.config['DB']()
+    data = current_app.config['data']
+    statuses = data['statuses']
 
-    group = db.query(tables.Group).get(grp)
-    if group is None:
+    try:
+        group = data['groups'][grp]
+    except KeyError:
         abort(404)
 
-    def filter(query):
-        query = query.join(tables.Package.group_packages)
-        query = query.join(tables.GroupPackage.group)
-        query = query.filter(tables.Group.ident == grp)
-        return query
+    status_summary = summarize_statuses(statuses, group['packages'].values())
 
-    return _piechart(get_status_summary(db, filter=filter))
+    return _piechart(status_summary)
 
 
 def howto():
-    db = current_app.config['DB']()
-    query = queries.packages(db)
+    data = current_app.config['data']
+    statuses = data['statuses']
+    packages = data['packages']
 
-    # Count the blocked packages
-    blocked_query = query.filter(tables.Package.status == 'blocked')
-    blocked_len = blocked_query.count()
-
-    # Get all the idle packages
-    idle_query = query.filter(tables.Package.status == 'idle')
-    idle = list(idle_query)
-    idle_len = len(idle)
-
-    # Get all the mispackaged packages
-    mispackaged_query = query.filter(tables.Package.status == 'mispackaged')
-    mispackaged = list(mispackaged_query)
-
-    # Pick an idle package at random
-    random_idle = random.choice(idle)
-
-    # Pick a mispackaged package at random
-    random_mispackaged = random.choice(mispackaged)
-
-    # Status objects
-    query = db.query(tables.Status)
-    mispackaged_status = query.get('mispackaged')
-    released_status = query.get('released')
+    by_status = group_by_status(packages.values())
 
     return render_template(
         'howto.html',
@@ -457,13 +438,13 @@ def howto():
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('howto'), 'So you want to contribute?'),
         ),
-        idle_len=idle_len,
-        blocked_len=blocked_len,
-        mispackaged=mispackaged,
-        random_idle=random_idle,
-        random_mispackaged=random_mispackaged,
-        mispackaged_status=mispackaged_status,
-        released_status=released_status,
+        idle_len=len(by_status['idle']),
+        blocked_len=len(by_status['blocked']),
+        mispackaged=len(by_status['mispackaged']),
+        by_status=by_status,
+        statuses=statuses,
+        random_mispackaged=random.choice(by_status['mispackaged']),
+        random_idle=random.choice(by_status['idle']),
     )
 
 
