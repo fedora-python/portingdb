@@ -115,12 +115,12 @@
                 </ul>
             {% endif %}
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 related-packages">
             <h2>Dependencies</h2>
             (Python packages only)
             <h4>Run time <i class="fa fa-rocket"></i></h4>
             {% if pkg['deps'] %}
-                {{ progress_summary_legend(dependencies_status_counts) }}
+                {{ progress_legend(pkg['deps'].values()) }}
                 <table class="table table-striped table-condensed table-hovered">
                     {{ pkglist_table_content(pkg['deps'].values(), show_nonblocking=1) }}
                 </table>
@@ -129,7 +129,7 @@
             {% endif %}
             <h4>Build time <i class="fa fa-wrench"></i></h4>
             {% if pkg['build_deps'] %}
-                {{ progress_summary_legend(build_dependencies_status_counts) }}
+                {{ progress_legend(pkg['build_deps'].values()) }}
                 <table class="table table-striped table-condensed table-hovered">
                     {{ pkglist_table_content(pkg['build_deps'].values(), show_nonblocking=1) }}
                 </table>
@@ -141,11 +141,12 @@
                 {{ print_deptree(deptree) }}
             {% endif %}
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 related-packages">
             <h2>Dependents</h2>
             (Python packages only)
             <h4>Run time <i class="fa fa-rocket"></i></h4>
             {% if pkg['dependents'] %}
+                {{ progress_legend(pkg['dependents'].values()) }}
                 <table class="table table-striped table-condensed table-hovered">
                     {{ pkglist_table_content(pkg['dependents'].values()) }}
                 </table>
@@ -154,6 +155,7 @@
             {% endif %}
             <h4>Build time <i class="fa fa-wrench"></i></h4>
             {% if pkg['build_dependents'] %}
+                {{ progress_legend(pkg['build_dependents'].values()) }}
                 <table class="table table-striped table-condensed table-hovered">
                     {{ pkglist_table_content(pkg['build_dependents'].values()) }}
                 </table>

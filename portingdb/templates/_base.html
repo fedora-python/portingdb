@@ -154,14 +154,20 @@
             {{ total }} packages:
         {% endif %}
         {% for status, num in status_counts %}
+            <span class="progress-legend-item">
             <span class="minibadge"
                 style="background-color: #{{ status.color }} !important;"
                 title="{{ status }}"
             >
             </span>
             {{ num }} {{ status.name }}{% if not loop.last %};{% endif %}
+            </span>
         {% endfor %}
     </div>
+{%- endmacro %}
+
+{% macro progress_legend(packages) -%}
+    {{ progress_summary_legend(packages|summarize_statuses, packages|length) }}
 {%- endmacro %}
 
 {% macro loc_chart(pkg) -%}
@@ -293,6 +299,10 @@
                 width: 100%;
                 background-color: #888;
                 color: #000;
+            }
+            .related-packages .progress-legend-item {
+                display: block;
+                padding-left: 2em;
             }
             body {
                 margin-bottom: 4em;

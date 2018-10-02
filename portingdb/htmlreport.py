@@ -701,6 +701,8 @@ def create_app(db_url, directories, cache_config=None):
     app.jinja_env.filters['format_percent'] = format_percent
     app.jinja_env.filters['format_time_ago'] = format_time_ago
     app.jinja_env.filters['sort_by_status'] = sort_by_status
+    app.jinja_env.filters['summarize_statuses'] = (
+        lambda p: summarize_statuses(data['statuses'], p))
 
     @app.context_processor
     def add_template_globals():
