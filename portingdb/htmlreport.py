@@ -15,7 +15,6 @@ from sqlalchemy import func, and_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
 from jinja2 import StrictUndefined
 import markdown
-from dogpile.cache import make_region
 
 from . import tables
 from . import queries
@@ -688,14 +687,10 @@ def format_percent(num):
 
 
 def create_app(db_url, directories, cache_config=None):
-    if cache_config is None:
-        cache_config = {'backend': 'dogpile.cache.null'}
-    cache = make_region().configure(**cache_config)
     app = Flask(__name__)
     app.config['DB'] = sessionmaker(bind=create_engine(db_url))
     db = app.config['DB']()
     app.config['data'] = data = get_data('data/')
-    app.config['Cache'] = cache
     app.config['CONFIG'] = data['config']
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
@@ -715,17 +710,7 @@ def create_app(db_url, directories, cache_config=None):
         }
 
     def _add_route(url, func, get_keys=()):
-        @functools.wraps(func)
-        def decorated(*args, **kwargs):
-            creator = functools.partial(func, *args, **kwargs)
-            key_dict = {'url': url,
-                        'args': args,
-                        'kwargs': kwargs,
-                        'get': {k: request.args.get(k) for k in get_keys}}
-            key = json.dumps(key_dict, sort_keys=True)
-            print(key)
-            return cache.get_or_create(key, creator)
-        app.route(url)(decorated)
+        app.route(url)(func)
 
     _add_route("/", hello)
     _add_route("/stats.json", jsonstats)
@@ -751,5 +736,5 @@ def create_app(db_url, directories, cache_config=None):
 
 
 def main(db_url, directories, cache_config=None, debug=False, port=5000):
-    app = create_app(db_url, directories, cache_config=cache_config)
+    app = create_app(db_url, directories)
     app.run(debug=debug, port=port)
