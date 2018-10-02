@@ -20,11 +20,9 @@ from dogpile.cache import make_region
 from . import tables
 from . import queries
 from .history_graph import history_graph
-from .load_data import get_data
+from .load_data import get_data, DONE_STATUSES
 
 tau = 2 * math.pi
-
-DONE_STATUSES = {'released', 'dropped', 'legacy-leaf', 'py3-only'}
 
 
 def group_by_status(package_list):

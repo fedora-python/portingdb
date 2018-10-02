@@ -117,9 +117,9 @@
                 {% for pkg in ready_packages %}
                    <li>
                         {{ pkglink(pkg) }}
-                        {% if not pkg['nonblocking'] and pkg.pending_requirers %}
+                        {% if pkg.pending_dependents %}
                            (needed for
-                               {% for req in pkg.pending_requirers %}
+                               {% for req in pkg.pending_dependents.values() %}
                                    {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
                         {% endif %}
                    </li>
@@ -136,9 +136,9 @@
                {% for pkg in blocked_packages %}
                    <li>
                         {{ pkglink(pkg) }}
-                        {% if pkg.pending_requirements %}
+                        {% if pkg.pending_deps %}
                            (needs
-                               {% for req in pkg.pending_requirements %}
+                               {% for req in pkg.pending_deps.values() %}
                                    {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
                         {% endif %}
                    </li>

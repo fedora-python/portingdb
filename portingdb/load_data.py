@@ -10,6 +10,9 @@ from . import tables
 from . import queries
 from .load import _merge_updates
 
+
+DONE_STATUSES = {'released', 'dropped', 'legacy-leaf', 'py3-only'}
+
 try:
     SafeLoader = yaml.CSafeLoader
 except AttributeError:
@@ -87,10 +90,6 @@ def load_from_directories(data, directories):
         package.setdefault('tracking_bugs', ())
         package.setdefault('last_link_update', None)
 
-        # XXX: Pending requirements
-        package.setdefault('pending_requirers', [])
-        package.setdefault('pending_requirements', [])
-
     # Convert lists of dependency names to dicts of the package entries
     for name, package in packages.items():
         for attr in 'deps', 'build_deps':
@@ -109,9 +108,7 @@ def load_from_directories(data, directories):
     for name, package in packages.items():
         if package['status'] == 'idle':
             for dname, dpackage in package['deps'].items():
-                if dpackage['status'] not in ('py3-only', 'legacy-leaf',
-                                              'released', 'dropped',
-                                              'unknown'):
+                if dpackage['status'] not in DONE_STATUSES:
                     package['status'] = 'blocked'
                     break
 
@@ -144,6 +141,15 @@ def load_from_directories(data, directories):
             pkg['dependents'][package['name']] = package
         for pkg in package['build_deps'].values():
             pkg['build_dependents'][package['name']] = package
+
+    # Add pending requirers/requirements
+    for name, package in packages.items():
+        for src, dest in ('dependents', 'pending_dependents'), ('deps', 'pending_deps'):
+            package[dest] = {
+                d['name']: d
+                for d in package[src].values()
+                if d['status'] not in DONE_STATUSES
+            }
 
     # Update groups
     for ident, group in groups.items():
