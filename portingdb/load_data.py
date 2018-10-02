@@ -155,7 +155,9 @@ def load_from_directories(data, directories):
     for ident, group in groups.items():
         group['ident'] = ident
         group.setdefault('hidden', False)
-        names_to_add = {p for p in group['packages'] if p in packages}
+        group['seed_packages'] = {
+            n: packages[n] for n in group['packages'] if n in packages}
+        names_to_add = set(group['seed_packages'])
         names_added = set()
         group['packages'] = pkgs = {}
         while names_to_add:

@@ -181,39 +181,25 @@ def package(pkg):
 
 
 def group(grp):
-    db = current_app.config['DB']()
-    collections = list(queries.collections(db))
+    data = current_app.config['data']
 
-    group = db.query(tables.Group).get(grp)
-    if group is None:
+    try:
+        group = data['groups'][grp]
+    except KeyError:
         abort(404)
 
-    query = db.query(tables.Package)
-    query = query.join(tables.Package.group_packages)
-    query = query.join(tables.GroupPackage.group)
-    query = query.join(tables.Package.status_obj)
-    query = query.filter(tables.Group.ident == grp)
-    query = query.order_by(-tables.Status.weight)
-    query = queries.order_by_name(db, query)
-    query = query.options(subqueryload('collection_packages'))
-    query = query.options(subqueryload('collection_packages.links'))
-    packages = list(query)
-
-    query = query.filter(tables.GroupPackage.is_seed)
-    seed_groups = query
+    statuses = data['statuses']
+    status_summary = summarize_statuses(statuses, group['packages'].values())
 
     return render_template(
         'group.html',
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
-            (url_for('group', grp=grp), group.name),
+            (url_for('group', grp=grp), group['name']),
         ),
-        collections=collections,
         grp=group,
-        packages=packages,
-        len_packages=len(packages),
-        deptree=list(gen_deptree(seed_groups, run_time=True, build_time=True)),
-        status_counts=get_status_counts(packages),
+        deptree=generate_deptree(group['seed_packages'].values(), include_all=False),
+        status_summary=status_summary,
     )
 
 
