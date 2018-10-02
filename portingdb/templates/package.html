@@ -32,6 +32,20 @@
     {% endif %}
 {% endmacro %}
 
+{% macro rpm_leaf_badge(rpm) %}
+    {% if rpm.almost_leaf %}
+    <span class="badge"
+          style="background-color: #444 !important;
+                 color: {% if rpm.legacy_leaf %}#fd3{% else %}#ddd{% endif %};"
+          title="The RPM is not required by other packages in Fedora
+            {%- if not rpm.legacy_leaf %} (except sibling subpackages)
+            {%- endif -%}
+            {%- if pkg.status == "legacy-leaf" %} and can be dropped if the maintainer wishes
+            {%- endif -%}
+    "><i class="fa fa-leaf"></i></span>
+    {% endif %}
+{% endmacro %}
+
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
@@ -71,12 +85,7 @@
                                           title="The RPM name does not comply with Python package naming guidelines"
                                     >x</span>
                                     {% endif %}
-                                    {% if rpm.legacy_leaf %}
-                                    <span class="badge"
-                                          style="background-color: #444 !important; color: #fd3;"
-                                          title="The RPM is not required by other packages in Fedora {% if pkg.status == "legacy-leaf" %} and can be dropped if the maintainer wishes{% endif %}"
-                                    ><i class="fa fa-leaf"></i></span>
-                                    {% endif %}
+                                    {{ rpm_leaf_badge(rpm) }}
                                     <ul class="fa-ul">
                                         {% for pydep, ver in rpm.get('py_deps', {}).items() %}
                                             <li>
