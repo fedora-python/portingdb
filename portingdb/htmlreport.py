@@ -140,6 +140,25 @@ def get_status_counts(pkgs):
     return ordered
 
 
+def generate_deptree(base, *, seen=None, key='deps', include_all=True):
+    seen = seen or set()
+    base = tuple(base)
+    for pkg in base:
+        if (not include_all
+            and (pkg['name'] in seen
+                 or pkg['status'] in {'idle'} | DONE_STATUSES)
+        ):
+            yield pkg, []
+        else:
+            reqs = sorted(
+                pkg[key].values(),
+                key=lambda p: (-p['status_obj']['weight'], p['name']),
+            )
+            yield pkg, generate_deptree(
+                reqs, seen=seen | {pkg['name']}, key=key, include_all=False)
+        seen.add(pkg['name'])
+
+
 def package(pkg):
     data = current_app.config['data']
     statuses = data['statuses']
@@ -157,10 +176,10 @@ def package(pkg):
         ),
         pkg=package,
         #dependents=dependents,
-        #deptree=[(package, gen_deptree(dependencies))],
+        deptree=generate_deptree([package]),
         dependencies_status_counts=summarize_statuses(statuses, package['deps'].values()),
         #build_dependents=build_dependents,
-        #build_deptree=[(package, gen_deptree(build_dependencies, run_time=False, build_time=True))],
+        build_deptree=generate_deptree([package], key='build_deps'),
         build_dependencies_status_counts=summarize_statuses(statuses, package['build_deps'].values()),
     )
 

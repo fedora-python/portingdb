@@ -28,6 +28,7 @@
                 {% if pc %}
                     {% if 'note' in pc %}
                         <div>
+                            <h3>Note</h3>
                             {{ pc.note | md }}
                         </div>
                     {% endif %}
@@ -133,9 +134,9 @@
             #}
             <h3>Dependency Tree</h3>
             <h4>Run time</h4>
-            {#{ print_deptree(deptree) }#}
+            {{ print_deptree(deptree) }}
             <h4>Build time</h4>
-            {#{ print_deptree(build_deptree) }#}
+            {{ print_deptree(build_deptree) }}
             {% if 'loc_total' in pkg %}
                 <h3>Project Size</h3>
                 {{ loc_chart(pkg) }}
