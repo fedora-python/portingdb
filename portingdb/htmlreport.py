@@ -98,28 +98,18 @@ def get_groups(db, query):
 
 
 def jsonstats():
-    db = current_app.config['DB']()
+    data = current_app.config['data']
 
-    query = queries.packages(db)
-    released = query.filter(tables.Package.status == 'released')
-    legacy_leaf = query.filter(tables.Package.status == 'legacy-leaf')
-    py3_only = query.filter(tables.Package.status == 'py3-only')
-    dropped = query.filter(tables.Package.status == 'dropped')
-    mispackaged = query.filter(tables.Package.status == 'mispackaged')
-    blocked = query.filter(tables.Package.status == 'blocked')
-    ready = query.filter(tables.Package.status == 'idle')
+    statuses = data['statuses']
+    packages = data['packages']
+    grouped = group_by_status(packages.values())
 
     stats = {
-        'released': released.count(),
-        'legacy_leaf': legacy_leaf.count(),
-        'py3-only': py3_only.count(),
-        'dropped': dropped.count(),
-        'mispackaged': mispackaged.count(),
-        'blocked': blocked.count(),
-        'idle': ready.count(),
+        status: len(packages)
+        for status, packages in grouped.items()
     }
 
-    return jsonify(**stats)
+    return jsonify(stats)
 
 
 def get_status_summary(db, filter=None):
