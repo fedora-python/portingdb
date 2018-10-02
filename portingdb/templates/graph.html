@@ -8,7 +8,7 @@
     {% if grp %}
         {{ url_for('piechart_grp', grp=grp) }}?{{ cache_tag }}
     {% elif pkg %}
-        {{ url_for('piechart_pkg', pkg=pkg) }}?{{ cache_tag }}
+        { url_for('status_svg', status=pkg.status) }}?{{ cache_tag }}
     {% else %}
         {{ url_for('piechart_svg') }}?{{ cache_tag }}
     {% endif %}

@@ -3,7 +3,7 @@
 {% block titlecontent %}{{pkg.name }} – {{ super() }} {% endblock titlecontent %}
 
 {% block favicon_url -%}
-    {{ url_for('piechart_pkg', pkg=pkg.name) }}?{{ cache_tag }}
+    {{ url_for('status_svg', status=pkg.status) }}?{{ cache_tag }}
 {%- endblock favicon_url %}
 
 {% block bodycontent %}

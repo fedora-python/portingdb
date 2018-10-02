@@ -391,6 +391,16 @@ def _piechart(status_summary, bg=None):
     return resp
 
 
+def status_svg(status):
+    data = current_app.config['data']
+    try:
+        status = data['statuses'][status]
+    except KeyError:
+        abort(404)
+
+    return _piechart([], status)
+
+
 def piechart_svg():
     db = current_app.config['DB']()
 
@@ -411,16 +421,6 @@ def piechart_grp(grp):
         return query
 
     return _piechart(get_status_summary(db, filter=filter))
-
-
-def piechart_pkg(pkg):
-    db = current_app.config['DB']()
-
-    package = db.query(tables.Package).get(pkg)
-    if package is None:
-        abort(404)
-
-    return _piechart([], package.status_obj)
 
 
 def howto():
@@ -753,8 +753,8 @@ def create_app(db_url, directories, cache_config=None):
     _add_route("/graph/", graph, get_keys={'all_deps'})
     _add_route("/graph/portingdb.json", graph_json, get_keys={'all_deps'})
     _add_route("/piechart.svg", piechart_svg)
+    _add_route("/status/<status>.svg", status_svg)
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
-    _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
     _add_route("/grp/<grp>/graph/", graph_grp, get_keys={'all_deps'})
     _add_route("/grp/<grp>/graph/data.json", graph_json_grp, get_keys={'all_deps'})
     _add_route("/pkg/<pkg>/graph/", graph_pkg, get_keys={'all_deps'})
