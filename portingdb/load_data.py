@@ -107,7 +107,10 @@ def load_from_directories(data, directories):
     for name, package in packages.items():
         if package['status'] == 'idle':
             for dname, dpackage in package['deps'].items():
-                if dpackage['status'] not in DONE_STATUSES:
+                if (
+                    dpackage['status'] not in DONE_STATUSES
+                    and not dpackage['nonblocking']
+                ):
                     package['status'] = 'blocked'
                     break
 
