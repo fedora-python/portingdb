@@ -528,120 +528,6 @@ def history():
     )
 
 
-def group_by_loc(grp):
-    db = current_app.config['DB']()
-
-    group = db.query(tables.Group).get(grp)
-    if group is None:
-        abort(404)
-
-    query = queries.packages(db)
-    query = query.join(tables.Package.group_packages)
-    query = query.filter(tables.GroupPackage.group_ident == grp)
-
-    extra_breadcrumbs = (
-        (url_for('group_by_loc', grp=grp), group.name),
-    )
-
-    return by_loc(query=query, extra_breadcrumbs=extra_breadcrumbs,
-                  extra_args={'grp': group})
-
-
-def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
-    db = current_app.config['DB']()
-
-    sort_key = request.args.get('sort', None)
-    sort_reverse = request.args.get('reverse', None)
-    print(sort_key)
-    print(sort_reverse)
-    if sort_reverse is None:
-        def descending(p):
-            return p
-        def ascending(p):
-            return p.desc()
-    elif sort_reverse == '1':
-        def descending(p):
-            return p.desc()
-        def ascending(p):
-            return p
-    else:
-        abort(400)  # Bad request
-
-    if query is None:
-        query = queries.packages(db)
-
-    query = query.filter(tables.Package.status.in_(('idle', 'blocked')))
-    saved = query
-    query = query.filter(tables.Package.loc_total)
-    if sort_key == 'name':
-        query = query.order_by(ascending(func.lower(tables.Package.name)))
-    elif sort_key == 'loc':
-        query = query.order_by(descending(tables.Package.loc_total))
-    elif sort_key == 'python':
-        query = query.order_by(descending(tables.Package.loc_python))
-    elif sort_key == 'capi':
-        query = query.order_by(descending(tables.Package.loc_capi))
-    elif sort_key == 'py-percent':
-        query = query.order_by(descending((0.1+tables.Package.loc_python)/tables.Package.loc_total))
-    elif sort_key == 'capi-percent':
-        query = query.order_by(descending((0.1+tables.Package.loc_capi)/tables.Package.loc_total))
-    elif sort_key == 'py-small':
-        query = query.order_by(ascending(
-            tables.Package.loc_total - tables.Package.loc_python/1.5))
-    elif sort_key == 'capi-small':
-        query = query.order_by(descending(tables.Package.loc_capi>0))
-        query = query.order_by(ascending(
-            tables.Package.loc_total -
-            tables.Package.loc_capi/1.5 +
-            tables.Package.loc_python/9.9))
-    elif sort_key == 'py-big':
-        query = query.order_by(descending(
-            tables.Package.loc_python * tables.Package.loc_python /
-            (1.0+tables.Package.loc_total-tables.Package.loc_python)))
-    elif sort_key == 'capi-big':
-        query = query.order_by(descending(
-            tables.Package.loc_capi * tables.Package.loc_capi /
-            (1.0+tables.Package.loc_total-tables.Package.loc_capi)))
-    elif sort_key == 'no-py':
-        query = query.order_by(ascending(
-            (tables.Package.loc_python + tables.Package.loc_capi + 0.0) /
-            tables.Package.loc_total))
-    elif sort_key is None:
-        query = query.order_by(descending(tables.Package.loc_python +
-                                          tables.Package.loc_capi))
-    else:
-        abort(400)  # Bad request
-    query = query.order_by(tables.Package.loc_total)
-    query = query.order_by(func.lower(tables.Package.name))
-
-    packages = list(query)
-
-    by_name = saved.order_by(func.lower(tables.Package.name))
-
-    query = by_name.filter(tables.Package.loc_total == None)
-    missing_packages = list(query)
-
-    query = by_name.filter(tables.Package.loc_total == 0)
-    no_code_packages = list(query)
-
-    if extra_args is None:
-        extra_args = {}
-
-    return render_template(
-        'by_loc.html',
-        breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
-            (url_for('by_loc'), 'Packages by Code Stats'),
-        ) + extra_breadcrumbs,
-        packages=packages,
-        sort_key=sort_key,
-        sort_reverse=sort_reverse,
-        missing_packages=missing_packages,
-        no_code_packages=no_code_packages,
-        grp=extra_args.get('grp')
-    )
-
-
 def mispackaged():
     # Parameters
     requested = request.args.get('requested', None)
@@ -903,8 +789,6 @@ def create_app(db_url, directories, cache_config=None):
     _add_route("/grp/<grp>/graph/data.json", graph_json_grp, get_keys={'all_deps'})
     _add_route("/pkg/<pkg>/graph/", graph_pkg, get_keys={'all_deps'})
     _add_route("/pkg/<pkg>/graph/data.json", graph_json_pkg, get_keys={'all_deps'})
-    _add_route("/by_loc/", by_loc, get_keys={'sort', 'reverse'})
-    _add_route("/by_loc/grp/<grp>/", group_by_loc, get_keys={'sort', 'reverse'})
     _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
     _add_route("/namingpolicy/", namingpolicy)
     _add_route("/namingpolicy/piechart.svg", piechart_namingpolicy)
