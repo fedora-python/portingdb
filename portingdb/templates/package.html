@@ -128,38 +128,6 @@
             {{ print_deptree(deptree) }}
             <h4>Build time</h4>
             {{ print_deptree(build_deptree) }}
-            {% if 'loc_total' in pkg %}
-                <h3>Project Size</h3>
-                {{ loc_chart(pkg) }}
-                <div>
-                    <span class="minibadge"></span>
-                    ~{{ pkg['loc_total'] | format_quantity }}
-                    total lines of code
-                </div>
-                <div>
-                    <span class="minibadge"
-                        style="background-color: #5BC0DE !important;"
-                    >
-                    </span>
-                    ~{{ pkg['loc_python'] | format_quantity }}
-                    ({{ (pkg['loc_python'] / pkg['loc_total']) | format_percent }})
-                    Python
-                </div>
-                {% if pkg['loc_capi'] %}
-                    <div>
-                        <span class="minibadge"
-                            style="background-color: #F0AD4E !important;"
-                        >
-                        </span>
-                        ~{{ pkg['loc_capi'] | format_quantity }}
-                        ({{ (pkg['loc_capi'] / pkg['loc_total']) | format_percent }})
-                        C/C++ w/ CPython API
-                    </div>
-                {% endif %}
-                <div>
-                    (approximation as of {{ pkg['loc_version'] }})
-                </div>
-            {% endif %}
             {% if pkg['groups'] %}
                 <h3>Groups</h3>
                 <ul>
