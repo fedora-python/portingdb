@@ -440,20 +440,14 @@ def howto():
 
 
 def history():
-    db = current_app.config['DB']()
+    data = current_app.config['data']
     expand = request.args.get('expand', None)
     if expand not in ('1', None):
         abort(400)  # Bad request
 
-    query = db.query(tables.HistoryEntry)
-    query = query.filter(tables.HistoryEntry.date > '2015-10-10')
-
-    status_query = db.query(tables.Status)
-    status_query = status_query.order_by(tables.Status.order)
-
     graph = history_graph(
-        query=query,
-        status_query=status_query,
+        entries=data['history'],
+        statuses=data['statuses'],
         title='portingdb history',
         expand=bool(expand),
     )
@@ -604,13 +598,11 @@ def piechart_namingpolicy():
 
 
 def history_naming():
-    db = current_app.config['DB']()
-    query = db.query(tables.HistoryNamingEntry)
-    status_query = db.query(tables.NamingData)
+    data = current_app.config['data']
 
     graph = history_graph(
-        query=query,
-        status_query=status_query,
+        entries=data['history-naming'],
+        statuses=data['naming'],
         title='portingdb naming history',
         show_percent=False,
     )
@@ -624,24 +616,6 @@ def history_naming():
             (url_for('history'), 'History'),
         )
     )
-
-
-def history_naming_csv():
-    db = current_app.config['DB']()
-
-    query = db.query(tables.HistoryNamingEntry)
-    query = query.order_by(tables.HistoryNamingEntry.date)
-    sio = io.StringIO()
-    writer = csv.DictWriter(sio, ['commit', 'date', 'status', 'num_packages'])
-    writer.writeheader()
-    for row in query:
-        writer.writerow({
-            'commit': row.commit,
-            'date': row.date,
-            'status': row.status,
-            'num_packages': row.num_packages,
-        })
-    return Response(sio.getvalue(), mimetype='text/csv')
 
 
 def format_quantity(num):

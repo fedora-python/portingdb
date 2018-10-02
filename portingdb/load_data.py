@@ -76,6 +76,9 @@ def load_from_directories(data, directories):
     groups = data.setdefault('groups', {})
     groups.update(data_from_file(directories, 'groups'))
 
+    data['history'] = data_from_csv(directories, 'history')
+    data['history-naming'] = data_from_csv(directories, 'history-naming')
+
     for name, package in packages.items():
         package['name'] = name
         package.setdefault('nonblocking', False)

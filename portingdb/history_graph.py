@@ -22,22 +22,22 @@ def order_key(status_ident):
     except ValueError:
         return STATUS_ORDER.index(None)
 
-def history_graph(query, status_query=(), title='History',
+def history_graph(entries, statuses, title='History',
                   expand=False, show_percent=True):
 
     # Historical data can have statuses that aren't in the current DB,
     # so name/color/order may not always be available. Be forgiving.
     status_idents = []
-    status_names = {s.ident: s.name for s in status_query}
-    status_colors = {s.ident: s.color for s in status_query}
-    status_colors.update({s.name: s.color for s in status_query})
+    status_names = {ident: s['name'] for ident, s in statuses.items()}
+    status_colors = {ident: s['color'] for ident, s in statuses.items()}
+    status_colors.update({s['name']: s['color'] for ident, s in statuses.items()})
 
     data = defaultdict(dict)
-    for entry in query:
-        date = entry.date[:10]
-        data.setdefault(date, {})[entry.status] = entry.num_packages
-        if entry.status not in status_idents:
-            status_idents.append(entry.status)
+    for entry in entries:
+        date = entry['date'][:10]
+        data.setdefault(date, {})[entry['status']] = int(entry['num_packages'])
+        if entry['status'] not in status_idents:
+            status_idents.append(entry['status'])
 
     status_idents.sort(key=order_key)
 
