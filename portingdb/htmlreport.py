@@ -441,11 +441,8 @@ def howto():
     )
 
 
-def history():
+def history(expand=False):
     data = current_app.config['data']
-    expand = request.args.get('expand', None)
-    if expand not in ('1', None):
-        abort(400)  # Bad request
 
     graph = history_graph(
         entries=data['history'],
@@ -677,8 +674,8 @@ def create_app(db_url, directories, cache_config=None):
             'config': app.config['CONFIG'],
         }
 
-    def _add_route(url, func, get_keys=()):
-        app.route(url)(func)
+    def _add_route(url, func, **kwargs):
+        app.route(url, **kwargs)(func)
 
     _add_route("/", hello)
     _add_route("/stats.json", jsonstats)
@@ -695,7 +692,8 @@ def create_app(db_url, directories, cache_config=None):
     _add_route("/namingpolicy/", namingpolicy)
     _add_route("/namingpolicy/piechart.svg", piechart_namingpolicy)
     _add_route("/namingpolicy/history/", history_naming)
-    _add_route("/history/", history, get_keys={'expand'})
+    _add_route("/history/", history, defaults={'expand': False})
+    _add_route("/history/expanded/", history, defaults={'expand': True})
     _add_route("/howto/", howto)
 
     return app
