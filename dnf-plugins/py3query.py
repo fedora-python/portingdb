@@ -45,6 +45,8 @@ ADDITIONAL_TRACKER_BUGS = [
     1333770,  # PY3PATCH-PUSH
     1432186,  # Missing PY3-EXECUTABLES
 ]
+# Bugzilla statuses that indicate the bug was filed in error
+NOTABUG_STATUSES = {'CLOSED NOTABUG', 'CLOSED WONTFIX', 'CLOSED CANTFIX'}
 
 # Template URL to which you can add the bug ID and get a working URL
 BUGZILLA_BUG_URL = "https://bugzilla.redhat.com/show_bug.cgi?id={}"
@@ -385,7 +387,8 @@ class Py3QueryCommand(dnf.cli.Command):
                             BUGZILLA_BUG_URL.format(tb))
 
                 if (any(tb in bug.blocks for tb in MISPACKAGED_TRACKER_BUG_IDS) and
-                        r.get('status') == 'idle'):
+                        r.get('status') == 'idle' and
+                        status not in NOTABUG_STATUSES):
                     r['status'] = "mispackaged"
                     r['note'] = ('There is a problem in Fedora packaging, '
                                  'not necessarily with the software itself. '
