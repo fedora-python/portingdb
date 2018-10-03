@@ -55,11 +55,13 @@ def hello():
 
     groups_by_hidden = {}
     for hidden in True, False:
-        groups_by_hidden[hidden] = [
+        def sort_key(item):
+            return item[0]['name']
+        groups_by_hidden[hidden] = sorted((
             (grp, summarize_statuses(statuses, grp['packages'].values()))
             for grp in data['groups'].values()
             if grp['hidden'] == hidden
-        ]
+        ), key=sort_key)
 
     naming_progress, _ = get_naming_policy_progress(db)
 
