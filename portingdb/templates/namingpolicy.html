@@ -21,7 +21,7 @@
             <ul>
                 {% for (name_status, total), packages in data %}
                 <li>
-                    {{ minibadge(name_status) }}
+                    {{ status_minibadge(name_status) }}
                     <strong>{{ name_status.name }}</strong> -
                     {{ name_status.violation | safe }}
                 </li>
@@ -73,7 +73,7 @@
         <ul class="list-group">
             {% for (name_status, total), packages in data %}
             <li class="list-group-item">
-                {{ minibadge(name_status) }}
+                {{ status_minibadge(name_status) }}
                 <a href="#{{ name_status.ident }}">
                     {{ total }}
                     <strong>{{ name_status.name }}</strong>
@@ -86,7 +86,7 @@
         <ul class="list-group">
             {% for name_status, total, packages in data_outside_portingdb %}
             <li class="list-group-item">
-                {{ minibadge(name_status) }}
+                {{ status_minibadge(name_status) }}
                 <a href="#{{ name_status.ident }}-non-python">
                     {{ total }}
                     <strong>{{ name_status.name }}</strong>

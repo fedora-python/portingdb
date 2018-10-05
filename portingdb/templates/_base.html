@@ -1,4 +1,4 @@
-{% macro badge(thing) -%}
+{% macro status_badge(thing) -%}
     {% if not thing or thing.ident == 'unknown' %}
         <span class="badge"
             style="border: 1px solid #CCCCCC; background-color: transparent; color: #CCCCCC;"
@@ -9,14 +9,14 @@
     {% else %}
         <span class="badge"
             style="background-color: #{{ thing.color }} !important;"
-            title="{{ thing }}"
+            title="{{ thing.name }}"
         >
             {{ thing.abbrev }}
         </span>
     {% endif %}
 {%- endmacro %}
 
-{% macro minibadge(thing) -%}
+{% macro status_minibadge(thing) -%}
     {% if not thing or thing.ident == 'unknown' %}
         <span class="minibadge"
             style="border: 1px solid #CCCCCC; background-color: transparent; color: #CCCCCC;"
@@ -26,7 +26,7 @@
     {% else %}
         <span class="minibadge"
             style="background-color: #{{ thing.color }} !important;"
-            title="{{ thing }}"
+            title="{{ thing.name }}"
         >
         </span>
     {% endif %}
@@ -92,7 +92,7 @@
         {% endif %}
     </td>
     <td>
-        {{ badge(pkg.status_obj) }}
+        {{ status_badge(pkg.status_obj) }}
         {% for link in pkg.links %}
             {{ iconlink(link) }}
         {% endfor %}

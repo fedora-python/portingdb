@@ -212,7 +212,7 @@
                     {% set status = statuses[status] %}
                     {% if num_packages %}
                         <li class="list-group-item">
-                            {{ minibadge(status) }}
+                            {{ status_minibadge(status) }}
                             <a href="#{{ status.ident }}">{{ status.name }}</a>
                             <div><small>{{ status.description }}</small></div>
                         </li>
@@ -246,7 +246,7 @@
                 <li class="list-group-item">
                     {% if status.ident != 'name-correct' %}<a href="{{url_for('namingpolicy') }}#{{ status.ident }}">{% endif %}
                     {{ count }}
-                    {{ minibadge(status) }}
+                    {{ status_minibadge(status) }}
                     <strong>{{ status.name }}</strong>
                     {% if status.ident != 'name-correct' %}</a>{% endif %}
                     <div><small>{{ status.short_description }}</small></div>
