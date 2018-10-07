@@ -103,11 +103,6 @@ createrepo:
         This has a dependency on `yum`, which is not going to be ported.
 
         Dependant packages should be ported to `createrepo_c`.
-cryptlib:
-    status: released
-    note: |
-        `cryptlib-test` requires both Pythons and it is intended, as it
-        contains tests for all bindings (Pearl, Java, Python2/3).
 cwiid:
     dead-upstream: true
 dnf-plugins-core:
@@ -218,10 +213,6 @@ libssh2-python:
     note: |
         Code is old, but it's just a binding: it seems to work with Python 3.4
         Should it be renamed python{2,3}-libssh2?
-lilv:
-    dead-upstream: true
-    note: |
-        Maintained replacement on github: (lilvlib)[https://github.com/moddevices/lilvlib]
 lorem-ipsum-generator:
     links:
         repo: https://github.com/Riamse/lorem-ipsum-generator/
@@ -328,10 +319,6 @@ python-backports-functools_lru_cache:
     status: dropped
     note: |
         Included in Python 3.3
-python-backports-lzma:
-    status: dropped
-    note: |
-        Included in Python 3.3
 python-backports-shutil_get_terminal_size:
     status: dropped
     note: |
@@ -396,10 +383,6 @@ python-enum34: &enum
       `enum` is part of the Python 3.4 standard library, so this backport
       is not needed.
 python-enum: *enum
-python-fadvise:
-    status: dropped
-    note: |
-        Python2 only module. Python3 has os.posix_fadvise() natively
 python-fedora:
     nonblocking: true
     note: |
