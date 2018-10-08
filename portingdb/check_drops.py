@@ -499,6 +499,10 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
     # https://bugzilla.redhat.com/show_bug.cgi?id=1629435
     keep_manually('python2-q', 'debugging tool')
 
+    # matplotlib retired by series of unfortunate events
+    keep_manually('python2-cycler', 'matplotlib')
+    keep_manually('python2-kiwisolver', 'matplotlib')
+
     # Fedora QA stuff runs on all this
     # https://pagure.io/fedora-qa/fedora_openqa/blob/master/f/setup.py#_55
     # https://pagure.io/fedora-qa/autocloudreporter/blob/master/f/install.requires
