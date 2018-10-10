@@ -83,6 +83,13 @@ def load_from_directories(data, directories):
         package['name'] = name
         package.setdefault('nonblocking', False)
 
+        if 'rpms' not in package:
+            print('WARNING: no RPMs in package', name)
+
+        package.setdefault('rpms', {})
+        package.setdefault('deps', ())
+        package.setdefault('build_deps', ())
+
         package['is_misnamed'] = any(rpm.get('is_misnamed')
                                      for rpm in package['rpms'].values())
 
