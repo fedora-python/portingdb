@@ -1,4 +1,4 @@
-{% macro badge(thing) -%}
+{% macro status_badge(thing) -%}
     {% if not thing or thing.ident == 'unknown' %}
         <span class="badge"
             style="border: 1px solid #CCCCCC; background-color: transparent; color: #CCCCCC;"
@@ -9,14 +9,14 @@
     {% else %}
         <span class="badge"
             style="background-color: #{{ thing.color }} !important;"
-            title="{{ thing }}"
+            title="{{ thing.name }}"
         >
             {{ thing.abbrev }}
         </span>
     {% endif %}
 {%- endmacro %}
 
-{% macro minibadge(thing) -%}
+{% macro status_minibadge(thing) -%}
     {% if not thing or thing.ident == 'unknown' %}
         <span class="minibadge"
             style="border: 1px solid #CCCCCC; background-color: transparent; color: #CCCCCC;"
@@ -26,7 +26,7 @@
     {% else %}
         <span class="minibadge"
             style="background-color: #{{ thing.color }} !important;"
-            title="{{ thing }}"
+            title="{{ thing.name }}"
         >
         </span>
     {% endif %}
@@ -51,9 +51,12 @@
 {%- endmacro %}
 
 {% macro sub_deptree(pkgs) -%}
-    {% for pkg, subtree in pkgs %}
+    {% for pkg, kinds, subtree in pkgs %}
         <li>
             {{ pkglink(pkg) }}
+            {% if 'run' in kinds %}<i class="dep-kind fa fa-rocket"></i>{% endif %}
+            {% if 'build' in kinds %}<i class="dep-kind fa fa-wrench"></i>{% endif %}
+            {% if 'elided' in kinds %}…{% endif %}
             <ul class="simple-pkg-list" style="border-left: 1px solid #EEE">
                 {{ sub_deptree(subtree) }}
             </ul>
@@ -61,52 +64,39 @@
     {% endfor %}
 {%- endmacro %}
 
-{% macro pkglist_table_head(collections) -%}
+{% macro pkglist_table_head() -%}
     <thead>
         <tr>
             <th>Package</th>
-            {% for col in collections %}
-                <th data-x-colspan="2" class="th-collection">{{col.name}}</th>
-            {% endfor %}
+            <th data-x-colspan="2" class="th-collection">Status</th>
         </tr>
     </thead>
 {%- endmacro %}
 
-{% macro pkglist_table_content(packages, collections, show_nonblocking=False) -%}
-    {{ pkglist_table_head(collections) }}
+{% macro pkglist_table_content(packages, show_nonblocking=False) -%}
+    {{ pkglist_table_head() }}
     <tbody>
-        {% for pkg in packages %}
+        {% for pkg in packages|sort_by_status %}
             <tr>
-                {{ package_tr_content(cname, pkg, collections, show_nonblocking=show_nonblocking) }}
+                {{ package_tr_content(cname, pkg, show_nonblocking=show_nonblocking) }}
             </tr>
         {% endfor %}
     </tbody>
 {%- endmacro %}
 
-{% macro package_tr_content(category_name, pkg, collections, show_nonblocking=False) -%}
+{% macro package_tr_content(category_name, pkg, show_nonblocking=False) -%}
     <td>
         {{ pkglink(pkg) }}
         {% if show_nonblocking and pkg.nonblocking %}
             <small>(nonblocking)</small>
         {% endif %}
     </td>
-    {% for col in collections %}
-        {% set cp = pkg.by_collection.get(col.ident) %}
-        {% if cp %}
-            <td>
-                {{ badge(cp.status_obj) }}
-                {% for link in cp.links %}
-                    {{ iconlink(link) }}
-                {% endfor %}
-            </td>
-            <!--
-            <td>
-            </td>
-            -->
-        {% else %}
-            <td data-x-colspan="2">&nbsp;</td>
-        {% endif %}
-    {% endfor %}
+    <td>
+        {{ status_badge(pkg.status_obj) }}
+        {% for link in pkg.links %}
+            {{ iconlink(link) }}
+        {% endfor %}
+    </td>
 {%- endmacro %}
 
 {% macro iconlink_class(link) -%}
@@ -164,14 +154,20 @@
             {{ total }} packages:
         {% endif %}
         {% for status, num in status_counts %}
+            <span class="progress-legend-item">
             <span class="minibadge"
                 style="background-color: #{{ status.color }} !important;"
                 title="{{ status }}"
             >
             </span>
             {{ num }} {{ status.name }}{% if not loop.last %};{% endif %}
+            </span>
         {% endfor %}
     </div>
+{%- endmacro %}
+
+{% macro progress_legend(packages) -%}
+    {{ progress_summary_legend(packages|summarize_statuses, packages|length) }}
 {%- endmacro %}
 
 {% macro loc_chart(pkg) -%}
@@ -303,6 +299,10 @@
                 width: 100%;
                 background-color: #888;
                 color: #000;
+            }
+            .related-packages .progress-legend-item {
+                display: block;
+                padding-left: 2em;
             }
             body {
                 margin-bottom: 4em;

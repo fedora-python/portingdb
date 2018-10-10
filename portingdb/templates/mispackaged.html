@@ -18,9 +18,6 @@
             <p>
                 All mispackaged packages, ordered by last activity.
             </p>
-            <p style="padding-bottom: 5pt">
-                You can also view only <a href="{{ url_for('mispackaged', requested=1) }}">the packages for which the maintainer requested a patch</a>.
-            </p>
         {% endif %}
 
         {% if not mispackaged %}

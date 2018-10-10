@@ -27,7 +27,6 @@
         <div class="col-md-8">
             {% if 'main-instructions' in config %}
                 {{ config['main-instructions']
-                        .replace('$RANDOMPKG', pkglink(random_mispackaged))
                         .replace('$HOWTO_LINK', url_for('howto'))
                         .replace('$MISPACKAGED_LINK', '#mispackaged')
                     |safe }}
@@ -37,18 +36,18 @@
                 {% if 'groups-note' in config %}
                     {{ config['groups-note'] |safe }}
                 {% endif %}
-                {% for grp, statuses in groups.items() %}
+                {% for grp, statuses in groups %}
                     <h3>
                         <a href="{{ url_for('group', grp=grp.ident) }}">
                             {{ grp.name }}
                         </a>
                     </h3>
-                    {{ progress_summary(statuses.items(), len(grp.packages)) }}
+                    {{ progress_summary(statuses, len(grp.packages)) }}
                 {% endfor %}
                 {% if hidden_groups %}
                     <h3>Other Groups</h3>
                 {% endif %}
-                {% for grp, statuses in hidden_groups.items() %}
+                {% for grp, statuses in hidden_groups %}
                     <div>
                         <a href="{{ url_for('group', grp=grp.ident) }}">
                             <img
@@ -58,7 +57,7 @@
                             {{ grp.name }} –
                         </a>
                         {{len(grp.packages)}} packages:
-                        {% for status, count in statuses.items() %}
+                        {% for status, count in statuses %}
                             {{ count }} {{status.ident}}{% if not loop.last %};{% endif %}
                         {% endfor %}
                     </div>
@@ -87,7 +86,7 @@
                         <td>
                             {{ pkglink(pkg) }}
                             {% if "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
-                                  in pkg.list_tracking_bugs %}
+                                  in pkg.tracking_bugs %}
                             (patch requested by maintainer)
                             {% endif %}
                         </td>
@@ -118,9 +117,9 @@
                 {% for pkg in ready_packages %}
                    <li>
                         {{ pkglink(pkg) }}
-                        {% if pkg not in nonblocking and pkg.pending_requirers %}
+                        {% if pkg.pending_dependents %}
                            (needed for
-                               {% for req in pkg.pending_requirers %}
+                               {% for req in pkg.pending_dependents.values() %}
                                    {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
                         {% endif %}
                    </li>
@@ -137,9 +136,9 @@
                {% for pkg in blocked_packages %}
                    <li>
                         {{ pkglink(pkg) }}
-                        {% if pkg.pending_requirements %}
+                        {% if pkg.pending_deps %}
                            (needs
-                               {% for req in pkg.pending_requirements %}
+                               {% for req in pkg.pending_deps.values() %}
                                    {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
                         {% endif %}
                    </li>
@@ -210,9 +209,10 @@
             <h2>Status Legend</h2>
             <ul class="list-group">
                 {% for status, num_packages in statuses.items() %}
+                    {% set status = statuses[status] %}
                     {% if num_packages %}
                         <li class="list-group-item">
-                            {{ minibadge(status) }}
+                            {{ status_minibadge(status) }}
                             <a href="#{{ status.ident }}">{{ status.name }}</a>
                             <div><small>{{ status.description }}</small></div>
                         </li>
@@ -246,7 +246,7 @@
                 <li class="list-group-item">
                     {% if status.ident != 'name-correct' %}<a href="{{url_for('namingpolicy') }}#{{ status.ident }}">{% endif %}
                     {{ count }}
-                    {{ minibadge(status) }}
+                    {{ status_minibadge(status) }}
                     <strong>{{ status.name }}</strong>
                     {% if status.ident != 'name-correct' %}</a>{% endif %}
                     <div><small>{{ status.short_description }}</small></div>

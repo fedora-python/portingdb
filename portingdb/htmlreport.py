@@ -1,4 +1,4 @@
-from collections import OrderedDict, Counter
+from collections import OrderedDict, Counter, defaultdict
 import random
 import functools
 import json
@@ -15,100 +15,55 @@ from sqlalchemy import func, and_, create_engine
 from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
 from jinja2 import StrictUndefined
 import markdown
-from dogpile.cache import make_region
 
 from . import tables
 from . import queries
 from .history_graph import history_graph
+from .load_data import get_data, DONE_STATUSES
 
 tau = 2 * math.pi
 
-DONE_STATUSES = {'released', 'dropped', 'legacy-leaf', 'py3-only'}
+
+def group_by_status(package_list):
+    by_status = defaultdict(list)
+    for package in package_list:
+        by_status[package['status']].append(package)
+    return by_status
+
+
+def summarize_statuses(statuses, package_list):
+    by_status = group_by_status(package_list)
+    return [
+        (status, len(by_status[name]))
+        for name, status in statuses.items()
+        if len(by_status[name])
+    ]
 
 
 def hello():
     db = current_app.config['DB']()
+    data = current_app.config['data']
 
-    # Main package query
-    query = queries.packages(db)
-    total_pkg_count = query.count()
+    statuses = data['statuses']
+    packages = data['packages']
 
-    py3_only = query.filter(tables.Package.status == 'py3-only')
-    py3_only = queries.order_by_name(db, py3_only)
+    by_status = group_by_status(packages.values())
 
-    legacy_leaf = query.filter(tables.Package.status == 'legacy-leaf')
-    legacy_leaf = queries.order_by_name(db, legacy_leaf)
+    the_score = sum(len(by_status[s]) for s in DONE_STATUSES) / len(packages)
 
-    released = query.filter(tables.Package.status == 'released')
-    released = queries.order_by_name(db, released)
+    status_summary = summarize_statuses(statuses, packages.values())
 
-    dropped = query.filter(tables.Package.status == 'dropped')
-    dropped = queries.order_by_name(db, dropped)
+    groups_by_hidden = {}
+    for hidden in True, False:
+        def sort_key(item):
+            return item[0]['name']
+        groups_by_hidden[hidden] = sorted((
+            (grp, summarize_statuses(statuses, grp['packages'].values()))
+            for grp in data['groups'].values()
+            if grp['hidden'] == hidden
+        ), key=sort_key)
 
-    mispackaged = query.filter(tables.Package.status == 'mispackaged')
-    mispackaged = mispackaged.options(subqueryload('collection_packages'))
-    mispackaged = mispackaged.options(subqueryload('collection_packages.tracking_bugs'))
-    mispackaged = mispackaged.join(tables.CollectionPackage)
-    mispackaged = mispackaged.outerjoin(
-        tables.Link,
-        and_(tables.Link.type == 'bug',
-             tables.Link.collection_package_id == tables.CollectionPackage.id))
-    mispackaged = mispackaged.order_by(func.ifnull(tables.Link.last_update, '9999'))
-    mispackaged = queries.order_by_name(db, mispackaged)
-
-    blocked = query.filter(tables.Package.status == 'blocked')
-    blocked = blocked.options(subqueryload('run_time_requirements'))
-    blocked = queries.order_by_name(db, blocked)
-
-    ready = query.filter(tables.Package.status == 'idle')
-    ready = ready.options(subqueryload('run_time_requirers'))
-    ready = queries.order_by_name(db, ready)
-
-    # Naming policy tracking.
     naming_progress, _ = get_naming_policy_progress(db)
-
-    py3_only = list(py3_only)
-    legacy_leaf = list(legacy_leaf)
-    released = list(released)
-    ready = list(ready)
-    blocked = list(blocked)
-    mispackaged = list(mispackaged)
-    dropped = list(dropped)
-    random_mispackaged = random.choice(mispackaged)
-
-    # Check we account for all the packages
-    done_packages = (py3_only, legacy_leaf, released, dropped)
-    sum_by_status = sum(len(x) for x in (ready, blocked, mispackaged) + done_packages)
-    assert sum_by_status == total_pkg_count
-
-    the_score = sum(len(x) for x in done_packages) / total_pkg_count
-
-    # Nonbolocking set query
-    query = db.query(tables.Package)
-    query = query.outerjoin(tables.Package.collection_packages)
-    query = query.filter(tables.CollectionPackage.nonblocking)
-    nonblocking = set(query)
-
-    # Group query
-
-    query = db.query(tables.Group)
-    query = query.join(tables.Group.packages)
-    query = query.join(tables.Package.status_obj)
-    query = query.group_by(tables.Group.ident)
-    query = query.group_by(tables.Package.status)
-    query = query.order_by(tables.Status.order)
-    query = query.order_by(tables.Group.name)
-    query = query.add_columns(tables.Package.status,
-                              func.count(tables.Package.name))
-    groups = get_groups(db, query.filter(~tables.Group.hidden))
-    hidden_groups = get_groups(db, query.filter(tables.Group.hidden))
-
-    # Statuses with no. of packages
-    statuses = OrderedDict(
-        db.query(tables.Status, func.count(tables.Package.name))
-        .outerjoin(tables.Status.packages)
-        .group_by(tables.Status.ident)
-        .order_by(tables.Status.order))
 
     return render_template(
         'index.html',
@@ -116,20 +71,19 @@ def hello():
             (url_for('hello'), 'Python 3 Porting Database'),
         ),
         statuses=statuses,
-        priorities=list(db.query(tables.Priority).order_by(tables.Priority.order)),
-        total_pkg_count=total_pkg_count,
-        status_summary=get_status_summary(db),
-        ready_packages=ready,
-        blocked_packages=blocked,
-        py3_only_packages=py3_only,
-        legacy_leaf_packages=legacy_leaf,
-        released_packages=released,
-        dropped_packages=dropped,
-        mispackaged_packages=mispackaged,
-        random_mispackaged=random_mispackaged,
-        groups=groups,
-        hidden_groups=hidden_groups,
-        nonblocking=nonblocking,
+        total_pkg_count=len(packages),
+        status_summary=status_summary,
+        ready_packages=by_status.get('idle', ()),
+        blocked_packages=by_status.get('blocked', ()),
+        py3_only_packages=by_status.get('py3-only', ()),
+        legacy_leaf_packages=by_status.get('legacy-leaf', ()),
+        released_packages=by_status.get('released', ()),
+        dropped_packages=by_status.get('dropped', ()),
+        mispackaged_packages=sorted(
+            by_status.get('mispackaged', ()),
+            key=lambda p: (-bool(p['last_link_update']), p['last_link_update'])),
+        groups=groups_by_hidden[False],
+        hidden_groups=groups_by_hidden[True],
         the_score=the_score,
         naming_progress=naming_progress,
     )
@@ -145,28 +99,18 @@ def get_groups(db, query):
 
 
 def jsonstats():
-    db = current_app.config['DB']()
+    data = current_app.config['data']
 
-    query = queries.packages(db)
-    released = query.filter(tables.Package.status == 'released')
-    legacy_leaf = query.filter(tables.Package.status == 'legacy-leaf')
-    py3_only = query.filter(tables.Package.status == 'py3-only')
-    dropped = query.filter(tables.Package.status == 'dropped')
-    mispackaged = query.filter(tables.Package.status == 'mispackaged')
-    blocked = query.filter(tables.Package.status == 'blocked')
-    ready = query.filter(tables.Package.status == 'idle')
+    statuses = data['statuses']
+    packages = data['packages']
+    grouped = group_by_status(packages.values())
 
     stats = {
-        'released': released.count(),
-        'legacy_leaf': legacy_leaf.count(),
-        'py3-only': py3_only.count(),
-        'dropped': dropped.count(),
-        'mispackaged': mispackaged.count(),
-        'blocked': blocked.count(),
-        'idle': ready.count(),
+        status: len(packages)
+        for status, packages in grouped.items()
     }
 
-    return jsonify(**stats)
+    return jsonify(stats)
 
 
 def get_status_summary(db, filter=None):
@@ -187,38 +131,65 @@ def get_status_counts(pkgs):
     return ordered
 
 
+def generate_deptree(
+    package, *, keys=('deps', 'build_deps'),
+    skip_statuses=frozenset({'idle'} | DONE_STATUSES),
+    max_depth=3,
+):
+    seen = set()
+    def generate_subtree(pkg, depth):
+        run_names = set(pkg[keys[0]])
+        build_names = set(pkg[keys[1]])
+        packages = {
+            pkg['name']: pkg
+            for pkg in list(pkg[keys[0]].values()) + list(pkg[keys[1]].values())
+        }
+        children = sorted(
+            packages.values(),
+            key=status_sort_key,
+        )
+        for child in children:
+            kinds = set()
+            if child['name'] in run_names:
+                kinds.add('run')
+            if child['name'] in build_names:
+                kinds.add('build')
+
+            was_seen = (child['name'] in seen)
+            seen.add(child['name'])
+
+            if child['status'] in skip_statuses:
+                tree = ()
+            elif was_seen or depth >= max_depth:
+                tree = ()
+                kinds.add('elided')
+            else:
+                tree = list(generate_subtree(child, depth+1))
+
+            yield child, kinds, tree
+
+    return list(generate_subtree(package, 0))
+
+def generate_deptrees(
+    packages, skip_statuses=frozenset({'idle'} | DONE_STATUSES), **kwargs
+):
+    packages = sorted(packages, key=status_sort_key)
+    for pkg in packages:
+        if pkg['status'] in skip_statuses:
+            tree = ()
+        else:
+            tree = generate_deptree(pkg, skip_statuses=skip_statuses, **kwargs)
+        yield pkg, set(), tree
+
+
 def package(pkg):
-    db = current_app.config['DB']()
-    collections = list(queries.collections(db))
+    data = current_app.config['data']
+    statuses = data['statuses']
 
-    query = db.query(tables.Package)
-    query = query.options(eagerload('status_obj'))
-    query = query.options(subqueryload('collection_packages'))
-    query = query.options(subqueryload('collection_packages.links'))
-    query = query.options(eagerload('collection_packages.status_obj'))
-    query = query.options(subqueryload('collection_packages.rpms'))
-    query = query.options(eagerload('collection_packages.rpms.py_dependencies'))
-    package = query.get(pkg)
-    if package is None:
+    try:
+        package = data['packages'][pkg]
+    except KeyError:
         abort(404)
-
-    query = queries.dependencies(db, package)
-    query = query.options(eagerload('status_obj'))
-    query = query.options(subqueryload('collection_packages'))
-    query = query.options(subqueryload('collection_packages.links'))
-    query = query.options(eagerload('collection_packages.status_obj'))
-    dependencies = list(query)
-
-    dependents = list(queries.dependents(db, package))
-
-    query = queries.build_dependencies(db, package)
-    query = query.options(eagerload('status_obj'))
-    query = query.options(subqueryload('collection_packages'))
-    query = query.options(subqueryload('collection_packages.links'))
-    query = query.options(eagerload('collection_packages.status_obj'))
-    build_dependencies = list(query)
-
-    build_dependents = list(queries.build_dependents(db, package))
 
     return render_template(
         'package.html',
@@ -226,74 +197,51 @@ def package(pkg):
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('package', pkg=pkg), pkg),
         ),
-        collections=collections,
         pkg=package,
-        dependencies=dependencies,
-        dependents=dependents,
-        deptree=[(package, gen_deptree(dependencies))],
-        dependencies_status_counts=get_status_counts(dependencies),
-        build_dependencies=build_dependencies,
-        build_dependents=build_dependents,
-        build_deptree=[(package, gen_deptree(build_dependencies, run_time=False, build_time=True))],
-        build_dependencies_status_counts=get_status_counts(build_dependencies),
+        deptree=generate_deptree(package),
+        dependencies_status_counts=summarize_statuses(statuses, package['deps'].values()),
+        build_dependencies_status_counts=summarize_statuses(
+            statuses, package['build_deps'].values()),
+        dependent_tree=generate_deptree(
+            package,
+            keys=('dependents', 'build_dependents'),
+            skip_statuses=frozenset(('py3-only', 'dropped')),
+        ),
     )
 
 
 def group(grp):
-    db = current_app.config['DB']()
-    collections = list(queries.collections(db))
+    data = current_app.config['data']
 
-    group = db.query(tables.Group).get(grp)
-    if group is None:
+    try:
+        group = data['groups'][grp]
+    except KeyError:
         abort(404)
 
-    query = db.query(tables.Package)
-    query = query.join(tables.Package.group_packages)
-    query = query.join(tables.GroupPackage.group)
-    query = query.join(tables.Package.status_obj)
-    query = query.filter(tables.Group.ident == grp)
-    query = query.order_by(-tables.Status.weight)
-    query = queries.order_by_name(db, query)
-    query = query.options(subqueryload('collection_packages'))
-    query = query.options(subqueryload('collection_packages.links'))
-    packages = list(query)
-
-    query = query.filter(tables.GroupPackage.is_seed)
-    seed_groups = query
+    statuses = data['statuses']
+    status_summary = summarize_statuses(statuses, group['packages'].values())
 
     return render_template(
         'group.html',
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
-            (url_for('group', grp=grp), group.name),
+            (url_for('group', grp=grp), group['name']),
         ),
-        collections=collections,
         grp=group,
-        packages=packages,
-        len_packages=len(packages),
-        deptree=list(gen_deptree(seed_groups, run_time=True, build_time=True)),
-        status_counts=get_status_counts(packages),
+        deptree=generate_deptrees(group['seed_packages'].values()),
+        status_summary=status_summary,
     )
-
-
-def gen_deptree(base, *, seen=None, run_time=True, build_time=False):
-    seen = seen or set()
-    base = tuple(base)
-    for pkg in base:
-        if pkg in seen or pkg.status in {'idle'} | DONE_STATUSES:
-            yield pkg, []
-        else:
-            reqs = sorted(
-                set((pkg.run_time_requirements if run_time else []) +
-                    (pkg.build_time_requirements if build_time else [])),
-                key=lambda p: (-p.status_obj.weight, p.name))
-            yield pkg, gen_deptree(reqs, seen=seen | {pkg},
-                                   run_time=run_time, build_time=build_time)
-        seen.add(pkg)
 
 
 def markdown_filter(text):
     return Markup(markdown.markdown(text))
+
+
+def status_sort_key(package):
+    return -package['status_obj']['weight'], package['name']
+
+def sort_by_status(packages):
+    return sorted(packages, key=status_sort_key)
 
 
 def format_rpm_name(text):
@@ -354,10 +302,6 @@ def graph(grp=None, pkg=None):
 
 def graph_grp(grp):
     return graph(grp=grp)
-
-
-def graph_pkg(pkg):
-    return graph(pkg=pkg)
 
 
 def graph_json(grp=None, pkg=None):
@@ -450,10 +394,6 @@ def graph_json_grp(grp):
     return graph_json(grp=grp)
 
 
-def graph_json_pkg(pkg):
-    return graph_json(pkg=pkg)
-
-
 def graph_color(package):
     def component_color(c):
         c /= 255
@@ -481,65 +421,46 @@ def _piechart(status_summary, bg=None):
     return resp
 
 
-def piechart_svg():
-    db = current_app.config['DB']()
+def status_svg(status):
+    data = current_app.config['data']
+    try:
+        status = data['statuses'][status]
+    except KeyError:
+        abort(404)
 
-    return _piechart(get_status_summary(db))
+    return _piechart([], status)
+
+
+def piechart_svg():
+    data = current_app.config['data']
+    statuses = data['statuses']
+    packages = data['packages']
+
+    status_summary = summarize_statuses(statuses, packages.values())
+
+    return _piechart(status_summary)
 
 
 def piechart_grp(grp):
-    db = current_app.config['DB']()
+    data = current_app.config['data']
+    statuses = data['statuses']
 
-    group = db.query(tables.Group).get(grp)
-    if group is None:
+    try:
+        group = data['groups'][grp]
+    except KeyError:
         abort(404)
 
-    def filter(query):
-        query = query.join(tables.Package.group_packages)
-        query = query.join(tables.GroupPackage.group)
-        query = query.filter(tables.Group.ident == grp)
-        return query
+    status_summary = summarize_statuses(statuses, group['packages'].values())
 
-    return _piechart(get_status_summary(db, filter=filter))
-
-
-def piechart_pkg(pkg):
-    db = current_app.config['DB']()
-
-    package = db.query(tables.Package).get(pkg)
-    if package is None:
-        abort(404)
-
-    return _piechart([], package.status_obj)
+    return _piechart(status_summary)
 
 
 def howto():
-    db = current_app.config['DB']()
-    query = queries.packages(db)
+    data = current_app.config['data']
+    statuses = data['statuses']
+    packages = data['packages']
 
-    # Count the blocked packages
-    blocked_query = query.filter(tables.Package.status == 'blocked')
-    blocked_len = blocked_query.count()
-
-    # Get all the idle packages
-    idle_query = query.filter(tables.Package.status == 'idle')
-    idle = list(idle_query)
-    idle_len = len(idle)
-
-    # Get all the mispackaged packages
-    mispackaged_query = query.filter(tables.Package.status == 'mispackaged')
-    mispackaged = list(mispackaged_query)
-
-    # Pick an idle package at random
-    random_idle = random.choice(idle)
-
-    # Pick a mispackaged package at random
-    random_mispackaged = random.choice(mispackaged)
-
-    # Status objects
-    query = db.query(tables.Status)
-    mispackaged_status = query.get('mispackaged')
-    released_status = query.get('released')
+    by_status = group_by_status(packages.values())
 
     return render_template(
         'howto.html',
@@ -547,31 +468,22 @@ def howto():
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('howto'), 'So you want to contribute?'),
         ),
-        idle_len=idle_len,
-        blocked_len=blocked_len,
-        mispackaged=mispackaged,
-        random_idle=random_idle,
-        random_mispackaged=random_mispackaged,
-        mispackaged_status=mispackaged_status,
-        released_status=released_status,
+        idle_len=len(by_status['idle']),
+        blocked_len=len(by_status['blocked']),
+        mispackaged=len(by_status['mispackaged']),
+        by_status=by_status,
+        statuses=statuses,
+        random_mispackaged=random.choice(by_status['mispackaged']),
+        random_idle=random.choice(by_status['idle']),
     )
 
 
-def history():
-    db = current_app.config['DB']()
-    expand = request.args.get('expand', None)
-    if expand not in ('1', None):
-        abort(400)  # Bad request
-
-    query = db.query(tables.HistoryEntry)
-    query = query.filter(tables.HistoryEntry.date > '2015-10-10')
-
-    status_query = db.query(tables.Status)
-    status_query = status_query.order_by(tables.Status.order)
+def history(expand=False):
+    data = current_app.config['data']
 
     graph = history_graph(
-        query=query,
-        status_query=status_query,
+        entries=data['history'],
+        statuses=data['statuses'],
         title='portingdb history',
         expand=bool(expand),
     )
@@ -584,120 +496,6 @@ def history():
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('history'), 'History'),
         ),
-    )
-
-
-def group_by_loc(grp):
-    db = current_app.config['DB']()
-
-    group = db.query(tables.Group).get(grp)
-    if group is None:
-        abort(404)
-
-    query = queries.packages(db)
-    query = query.join(tables.Package.group_packages)
-    query = query.filter(tables.GroupPackage.group_ident == grp)
-
-    extra_breadcrumbs = (
-        (url_for('group_by_loc', grp=grp), group.name),
-    )
-
-    return by_loc(query=query, extra_breadcrumbs=extra_breadcrumbs,
-                  extra_args={'grp': group})
-
-
-def by_loc(query=None, extra_breadcrumbs=(), extra_args=None):
-    db = current_app.config['DB']()
-
-    sort_key = request.args.get('sort', None)
-    sort_reverse = request.args.get('reverse', None)
-    print(sort_key)
-    print(sort_reverse)
-    if sort_reverse is None:
-        def descending(p):
-            return p
-        def ascending(p):
-            return p.desc()
-    elif sort_reverse == '1':
-        def descending(p):
-            return p.desc()
-        def ascending(p):
-            return p
-    else:
-        abort(400)  # Bad request
-
-    if query is None:
-        query = queries.packages(db)
-
-    query = query.filter(tables.Package.status.in_(('idle', 'blocked')))
-    saved = query
-    query = query.filter(tables.Package.loc_total)
-    if sort_key == 'name':
-        query = query.order_by(ascending(func.lower(tables.Package.name)))
-    elif sort_key == 'loc':
-        query = query.order_by(descending(tables.Package.loc_total))
-    elif sort_key == 'python':
-        query = query.order_by(descending(tables.Package.loc_python))
-    elif sort_key == 'capi':
-        query = query.order_by(descending(tables.Package.loc_capi))
-    elif sort_key == 'py-percent':
-        query = query.order_by(descending((0.1+tables.Package.loc_python)/tables.Package.loc_total))
-    elif sort_key == 'capi-percent':
-        query = query.order_by(descending((0.1+tables.Package.loc_capi)/tables.Package.loc_total))
-    elif sort_key == 'py-small':
-        query = query.order_by(ascending(
-            tables.Package.loc_total - tables.Package.loc_python/1.5))
-    elif sort_key == 'capi-small':
-        query = query.order_by(descending(tables.Package.loc_capi>0))
-        query = query.order_by(ascending(
-            tables.Package.loc_total -
-            tables.Package.loc_capi/1.5 +
-            tables.Package.loc_python/9.9))
-    elif sort_key == 'py-big':
-        query = query.order_by(descending(
-            tables.Package.loc_python * tables.Package.loc_python /
-            (1.0+tables.Package.loc_total-tables.Package.loc_python)))
-    elif sort_key == 'capi-big':
-        query = query.order_by(descending(
-            tables.Package.loc_capi * tables.Package.loc_capi /
-            (1.0+tables.Package.loc_total-tables.Package.loc_capi)))
-    elif sort_key == 'no-py':
-        query = query.order_by(ascending(
-            (tables.Package.loc_python + tables.Package.loc_capi + 0.0) /
-            tables.Package.loc_total))
-    elif sort_key is None:
-        query = query.order_by(descending(tables.Package.loc_python +
-                                          tables.Package.loc_capi))
-    else:
-        abort(400)  # Bad request
-    query = query.order_by(tables.Package.loc_total)
-    query = query.order_by(func.lower(tables.Package.name))
-
-    packages = list(query)
-
-    by_name = saved.order_by(func.lower(tables.Package.name))
-
-    query = by_name.filter(tables.Package.loc_total == None)
-    missing_packages = list(query)
-
-    query = by_name.filter(tables.Package.loc_total == 0)
-    no_code_packages = list(query)
-
-    if extra_args is None:
-        extra_args = {}
-
-    return render_template(
-        'by_loc.html',
-        breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
-            (url_for('by_loc'), 'Packages by Code Stats'),
-        ) + extra_breadcrumbs,
-        packages=packages,
-        sort_key=sort_key,
-        sort_reverse=sort_reverse,
-        missing_packages=missing_packages,
-        no_code_packages=no_code_packages,
-        grp=extra_args.get('grp')
     )
 
 
@@ -836,13 +634,11 @@ def piechart_namingpolicy():
 
 
 def history_naming():
-    db = current_app.config['DB']()
-    query = db.query(tables.HistoryNamingEntry)
-    status_query = db.query(tables.NamingData)
+    data = current_app.config['data']
 
     graph = history_graph(
-        query=query,
-        status_query=status_query,
+        entries=data['history-naming'],
+        statuses=data['naming'],
         title='portingdb naming history',
         show_percent=False,
     )
@@ -856,24 +652,6 @@ def history_naming():
             (url_for('history'), 'History'),
         )
     )
-
-
-def history_naming_csv():
-    db = current_app.config['DB']()
-
-    query = db.query(tables.HistoryNamingEntry)
-    query = query.order_by(tables.HistoryNamingEntry.date)
-    sio = io.StringIO()
-    writer = csv.DictWriter(sio, ['commit', 'date', 'status', 'num_packages'])
-    writer.writeheader()
-    for row in query:
-        writer.writerow({
-            'commit': row.commit,
-            'date': row.date,
-            'status': row.status,
-            'num_packages': row.num_packages,
-        })
-    return Response(sio.getvalue(), mimetype='text/csv')
 
 
 def format_quantity(num):
@@ -910,22 +688,21 @@ def format_percent(num):
     return str(num) + '%'
 
 
-def create_app(db_url, cache_config=None):
-    if cache_config is None:
-        cache_config = {'backend': 'dogpile.cache.null'}
-    cache = make_region().configure(**cache_config)
+def create_app(db_url, directories, cache_config=None):
     app = Flask(__name__)
     app.config['DB'] = sessionmaker(bind=create_engine(db_url))
     db = app.config['DB']()
-    app.config['Cache'] = cache
-    app.config['CONFIG'] = {c.key: json.loads(c.value)
-                            for c in db.query(tables.Config)}
+    app.config['data'] = data = get_data('data/')
+    app.config['CONFIG'] = data['config']
     app.jinja_env.undefined = StrictUndefined
     app.jinja_env.filters['md'] = markdown_filter
     app.jinja_env.filters['format_rpm_name'] = format_rpm_name
     app.jinja_env.filters['format_quantity'] = format_quantity
     app.jinja_env.filters['format_percent'] = format_percent
     app.jinja_env.filters['format_time_ago'] = format_time_ago
+    app.jinja_env.filters['sort_by_status'] = sort_by_status
+    app.jinja_env.filters['summarize_statuses'] = (
+        lambda p: summarize_statuses(data['statuses'], p))
 
     @app.context_processor
     def add_template_globals():
@@ -936,44 +713,31 @@ def create_app(db_url, cache_config=None):
             'config': app.config['CONFIG'],
         }
 
-    def _add_route(url, func, get_keys=()):
-        @functools.wraps(func)
-        def decorated(*args, **kwargs):
-            creator = functools.partial(func, *args, **kwargs)
-            key_dict = {'url': url,
-                        'args': args,
-                        'kwargs': kwargs,
-                        'get': {k: request.args.get(k) for k in get_keys}}
-            key = json.dumps(key_dict, sort_keys=True)
-            print(key)
-            return cache.get_or_create(key, creator)
-        app.route(url)(decorated)
+    def _add_route(url, func, **kwargs):
+        app.route(url, **kwargs)(func)
 
     _add_route("/", hello)
     _add_route("/stats.json", jsonstats)
     _add_route("/pkg/<pkg>/", package)
     _add_route("/grp/<grp>/", group)
-    _add_route("/graph/", graph, get_keys={'all_deps'})
-    _add_route("/graph/portingdb.json", graph_json, get_keys={'all_deps'})
+    _add_route("/graph/", graph)
+    _add_route("/graph/portingdb.json", graph_json)
     _add_route("/piechart.svg", piechart_svg)
+    _add_route("/status/<status>.svg", status_svg)
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
-    _add_route("/pkg/<pkg>/piechart.svg", piechart_pkg)
-    _add_route("/grp/<grp>/graph/", graph_grp, get_keys={'all_deps'})
-    _add_route("/grp/<grp>/graph/data.json", graph_json_grp, get_keys={'all_deps'})
-    _add_route("/pkg/<pkg>/graph/", graph_pkg, get_keys={'all_deps'})
-    _add_route("/pkg/<pkg>/graph/data.json", graph_json_pkg, get_keys={'all_deps'})
-    _add_route("/by_loc/", by_loc, get_keys={'sort', 'reverse'})
-    _add_route("/by_loc/grp/<grp>/", group_by_loc, get_keys={'sort', 'reverse'})
-    _add_route("/mispackaged/", mispackaged, get_keys={'requested'})
+    _add_route("/grp/<grp>/graph/", graph_grp)
+    _add_route("/grp/<grp>/graph/data.json", graph_json_grp)
+    _add_route("/mispackaged/", mispackaged)
     _add_route("/namingpolicy/", namingpolicy)
     _add_route("/namingpolicy/piechart.svg", piechart_namingpolicy)
     _add_route("/namingpolicy/history/", history_naming)
-    _add_route("/history/", history, get_keys={'expand'})
+    _add_route("/history/", history, defaults={'expand': False})
+    _add_route("/history/expanded/", history, defaults={'expand': True})
     _add_route("/howto/", howto)
 
     return app
 
 
-def main(db_url, cache_config=None, debug=False, port=5000):
-    app = create_app(db_url, cache_config=cache_config)
+def main(db_url, directories, cache_config=None, debug=False, port=5000):
+    app = create_app(db_url, directories)
     app.run(debug=debug, port=port)

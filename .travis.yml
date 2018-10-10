@@ -1,0 +1,17 @@
+language: python
+python:
+    - '3.6'
+install:
+    - 'pip install . elsa'
+before_script:
+    - 'python -m portingdb --datadir data/ load'
+    - 'python -m portingdb status'
+script:
+    - 'python elsasite.py freeze -v'
+deploy:
+    provider: script
+    skip_cleanup: true
+    script: 'python elsasite.py deploy --no-freeze --push'
+    on:
+        branch: master
+        repo: fedora-python/portingdb

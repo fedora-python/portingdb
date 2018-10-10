@@ -200,6 +200,7 @@ def report(ctx):
 def serve(ctx, debug, cache, port):
     """Serve HTML reports via a HTTP server"""
     db_url = ctx.obj['db_url']
+    datadirs = ctx.obj['datadirs']
     from . import htmlreport
 
     if cache is None:
@@ -208,6 +209,7 @@ def serve(ctx, debug, cache, port):
         cache_config = json.loads(cache)
 
     htmlreport.main(db_url=db_url, debug=debug, cache_config=cache_config,
+                    directories=datadirs,
                     port=port)
 
 

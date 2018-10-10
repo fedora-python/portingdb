@@ -3,8 +3,34 @@
 {% block titlecontent %}{{pkg.name }} – {{ super() }} {% endblock titlecontent %}
 
 {% block favicon_url -%}
-    {{ url_for('piechart_pkg', pkg=pkg.name) }}?{{ cache_tag }}
+    {{ url_for('status_svg', status=pkg.status) }}?{{ cache_tag }}
 {%- endblock favicon_url %}
+
+{% macro related_packages(runtime, buildtime, tree) %}
+    (Python packages only)
+    <h4>Run time <i class="fa fa-rocket"></i></h4>
+    {% if runtime %}
+        {{ progress_legend(runtime.values()) }}
+        <table class="table table-striped table-condensed table-hovered">
+            {{ pkglist_table_content(runtime.values(), show_nonblocking=1) }}
+        </table>
+    {% else %}
+        None.
+    {% endif %}
+    <h4>Build time <i class="fa fa-wrench"></i></h4>
+    {% if buildtime %}
+        {{ progress_legend(buildtime.values()) }}
+        <table class="table table-striped table-condensed table-hovered">
+            {{ pkglist_table_content(buildtime.values(), show_nonblocking=1) }}
+        </table>
+    {% else %}
+        None.
+    {% endif %}
+    {% if tree %}
+        <h3>Dependency Tree</h3>
+        {{ print_deptree(tree) }}
+    {% endif %}
+{% endmacro %}
 
 {% block bodycontent %}
     <div class="container">
@@ -24,33 +50,22 @@
             </div>
         </div>
         <div class="col-md-3">
-            {% for col in collections %}
-                {% set pc = pkg.by_collection.get(col.ident) %}
+                {% set pc = pkg %}
                 {% if pc %}
-                    <h3>
-                        {{ col.name }}
-                        <small style="float: right">
-                            {{ badge(pc.status_obj) }}
-                            <!--{{ badge(pc.priority_obj) }}-->
-                        </small>
-                    </h3>
-                    {% if pc.note %}
+                    {% if 'note' in pc %}
                         <div>
+                            <h3>Note</h3>
                             {{ pc.note | md }}
-                        </div>
-                    {% else %}
-                        <div class="note">
-                            {{ col.status_description(pc.status_obj) | md }}
                         </div>
                     {% endif %}
                     {% if pc.rpms %}
                         <div>
-                            <strong>RPMs</strong>
+                            <h3>RPMs</h3>
                             <ul class="rpm-list">
-                            {% for rpm in pc.rpms %}
+                            {% for rpm_name, rpm in pc.rpms.items() %}
                                 <li>
-                                    {{ rpm.rpm_name | format_rpm_name }}
-                                    {% if rpm.is_misnamed %}
+                                    {{ rpm_name | format_rpm_name }}
+                                    {% if rpm.get('is_misnamed') %}
                                     <span class="badge"
                                           style="background-color: #F0AD4E !important;"
                                           title="The RPM name does not comply with Python package naming guidelines"
@@ -63,17 +78,17 @@
                                     ><i class="fa fa-leaf"></i></span>
                                     {% endif %}
                                     <ul class="fa-ul">
-                                        {% for pydep in rpm.py_dependencies %}
+                                        {% for pydep, ver in rpm.get('py_deps', {}).items() %}
                                             <li>
-                                                {% if pydep.py_version == 3 %}
+                                                {% if ver == 3 %}
                                                     <span class="fa fa-li">✔</span>
-                                                {% elif pydep.py_version == 2 %}
+                                                {% elif ver == 2 %}
                                                     <span class="fa fa-li">×</span>
                                                 {% else %}
                                                     <span class="fa fa-li"> </span>
                                                 {% endif %}
-                                                {{ pydep.name }}
-                                                {% if pydep.name == '/usr/bin/python' %}
+                                                {{ pydep }}
+                                                {% if pydep == '/usr/bin/python' %}
                                                     <span class="badge"
                                                         style="background-color: #F0AD4E !important;"
                                                         title="Scripts should explicitly use /usr/bin/python3 or /usr/bin/python2, especially in shebangs"
@@ -87,11 +102,11 @@
                             </ul>
                         </div>
                     {% endif %}
-                    {% if pc.links %}
+                    {% if pc.get('links') %}
                         <div>
-                            <strong>Links</strong>
+                            <h3>Links</h3>
                             <ul class="pkg-link-list fa-ul">
-                                {% for link in pc.links %}
+                                {% for link in pc.get('links', ()) %}
                                     <li>
                                         <i class="fa-li {{ iconlink_class(link) }}"></i>
                                         {{ link.type }}:
@@ -107,82 +122,16 @@
                                                 {{ link.last_update | format_time_ago }}
                                             </time>
                                         {% endif %}
-                                        {% if col.ident == 'fedora' and
-                                              link.type == 'bug' and
-                                                "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
-                                                in pkg.list_tracking_bugs %}
-                                            <br/>
-                                            <b>Patch requested by maintainer</b>
-                                        {% endif %}
                                     </li>
                                 {% endfor %}
                             </ul>
                         </div>
                     {% endif %}
                 {% endif %}
-            {% endfor %}
-            <h3>Dependent packages</h3>
-            <h4>Run time</h4>
-            {% if dependents %}
-                <ul class="simple-pkg-list">
-                    {% for pkg in dependents %}
-                        <li>{{ pkglink(pkg) }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                None.
-            {% endif %}
-            <h4>Build time</h4>
-            {% if build_dependents %}
-                <ul class="simple-pkg-list">
-                    {% for pkg in build_dependents %}
-                        <li>{{ pkglink(pkg) }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                None.
-            {% endif %}
-            <h3>Dependency Tree</h3>
-            <h4>Run time</h4>
-            {{ print_deptree(deptree) }}
-            <h4>Build time</h4>
-            {{ print_deptree(build_deptree) }}
-            {% if pkg['loc_total'] %}
-                <h3>Project Size</h3>
-                {{ loc_chart(pkg) }}
-                <div>
-                    <span class="minibadge"></span>
-                    ~{{ pkg['loc_total'] | format_quantity }}
-                    total lines of code
-                </div>
-                <div>
-                    <span class="minibadge"
-                        style="background-color: #5BC0DE !important;"
-                    >
-                    </span>
-                    ~{{ pkg['loc_python'] | format_quantity }}
-                    ({{ (pkg['loc_python'] / pkg['loc_total']) | format_percent }})
-                    Python
-                </div>
-                {% if pkg['loc_capi'] %}
-                    <div>
-                        <span class="minibadge"
-                            style="background-color: #F0AD4E !important;"
-                        >
-                        </span>
-                        ~{{ pkg['loc_capi'] | format_quantity }}
-                        ({{ (pkg['loc_capi'] / pkg['loc_total']) | format_percent }})
-                        C/C++ w/ CPython API
-                    </div>
-                {% endif %}
-                <div>
-                    (approximation as of {{ pkg['loc_version'] }})
-                </div>
-            {% endif %}
-            {% if pkg.groups %}
+            {% if pkg['groups'] %}
                 <h3>Groups</h3>
                 <ul>
-                    {% for grp in pkg.groups | sort(attribute='name') %}
+                    {% for grp in pkg.groups.values() | sort(attribute='name') %}
                         <li>
                             <a href="{{ url_for('group', grp=grp.ident) }}">
                                 {{ grp.name }}
@@ -192,27 +141,21 @@
                 </ul>
             {% endif %}
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
+        <div class="col-md-4 related-packages">
             <h2>Dependencies</h2>
-            <h4>Run time</h4>
-            {{ progress_summary_legend(dependencies_status_counts.items()) }}
-            {% if dependencies %}
-                <table class="table table-striped table-condensed table-hovered">
-                    {{ pkglist_table_content(dependencies, collections, show_nonblocking=1) }}
-                </table>
-            {% else %}
-                None.
-            {% endif %}
-            <h4>Build time</h4>
-            {{ progress_summary_legend(build_dependencies_status_counts.items()) }}
-            {% if build_dependencies %}
-                <table class="table table-striped table-condensed table-hovered">
-                    {{ pkglist_table_content(build_dependencies, collections, show_nonblocking=1) }}
-                </table>
-            {% else %}
-                None.
-            {% endif %}
+            {{ related_packages(
+                pkg['deps'],
+                pkg['build_deps'],
+                deptree,
+            ) }}
+        </div>
+        <div class="col-md-4 related-packages">
+            <h2>Dependents</h2>
+            {{ related_packages(
+                pkg['dependents'],
+                pkg['build_dependents'],
+                dependent_tree,
+            ) }}
         </div>
     </div>
 {% endblock bodycontent %}
