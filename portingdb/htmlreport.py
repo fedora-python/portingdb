@@ -40,6 +40,13 @@ def summarize_statuses(statuses, package_list):
     ]
 
 
+def last_link_update_sort_key(package):
+    return (
+        -bool(package['last_link_update']),
+        package['last_link_update'],
+    )
+
+
 def hello():
     db = current_app.config['DB']()
     data = current_app.config['data']
@@ -81,7 +88,7 @@ def hello():
         dropped_packages=by_status.get('dropped', ()),
         mispackaged_packages=sorted(
             by_status.get('mispackaged', ()),
-            key=lambda p: (-bool(p['last_link_update']), p['last_link_update'])),
+            key=last_link_update_sort_key),
         groups=groups_by_hidden[False],
         hidden_groups=groups_by_hidden[True],
         the_score=the_score,
@@ -500,48 +507,20 @@ def history(expand=False):
 
 
 def mispackaged():
-    # Parameters
-    requested = request.args.get('requested', None)
-    if requested not in ('1', None):
-        abort(400)  # Bad request
+    # List of mispackaged packages. This page is not very useful any more,
+    # but left for URL stability.
+    data = current_app.config['data']
 
-    db = current_app.config['DB']()
-    query = db.query(tables.Package)
-    query = query.filter(tables.Package.status == 'mispackaged')
-    query = query.join(tables.CollectionPackage)
-    query = query.filter(
-            tables.CollectionPackage.collection_ident == 'fedora')
+    mispackaged = [p for p in data['packages'].values()
+                   if p['status'] == 'mispackaged']
+    mispackaged.sort(key=last_link_update_sort_key)
 
-    # Do an outer join with Links, but ONLY with rows of type 'bug' so that if
-    #   a package has only e.g. a 'repo' link, it won't affect the results.
-    query = query.outerjoin(tables.Link, and_(tables.Link.type == 'bug',
-            tables.Link.collection_package_id == tables.CollectionPackage.id))
-
-    # If appropriate: Filter only to packages where maintainer requested a patch
-    if requested:
-        query = query.join(tables.TrackingBug)
-        query = query.filter(tables.TrackingBug.url ==
-                             "https://bugzilla.redhat.com/show_bug.cgi?id=1333765")
-
-    # Order by the last_update field, and if it's null, substitute it with the
-    # year 9999 so it's very last. (Note: sqlite does not support NULLS LAST)
-    query = query.order_by(func.ifnull(tables.Link.last_update, '9999'))
-
-    # Speedup: Prevent starting subqueries for each package.
-    query = query.options(subqueryload('collection_packages'))
-    query = query.options(subqueryload('collection_packages.links'))
-    query = query.options(subqueryload('collection_packages.tracking_bugs'))
-
-    mispackaged = list(query)
-
-    # Render the page, pass the data
     return render_template(
         'mispackaged.html',
         breadcrumbs=(
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('mispackaged', requested=1), 'Mispackaged'),
         ),
-        requested=bool(requested),
         mispackaged=mispackaged,
     )
 

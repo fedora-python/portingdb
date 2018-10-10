@@ -9,16 +9,9 @@
 <div class="container">
     <div class="col-md-12">
         <h1>Mispackaged</h1>
-        {% if requested %}
-            <p>
-                Mispackaged packages for which the maintainer requested a patch.
-                Ordered by last activity.
-            </p>
-        {% else %}
             <p>
                 All mispackaged packages, ordered by last activity.
             </p>
-        {% endif %}
 
         {% if not mispackaged %}
         <p>
@@ -36,11 +29,6 @@
             <tr>
                 <td>
                     {{ pkglink(pkg) }}
-                    {% if not requested and
-                            "https://bugzilla.redhat.com/show_bug.cgi?id=1333765"
-                            in pkg.list_tracking_bugs %}
-                       (patch requested by maintainer)
-                    {% endif %}
                 </td>
                 <td>
                     {% if pkg.last_link_update %}
