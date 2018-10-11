@@ -50,7 +50,7 @@ def history_graph(entries, statuses, title='History',
             hoverinfo=[],
             mode='lines',
             line=dict(width=0.5,
-                      color='#' + status_colors.get(ident, 'F0AD4E')),
+                      color='#' + status_colors.get(ident, 'F08440')),
             fill='tonexty',
         )
         for ident in status_idents]
