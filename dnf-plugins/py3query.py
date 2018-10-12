@@ -244,6 +244,21 @@ class Py3QueryCommand(dnf.cli.Command):
                     python_versions[pkg].add(n)
                     rpm_pydeps[pkg].add(str(dep))
 
+        # Add packages with 'python?' as a component of their name, if they
+        # haven't been added as dependencies
+        for name, version in {
+            'python': 0,
+            'python2': 2,
+            'python3': 3,
+        }.items():
+            for pattern in '{}-*', '*-{}', '*-{}-*':
+                name_glob = pattern.format(name)
+                query = self.pkg_query.filter(name__glob=name_glob)
+                message = 'Getting {} packages'.format(name_glob)
+                for pkg in progressbar(query, message):
+                    if pkg not in python_versions:
+                        python_versions[pkg].add(version)
+
         # srpm_names: {package: srpm name}
         # by_srpm_name: {srpm name: set of packages}
         srpm_names = {}
