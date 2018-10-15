@@ -226,6 +226,8 @@ def handle_entrypoints(result, config):
                          'sphinx_themes', # we only keep non leafs
                          'sphinx.html_themes',
                          'tw2.widgets', # plugins for a framework, not app
+                         'gearbox.project_commands',
+                         'gearbox.commands',
                         ) or section.startswith((
                          'turbogears.',  # plugins for a framework, not app
                         )):
