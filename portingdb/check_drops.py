@@ -230,6 +230,7 @@ def handle_entrypoints(result, config):
                          'gearbox.commands',
                         ) or section.startswith((
                          'turbogears.',  # plugins for a framework, not app
+                         'tgcaptcha2.',  # self contained
                         )):
             # Decided to be useless and/or self contained
             pass
