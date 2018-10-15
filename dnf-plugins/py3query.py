@@ -256,6 +256,9 @@ class Py3QueryCommand(dnf.cli.Command):
                 query = self.pkg_query.filter(name__glob=name_glob)
                 message = 'Getting {} packages'.format(name_glob)
                 for pkg in progressbar(query, message):
+                    if pkg.sourcerpm.startswith('mingw-'):
+                        # Ignore mingw packages
+                        continue
                     if pkg not in python_versions:
                         python_versions[pkg].add(version)
 
