@@ -95,7 +95,7 @@ def handle_filename(result, filename):
         result['notes'].add('Docs/Licences')
     elif filename.startswith((
         '/usr/share/locale/',
-    )) or '/LC_MESSAGES/' in filename:
+    )) or '/LC_MESSAGES/' in filename or filename.endswith('.qm'):
         # Locales; doesn't block dropping
         result['notes'].add('Locales')
     elif filename.startswith((
@@ -230,9 +230,23 @@ def handle_entrypoints(result, config):
                          'gearbox.project_commands',
                          'gearbox.commands',
                          'openstack.data_processing.v1',
+                         'openstack.baremetal_introspection.v1',
+                         'openstack.container_infra.v1',
+                         'openstack.load_balancer.v2',
+                         'oslo.config',
+                         'honcho_exporters',  # self contained
+                         'keystoneauth1.plugin',  # self contained
+                         'keystoneclient.plugin',  # self contained
                         ) or section.startswith((
                          'turbogears.',  # plugins for a framework, not app
                          'tgcaptcha2.',  # self contained
+                         'hghooks.',  # self contained
+                         'jjb.cli.',  # self contained
+                         'marrow.mailer.',  # self contained
+                         'oslo.middleware.',  # self contained
+                         'oslo.config.',  # self contained
+                         'pybtex.',  # self contained
+                         'pyface.',  # self contained
                         )):
             # Decided to be useless and/or self contained
             pass
