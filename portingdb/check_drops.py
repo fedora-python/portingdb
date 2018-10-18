@@ -19,6 +19,7 @@ some result files.
 
 from pathlib import Path
 import xml.sax
+import os
 import gzip
 import sys
 import time
@@ -418,12 +419,21 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
         shutil.rmtree(rpm_dl_path)
     rpm_dl_path.mkdir(exist_ok=True)
 
-    subprocess.run(
-        ['dnf', 'download', '--repo=rawhide', '--',
-         *entrypoint_packages],
-        cwd=rpm_dl_path,
-        stdout=sys.stderr,
-        check=True)
+    while entrypoint_packages:
+        cp = subprocess.run(
+            ['dnf', 'download', '--repo=rawhide', '--',
+             *entrypoint_packages],
+            cwd=rpm_dl_path,
+            stdout=sys.stderr,
+            stderr=subprocess.PIPE,
+            universal_newlines=True,
+            env={**os.environ, 'LANG': 'C.utf-8'})
+        if cp.returncode == 0:
+            break
+        log(cp.stderr, end='')
+        # Error: No package python2-foo available.
+        package = cp.stderr.splitlines()[-1].split(' ')[-2]
+        entrypoint_packages.remove(package)
 
     # Analyze entrypoints from downloaded RPMs
 
