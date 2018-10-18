@@ -229,6 +229,7 @@ def handle_entrypoints(result, config):
                          'tw2.widgets', # plugins for a framework, not app
                          'gearbox.project_commands',
                          'gearbox.commands',
+                         'openstack.data_processing.v1',
                         ) or section.startswith((
                          'turbogears.',  # plugins for a framework, not app
                          'tgcaptcha2.',  # self contained
