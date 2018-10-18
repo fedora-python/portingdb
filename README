@@ -1,19 +1,31 @@
 A database of packages that need porting to Python 3, and tools to manage it.
 
+This software is a mess. It was created for one purpose and was expected to not be needed soon.
+Meanwhile, hacks are piling on.
+
+# Deployed report
+
+A HTML report is located at:
+
+    http://fedora.portingdb.xyz/
+
+Unless you want to refresh data there, or run additional reports, you can just look at that.
 
 # Installation
 
-This software is still in the initial phases of development, so it is not
-yet packaged. Install it directly from Git working directory:
+This software is not released.
+To install it, first set up a
+[Python virtual environment](https://developer.fedoraproject.org/tech/languages/python/python-installation.html).
+Then run directly from Git working directory:
 
-    $ python3 -m pip install --user -e.
+    (venv) $ python -m pip install -r requirements.txt
 
 
 # Usage
 
 First, you will need to load a database.
 
-    $ python3 -m portingdb --datadir data/ load
+    (venv) $ python -m portingdb --datadir data/ load
 
 This will create a `portingdb.sqlite` file in the current directory.
 Currently, the database needs re-loaded every time the data changes.
@@ -22,11 +34,12 @@ before re-loading data.)
 
 To check the database, do:
 
-    $ python3 -m portingdb status
+    (venv) $ python -m portingdb status
 
 To start a HTML report server, start:
 
-    $ python3 -m portingdb serve
+    (venv) $ export PYTHONPATH=.
+    (venv) $ python -m portingdb serve
 
 # Check drops
 
@@ -35,33 +48,23 @@ during the [Mass Python 2 Package Removal](https://fedoraproject.org/wiki/Change
 
 Run it with:
 
-    $ python3 -m portingdb check-drops
+    (venv) $ python -m portingdb --datadir data/ check-drops
 
 See the docstring of [portingdb/check_drops.py](./portingdb/check_drops.py)
 for more info.
 
-# Sample
+# Freezing
 
-A sample HTML report server is located at:
+   A static website with the HTML repot can be build by:
 
-    http://fedora.portingdb.xyz/
+    (venv) $ export PYTHONPATH=.
+    (venv) $ python elsasite.py freeze
 
-# Deployment
-
-Configuration for OpenShift deployment is included in the repository.
-As configured, the app will need a Redis server for caching, which can be
-added using:
-    $ rhc cartridge add "http://cartreflect-claytondev.rhcloud.com/reflect?github=smarterclayton/openshift-redis-cart"
-Otherwise it's a standard OpenShift app.
-Hot deployment is configured, so the app will continue working while
-being deployed. But if the database schema changes between
-deployments, the DB file needs to be removed before deploy.
-
+   You can add `--serve` for he `freeze` command to immediately inspect the result.
 
 # Contribute
 
-Contributing guide of sorts: http://synfo.github.io/2015/10/14/Python3-Porting-Database/
-
+- A guide for updating the data is [in `docs/`](./docs/update_portingdb.rst).
 - Issue Tracker: https://github.com/fedora-python/portingdb/issues
 - Source Code: https://github.com/fedora-python/portingdb
 
@@ -69,3 +72,4 @@ Contributing guide of sorts: http://synfo.github.io/2015/10/14/Python3-Porting-D
 # License
 
 This code is under the MIT license. May it serve you well.
+

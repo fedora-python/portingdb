@@ -6,117 +6,89 @@ Setup (to be run just once and if needed)
 
 To use the portingdb update scripts, you will need to install and configure the following:
 
-#. Ensure that you run Fedora 26 or higher. The DNF plugin requires DNF-2 released in F26, due to incompatible CLI changes in API methods.
+#. Ensure that you run Fedora 28 or higher.
+
+# Install system-wide dependencies::
+
+    $ sudo dnf install python3-bugzilla python3-libarchive-c
+    $ /usr/bin/python3 -m pip install --user taskotron-python-versions
+
+   Note that you cannot use Python virtual environments for this.
 
 #. Put ``py3query.py`` in DNF plugin directory::
     
-    sudo cp dnf-plugins/py3query.py /usr/lib/pythonX.X/site-packages/dnf-plugins/
+    $ sudo cp dnf-plugins/py3query.py /usr/lib/pythonX.Y/site-packages/dnf-plugins/
 
-   Note: replace ``pythonX.X`` with the Python version of your system.
+   Note: replace ``pythonX.Y`` with the Python version of your system.
 
 #. Install the rawhide repo definitions::
     
-    sudo dnf install fedora-repos-rawhide
+    $ sudo dnf install fedora-repos-rawhide
 
-#. Install ``python3-blessings`` which is an additional dependency for ``scripts/get-history.py``::
+#. Install requirements into your virtualenv::
 
-    sudo dnf install python3-blessings
+    (venv) $ pip install -r requirements.txt
 
 Update and load data
 ********************
 
 The following steps are needed to update pordingdb data. You can run them all with a single command ``./scripts/update_portingdb.sh``:
 
+#. Checkout a feature branch if that's your way of doing git changes::
+    
+    $ git checkout -b update-fedora-data-...
+
 #. Get the Python 3 porting status using ``py3query`` dnf plugin. Use ``-o`` option to write the output directly to ``fedora.json``::
 
-    dnf-3 --disablerepo='*' --enablerepo=rawhide --enablerepo=rawhide-source py3query --refresh -o data/fedora.json
+    $ dnf-3 --disablerepo='*' --enablerepo=rawhide --enablerepo=rawhide-source py3query --refresh --installroot=/tmp/empty-install-root -o data/fedora.json
 
-#. Get historical status data and update ``history.csv``::
+#. Compare statuses of packages in the new JSON file::
 
-    python3 -u scripts/get-history.py --update data/history.csv | tee history.csv
-    mv history.csv data/history.csv
+    (venv) $ python scripts/jsondiff.py <(git show HEAD:data/fedora.json) data/fedora.json
 
-#. Get historical status for *Naming Policy* page and update ``history-naming.csv``::
+#. If you're satisfied, commit the above. You can use the commit message from jsondiff:
 
-    python3 -u scripts/get-history.py -n --update data/history-naming.csv | tee history-naming.csv
-    mv history-naming.csv data/history-naming.csv
+    (venv) $ git commit -a -m"$(python scripts/jsondiff.py <(git show HEAD:data/fedora.json) data/fedora.json)"
+
+#. Get historical status and naming policy data and update ``history.csv`` and ``history-naming.csv``::
+
+    (venv) $ python -u scripts/get-history.py --update data/history.csv | tee history.csv && mv history.csv data/history.csv
+    (venv) $ python -u scripts/get-history.py -n --update data/history-naming.csv | tee history-naming.csv && mv history-naming.csv data/history-naming.csv
 
 #. Load the newly generated data into the database::
 
-    python3 -m portingdb -v --datadir=data/ load
+    (venv) $ python -m portingdb -v --datadir=data/ load
 
-   You might also view the data using the following command::
+#. You can check how portingdb looks with the new data:
 
-    sqlitebrowser portingdb.sqlite
+    (venv) $ export PYTHONPATH=.
+    (venv) $ python -m portingdb -v --datadir=data/ serve --debug
 
-#. Compare statuses of packages across two JSON files::
+#. At this point, take a closer look at the jsondiff (the last commit message):
 
-    python3 scripts/jsondiff.py <(git show HEAD:data/fedora.json) data/fedora.json
+    (venv) $ git show
 
-   At this point, make sure to take a closer look at the output of the command and for each change of package state find the appropriate actions in `Package state changes`_. You will have to do it manually or try to automate it :) The output of the command can be used as a base for the PR description or commit message.
+   For "idle -> released" and "mispackaged -> released", award badges: add new entries to `data/badges.txt`.
 
-#. Commit changes, push to a fork and create a PR::
+   Find responsible people at https://src.fedoraproject.org/rpms/python-FOO/commits/master
 
-    git commit -avm 'Update Fedora data'
+#. Commit changes::
 
-Package state changes
-*********************
+    (venv) $ git commit -am 'Update history and badges'
 
-idle -> mispackaged
-    A bug was opened:
+#. Push to a fork and create a PR. Put the jsondiff in the PR message; this command will put it in your clipboard (at least on X11)::
 
-* Check the bug, make sure it makes sense. Otherwise let someone know.
+    (venv) $ git log --format=%B -n 1 HEAD~ | xsel -b
 
-idle -> missing, mispackaged -> missing, released -> missing
-    The package was dropped from Fedora or got rid of all dependencies:
+   Add (username X→Y) to the commit message for changed people in badges.txt
+   Award badges to people who reached 1, 5 or 10 greened packages.
 
-* Find the package in the old version of portingdb, open spec or logs and look for the change that removed all python dependencies or retired the package.
-* Note in the PR description in case of any of the above.
-* If anything else happened, ask the team.
+   * https://badges.fedoraproject.org/badge/parselmouth
+   * https://badges.fedoraproject.org/badge/parselmouth-ii
+   * https://badges.fedoraproject.org/badge/parselmouth-iii
 
-idle -> released, mispackaged -> released
-    Someone has ported the package and it went to Fedora:
+    If you lack the permissions to award badges, note it in the PR and somebody will do it for you.
 
-* Find the package in the newest version of portingdb and check the bug.
-* Gather information to give a badge to the packager:
 
-  * Find who ported the package: check the bug or the log of the spec file
-  * Find the packager's Fedora user name in Pagure
-  * Add packager's name and commit to `Open Badges/Python3Log`_ wiki page
-  * In case the packager is entitled to get a badge, note the Fedora user name and type of the badge in the PR description 
+#. You made it!
 
-.. _Open Badges/Python3Log: https://fedoraproject.org/wiki/Open_Badges/Python3Log
-
-missing -> released
-    New Python 3 package was added to Fedora:
-
-* Look through the package spec file to check if anything is important.
-* Notify in the Etherpad or PR description about the new package.
-
-missing -> idle
-    The package got added to Fedora only with Python 2 version:
-
-* Check the rpm list for Python 3 package.
-* Look if the package is Python 3 compatible on upstream.
-* Check package review request for any mention of Python 3 support.
-* Check the upstream code for Python 3 support and if upstream is Python 3 compatible:
-
-  * File a bug
-  * Note in review request that Python 3 package was missed
-
-released -> mispackaged
-    There is an issue with Python 3 subpackage:
-
-* Open the package in portingdb and check requirements for ``python3-`` subpackage:
-
-  * If the subpackage is dragging py2 dependency in, check the latest change and find what caused it
-  * File a bug
-
-released -> idle
-    There is an issue with the package:
-
-* Check what happened and file a bug.
-
-Treat the "py3-only" and "legacy-leaf" states the same as "released".
-
-If you encounter some other transition, let someone know and figure out a process!
