@@ -120,15 +120,20 @@ def main(first_filename, second_filename):
         first_data, second_data)
 
     # Print changes.
+    print(term.green('Update Fedora data'))
+    print()
+
     for change, packages in sorted(status_changes.items()):
-        print(term.blue('**{} -> {} ({})**'.format(*change, len(packages))))
+        print(term.blue('**{}** → **{}** ({})'.format(*change, len(packages))))
         for package in packages:
             print('-', package)
         print()
 
-    print(term.green('**_Naming status changes_**'))
+    print(term.green('## Naming status changes'))
+    print()
+
     for change, packages in sorted(naming_status_changes.items()):
-        print(term.blue('**{} -> {} ({})**'.format(*change, len(packages))))
+        print(term.blue('**{}** → **{}** ({})'.format(*change, len(packages))))
         for package in packages:
             print('-', package)
         print()
