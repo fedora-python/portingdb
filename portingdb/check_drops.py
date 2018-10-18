@@ -468,8 +468,8 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
         if not result.get('keep'):
             entrypoints = result.get('entrypoints')
             if result.get('entrypoints'):
-                if not result.pop('entrypoints_handled'):
-                    result.notes.append('Entrypoints not handled')
+                if not result.pop('entrypoints_handled', False):
+                    result['notes'].append('Entrypoints not handled')
                     result['needs_investigation'] = True
             if result.get('filename_unknown'):
                 result['needs_investigation'] = True
