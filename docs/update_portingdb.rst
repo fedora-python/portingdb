@@ -8,7 +8,7 @@ To use the portingdb update scripts, you will need to install and configure the 
 
 #. Ensure that you run Fedora 28 or higher.
 
-# Install system-wide dependencies::
+#. Install system-wide dependencies::
 
     $ sudo dnf install python3-bugzilla python3-libarchive-c
     $ /usr/bin/python3 -m pip install --user taskotron-python-versions
