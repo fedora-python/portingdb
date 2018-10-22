@@ -42,7 +42,7 @@ def history_graph(entries, statuses, title='History',
     status_idents.sort(key=order_key)
 
     traces = [
-        Scatter(
+        dict(
             name=status_names.get(ident, ident),
             x=[],
             y=[],
@@ -50,7 +50,7 @@ def history_graph(entries, statuses, title='History',
             hoverinfo=[],
             mode='lines',
             line=dict(width=0.5,
-                      color=status_colors.get(ident, 'F0AD4E')),
+                      color='#' + status_colors.get(ident, 'F0AD4E')),
             fill='tonexty',
         )
         for ident in status_idents]
@@ -61,17 +61,17 @@ def history_graph(entries, statuses, title='History',
         for trace, status_ident in zip(traces, status_idents):
             value = values.get(status_ident, 0)
             running_total += value
-            trace.x.append(date)
+            trace['x'].append(date)
             if expand:
-                trace.y.append(100 * running_total / total)
+                trace['y'].append(100 * running_total / total)
             else:
-                trace.y.append(running_total)
+                trace['y'].append(running_total)
             if show_percent:
-                trace.text.append('{value} ({percent}%)'.format(
+                trace['text'].append('{value} ({percent}%)'.format(
                     value=value, percent=round(100 * value / total, 1)))
             else:
-                trace.text.append(str(value))
-            trace.hoverinfo.append('text+name+x' if value else 'x')
+                trace['text'].append(str(value))
+            trace['hoverinfo'].append('text+name+x' if value else 'x')
 
     dates = list(data.keys())
 
@@ -84,6 +84,6 @@ def history_graph(entries, statuses, title='History',
         ),
     )
 
-    fig = Figure(data=traces, layout=layout)
+    fig = Figure(data=[Scatter(trace) for trace in traces], layout=layout)
     graph = plot(fig, output_type='div')
     return graph
