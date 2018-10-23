@@ -149,6 +149,16 @@
                     {% endfor %}
                 </ul>
             {% endif %}
+            {% if pkg['maintainers'] %}
+                <h3>Maintainers</h3>
+                <ul>
+                    {% for name, maintainer in pkg['maintainers'].items() | sort %}
+                        <li>
+                            {{ maintainer_link(maintainer) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
         <div class="col-md-4 related-packages">
             <h2>Dependencies</h2>

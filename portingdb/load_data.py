@@ -79,6 +79,9 @@ def load_from_directories(data, directories):
     data['history'] = data_from_csv(directories, 'history')
     data['history-naming'] = data_from_csv(directories, 'history-naming')
 
+    pagure_owner_alias = data_from_file(directories, 'pagure_owner_alias')
+    data['maintainers'] = maintainers = {}
+
     for name, package in packages.items():
         package['name'] = name
         package.setdefault('nonblocking', False)
@@ -98,6 +101,16 @@ def load_from_directories(data, directories):
         package.setdefault('groups', {})
         package.setdefault('tracking_bugs', ())
         package.setdefault('last_link_update', None)
+
+        maintainer_names = pagure_owner_alias['rpms'].get(name, ())
+        package['maintainers'] = package_maintainers = {}
+        for maintainer_name in maintainer_names:
+            maintainer = maintainers.setdefault(
+                maintainer_name,
+                {'name': maintainer_name, 'packages': {}},
+            )
+            maintainer['packages'][name] = package
+            package_maintainers[maintainer_name] = maintainer
 
     # Convert lists of dependency names to dicts of the package entries
     for name, package in packages.items():

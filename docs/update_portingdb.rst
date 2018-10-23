@@ -35,7 +35,7 @@ Update and load data
 The following steps are needed to update pordingdb data. You can run them all with a single command ``./scripts/update_portingdb.sh``:
 
 #. Checkout a feature branch if that's your way of doing git changes::
-    
+
     $ git checkout -b update-fedora-data-...
 
 #. Get the Python 3 porting status using ``py3query`` dnf plugin. Use ``-o`` option to write the output directly to ``fedora.json``::
@@ -54,6 +54,10 @@ The following steps are needed to update pordingdb data. You can run them all wi
 
     (venv) $ python -u scripts/get-history.py --update data/history.csv | tee history.csv && mv history.csv data/history.csv
     (venv) $ python -u scripts/get-history.py -n --update data/history-naming.csv | tee history-naming.csv && mv history-naming.csv data/history-naming.csv
+
+#. Update the maintainer list::
+
+    $ wget https://src.fedoraproject.org/extras/pagure_owner_alias.json -O data/pagure_owner_alias.json
 
 #. Load the newly generated data into the database::
 
