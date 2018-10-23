@@ -198,7 +198,7 @@
 {%- macro maintainer_link(maintainer) -%}
     {% if maintainer.packages | length > 1 %}
         <a href="{{ url_for('maintainer', name=maintainer.name) }}">
-            {{ maintainer.name }}
+            {{- maintainer.name -}}
         </a>
     {% else %}
         {{ maintainer.name }}
