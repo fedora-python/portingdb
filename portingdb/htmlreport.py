@@ -633,6 +633,32 @@ def history_naming():
     )
 
 
+def maintainer(name):
+    data = current_app.config['data']
+    try:
+        maintainer = data['maintainers'][name]
+    except KeyError:
+        abort(404)
+
+    # dict of {comaintainer name: (comaintainer, dict of {pkg name: package})}
+    comaintainers = {}
+    for pkg in maintainer['packages'].values():
+        for comaintainer in pkg['maintainers'].values():
+            if comaintainer['name'] != name:
+                _c, pkgs = comaintainers.setdefault(
+                    comaintainer['name'], (comaintainer, {}))
+                pkgs[pkg['name']] = pkg
+    return render_template(
+        'maintainer.html',
+        maintainer=maintainer,
+        comaintainers=comaintainers,
+        breadcrumbs=(
+            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('maintainer', name=name), name),
+        )
+    )
+
+
 def format_quantity(num):
     for prefix in ' KMGT':
         if num > 1000:
@@ -713,6 +739,7 @@ def create_app(db_url, directories, cache_config=None):
     _add_route("/history/", history, defaults={'expand': False})
     _add_route("/history/expanded/", history, defaults={'expand': True})
     _add_route("/howto/", howto)
+    _add_route("/maintainer/<name>/", maintainer)
 
     return app
 

@@ -1,0 +1,45 @@
+{% extends "_base.html" %}
+
+{% block titlecontent %}{{ maintainer.name }} – {{ super() }} {% endblock titlecontent %}
+
+{% block bodycontent %}
+    <div class="container">
+        <div class="col-md-12">
+            <h1>Maintainer {{ maintainer.name }} </h1>
+            <ul class="fa-ul">
+                <li><span class="fa fa-li fa-th-list"></span>
+                    <a href="https://src.fedoraproject.org/user/{{ maintainer.name }}">Pagure package list</a>
+                </li>
+                <li><span class="fa fa-li fa-key"></span>
+                    <a href="https://admin.fedoraproject.org/accounts/user/view/{{ maintainer.name }}">FAS</a>
+                </li>
+            </ul>
+            <h2>Maintained Python packages ({{ maintainer.packages | length }})</h2>
+            <ul class="simple-pkg-list">
+                {% for pkg in maintainer.packages.values() | sort_by_status %}
+                   <li>
+                        {{ pkglink(pkg) }}
+                   </li>
+                {% endfor %}
+            </ul>
+            {% if comaintainers %}
+                <h2>Co-maintainers</h2>
+                <ul>
+                    {% for name, (comaintainer, packages)
+                       in comaintainers.items() | sort %}
+                    <li>
+                            {{ maintainer_link(comaintainer) }}
+                            – on {{ packages|length }}
+                            package{% if packages|length > 1 %}s{% endif %}:
+                            {% for name, pkg in packages.items() | sort %}
+                            <span>
+                                {{ pkglink(pkg) }}
+                            </span>
+                            {% endfor %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock bodycontent %}

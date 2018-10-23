@@ -195,6 +195,20 @@
     {% endif %}
 {%- endmacro %}
 
+{%- macro maintainer_link(maintainer) -%}
+    {% if maintainer.packages | length > 1 %}
+        <a href="{{ url_for('maintainer', name=maintainer.name) }}">
+            {{- maintainer.name -}}
+        </a>
+    {% else %}
+        {{ maintainer.name }}
+    {% endif %}
+    ({{ maintainer.packages | length }})
+    <a href="https://src.fedoraproject.org/user/{{ maintainer.name }}">
+        <i class="fa fa-th-list"></i>
+    </a>
+{%- endmacro -%}
+
 <html xmlns:xlink="http://www.w3.org/1999/xlink">
     <head>
         <title>{% block titlecontent %}Python 3 Porting Database{% endblock titlecontent %}</title>
