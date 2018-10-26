@@ -4,7 +4,9 @@
 {% endblock breadcrumbs %}
 
 {% block titlecontent -%}
-    {{ (the_score * 100) | round(1) }}% – {{ super() }}
+    {{ (the_score * 100) | round(1) }}% →
+    {{ (py2_score * 100) | round(1) }}% –
+    {{ super() }}
 {%- endblock titlecontent %}
 
 {% block favicon_url -%}
@@ -15,7 +17,7 @@
     <div class="container">
         <div class="col-md-12">
             <h1>
-                Python 3 Porting Database
+                Python 2 Dropping Database
                 {% if 'name' in config %}
                     <small>for {{ config['name'] }}</small>
                 {% endif %}
@@ -71,7 +73,7 @@
                 <table class="table table-striped table-condensed table-hovered">
                     <tr>
                         <th>Package</th>
-                        <th>Last activity</th>
+                        <th>Last Bugzilla activity</th>
                     </tr>
 
                     {% for pkg in mispackaged_packages %}

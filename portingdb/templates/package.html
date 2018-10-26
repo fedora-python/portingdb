@@ -7,7 +7,7 @@
 {%- endblock favicon_url %}
 
 {% macro related_packages(runtime, buildtime, tree) %}
-    (Python packages only)
+    (Python 2 packages only)
     <h4>Run time <i class="fa fa-rocket"></i></h4>
     {% if runtime %}
         {{ progress_legend(runtime.values()) }}
@@ -160,21 +160,27 @@
                 </ul>
             {% endif %}
         </div>
-        <div class="col-md-4 related-packages">
-            <h2>Dependencies</h2>
-            {{ related_packages(
-                pkg['deps'],
-                pkg['build_deps'],
-                deptree,
-            ) }}
-        </div>
-        <div class="col-md-4 related-packages">
-            <h2>Dependents</h2>
-            {{ related_packages(
-                pkg['dependents'],
-                pkg['build_dependents'],
-                dependent_tree,
-            ) }}
-        </div>
+        {% if pkg['deps']
+           or pkg['build_deps']
+           or pkg['dependents']
+           or pkg['build_dependents']
+        %}
+            <div class="col-md-4 related-packages">
+                <h2>Dependencies</h2>
+                {{ related_packages(
+                    pkg['deps'],
+                    pkg['build_deps'],
+                    deptree,
+                ) }}
+            </div>
+            <div class="col-md-4 related-packages">
+                <h2>Dependents</h2>
+                {{ related_packages(
+                    pkg['dependents'],
+                    pkg['build_dependents'],
+                    dependent_tree,
+                ) }}
+            </div>
+        {% endif %}
     </div>
 {% endblock bodycontent %}

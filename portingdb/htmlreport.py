@@ -56,7 +56,8 @@ def hello():
 
     by_status = group_by_status(packages.values())
 
-    the_score = sum(len(by_status[s]) for s in DONE_STATUSES) / len(packages)
+    the_score = len(by_status['py3-only']) / len(packages)
+    py2_score = sum(len(by_status[s]) for s in DONE_STATUSES) / len(packages)
 
     status_summary = summarize_statuses(statuses, packages.values())
 
@@ -92,6 +93,7 @@ def hello():
         groups=groups_by_hidden[False],
         hidden_groups=groups_by_hidden[True],
         the_score=the_score,
+        py2_score=py2_score,
         naming_progress=naming_progress,
     )
 
