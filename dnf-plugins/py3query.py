@@ -286,6 +286,8 @@ class Py3QueryCommand(dnf.cli.Command):
         all_provides = {str(r).split()[0]: p for p in python_versions for r in p.provides
                         if not str(r).startswith(PROVIDES_BLACKLIST)}
         for pkg in progressbar(sorted(python_versions.keys()), 'Getting requirements'):
+            if python_versions[pkg] == {3}:
+                continue
             reqs = set()
             build_reqs = set()
             for provide in pkg.provides:
