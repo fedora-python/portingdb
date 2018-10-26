@@ -307,10 +307,6 @@ python2:
     note: |
       This is the Python 2 package.
       Please port to Python 3.
-python2-astropy:
-    status: dropped
-    note: |
-        Replacement: `python-astropy`
 python-backports:
     status: dropped
     note: |
@@ -389,16 +385,6 @@ python-enum34: &enum
       `enum` is part of the Python 3.4 standard library, so this backport
       is not needed.
 python-enum: *enum
-python-fedora:
-    nonblocking: true
-    note: |
-        Subpackage status (2016-05-02):
-
-        *   `python{,3}-fedora`: ported
-        *   `python{,3}-fedora-flask`: ported
-        *   `python-fedora-django`: not ported; not needed for other packages
-        *   `python-fedora-turbogears`: not ported; needed for: `bodhi` (bodhi-server), `mirrormanager`, `python-tgcaptcha2`
-        *   `python-fedora-turbogears2`: not ported; not needed for other packages
 python-functools32:
   status: dropped
   note: |
@@ -586,11 +572,6 @@ python-subprocess32:
     note: |
       This is a backport of the subprocess module in python-3.2 to python2.
       For python3 code, just use subprocess from the stdlib.
-python-tgcaptcha2:
-    status: blocked
-    note: |
-        Depends on `python-fedora-turbogears` (part of `python-fedora`),
-        which is not ported (as of 2016-05-02).
 python-tgmochikit:
     status: dropped
     note: |
