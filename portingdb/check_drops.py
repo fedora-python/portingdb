@@ -238,6 +238,7 @@ def handle_entrypoints(result, config):
                          'keystoneauth1.plugin',  # self contained
                          'keystoneclient.plugin',  # self contained
                         ) or section.startswith((
+                         'glance_store.',  # self contained
                          'turbogears.',  # plugins for a framework, not app
                          'tgcaptcha2.',  # self contained
                          'hghooks.',  # self contained
