@@ -248,6 +248,7 @@ def handle_entrypoints(result, config):
                          'oslo.config.',  # self contained
                          'pybtex.',  # self contained
                          'pyface.',  # self contained
+                         'turbomail.',  # self contained
                         )):
             # Decided to be useless and/or self contained
             pass
