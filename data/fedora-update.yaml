@@ -638,10 +638,6 @@ python-zbase32: &pyutil-zbase32-cycle
     note: |
       Only `python-zbase32` depends on `pyutil`, and `pyutil` depends back
       on `python-zbase32`.
-python2-astroid:
-    status: dropped
-    note: |
-        Replacement: `python-astroid`
 python2-faulthandler:
     status: dropped
     note: |
@@ -660,10 +656,6 @@ python2-prompt-toolkit:
     note: |
         Replacement: `python-prompt-toolkit` (with the `python3-prompt-toolkit`
         binary RPM)
-python2-pylint:
-    status: dropped
-    note: |
-      Replacement: `python3-pylint`
 pyutil: *pyutil-zbase32-cycle
 pywebkitgtk:
     status: dropped
@@ -696,11 +688,6 @@ tomoe-gtk: *devel-only
 tracer:
     note: |
       Upstream supports python3, fedora packager(=upstream) promised to update the spec file. (2016-03-11)
-TurboGears:
-    status: dropped
-    note: |
-      TurboGears-1 is not seeing further upstream development.
-      Suggested Replacement: TurboGears2 (Similar API but porting will be needed)
 vegastrike: &vegastrike-cycle
     nonblocking: true
     note: |
