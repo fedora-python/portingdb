@@ -238,6 +238,7 @@ def handle_entrypoints(result, config):
                          'honcho_exporters',  # self contained
                          'keystoneauth1.plugin',  # self contained
                          'keystoneclient.plugin',  # self contained
+                         'oslo.db.migration',  # self contained
                         ) or section.startswith((
                          'glance_store.',  # self contained
                          'turbogears.',  # plugins for a framework, not app
