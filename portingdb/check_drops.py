@@ -167,6 +167,7 @@ def handle_filename(result, filename):
         result['notes'].add('Self Contained Files')
     elif filename in (
         '/usr/bin/tg-admin', # self contained for the module (TurboGears)
+        '/usr/bin/fai', # self contained for the module (Flask-AutoIndex)
     ):
         # Those are hardcoded commands we don't care about
         result['notes'].add('Ignored command')
