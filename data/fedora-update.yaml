@@ -56,8 +56,6 @@ arandr:
     being-ported: true
 archivemail:
     dead-upstream: true
-arm-none-eabi-gdb:
-    dead-upstream: true
 binclock:
     dead-upstream: true
     note: |
@@ -130,8 +128,6 @@ edk2:
     note: |
         There's a python2 and a python3 subpackage, but they do different
         things.
-enemies-of-carlotta:
-    dead-upstream: true
 epydoc:
     dead-upstream: true
 exo:
@@ -428,12 +424,6 @@ python-instant:
 python-kerberos:
     note: |
       Suggested replacement: `python-gssapi`
-python-kid:
-    status: dropped
-    note: |
-      Suggested replacement: `python-genshi`
-      Not a drop-in replacement but genshi's templating language is based on
-      kid's so it's the closest thing.  python-kid is dead upstream.
 python-krbV:
     status: dropped
     note: |
@@ -465,13 +455,6 @@ python-mutagen:
     nonblocking: true
     note: |
         Ported, but the devel package needs py3
-python-myghty:
-    status: dropped
-    note: |
-        Per the [PiPI page](https://pypi.python.org/pypi/Myghty),
-        "Myghty is a legacy library. New projects should use Mako templates".
-
-        Suggested replacement: `python-mako`
 python-nectar:
     nonblocking: true
     note: |
@@ -524,16 +507,6 @@ python-pathlib:
 python-pdfrw:
   links:
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282219
-python-peak-rules:
-  status: dropped
-  note: |
-    In April of 2015 upstream did some work to port this to python3 but that
-    work hasn't been completed or pushed to a release package yet.  This
-    package is not currently needed by any Fedora package that is to be ported
-    to python3 so no one on the Fedora side has had a desire to work on porting
-    for upstream.  Note that python-peak-rules and its dependencies interact
-    with some low-level pieces of python so porting work is different than
-    other packages.
 python-pydns:
   status: dropped
   note: |
@@ -567,27 +540,11 @@ python-subprocess32:
     note: |
       This is a backport of the subprocess module in python-3.2 to python2.
       For python3 code, just use subprocess from the stdlib.
-python-tgmochikit:
-    status: dropped
-    note: |
-      Dead upstream.  Part of TurboGears-1.  Port to TurboGears2 and a newer
-      javascript framework like jquery.
 python-toscawidgets:
     status: dropped
     note: |
       Suggested Replacement: python-tw2-core (toscawidgets2).  Porting will be needed as it
       is not a drop in replacement.
-python-turbocheetah:
-    status: dropped
-    note: |
-      Dead upstream   Part of TurboGears-1.  Port to TurboGears2 and a newer
-      templating library like jinja2.
-python-turbokid:
-    status: dropped
-    note: |
-      Dead upstream.  Part of TurboGears-1.  Port to TurboGears2 and
-      a different templating language (genshi is similar to kid) where this
-      isn't needed.
 python-tw-forms:
     status: dropped
     note: |
