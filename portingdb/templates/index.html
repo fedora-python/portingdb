@@ -13,6 +13,44 @@
     {{ url_for('piechart_svg') }}?{{ cache_tag }}
 {%- endblock favicon_url %}
 
+{% block style %}
+    {{ super() }}
+    @media (min-width: 768px) {
+        .main-summary {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        .main-summary .summary-sentence {
+            font-size: 3rem;
+            flex-grow: 1;
+            position: relative;
+            padding-left: 16rem;
+            padding-right: 4rem;
+        }
+        .main-summary .big-percentage {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: -1rem;
+            padding: 0 1rem;
+            font-size: 6rem;
+            text-align: right;
+            min-width: 16rem;
+        }
+        .main-summary .stuffing {
+            font-size: 1.5rem;
+            display: block;
+            white-space: nowrap;
+            line-height: 2rem;
+        }
+        .main-summary .callout {
+            white-space: nowrap;
+        }
+    }
+{% endblock style %}
+
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
@@ -26,12 +64,38 @@
         <div class="col-md-12">
             {{ progress_summary(status_summary, total_pkg_count) }}
         </div>
+        <div class="col-md-12">
+            <div class="main-summary">
+            <div class="summary-sentence">
+                <span class="big-percentage"
+                    style="color: {{ statuses['py3-only'].color }};"
+                >
+                    {{ (the_score * 100) | int }}%
+                </span>
+                <span class="stuffing">
+                    Python packages in {{ config['name'] }} support
+                </span>
+                <span class="callout">Python 3 only.</span>
+            </div>
+            <div class="summary-sentence">
+                <span class="big-percentage"
+                    style="color: {{ statuses['released'].color }};"
+                >{{ (py2_score * 100) | int }}%</span>
+                <span class="stuffing">
+                    Python packages in {{ config['name'] }} support
+                </span>
+                <span class="callout">Python 3.</span>
+            </div>
+            </div>
+        </div>
         <div class="col-md-8">
             {% if 'main-instructions' in config %}
+                <p>
                 {{ config['main-instructions']
                         .replace('$HOWTO_LINK', url_for('howto'))
                         .replace('$MISPACKAGED_LINK', '#mispackaged')
                     |safe }}
+                </p>
             {% endif %}
             {% if groups %}
                 <h2>Package Groups</h2>
