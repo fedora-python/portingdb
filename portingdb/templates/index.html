@@ -35,33 +35,33 @@
             {% endif %}
             {% if groups %}
                 <h2>Package Groups</h2>
-                {% if 'groups-note' in config %}
-                    {{ config['groups-note'] |safe }}
-                {% endif %}
-                {% for grp, statuses in groups %}
-                    <h3>
-                        <a href="{{ url_for('group', grp=grp.ident) }}">
-                            {{ grp.name }}
-                        </a>
-                    </h3>
-                    {{ progress_summary(statuses, len(grp.packages)) }}
-                {% endfor %}
-                {% if hidden_groups %}
-                    <h3>Other Groups</h3>
-                {% endif %}
-                {% for grp, statuses in hidden_groups %}
+                <p>
+                    For some groups of packages,
+                    we track how many Python2-only packages they bring into
+                    the system (including dependencies).
+                </p>
+                <p>
+                    These groups are selected somewhat arbitrarily.
+                    Please propose changes at
+                    <a href="https://github.com/fedora-python/portingdb/blob/master/data/groups.yaml">Github</a>.
+                </p>
+                {% for grp, (py3, dual, py2) in groups %}
                     <div>
+                        <td>
                         <a href="{{ url_for('group', grp=grp.ident) }}">
                             <img
                                 src="{{ url_for('piechart_grp', grp=grp.ident) }}?{{ cache_tag }}"
                                 style="width: 1em;"
                             >
-                            {{ grp.name }} –
+                            {{ grp.name }}
                         </a>
-                        {{len(grp.packages)}} packages:
-                        {% for status, count in statuses %}
-                            {{ count }} {{status.ident}}{% if not loop.last %};{% endif %}
-                        {% endfor %}
+                        –
+                        {% if dual == py2 == 0 %}
+                            {{len(grp.packages)}} py3-only packages.
+                        {% else %}
+                            {{len(grp.seed_packages)}} packages
+                            bringing in {{ dual+py2 }} Python 2 packages.
+                        {% endif %}
                     </div>
                 {% endfor %}
             {% endif %}

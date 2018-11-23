@@ -40,6 +40,24 @@ def summarize_statuses(statuses, package_list):
     ]
 
 
+def summarize_2_dual_3(package_list):
+    """
+    Given list of packages, return counts of (py3-only, dual-support, py2-only)
+    """
+    by_status = group_by_status(package_list)
+    py3 = 0
+    dual = 0
+    py2 = 0
+    for pkg in package_list:
+        if pkg['status'] == 'py3-only':
+            py3 += 1
+        elif pkg['status'] in DONE_STATUSES:
+            dual += 1
+        else:
+            py2 += 1
+    return py3, dual, py2
+
+
 def last_link_update_sort_key(package):
     return (
         -bool(package['last_link_update']),
@@ -61,15 +79,12 @@ def hello():
 
     status_summary = summarize_statuses(statuses, packages.values())
 
-    groups_by_hidden = {}
-    for hidden in True, False:
-        def sort_key(item):
-            return item[0]['name']
-        groups_by_hidden[hidden] = sorted((
-            (grp, summarize_statuses(statuses, grp['packages'].values()))
-            for grp in data['groups'].values()
-            if grp['hidden'] == hidden
-        ), key=sort_key)
+    def sort_key(item):
+        return item[0]['hidden'], item[0]['name']
+    groups = sorted((
+        (grp, summarize_2_dual_3(grp['packages'].values()))
+        for grp in data['groups'].values()
+    ), key=sort_key)
 
     naming_progress, _ = get_naming_policy_progress(db)
 
@@ -90,8 +105,7 @@ def hello():
         mispackaged_packages=sorted(
             by_status.get('mispackaged', ()),
             key=last_link_update_sort_key),
-        groups=groups_by_hidden[False],
-        hidden_groups=groups_by_hidden[True],
+        groups=groups,
         the_score=the_score,
         py2_score=py2_score,
         naming_progress=naming_progress,
@@ -237,7 +251,10 @@ def group(grp):
             (url_for('group', grp=grp), group['name']),
         ),
         grp=group,
-        deptree=generate_deptrees(group['seed_packages'].values()),
+        deptree=generate_deptrees(
+            group['seed_packages'].values(),
+            skip_statuses=set(),
+        ),
         status_summary=status_summary,
     )
 

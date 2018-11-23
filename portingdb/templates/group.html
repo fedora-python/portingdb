@@ -14,6 +14,9 @@
         <div class="col-md-12">
             {{ progress_summary(status_summary, grp.packages|length) }}
         </div>
+        <div class="col-md-12">
+            (Note that only Python 2 dependencies are tracked.)
+        </div>
         <div class="col-md-8">
             <h2>All Needed Packages</h2>
             {% if grp.packages %}
