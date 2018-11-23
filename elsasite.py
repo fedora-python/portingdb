@@ -16,4 +16,4 @@ application = htmlreport.create_app(
 
 if __name__ == '__main__':
     from elsa import cli
-    cli(application, base_url='http://fedora.portingdb.xyz/')
+    cli(application, base_url='https://fedora.portingdb.xyz/')
