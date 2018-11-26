@@ -712,6 +712,13 @@ def format_percent(num):
     return str(num) + '%'
 
 
+def first_decimal(number, digits=1):
+    """Return the first `digits` digit after the decimal point"""
+    number = abs(number)
+    number = number - int(number)
+    return int(round(number * 10**digits))
+
+
 def create_app(db_url, directories, cache_config=None):
     app = Flask(__name__)
     app.config['DB'] = sessionmaker(bind=create_engine(db_url))
@@ -725,6 +732,7 @@ def create_app(db_url, directories, cache_config=None):
     app.jinja_env.filters['format_percent'] = format_percent
     app.jinja_env.filters['format_time_ago'] = format_time_ago
     app.jinja_env.filters['sort_by_status'] = sort_by_status
+    app.jinja_env.filters['first_decimal'] = first_decimal
     app.jinja_env.filters['summarize_statuses'] = (
         lambda p: summarize_statuses(data['statuses'], p))
 

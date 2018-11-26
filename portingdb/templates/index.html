@@ -26,27 +26,31 @@
             font-size: 3rem;
             flex-grow: 1;
             position: relative;
-            padding-left: 16rem;
+            padding-left: 14rem;
             padding-right: 4rem;
         }
         .main-summary .big-percentage {
             display: block;
             position: absolute;
             left: 0;
-            top: -1rem;
+            top: -0.5rem;
             padding: 0 1rem;
             font-size: 6rem;
             text-align: right;
-            min-width: 16rem;
+            min-width: 14rem;
+        }
+        .main-summary .big-percentage .smaller {
+            font-size: 3rem;
         }
         .main-summary .stuffing {
             font-size: 1.5rem;
             display: block;
             white-space: nowrap;
-            line-height: 2rem;
+            line-height: 3rem;
         }
         .main-summary .callout {
             white-space: nowrap;
+            line-height: 3rem;
         }
     }
 {% endblock style %}
@@ -70,7 +74,10 @@
                 <span class="big-percentage"
                     style="color: {{ statuses['py3-only'].color }};"
                 >
-                    {{ (the_score * 100) | int }}%
+                    {{ (the_score * 100) | int -}}
+                    <span class="smaller">.
+                        {{- (the_score * 100) | first_decimal -}}%
+                    </span>
                 </span>
                 <span class="stuffing">
                     Python packages in {{ config['name'] }} support
@@ -80,7 +87,11 @@
             <div class="summary-sentence">
                 <span class="big-percentage"
                     style="color: {{ statuses['released'].color }};"
-                >{{ (py2_score * 100) | int }}%</span>
+                >{{ (py2_score * 100) | int -}}
+                    <span class="smaller">.
+                        {{- (py2_score * 100) | first_decimal -}}%
+                    </span>
+                </span>
                 <span class="stuffing">
                     Python packages in {{ config['name'] }} support
                 </span>
