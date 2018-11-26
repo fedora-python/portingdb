@@ -11,7 +11,8 @@ from . import queries
 from .load import _merge_updates
 
 
-DONE_STATUSES = {'released', 'dropped', 'legacy-leaf', 'py3-only'}
+PY2_STATUSES = {'released', 'legacy-leaf', 'py3-only'}
+DONE_STATUSES = PY2_STATUSES | {'dropped'}
 
 try:
     SafeLoader = yaml.CSafeLoader

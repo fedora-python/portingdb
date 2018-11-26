@@ -38,7 +38,13 @@
     {# workaround for https://github.com/pallets/jinja/issues/641 #}
     {% set _= angles.append(angles[-1] + (num / total_pkg_count) * tau) %}
 
-    <path
+    {% if num == total_pkg_count %}
+        <circle
+            cx="8" cy="8" r="7"
+            style="fill:#{{ status.color }};stroke-width:0;"
+        />
+    {% else %}
+      <path
        d="
         M 8,8
         M {{ 8 + cos(angles[-2]) * 7 }},{{ 8 + sin(angles[-2]) * 7 }}
@@ -56,7 +62,8 @@
        "
        id="wedge-{{ status.ident }}">
         <title>{{ status.name }}: {{ num }} packages ({{ (num / total_pkg_count * 100)  | round(1) }}%)</title>
-    </path>
+      </path>
+    {% endif %}
     {% endfor %}
   </g>
 </svg>

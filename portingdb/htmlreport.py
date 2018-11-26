@@ -19,7 +19,7 @@ import markdown
 from . import tables
 from . import queries
 from .history_graph import history_graph
-from .load_data import get_data, DONE_STATUSES
+from .load_data import get_data, DONE_STATUSES, PY2_STATUSES
 
 tau = 2 * math.pi
 
@@ -40,6 +40,24 @@ def summarize_statuses(statuses, package_list):
     ]
 
 
+def summarize_2_dual_3(package_list):
+    """
+    Given list of packages, return counts of (py3-only, dual-support, py2-only)
+    """
+    by_status = group_by_status(package_list)
+    py3 = 0
+    dual = 0
+    py2 = 0
+    for pkg in package_list:
+        if pkg['status'] == 'py3-only':
+            py3 += 1
+        elif pkg['status'] in PY2_STATUSES:
+            dual += 1
+        else:
+            py2 += 1
+    return py3, dual, py2
+
+
 def last_link_update_sort_key(package):
     return (
         -bool(package['last_link_update']),
@@ -56,19 +74,17 @@ def hello():
 
     by_status = group_by_status(packages.values())
 
-    the_score = sum(len(by_status[s]) for s in DONE_STATUSES) / len(packages)
+    the_score = len(by_status['py3-only']) / len(packages)
+    py2_score = sum(len(by_status[s]) for s in PY2_STATUSES) / len(packages)
 
     status_summary = summarize_statuses(statuses, packages.values())
 
-    groups_by_hidden = {}
-    for hidden in True, False:
-        def sort_key(item):
-            return item[0]['name']
-        groups_by_hidden[hidden] = sorted((
-            (grp, summarize_statuses(statuses, grp['packages'].values()))
-            for grp in data['groups'].values()
-            if grp['hidden'] == hidden
-        ), key=sort_key)
+    def sort_key(item):
+        return item[0]['hidden'], item[0]['name']
+    groups = sorted((
+        (grp, summarize_2_dual_3(grp['packages'].values()))
+        for grp in data['groups'].values()
+    ), key=sort_key)
 
     naming_progress, _ = get_naming_policy_progress(db)
 
@@ -89,9 +105,9 @@ def hello():
         mispackaged_packages=sorted(
             by_status.get('mispackaged', ()),
             key=last_link_update_sort_key),
-        groups=groups_by_hidden[False],
-        hidden_groups=groups_by_hidden[True],
+        groups=groups,
         the_score=the_score,
+        py2_score=py2_score,
         naming_progress=naming_progress,
     )
 
@@ -235,7 +251,10 @@ def group(grp):
             (url_for('group', grp=grp), group['name']),
         ),
         grp=group,
-        deptree=generate_deptrees(group['seed_packages'].values()),
+        deptree=generate_deptrees(
+            group['seed_packages'].values(),
+            skip_statuses=set(),
+        ),
         status_summary=status_summary,
     )
 
@@ -693,6 +712,13 @@ def format_percent(num):
     return str(num) + '%'
 
 
+def first_decimal(number, digits=1):
+    """Return the first `digits` digit after the decimal point"""
+    number = abs(number)
+    number = number - int(number)
+    return int(round(number * 10**digits))
+
+
 def create_app(db_url, directories, cache_config=None):
     app = Flask(__name__)
     app.config['DB'] = sessionmaker(bind=create_engine(db_url))
@@ -706,6 +732,7 @@ def create_app(db_url, directories, cache_config=None):
     app.jinja_env.filters['format_percent'] = format_percent
     app.jinja_env.filters['format_time_ago'] = format_time_ago
     app.jinja_env.filters['sort_by_status'] = sort_by_status
+    app.jinja_env.filters['first_decimal'] = first_decimal
     app.jinja_env.filters['summarize_statuses'] = (
         lambda p: summarize_statuses(data['statuses'], p))
 

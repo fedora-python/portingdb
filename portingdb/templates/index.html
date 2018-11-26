@@ -4,18 +4,62 @@
 {% endblock breadcrumbs %}
 
 {% block titlecontent -%}
-    {{ (the_score * 100) | round(1) }}% – {{ super() }}
+    {{ (the_score * 100) | round(1) }}% →
+    {{ (py2_score * 100) | round(1) }}% –
+    {{ super() }}
 {%- endblock titlecontent %}
 
 {% block favicon_url -%}
     {{ url_for('piechart_svg') }}?{{ cache_tag }}
 {%- endblock favicon_url %}
 
+{% block style %}
+    {{ super() }}
+    @media (min-width: 768px) {
+        .main-summary {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        .main-summary .summary-sentence {
+            font-size: 3rem;
+            flex-grow: 1;
+            position: relative;
+            padding-left: 14rem;
+            padding-right: 4rem;
+        }
+        .main-summary .big-percentage {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: -0.5rem;
+            padding: 0 1rem;
+            font-size: 6rem;
+            text-align: right;
+            min-width: 14rem;
+        }
+        .main-summary .big-percentage .smaller {
+            font-size: 3rem;
+        }
+        .main-summary .stuffing {
+            font-size: 1.5rem;
+            display: block;
+            white-space: nowrap;
+            line-height: 3rem;
+        }
+        .main-summary .callout {
+            white-space: nowrap;
+            line-height: 3rem;
+        }
+    }
+{% endblock style %}
+
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
             <h1>
-                Python 3 Porting Database
+                Python 2 Dropping Database
                 {% if 'name' in config %}
                     <small>for {{ config['name'] }}</small>
                 {% endif %}
@@ -24,42 +68,75 @@
         <div class="col-md-12">
             {{ progress_summary(status_summary, total_pkg_count) }}
         </div>
+        <div class="col-md-12">
+            <div class="main-summary">
+            <div class="summary-sentence">
+                <span class="big-percentage"
+                    style="color: {{ statuses['py3-only'].color }};"
+                >
+                    {{ (the_score * 100) | int -}}
+                    <span class="smaller">.
+                        {{- (the_score * 100) | first_decimal -}}%
+                    </span>
+                </span>
+                <span class="stuffing">
+                    Python packages in {{ config['name'] }} support
+                </span>
+                <span class="callout">Python 3 only.</span>
+            </div>
+            <div class="summary-sentence">
+                <span class="big-percentage"
+                    style="color: {{ statuses['released'].color }};"
+                >{{ (py2_score * 100) | int -}}
+                    <span class="smaller">.
+                        {{- (py2_score * 100) | first_decimal -}}%
+                    </span>
+                </span>
+                <span class="stuffing">
+                    Python packages in {{ config['name'] }} support
+                </span>
+                <span class="callout">Python 3.</span>
+            </div>
+            </div>
+        </div>
         <div class="col-md-8">
             {% if 'main-instructions' in config %}
+                <p>
                 {{ config['main-instructions']
                         .replace('$HOWTO_LINK', url_for('howto'))
                         .replace('$MISPACKAGED_LINK', '#mispackaged')
                     |safe }}
+                </p>
             {% endif %}
             {% if groups %}
                 <h2>Package Groups</h2>
-                {% if 'groups-note' in config %}
-                    {{ config['groups-note'] |safe }}
-                {% endif %}
-                {% for grp, statuses in groups %}
-                    <h3>
-                        <a href="{{ url_for('group', grp=grp.ident) }}">
-                            {{ grp.name }}
-                        </a>
-                    </h3>
-                    {{ progress_summary(statuses, len(grp.packages)) }}
-                {% endfor %}
-                {% if hidden_groups %}
-                    <h3>Other Groups</h3>
-                {% endif %}
-                {% for grp, statuses in hidden_groups %}
+                <p>
+                    For some groups of packages,
+                    we track how many Python2-only packages they bring into
+                    the system (including dependencies).
+                </p>
+                <p>
+                    These groups are selected somewhat arbitrarily.
+                    Please propose changes at
+                    <a href="https://github.com/fedora-python/portingdb/blob/master/data/groups.yaml">Github</a>.
+                </p>
+                {% for grp, (py3, dual, py2) in groups %}
                     <div>
+                        <td>
                         <a href="{{ url_for('group', grp=grp.ident) }}">
                             <img
                                 src="{{ url_for('piechart_grp', grp=grp.ident) }}?{{ cache_tag }}"
                                 style="width: 1em;"
                             >
-                            {{ grp.name }} –
+                            {{ grp.name }}
                         </a>
-                        {{len(grp.packages)}} packages:
-                        {% for status, count in statuses %}
-                            {{ count }} {{status.ident}}{% if not loop.last %};{% endif %}
-                        {% endfor %}
+                        –
+                        {% if dual == py2 == 0 %}
+                            {{len(grp.packages)}} py3-only packages.
+                        {% else %}
+                            {{len(grp.seed_packages)}} packages
+                            bringing in {{ dual+py2 }} Python 2 packages.
+                        {% endif %}
                     </div>
                 {% endfor %}
             {% endif %}
@@ -71,7 +148,7 @@
                 <table class="table table-striped table-condensed table-hovered">
                     <tr>
                         <th>Package</th>
-                        <th>Last activity</th>
+                        <th>Last Bugzilla activity</th>
                     </tr>
 
                     {% for pkg in mispackaged_packages %}
