@@ -19,7 +19,7 @@ import markdown
 from . import tables
 from . import queries
 from .history_graph import history_graph
-from .load_data import get_data, DONE_STATUSES
+from .load_data import get_data, DONE_STATUSES, PY2_STATUSES
 
 tau = 2 * math.pi
 
@@ -51,7 +51,7 @@ def summarize_2_dual_3(package_list):
     for pkg in package_list:
         if pkg['status'] == 'py3-only':
             py3 += 1
-        elif pkg['status'] in DONE_STATUSES:
+        elif pkg['status'] in PY2_STATUSES:
             dual += 1
         else:
             py2 += 1
@@ -75,7 +75,7 @@ def hello():
     by_status = group_by_status(packages.values())
 
     the_score = len(by_status['py3-only']) / len(packages)
-    py2_score = sum(len(by_status[s]) for s in DONE_STATUSES) / len(packages)
+    py2_score = sum(len(by_status[s]) for s in PY2_STATUSES) / len(packages)
 
     status_summary = summarize_statuses(statuses, packages.values())
 
