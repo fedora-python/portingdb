@@ -104,6 +104,7 @@ def load_from_directories(data, directories):
         package.setdefault('tracking_bugs', ())
         package.setdefault('last_link_update', None)
         package.setdefault('unversioned_requires', {})
+        package.setdefault('blocked_requires', {})
 
         maintainer_names = pagure_owner_alias['rpms'].get(name, ())
         package['maintainers'] = package_maintainers = {}
@@ -208,6 +209,9 @@ def load_from_directories(data, directories):
 
     # Update unversioned requirers
     for name, package in packages.items():
-        for requirer in package.get('unversioned_requirers', ()):
-            if requirer in packages:
-                packages[requirer]['unversioned_requires'][name] = package
+        for requirer_name in package.get('unversioned_requirers', ()):
+            requirer = packages.get(requirer_name)
+            if requirer:
+                requirer['unversioned_requires'][name] = package
+                if package['is_misnamed']:
+                    requirer['blocked_requires'][name] = package

@@ -50,24 +50,28 @@
         {{ misnamed_badge() }}
     {% endif %}
     {% if pkg['unversioned_requires'] %}
-        {{ unversioned_requires_badge() }}
+        {{ unversioned_requires_badge( pkg['blocked_requires']) }}
     {% endif %}
 {%- endmacro %}
 
-{% macro misnamed_badge() -%}
+{% macro _naming_badge(color, text) -%}
     <span
         class="naming-badge"
-        style="background-color: #F0AD4E !important;"
-        title="Misnamed package"
+        style="background-color: #{{ color }} !important;"
+        title="{{ text }}"
     ></span>
 {%- endmacro %}
 
-{% macro unversioned_requires_badge() -%}
-    <span
-        class="naming-badge"
-        style="background-color: #8c6699 !important;"
-        title="Ambiguous Requires"
-    ></span>
+{% macro misnamed_badge() -%}
+    {{ _naming_badge('F0AD4E', 'Misnamed package') }}
+{%- endmacro %}
+
+{% macro unversioned_requires_badge(blocked) -%}
+    {%- if blocked -%}
+        {{ _naming_badge('a65959', 'Ambiguous Requires (blocked)') }}
+    {%- else -%}
+        {{ _naming_badge('8c6699', 'Ambiguous Requires') }}
+    {%- endif -%}
 {%- endmacro %}
 
 {% macro print_deptree(pkgs) -%}

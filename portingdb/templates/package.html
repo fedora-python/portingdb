@@ -64,13 +64,20 @@
             {% endif %}
             {% if pkg.unversioned_requires %}
                 <div>
-                    {{ unversioned_requires_badge() }}
+                    {{ unversioned_requires_badge(blocked=False) }}
                     This package has Ambiguous Requires (or BuildRequires):
                     it uses unversioned <code>python</code>, rather than
                     <code>python2</code> or <code>python3</code>,
                     to refer to other packages.
                     The Python version should always be given explicitly.
                 </div>
+                {% if pkg.blocked_requires %}
+                    <div>
+                        {{ unversioned_requires_badge(pkg.blocked_requires) }}
+                        Note that some required packages may not provide the
+                        necessary versioned Provides yet.
+                    </div>
+                {% endif %}
                 <br>
             {% endif %}
             <div>
@@ -133,10 +140,10 @@
                     {% if pkg.unversioned_requires %}
                         <div>
                             <h3>Ambiguous Requires</h3>
-                            {{ unversioned_requires_badge() }}
+                            {{ unversioned_requires_badge(pkg['blocked_requires']) }}
                             This package has ambiguous (Build)Requires for:
                             <ul class='simple-pkg-list'>
-                                {% for name, p in pkg.unversioned_requires.items() %}
+                                {% for name, p in pkg.unversioned_requires.items() | sort %}
                                     <li>
                                         {{ pkglink(p) }}
                                     </li>
