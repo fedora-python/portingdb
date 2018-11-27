@@ -40,11 +40,25 @@
             ignore_misnamed=ignore_misnamed,
             ignore_unversioned_requires=ignore_unversioned_requires,
         ) -}}
+        {{- ftbfs_badge(pkg) -}}
     </a>
 {%- endmacro %}
 
 {% macro pkglink_icon(pkg) -%}
     <span class="pkgstatus-icon" style="background-color: {{ pkg.status_obj.color }}">&nbsp;</span>
+{%- endmacro %}
+
+{% macro ftbfs_badge(pkg) -%}
+    {% if pkg.ftbfs_age %}
+        <span
+            class="ftbfs-badge"
+            title="FTBFS alert! {#
+                   -#} Built package appears to be from {#
+                   -#} Fedora {{ pkg.last_build_releasever }}."
+        >
+            {% for i in range(pkg.ftbfs_age) %}!{% endfor %}
+        </span>
+    {%- endif -%}
 {%- endmacro %}
 
 {% macro pkglink_text(pkg) -%}
@@ -256,6 +270,15 @@
                 min-width: 2em;
                 color: black;
                 margin-left: 0.5ex;
+            }
+            .ftbfs-badge {
+                display: inline-block;
+                background-color: #E88726;
+                color: black;
+                padding: 0.25em 0.5em 0 0.5em;
+                font-size: 60%;
+                margin-top: 0.25em;
+                vertical-align: top;
             }
             .simple-pkg-list {
                 list-style-type: none;

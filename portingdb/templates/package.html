@@ -80,6 +80,15 @@
                 {% endif %}
                 <br>
             {% endif %}
+            {% if pkg.ftbfs_age %}
+                <div>
+                    {{ ftbfs_badge(pkg) }}
+                    From the RPM names, it looks like this package was last
+                    built for Fedora {{ pkg.last_build_releasever }},
+                    and it FTBFS (fails to build from source) since then.
+                </div>
+                <br>
+            {% endif %}
             <div>
                 <img src="https://fedoraproject.org/static/images/favicon.ico">
                 See

@@ -15,6 +15,10 @@ from .load import _merge_updates
 PY2_STATUSES = {'released', 'legacy-leaf', 'py3-only'}
 DONE_STATUSES = PY2_STATUSES | {'dropped'}
 
+# Current Fedora version, used to get info about long-term FTBFSs
+# Update to the Rawhide version after a mass rebuild.
+CURRENT_FEDORA = 29
+
 try:
     SafeLoader = yaml.CSafeLoader
 except AttributeError:
@@ -243,3 +247,24 @@ def load_from_directories(data, directories):
                 non_python_unversioned_requires.setdefault(
                     requirer_name, {}
                 )[name] = package
+
+    # Add releasever of last build (to identify long-standing FTBFS)
+    # Just look for the dist tag "fc<n>" as the last component of the RPM,
+    # and ignore anything that doesn't use that scheme.
+    # This is not foolproof, but enough.
+    for name, package in packages.items():
+        releasever = None
+        for rpm_name in package['rpms']:
+            nvr, sep, dist_tag = rpm_name.rpartition('.')
+            if dist_tag.startswith('fc'):
+                try:
+                    releasever = int(dist_tag[2:])
+                except ValueError:
+                    continue
+                else:
+                    break
+        if releasever:
+            package['last_build_releasever'] = releasever
+            package['ftbfs_age'] = max(CURRENT_FEDORA - releasever, 0)
+        else:
+            package['ftbfs_age'] = 0
