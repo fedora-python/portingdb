@@ -33,12 +33,14 @@
 {%- endmacro %}
 
 {% macro pkglink(pkg, ignore_misnamed=False, ignore_unversioned_requires=False) -%}
-    {{ pkglink_icon(pkg) }}&nbsp;{{ pkglink_text(pkg) }}
-    {{ pkg_naming_badge(
-        pkg,
-        ignore_misnamed=ignore_misnamed,
-        ignore_unversioned_requires=ignore_unversioned_requires,
-    ) }}
+    {{ pkglink_icon(pkg) }}&nbsp;<a href="{{ url_for('package', pkg=pkg.name) }}">
+        {{- pkg.name -}}
+        {{- pkg_naming_badge(
+            pkg,
+            ignore_misnamed=ignore_misnamed,
+            ignore_unversioned_requires=ignore_unversioned_requires,
+        ) -}}
+    </a>
 {%- endmacro %}
 
 {% macro pkglink_icon(pkg) -%}
