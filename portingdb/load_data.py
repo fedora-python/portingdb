@@ -220,7 +220,7 @@ def load_from_directories(data, directories):
             requirer = packages.get(requirer_name)
             if requirer:
                 requirer['unversioned_requires'][name] = package
-                if package['is_misnamed']:
+                if package['is_misnamed'] and package != requirer:
                     requirer['blocked_requires'][name] = package
             else:
                 non_python_unversioned_requires.setdefault(
