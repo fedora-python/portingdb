@@ -74,6 +74,9 @@ def load_from_directories(data, directories):
     )
     packages.update(_pkgs)
 
+    non_python_unversioned_requires = data.setdefault(
+        'non_python_unversioned_requires', {})
+
     groups = data.setdefault('groups', {})
     groups.update(data_from_file(directories, 'groups'))
 
@@ -215,3 +218,7 @@ def load_from_directories(data, directories):
                 requirer['unversioned_requires'][name] = package
                 if package['is_misnamed']:
                     requirer['blocked_requires'][name] = package
+            else:
+                non_python_unversioned_requires.setdefault(
+                    requirer_name, {}
+                )[name] = package

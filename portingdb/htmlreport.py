@@ -527,29 +527,24 @@ def mispackaged():
 def namingpolicy():
     """Naming policy tracking.
     """
-    db = current_app.config['DB']()
-    misnamed_package_names = (
-        db.query(tables.Package.name)
-        .join(tables.CollectionPackage)
-        .filter(tables.CollectionPackage.collection_ident == 'fedora',
-                tables.CollectionPackage.is_misnamed.is_(True)))
-    progress, data = get_naming_policy_progress(db)
-    total = sum(dict(progress).values())
+    data = current_app.config['data']
 
-    # Unversioned requirers within non Python Packages.
-    require_misnamed_all = (
-        db.query(tables.Dependency.requirer_name)
-        .filter(tables.Dependency.unversioned.is_(True))
-        .outerjoin(tables.Dependency.requirer)
-        .filter(tables.Package.name.is_(None)).distinct())
-    blocked = (
-        require_misnamed_all
-        .filter(tables.Dependency.requirement_name.in_(misnamed_package_names)))
-    require_misnamed = sorted(set(require_misnamed_all) - set(blocked))
-    naming_data = dict(db.query(tables.NamingData.ident, tables.NamingData))
-    data_outside_portingdb = (
-        (naming_data['require-misnamed'], len(require_misnamed), require_misnamed),
-        (naming_data['require-blocked'], blocked.count(), blocked))
+    misnamed = {
+        name: pkg for (name, pkg) in data['packages'].items()
+        if pkg['is_misnamed']
+    }
+    requires_unblocked = {
+        name: pkg for (name, pkg) in data['packages'].items()
+        if pkg['unversioned_requires'] and not pkg['blocked_requires']
+    }
+    requires_blocked = {
+        name: pkg for (name, pkg) in data['packages'].items()
+        if pkg['blocked_requires']
+    }
+    nonpython = {
+        name: any(p['is_misnamed'] for p in pkgs.values())
+        for name, pkgs in data['non_python_unversioned_requires'].items()
+    }
 
     return render_template(
         'namingpolicy.html',
@@ -557,10 +552,10 @@ def namingpolicy():
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('namingpolicy'), 'Naming Policy'),
         ),
-        total_packages=total,
-        progress=progress,
-        data=data,
-        data_outside_portingdb=data_outside_portingdb,
+        misnamed=misnamed,
+        requires_unblocked=requires_unblocked,
+        requires_blocked=requires_blocked,
+        nonpython=nonpython,
     )
 
 

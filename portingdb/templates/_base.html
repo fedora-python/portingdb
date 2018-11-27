@@ -32,9 +32,13 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro pkglink(pkg) -%}
+{% macro pkglink(pkg, ignore_misnamed=False, ignore_unversioned_requires=False) -%}
     {{ pkglink_icon(pkg) }}&nbsp;{{ pkglink_text(pkg) }}
-    {{- pkg_naming_badge(pkg) -}}
+    {{ pkg_naming_badge(
+        pkg,
+        ignore_misnamed=ignore_misnamed,
+        ignore_unversioned_requires=ignore_unversioned_requires,
+    ) }}
 {%- endmacro %}
 
 {% macro pkglink_icon(pkg) -%}
@@ -45,11 +49,11 @@
     <a href="{{ url_for('package', pkg=pkg.name) }}">{{ pkg.name }}</a>
 {%- endmacro %}
 
-{% macro pkg_naming_badge(pkg) -%}
-    {% if pkg['is_misnamed'] %}
+{% macro pkg_naming_badge(pkg, ignore_misnamed=False, ignore_unversioned_requires=False) -%}
+    {% if pkg['is_misnamed'] and not ignore_misnamed %}
         {{ misnamed_badge() }}
     {% endif %}
-    {% if pkg['unversioned_requires'] %}
+    {% if pkg['unversioned_requires'] and not ignore_unversioned_requires %}
         {{ unversioned_requires_badge( pkg['blocked_requires']) }}
     {% endif %}
 {%- endmacro %}
@@ -254,6 +258,13 @@
             .simple-pkg-list {
                 list-style-type: none;
                 padding-left: 1em;
+            }
+            .simple-pkg-list>li {
+                padding-left: 0.5em;
+                text-indent: -0.5em;
+            }
+            .simple-pkg-list>li * {
+                text-indent: 0;
             }
             .dependents .badge {
                 min-width: 1ex;
