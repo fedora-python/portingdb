@@ -16,15 +16,15 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro status_minibadge(thing) -%}
+{% macro naming_status_badge(thing) -%}
     {% if not thing or thing.ident == 'unknown' %}
-        <span class="minibadge"
+        <span class="naming-badge"
             style="border: 1px solid #CCCCCC; background-color: transparent; color: #CCCCCC;"
             title="Unknown"
         >
         </span>
     {% else %}
-        <span class="minibadge"
+        <span class="naming-badge"
             style="background-color: #{{ thing.color }} !important;"
             title="{{ thing.name }}"
         >
@@ -155,11 +155,7 @@
         {% endif %}
         {% for status, num in status_counts %}
             <span class="progress-legend-item">
-            <span class="minibadge"
-                style="background-color: #{{ status.color }} !important;"
-                title="{{ status }}"
-            >
-            </span>
+            {{ status_badge(status) }}
             {{ num }} {{ status.name }}{% if not loop.last %};{% endif %}
             </span>
         {% endfor %}
@@ -259,7 +255,7 @@
             .progress-with-legend {
                 margin-bottom: 1em;
             }
-            .minibadge {
+            .naming-badge {
                 display: inline-block;
                 position: relative;
                 top: 2px;
@@ -268,7 +264,7 @@
                 border-radius: 3px;
                 padding: 2px;
             }
-            .list-group .minibadge {
+            .list-group .naming-badge {
                 float: right;
             }
             .rpm-list {
