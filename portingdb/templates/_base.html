@@ -34,6 +34,7 @@
 
 {% macro pkglink(pkg) -%}
     {{ pkglink_icon(pkg) }}&nbsp;{{ pkglink_text(pkg) }}
+    {{- pkg_naming_badge(pkg) -}}
 {%- endmacro %}
 
 {% macro pkglink_icon(pkg) -%}
@@ -42,6 +43,20 @@
 
 {% macro pkglink_text(pkg) -%}
     <a href="{{ url_for('package', pkg=pkg.name) }}">{{ pkg.name }}</a>
+{%- endmacro %}
+
+{% macro pkg_naming_badge(pkg) -%}
+    {% if pkg['is_misnamed'] %}
+        {{ misnamed_badge() }}
+    {% endif %}
+{%- endmacro %}
+
+{% macro misnamed_badge() -%}
+    <span
+        class="naming-badge"
+        style="background-color: F0AD4E !important;"
+        title="Misnamed package"
+    ></span>
 {%- endmacro %}
 
 {% macro print_deptree(pkgs) -%}

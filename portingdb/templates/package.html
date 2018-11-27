@@ -54,6 +54,14 @@
                 {{ pkg.status_obj.instructions | md }}
             </div>
             <br>
+            {% if pkg['is_misnamed'] %}
+                <div>
+                    {{ misnamed_badge() }}
+                    This package does not conform to Fedora's Python naming guidelines.
+                    See individual RPMs below.
+                </div>
+                <br>
+            {% endif %}
             <div>
                 <img src="https://fedoraproject.org/static/images/favicon.ico">
                 See
@@ -80,10 +88,10 @@
                                 <li>
                                     {{ rpm_name | format_rpm_name }}
                                     {% if rpm.get('is_misnamed') %}
-                                    <span class="badge"
+                                    <span class="naming-badge"
                                           style="background-color: #F0AD4E !important;"
                                           title="The RPM name does not comply with Python package naming guidelines"
-                                    >x</span>
+                                    ></span>
                                     {% endif %}
                                     {{ rpm_leaf_badge(rpm) }}
                                     <ul class="fa-ul">
