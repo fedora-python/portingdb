@@ -112,15 +112,6 @@ def hello():
     )
 
 
-def get_groups(db, query):
-    groups = OrderedDict()
-    for group, status_ident, count in query:
-        status = db.query(tables.Status).get(status_ident)
-        pd = groups.setdefault(group, OrderedDict())
-        pd[status] = pd.get(status, 0) + count
-    return groups
-
-
 def jsonstats():
     data = current_app.config['data']
 
@@ -134,17 +125,6 @@ def jsonstats():
     }
 
     return jsonify(stats)
-
-
-def get_status_summary(db, filter=None):
-    query = db.query(tables.Status)
-    query = query.join(tables.Package, tables.Status.packages)
-    query = query.add_column(func.count(tables.Package.name))
-    if filter:
-        query = filter(query)
-    query = query.group_by(tables.Package.status)
-    query = query.order_by(tables.Status.order)
-    return list(query)
 
 
 def get_status_counts(pkgs):
