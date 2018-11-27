@@ -61,6 +61,10 @@ def load_from_directories(data, directories):
     statuses.update({s['ident']: s
                      for s in data_from_file(directories, 'statuses')})
 
+    naming_statuses = data.setdefault('naming_statuses', {})
+    naming_statuses.update({s['ident']: s
+                           for s in data_from_file(directories, 'naming')})
+
     naming = data.setdefault('naming', {})
     naming.update({s['ident']: s
                    for s in data_from_file(directories, 'naming')})

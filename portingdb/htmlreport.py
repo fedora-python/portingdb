@@ -66,7 +66,6 @@ def last_link_update_sort_key(package):
 
 
 def hello():
-    db = current_app.config['DB']()
     data = current_app.config['data']
 
     statuses = data['statuses']
@@ -86,7 +85,7 @@ def hello():
         for grp in data['groups'].values()
     ), key=sort_key)
 
-    naming_progress, _ = get_naming_policy_progress(db)
+    naming_progress = get_naming_policy_info(data)
 
     return render_template(
         'index.html',
@@ -600,9 +599,31 @@ def get_naming_policy_progress(db):
     return progress, data
 
 
+def get_naming_policy_info(data):
+    naming_statuses = data['naming_statuses']
+    progress = {
+        'name-misnamed': 0,
+        'require-misnamed': 0,
+        'require-blocked': 0,
+    }
+    for name, package in data['packages'].items():
+        if package['is_misnamed']:
+            progress['name-misnamed'] += 1
+
+        if package['blocked_requires']:
+            progress['require-blocked'] += 1
+        elif package['unversioned_requires']:
+            progress['require-misnamed'] += 1
+
+    return tuple(
+        (naming_statuses[name], count)
+        for name, count in progress.items()
+    )
+
+
 def piechart_namingpolicy():
-    db = current_app.config['DB']()
-    summary, _ = get_naming_policy_progress(db)
+    data = current_app.config['data']
+    summary = get_naming_policy_info(data)
     return _piechart(summary)
 
 

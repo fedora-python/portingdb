@@ -76,7 +76,7 @@ def get_history_package_numbers(db, commit, date):
     return prev_batch
 
 
-def get_history_naming_package_numbers(db, commit, date):
+def get_history_naming_package_numbers(data, commit, date):
     """Get number of packages for each naming policy violation.
     """
     prev_batch = []
