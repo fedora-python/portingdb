@@ -49,13 +49,24 @@
     {% if pkg['is_misnamed'] %}
         {{ misnamed_badge() }}
     {% endif %}
+    {% if pkg['unversioned_requires'] %}
+        {{ unversioned_requires_badge() }}
+    {% endif %}
 {%- endmacro %}
 
 {% macro misnamed_badge() -%}
     <span
         class="naming-badge"
-        style="background-color: F0AD4E !important;"
+        style="background-color: #F0AD4E !important;"
         title="Misnamed package"
+    ></span>
+{%- endmacro %}
+
+{% macro unversioned_requires_badge() -%}
+    <span
+        class="naming-badge"
+        style="background-color: #8c6699 !important;"
+        title="Ambiguous Requires"
     ></span>
 {%- endmacro %}
 

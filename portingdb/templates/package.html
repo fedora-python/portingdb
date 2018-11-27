@@ -62,6 +62,17 @@
                 </div>
                 <br>
             {% endif %}
+            {% if pkg.unversioned_requires %}
+                <div>
+                    {{ unversioned_requires_badge() }}
+                    This package has Ambiguous Requires (or BuildRequires):
+                    it uses unversioned <code>python</code>, rather than
+                    <code>python2</code> or <code>python3</code>,
+                    to refer to other packages.
+                    The Python version should always be given explicitly.
+                </div>
+                <br>
+            {% endif %}
             <div>
                 <img src="https://fedoraproject.org/static/images/favicon.ico">
                 See
@@ -116,6 +127,20 @@
                                     </ul>
                                 </li>
                             {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {% if pkg.unversioned_requires %}
+                        <div>
+                            <h3>Ambiguous Requires</h3>
+                            {{ unversioned_requires_badge() }}
+                            This package has ambiguous (Build)Requires for:
+                            <ul class='simple-pkg-list'>
+                                {% for name, p in pkg.unversioned_requires.items() %}
+                                    <li>
+                                        {{ pkglink(p) }}
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     {% endif %}
