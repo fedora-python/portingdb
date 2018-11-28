@@ -240,17 +240,26 @@ def handle_entrypoints(result, config):
                          'keystoneclient.plugin',  # self contained
                          'oslo.db.migration',  # self contained
                         ) or section.startswith((
+                         'apscheduler.',  # self contained
+                         'cliff.',  # self contained
                          'glance_store.',  # self contained
                          'turbogears.',  # plugins for a framework, not app
                          'tgcaptcha2.',  # self contained
                          'hghooks.',  # self contained
                          'jjb.cli.',  # self contained
+                         'keystoneclient.',  # self contained
                          'marrow.mailer.',  # self contained
                          'oslo.middleware.',  # self contained
                          'oslo.config.',  # self contained
                          'pybtex.',  # self contained
+                         'pygments.',  # pygments the tool is py3
                          'pyface.',  # self contained
                          'turbomail.',  # self contained
+                         'shove.',  # self contained
+                         'statscache.',  # self contained
+                         'subliminal.',  # self contained
+                         'tooz.',  # self contained
+                         'versiontools.',  # self contained
                         )):
             # Decided to be useless and/or self contained
             pass
@@ -530,24 +539,6 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
 
     # https://bugzilla.redhat.com/show_bug.cgi?id=1629435
     keep_manually('python2-q', 'debugging tool')
-
-    # matplotlib retired by series of unfortunate events
-    keep_manually('python2-cycler', 'matplotlib')
-    keep_manually('python2-kiwisolver', 'matplotlib')
-
-    # Fedora QA stuff runs on all this
-    # https://pagure.io/fedora-qa/fedora_openqa/blob/master/f/setup.py#_55
-    # https://pagure.io/fedora-qa/autocloudreporter/blob/master/f/install.requires
-    for pkg in (
-        'python2-fedfind',
-        'python2-fedmsg',
-        'python2-openqa_client',
-        'python2-resultsdb_api',
-        'python2-resultsdb_conventions',
-        'python2-resultsdb_conventions-fedora',
-        'python2-wikitcms',
-    ):
-        keep_manually(pkg, 'Fedora QA')
 
     for result in results.values():
         if result.get('needs_investigation'):
