@@ -97,6 +97,7 @@ def load_from_directories(data, directories):
         package['is_misnamed'] = any(rpm.get('is_misnamed')
                                      for rpm in package['rpms'].values())
 
+        package.setdefault('status', 'unknown')
         package.setdefault('dependents', {})
         package.setdefault('build_dependents', {})
         package.setdefault('groups', {})
