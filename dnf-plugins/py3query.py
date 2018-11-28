@@ -24,6 +24,7 @@ import bugzilla  # python-bugzilla
 
 from taskotron_python_versions.executables import have_binaries
 from taskotron_python_versions.naming_scheme import check_naming_policy, is_unversioned
+from taskotron_python_versions.two_three import NAME_NOTS
 
 
 BUGZILLA_URL = 'bugzilla.redhat.com'
@@ -318,9 +319,16 @@ class Py3QueryCommand(dnf.cli.Command):
                             pkg.suggests + pkg.supplements + pkg.enhances):
                 require = str(require).split()[0]
                 requirement = all_provides.get(require)
-                if (is_unversioned(require) and requirement and not
-                        (require.endswith('-doc') or python_versions.get(requirement) == {3})
-                        and require != 'python-unversioned-command'):
+                if (
+                    is_unversioned(require)
+                    and requirement
+                    and not (
+                        require.endswith('-doc')
+                        or python_versions.get(requirement) == {3}
+                    )
+                    and require not in NAME_NOTS
+                    and require != 'python-unversioned-command'
+                ):
                     requirement_srpm_name = get_srpm_name(requirement)
                     requirer_srpm_name = get_srpm_name(pkg)
                     unversioned_requirers[requirement_srpm_name].add(requirer_srpm_name)
