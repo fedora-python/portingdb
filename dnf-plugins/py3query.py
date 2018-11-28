@@ -24,6 +24,7 @@ import bugzilla  # python-bugzilla
 
 from taskotron_python_versions.executables import have_binaries
 from taskotron_python_versions.naming_scheme import check_naming_policy, is_unversioned
+from taskotron_python_versions.two_three import NAME_NOTS
 
 
 BUGZILLA_URL = 'bugzilla.redhat.com'
@@ -325,11 +326,7 @@ class Py3QueryCommand(dnf.cli.Command):
                         require.endswith('-doc')
                         or python_versions.get(requirement) == {3}
                     )
-                    and not require.endswith('-wheel')
-                    and require not in (
-                        'python-rpm-macros',
-                        'python-srpm-macros',
-                    )
+                    and require not in NAME_NOTS
                     and require != 'python-unversioned-command'
                 ):
                     requirement_srpm_name = get_srpm_name(requirement)
