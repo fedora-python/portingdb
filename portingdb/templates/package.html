@@ -54,6 +54,32 @@
                 {{ pkg.status_obj.instructions | md }}
             </div>
             <br>
+            {% if pkg['is_misnamed'] %}
+                <div>
+                    {{ misnamed_badge() }}
+                    This package does not conform to Fedora's Python naming guidelines.
+                    See individual RPMs below.
+                </div>
+                <br>
+            {% endif %}
+            {% if pkg.unversioned_requires %}
+                <div>
+                    {{ unversioned_requires_badge(blocked=False) }}
+                    This package has Ambiguous Requires (or BuildRequires):
+                    it uses unversioned <code>python</code>, rather than
+                    <code>python2</code> or <code>python3</code>,
+                    to refer to other packages.
+                    The Python version should always be given explicitly.
+                </div>
+                {% if pkg.blocked_requires %}
+                    <div>
+                        {{ unversioned_requires_badge(pkg.blocked_requires) }}
+                        Note that some required packages may not provide the
+                        necessary versioned Provides yet.
+                    </div>
+                {% endif %}
+                <br>
+            {% endif %}
             <div>
                 <img src="https://fedoraproject.org/static/images/favicon.ico">
                 See
@@ -80,10 +106,10 @@
                                 <li>
                                     {{ rpm_name | format_rpm_name }}
                                     {% if rpm.get('is_misnamed') %}
-                                    <span class="badge"
+                                    <span class="naming-badge"
                                           style="background-color: #F0AD4E !important;"
                                           title="The RPM name does not comply with Python package naming guidelines"
-                                    >x</span>
+                                    ></span>
                                     {% endif %}
                                     {{ rpm_leaf_badge(rpm) }}
                                     <ul class="fa-ul">
@@ -108,6 +134,20 @@
                                     </ul>
                                 </li>
                             {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {% if pkg.unversioned_requires %}
+                        <div>
+                            <h3>Ambiguous Requires</h3>
+                            {{ unversioned_requires_badge(pkg['blocked_requires']) }}
+                            This package has ambiguous (Build)Requires for:
+                            <ul class='simple-pkg-list'>
+                                {% for name, p in pkg.unversioned_requires.items() | sort %}
+                                    <li>
+                                        {{ pkglink(p) }}
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     {% endif %}

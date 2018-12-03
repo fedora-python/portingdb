@@ -16,15 +16,15 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro status_minibadge(thing) -%}
+{% macro naming_status_badge(thing) -%}
     {% if not thing or thing.ident == 'unknown' %}
-        <span class="minibadge"
+        <span class="naming-badge"
             style="border: 1px solid #CCCCCC; background-color: transparent; color: #CCCCCC;"
             title="Unknown"
         >
         </span>
     {% else %}
-        <span class="minibadge"
+        <span class="naming-badge"
             style="background-color: #{{ thing.color }} !important;"
             title="{{ thing.name }}"
         >
@@ -32,8 +32,15 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro pkglink(pkg) -%}
-    {{ pkglink_icon(pkg) }}&nbsp;{{ pkglink_text(pkg) }}
+{% macro pkglink(pkg, ignore_misnamed=False, ignore_unversioned_requires=False) -%}
+    {{ pkglink_icon(pkg) }}&nbsp;<a href="{{ url_for('package', pkg=pkg.name) }}">
+        {{- pkg.name -}}
+        {{- pkg_naming_badge(
+            pkg,
+            ignore_misnamed=ignore_misnamed,
+            ignore_unversioned_requires=ignore_unversioned_requires,
+        ) -}}
+    </a>
 {%- endmacro %}
 
 {% macro pkglink_icon(pkg) -%}
@@ -42,6 +49,35 @@
 
 {% macro pkglink_text(pkg) -%}
     <a href="{{ url_for('package', pkg=pkg.name) }}">{{ pkg.name }}</a>
+{%- endmacro %}
+
+{% macro pkg_naming_badge(pkg, ignore_misnamed=False, ignore_unversioned_requires=False) -%}
+    {% if pkg['is_misnamed'] and not ignore_misnamed %}
+        {{ misnamed_badge() }}
+    {% endif %}
+    {% if pkg['unversioned_requires'] and not ignore_unversioned_requires %}
+        {{ unversioned_requires_badge( pkg['blocked_requires']) }}
+    {% endif %}
+{%- endmacro %}
+
+{% macro _naming_badge(color, text) -%}
+    <span
+        class="naming-badge"
+        style="background-color: #{{ color }} !important;"
+        title="{{ text }}"
+    ></span>
+{%- endmacro %}
+
+{% macro misnamed_badge() -%}
+    {{ _naming_badge('F0AD4E', 'Misnamed package') }}
+{%- endmacro %}
+
+{% macro unversioned_requires_badge(blocked) -%}
+    {%- if blocked -%}
+        {{ _naming_badge('a65959', 'Ambiguous Requires (blocked)') }}
+    {%- else -%}
+        {{ _naming_badge('8c6699', 'Ambiguous Requires') }}
+    {%- endif -%}
 {%- endmacro %}
 
 {% macro print_deptree(pkgs) -%}
@@ -155,11 +191,7 @@
         {% endif %}
         {% for status, num in status_counts %}
             <span class="progress-legend-item">
-            <span class="minibadge"
-                style="background-color: #{{ status.color }} !important;"
-                title="{{ status }}"
-            >
-            </span>
+            {{ status_badge(status) }}
             {{ num }} {{ status.name }}{% if not loop.last %};{% endif %}
             </span>
         {% endfor %}
@@ -229,6 +261,13 @@
                 list-style-type: none;
                 padding-left: 1em;
             }
+            .simple-pkg-list>li {
+                padding-left: 0.5em;
+                text-indent: -0.5em;
+            }
+            .simple-pkg-list>li * {
+                text-indent: 0;
+            }
             .dependents .badge {
                 min-width: 1ex;
                 min-height: 1ex;
@@ -259,7 +298,7 @@
             .progress-with-legend {
                 margin-bottom: 1em;
             }
-            .minibadge {
+            .naming-badge {
                 display: inline-block;
                 position: relative;
                 top: 2px;
@@ -268,7 +307,7 @@
                 border-radius: 3px;
                 padding: 2px;
             }
-            .list-group .minibadge {
+            .list-group .naming-badge {
                 float: right;
             }
             .rpm-list {

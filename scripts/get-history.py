@@ -10,6 +10,7 @@ with commits that aren't in it appended.
 Outputs to stdout.
 """
 
+import collections
 import subprocess
 import tempfile
 import shutil
@@ -17,12 +18,10 @@ import csv
 import sys
 import os
 
-from sqlalchemy import create_engine, select, func
 import click
 
 from portingdb import tables
-from portingdb.htmlreport import get_naming_policy_progress
-from portingdb.load import get_db
+from portingdb.load_data import get_data
 
 
 HISTORY_END_COMMIT = '9c4e924da9ede05b4d8903a622240259dfa0e2e5'
@@ -50,21 +49,21 @@ d854079db4d805c4f4f07ad5a4a7c94811030979
 """.splitlines())
 
 
-def get_history_package_numbers(db, commit, date):
+def get_history_package_numbers(data, commit, date):
     """Get number of packages for each status.
     """
-    prev_batch = []
+    result = []
     all_statuses = [
         "blocked", "py3-only", "dropped", "idle", "in-progress",
         "released", "legacy-leaf", "mispackaged"]
 
-    columns = [tables.Package.status, func.count()]
-    query = select(columns).select_from(tables.Package.__table__)
-    query = query.group_by(tables.Package.status)
-
-    package_numbers = {status: num_packages
-                       for status, num_packages
-                       in db.execute(query)}
+    package_numbers = collections.Counter(
+        package['status'] for package in data['packages'].values()
+    )
+    if 'released' not in package_numbers and date < '2018':
+        # With data from before April 2017, "released" (dual-support) packages
+        # are counted as py3-only
+        package_numbers['released'] = package_numbers.pop('py3-only')
     for status in all_statuses:
         row = {
             'commit': commit,
@@ -72,24 +71,31 @@ def get_history_package_numbers(db, commit, date):
             'status': status,
             'num_packages': package_numbers.get(status, 0),
         }
-        prev_batch.append(row)
-    return prev_batch
+        result.append(row)
+    return result
 
 
-def get_history_naming_package_numbers(db, commit, date):
+def get_history_naming_package_numbers(data, commit, date):
     """Get number of packages for each naming policy violation.
     """
-    prev_batch = []
-    progress, _ = get_naming_policy_progress(db)
-    for status, count in progress[1:]:
+    result = []
+
+    progress = collections.Counter(
+        'Misnamed Subpackage' if package['is_misnamed'] else
+        'Blocked' if package['blocked_requires'] else
+        'Ambiguous Requires' if package['unversioned_requires'] else
+        'OK'
+        for package in data['packages'].values()
+    )
+    for status_name in 'Misnamed Subpackage', 'Ambiguous Requires', 'Blocked':
         row = {
             'commit': commit,
             'date': date,
-            'status': status.name,
-            'num_packages': count,
+            'status': status_name,
+            'num_packages': progress[status_name],
         }
-        prev_batch.append(row)
-    return prev_batch
+        result.append(row)
+    return result
 
 
 @click.command(help=__doc__)
@@ -117,7 +123,6 @@ def main(update, naming):
     try:
         tmpclone = os.path.join(tmpdir, 'tmp_clone')
         tmpdata = os.path.join(tmpclone, 'data')
-        tmpdb = os.path.join(tmpclone, 'tmp-portingdb.sqlite')
         run(['git', 'clone', '.', tmpclone])
         prev_data_hash = None
         prev_batch = []
@@ -142,30 +147,19 @@ def main(update, naming):
                 prev_commit = commit
                 print('{},{} - skipping'.format(prev_commit, prev_date),
                       file=sys.stderr)
+                continue
             prev_batch = []
 
             # Note: we don't remove files that didn't exist in the old
             # version.
             run(['git', 'checkout', commit, '--', 'data'], cwd=tmpclone)
-            try:
-                run(['python3', '-m', 'portingdb',
-                    '--datadir', tmpdata,
-                    '--db', tmpdb,
-                    'load'])
-            except Exception as e:
-                typename = type(e).__name__
-                print(f'{prev_commit},{prev_date} - ERROR: {typename}: {e}',
-                      file=sys.stderr)
 
-            engine = create_engine('sqlite:///' + os.path.abspath(tmpdb))
-            db = get_db(engine=engine)
+            data = get_data(tmpdata)
 
             if naming:
-                prev_batch = get_history_naming_package_numbers(db, commit, date)
+                prev_batch = get_history_naming_package_numbers(data, commit, date)
             else:
-                prev_batch = get_history_package_numbers(db, commit, date)
-
-            os.unlink(tmpdb)
+                prev_batch = get_history_package_numbers(data, commit, date)
 
             prev_data_hash = data_hash
         for row in prev_batch:

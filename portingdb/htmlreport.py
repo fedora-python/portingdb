@@ -1,18 +1,14 @@
 from collections import OrderedDict, Counter, defaultdict
 import random
-import functools
-import json
 import math
 import uuid
-import io
-import csv
 import datetime
 
 from flask import Flask, render_template, current_app, Markup, abort, url_for
-from flask import make_response, request, Response
+from flask import make_response, request
 from flask.json import jsonify
-from sqlalchemy import func, and_, create_engine
-from sqlalchemy.orm import subqueryload, eagerload, sessionmaker, joinedload
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, joinedload
 from jinja2 import StrictUndefined
 import markdown
 
@@ -44,7 +40,6 @@ def summarize_2_dual_3(package_list):
     """
     Given list of packages, return counts of (py3-only, dual-support, py2-only)
     """
-    by_status = group_by_status(package_list)
     py3 = 0
     dual = 0
     py2 = 0
@@ -66,7 +61,6 @@ def last_link_update_sort_key(package):
 
 
 def hello():
-    db = current_app.config['DB']()
     data = current_app.config['data']
 
     statuses = data['statuses']
@@ -86,7 +80,7 @@ def hello():
         for grp in data['groups'].values()
     ), key=sort_key)
 
-    naming_progress, _ = get_naming_policy_progress(db)
+    naming_progress = get_naming_policy_info(data)
 
     return render_template(
         'index.html',
@@ -115,7 +109,6 @@ def hello():
 def jsonstats():
     data = current_app.config['data']
 
-    statuses = data['statuses']
     packages = data['packages']
     grouped = group_by_status(packages.values())
 
@@ -527,29 +520,24 @@ def mispackaged():
 def namingpolicy():
     """Naming policy tracking.
     """
-    db = current_app.config['DB']()
-    misnamed_package_names = (
-        db.query(tables.Package.name)
-        .join(tables.CollectionPackage)
-        .filter(tables.CollectionPackage.collection_ident == 'fedora',
-                tables.CollectionPackage.is_misnamed.is_(True)))
-    progress, data = get_naming_policy_progress(db)
-    total = sum(dict(progress).values())
+    data = current_app.config['data']
 
-    # Unversioned requirers within non Python Packages.
-    require_misnamed_all = (
-        db.query(tables.Dependency.requirer_name)
-        .filter(tables.Dependency.unversioned.is_(True))
-        .outerjoin(tables.Dependency.requirer)
-        .filter(tables.Package.name.is_(None)).distinct())
-    blocked = (
-        require_misnamed_all
-        .filter(tables.Dependency.requirement_name.in_(misnamed_package_names)))
-    require_misnamed = sorted(set(require_misnamed_all) - set(blocked))
-    naming_data = dict(db.query(tables.NamingData.ident, tables.NamingData))
-    data_outside_portingdb = (
-        (naming_data['require-misnamed'], len(require_misnamed), require_misnamed),
-        (naming_data['require-blocked'], blocked.count(), blocked))
+    misnamed = {
+        name: pkg for (name, pkg) in data['packages'].items()
+        if pkg['is_misnamed']
+    }
+    requires_unblocked = {
+        name: pkg for (name, pkg) in data['packages'].items()
+        if pkg['unversioned_requires'] and not pkg['blocked_requires']
+    }
+    requires_blocked = {
+        name: pkg for (name, pkg) in data['packages'].items()
+        if pkg['blocked_requires']
+    }
+    nonpython = {
+        name: any(p['is_misnamed'] for p in pkgs.values())
+        for name, pkgs in data['non_python_unversioned_requires'].items()
+    }
 
     return render_template(
         'namingpolicy.html',
@@ -557,57 +545,38 @@ def namingpolicy():
             (url_for('hello'), 'Python 3 Porting Database'),
             (url_for('namingpolicy'), 'Naming Policy'),
         ),
-        total_packages=total,
-        progress=progress,
-        data=data,
-        data_outside_portingdb=data_outside_portingdb,
+        misnamed=misnamed,
+        requires_unblocked=requires_unblocked,
+        requires_blocked=requires_blocked,
+        nonpython=nonpython,
     )
 
 
-def get_naming_policy_progress(db):
-    misnamed_package_names = (
-        db.query(tables.Package.name)
-        .join(tables.CollectionPackage)
-        .filter(tables.CollectionPackage.collection_ident == 'fedora',
-                tables.CollectionPackage.is_misnamed.is_(True)))
+def get_naming_policy_info(data):
+    naming_statuses = data['naming_statuses']
+    progress = {
+        'name-misnamed': 0,
+        'require-misnamed': 0,
+        'require-blocked': 0,
+    }
+    for name, package in data['packages'].items():
+        if package['is_misnamed']:
+            progress['name-misnamed'] += 1
 
-    all_packages = db.query(tables.Package).order_by(tables.Package.name)
-    misnamed_packages = all_packages.filter(
-        tables.Package.name.in_(misnamed_package_names))
+        if package['blocked_requires']:
+            progress['require-blocked'] += 1
+        elif package['unversioned_requires']:
+            progress['require-misnamed'] += 1
 
-    require_misnamed_all = (
-        all_packages
-        .filter(tables.Package.requirement_dependencies.any(
-            tables.Dependency.unversioned.is_(True)),
-            ~tables.Package.name.in_(misnamed_package_names)))
-
-    requires_misnamed = tables.Package.requirement_dependencies.any(
-        tables.Dependency.requirement_name.in_(misnamed_package_names))
-    blocked = require_misnamed_all.filter(requires_misnamed)
-    require_misnamed = require_misnamed_all.filter(~requires_misnamed)
-
-    # Naming policy in numbers.
-    total_packages = all_packages.count()
-    total_misnamed = misnamed_package_names.count()
-    total_blocked = blocked.count()
-    total_require_misnamed = require_misnamed.count()
-
-    # Misnamed packages progress bar info.
-    naming_data = dict(db.query(tables.NamingData.ident, tables.NamingData))
-    progress = (
-        (naming_data['name-correct'], total_packages - (
-            total_misnamed + total_blocked + total_require_misnamed)),
-        (naming_data['name-misnamed'], total_misnamed),
-        (naming_data['require-misnamed'], total_require_misnamed),
-        (naming_data['require-blocked'], total_blocked))
-
-    data = list(zip(progress[1:], (misnamed_packages, require_misnamed, blocked)))
-    return progress, data
+    return tuple(
+        (naming_statuses[name], count)
+        for name, count in progress.items()
+    )
 
 
 def piechart_namingpolicy():
-    db = current_app.config['DB']()
-    summary, _ = get_naming_policy_progress(db)
+    data = current_app.config['data']
+    summary = get_naming_policy_info(data)
     return _piechart(summary)
 
 
@@ -702,7 +671,6 @@ def first_decimal(number, digits=1):
 def create_app(db_url, directories, cache_config=None):
     app = Flask(__name__)
     app.config['DB'] = sessionmaker(bind=create_engine(db_url))
-    db = app.config['DB']()
     app.config['data'] = data = get_data('data/')
     app.config['CONFIG'] = data['config']
     app.jinja_env.undefined = StrictUndefined

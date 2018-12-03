@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+import sys
 import csv
 
 import yaml
@@ -61,11 +62,15 @@ def load_from_directories(data, directories):
     statuses.update({s['ident']: s
                      for s in data_from_file(directories, 'statuses')})
 
+    naming_statuses = data.setdefault('naming_statuses', {})
+    naming_statuses.update({s['ident']: s
+                           for s in data_from_file(directories, 'naming')})
+
     naming = data.setdefault('naming', {})
     naming.update({s['ident']: s
                    for s in data_from_file(directories, 'naming')})
 
-    collection_name = config['collection']
+    collection_name = config.get('collection', 'fedora')
     packages = data.setdefault('packages', {})
     _pkgs = data_from_file(directories, collection_name)
     _merge_updates(
@@ -73,6 +78,9 @@ def load_from_directories(data, directories):
         data_from_file(directories, collection_name + '-update')
     )
     packages.update(_pkgs)
+
+    non_python_unversioned_requires = data.setdefault(
+        'non_python_unversioned_requires', {})
 
     groups = data.setdefault('groups', {})
     groups.update(data_from_file(directories, 'groups'))
@@ -88,11 +96,16 @@ def load_from_directories(data, directories):
         package.setdefault('nonblocking', False)
 
         if 'rpms' not in package:
-            print('WARNING: no RPMs in package', name)
+            print('WARNING: no RPMs in package', name, file=sys.stderr)
 
         package.setdefault('rpms', {})
         package.setdefault('deps', ())
         package.setdefault('build_deps', ())
+
+        if isinstance(package['rpms'], list):
+            package['rpms'] = {rpm_name: {} for rpm_name in package['rpms']}
+        for rpm in package['rpms'].values():
+            rpm.setdefault('py_deps', {})
 
         package['is_misnamed'] = any(rpm.get('is_misnamed')
                                      for rpm in package['rpms'].values())
@@ -103,6 +116,8 @@ def load_from_directories(data, directories):
         package.setdefault('groups', {})
         package.setdefault('tracking_bugs', ())
         package.setdefault('last_link_update', None)
+        package.setdefault('unversioned_requires', {})
+        package.setdefault('blocked_requires', {})
 
         maintainer_names = pagure_owner_alias['rpms'].get(name, ())
         package['maintainers'] = package_maintainers = {}
@@ -141,21 +156,32 @@ def load_from_directories(data, directories):
 
     # Add `status_obj`
     for name, package in packages.items():
-        package['status_obj'] = statuses[package['status']]
+        package['status_obj'] = statuses.get(package['status'])
 
     # Convert bug info
     for name, package in packages.items():
         links = []
         link_updates = []
-        for link_type, link_info in package.get('links', {}).items():
+        links_info = package.get('links', {})
+        if isinstance(links_info, list):
+            # Ignore old link format
+            continue
+        for link_type, link_info in links_info.items():
             if isinstance(link_info, str):
                 url = link_info
                 note = None
                 time = None
             else:
-                url, note, time = link_info
-                time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
-                link_updates.append(time)
+                if isinstance(link_info, str):
+                    url = link_info
+                    note = time = None
+                elif len(link_info) == 2:
+                    url, note = link_info
+                    time = None
+                else:
+                    url, note, time = link_info
+                    time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+                    link_updates.append(time)
             links.append({
                 'url': url,
                 'type': link_type,
@@ -204,3 +230,16 @@ def load_from_directories(data, directories):
                     names_to_add.add(dep)
                 for dep in packages[name]['build_deps']:
                     names_to_add.add(dep)
+
+    # Update unversioned requirers
+    for name, package in packages.items():
+        for requirer_name in package.get('unversioned_requirers', ()):
+            requirer = packages.get(requirer_name)
+            if requirer:
+                requirer['unversioned_requires'][name] = package
+                if package['is_misnamed'] and package != requirer:
+                    requirer['blocked_requires'][name] = package
+            else:
+                non_python_unversioned_requires.setdefault(
+                    requirer_name, {}
+                )[name] = package

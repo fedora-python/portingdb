@@ -15,93 +15,134 @@
         <h1>Naming Policy Violations</h1>
     </div>
     <div class="col-md-12">
-        {{ progress_summary(progress, total_packages) }}
         <p>
-            This is a dashboard to track various naming scheme violations in Python packages:
-            <ul>
-                {% for (name_status, total), packages in data %}
-                <li>
-                    {{ status_minibadge(name_status) }}
-                    <strong>{{ name_status.name }}</strong> -
-                    {{ name_status.violation | safe }}
-                </li>
-                {% endfor %}
-            </ul>
+            This is a dashboard to track various naming scheme violations in Python packages.
+        </p>
+        <p>
+            Specifically, this tracks the use of “unversioned” <code>python</code>
+            in all package names, Provides, Requires, etc.
+            It should be replaced by "versioned” variants <code>python2</code>
+            or <code>python3</code>.
+        </p>
+        <p>
             We encourage to follow the new guidelines to avoid a range of issues
-            when upstream support for Python 2 ends and <i>python</i> means Python 3 in Fedora.
+            when upstream support for Python 2 ends and <code>python</code>
+            means Python 3 in Fedora.
         </p>
     </div>
     <div class="col-md-9">
-        {% for (name_status, total), packages in data %}
-        <h3 id="{{ name_status.ident }}">
-            {{ total }} packages - {{ name_status.name }}
+        <h3 id="name-misnamed">
+            Misnamed subpackage ({{ misnamed | length }})
         </h3>
-        <div>{{ name_status.description | safe }}</div>
-        <div>
-            {% for pkg in packages %}
-            <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>&nbsp;{{ pkglink_text(pkg) }}
+        {{ misnamed_badge() }}
+        The naming scheme of (at least) one of the binary RPMs
+        does not comply with the naming policy. Please refer to the
+        <a href="https://python-rpm-porting.readthedocs.io/en/latest/naming-scheme.html">
+        Python RPM Porting Guide</a> for more information and instructions on
+        the changes needed.
+        <ul class="simple-pkg-list">
+            {% for name, pkg in misnamed.items() | sort %}
+                <li>{{ pkglink(pkg, ignore_misnamed=True) }}</li>
             {% endfor %}
-        </div>
-        {% endfor %}
-        <h3>Non Python Packages</h3>
-        <div>There are also non Python packages which are not tracked in Python Porting Database, but depend on Python packages and use the unversioned naming scheme in run-time or build-time requirements.</div>
-        {% for name_status, total, packages in data_outside_portingdb %}
-        <h4 id="{{ name_status.ident }}-non-python">
-            {{ total }} packages - {{ name_status.name }}
+        </ul>
+
+        <h3>
+            Ambiguous Requires
+            ({{
+                (requires_unblocked | length)
+                + (requires_blocked | length)
+                + (nonpython | length)
+            }})
+        </h3>
+        Some (Build)Requires use “unversioned” <code>python</code>.
+
+        <h4 id="require-misnamed">Unblocked</h4>
+        {{ unversioned_requires_badge(blocked=False) }}
+        For {{ requires_unblocked | length }} Python packages, explicitly versioned
+        names (e.g. <code>python2-foo</code>) are available and should be used.
+        <ul class="simple-pkg-list" style="column-width: 10em;">
+            {% for name, pkg in requires_unblocked.items() | sort %}
+                <li>{{ pkglink(pkg, ignore_unversioned_requires=True) }}</li>
+            {% endfor %}
+        </ul>
+
+        <h4 id="require-blocked">Blocked</h4>
+        {{ unversioned_requires_badge(blocked=True) }}
+        For {{ requires_blocked | length }} Python packages, explicitly versioned
+        names (e.g. <code>python2-foo</code>) may not be available.
+        These packages are waiting for some misnamed packages to be renamed.
+        <ul class="simple-pkg-list">
+            {% for name, pkg in requires_blocked.items() | sort %}
+                <li>{{ pkglink(pkg, ignore_unversioned_requires=True) }}</li>
+            {% endfor %}
+        </ul>
+
+        <h4 id="require-misnamed-non-python">
+            Non-Python Packages
         </h4>
+        <div>
+            There are also {{ nonpython | length }} non-Python packages which
+            are not tracked in Python Porting Database, but depend on Python
+            packages and use the unversioned naming scheme in run-time or
+            build-time requirements.
+        </div>
+
         <table class="table table-striped table-condensed table-hovered">
             <tr>
                 <th>Package</th>
                 <th>Links</th>
             </tr>
-
-            {% for pkg in packages %}
+            {% for name, blocked in nonpython.items() %}
             <tr>
                 <td>
-                    <span class="pkgstatus-icon" style="background-color: {{ name_status.color }}">&nbsp;</span>&nbsp;{{ pkg[0] }}
+                    {{ name }}
+                    {% if blocked %}
+                        {{ unversioned_requires_badge(blocked=blocked) }}
+                        (Blocked!)
+                    {% endif %}
                 </td>
                 <td>
-                    <a target="_blank" href="https://src.fedoraproject.org/rpms/{{ pkg[0] }}/">Pagure</a>,
-                    <a target="_blank" href="https://src.fedoraproject.org/rpms/{{ pkg[0] }}/blob/master/f/{{ pkg[0] }}.spec">spec</a>
+                    <a target="_blank" href="https://src.fedoraproject.org/rpms/{{ name }}/">Pagure</a>,
+                    <a target="_blank" href="https://src.fedoraproject.org/rpms/{{ name }}/blob/master/f/{{ name }}.spec">spec</a>
                 </td>
             </tr>
             {% endfor %}
         </table>
-        {% endfor %}
     </div>
     <div class="col-md-3">
         <ul class="list-group">
-            {% for (name_status, total), packages in data %}
             <li class="list-group-item">
-                {{ status_minibadge(name_status) }}
-                <a href="#{{ name_status.ident }}">
-                    {{ total }}
-                    <strong>{{ name_status.name }}</strong>
-                </a>
-                <div><small>{{ name_status.short_description }}</small></div>
-            </li>
-            {% endfor %}
-        </ul>
-        <h3>Non Python Packages</h3>
-        <ul class="list-group">
-            {% for name_status, total, packages in data_outside_portingdb %}
-            <li class="list-group-item">
-                {{ status_minibadge(name_status) }}
-                <a href="#{{ name_status.ident }}-non-python">
-                    {{ total }}
-                    <strong>{{ name_status.name }}</strong>
+                {{ misnamed_badge() }}
+                <a href="#name-misnamed">
+                    {{ misnamed | length }}
+                    <strong>Misnamed subpackage</strong>
                 </a>
             </li>
-            {% endfor %}
+            <li class="list-group-item">
+                {{ unversioned_requires_badge(blocked=False) }}
+                <a href="#require-misnamed">
+                    {{ requires_unblocked | length }}
+                    <strong>Unblocked</strong>
+                    Ambiguous Requires
+                </a>
+            </li>
+            <li class="list-group-item">
+                {{ unversioned_requires_badge(blocked=True) }}
+                <a href="#require-blocked">
+                    {{ requires_blocked | length }}
+                    <strong>Blocked</strong>
+                    Ambiguous Requires
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#require-misnamed-non-python">
+                    {{ nonpython | length }}
+                    <strong>Non-Python</strong>
+                    Ambiguous Requires
+                </a>
+            </li>
         </ul>
         <h3>Visualizations</h3>
-        You can also look at the progress in the form of a
-        <a href="{{ url_for('piechart_namingpolicy') }}">pie chart</a>.
-        <div>
-            <a href="{{ url_for('piechart_namingpolicy') }}">
-                <img src="{{ url_for('piechart_namingpolicy') }}">
-            </a>
-        </div>
         <div>
             You may also see a
             <a href="{{ url_for('history_naming') }}">graph of the progress history</a>
