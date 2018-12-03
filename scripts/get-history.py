@@ -60,6 +60,10 @@ def get_history_package_numbers(data, commit, date):
     package_numbers = collections.Counter(
         package['status'] for package in data['packages'].values()
     )
+    if 'released' not in package_numbers and date < '2018':
+        # With data from before April 2017, "released" (dual-support) packages
+        # are counted as py3-only
+        package_numbers['released'] = package_numbers.pop('py3-only')
     for status in all_statuses:
         row = {
             'commit': commit,

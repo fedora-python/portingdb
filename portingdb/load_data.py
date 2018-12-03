@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+import sys
 import csv
 
 import yaml
@@ -69,7 +70,7 @@ def load_from_directories(data, directories):
     naming.update({s['ident']: s
                    for s in data_from_file(directories, 'naming')})
 
-    collection_name = config['collection']
+    collection_name = config.get('collection', 'fedora')
     packages = data.setdefault('packages', {})
     _pkgs = data_from_file(directories, collection_name)
     _merge_updates(
@@ -95,11 +96,16 @@ def load_from_directories(data, directories):
         package.setdefault('nonblocking', False)
 
         if 'rpms' not in package:
-            print('WARNING: no RPMs in package', name)
+            print('WARNING: no RPMs in package', name, file=sys.stderr)
 
         package.setdefault('rpms', {})
         package.setdefault('deps', ())
         package.setdefault('build_deps', ())
+
+        if isinstance(package['rpms'], list):
+            package['rpms'] = {rpm_name: {} for rpm_name in package['rpms']}
+        for rpm in package['rpms'].values():
+            rpm.setdefault('py_deps', {})
 
         package['is_misnamed'] = any(rpm.get('is_misnamed')
                                      for rpm in package['rpms'].values())
@@ -150,21 +156,32 @@ def load_from_directories(data, directories):
 
     # Add `status_obj`
     for name, package in packages.items():
-        package['status_obj'] = statuses[package['status']]
+        package['status_obj'] = statuses.get(package['status'])
 
     # Convert bug info
     for name, package in packages.items():
         links = []
         link_updates = []
-        for link_type, link_info in package.get('links', {}).items():
+        links_info = package.get('links', {})
+        if isinstance(links_info, list):
+            # Ignore old link format
+            continue
+        for link_type, link_info in links_info.items():
             if isinstance(link_info, str):
                 url = link_info
                 note = None
                 time = None
             else:
-                url, note, time = link_info
-                time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
-                link_updates.append(time)
+                if isinstance(link_info, str):
+                    url = link_info
+                    note = time = None
+                elif len(link_info) == 2:
+                    url, note = link_info
+                    time = None
+                else:
+                    url, note, time = link_info
+                    time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+                    link_updates.append(time)
             links.append({
                 'url': url,
                 'type': link_type,
