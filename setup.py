@@ -25,6 +25,7 @@ requires = [
     'markdown >= 3.0, < 4.0',
     'taskotron-python-versions >= 0.1.dev2',
     'plotly >= 3.0, < 4.0',
+    'networkx >= 2.2, < 3.0',
 ]
 
 tests_require = ['pytest']

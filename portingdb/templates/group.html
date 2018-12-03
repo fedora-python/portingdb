@@ -31,16 +31,6 @@
         <div class="col-md-3">
             <h2>Dependency Tree</h2>
             {{ print_deptree(deptree) }}
-            <h2>Visualizations</h2>
-            You can see the unported packages visualized as a
-            <a href="{{ url_for('graph_grp', grp=grp.ident) }}">graph</a>,
-            or look at the progress in the form of a
-            <a href="{{ url_for('piechart_grp', grp=grp.ident) }}">pie chart</a>.
-            <div>
-                <a href="{{ url_for('piechart_grp', grp=grp.ident) }}">
-                    <img src="{{ url_for('piechart_grp', grp=grp.ident) }}">
-                </a>
-            </div>
         </div>
     </div>
 {% endblock bodycontent %}

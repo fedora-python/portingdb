@@ -7,13 +7,10 @@ import datetime
 from flask import Flask, render_template, current_app, Markup, abort, url_for
 from flask import make_response, request
 from flask.json import jsonify
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, joinedload
 from jinja2 import StrictUndefined
 import markdown
+import networkx
 
-from . import tables
-from . import queries
 from .history_graph import history_graph
 from .load_data import get_data, DONE_STATUSES, PY2_STATUSES
 
@@ -299,110 +296,131 @@ def graph(grp=None, pkg=None):
     )
 
 
-def graph_grp(grp):
-    return graph(grp=grp)
-
-
 def graph_json(grp=None, pkg=None):
-    # Parameters
-    all_deps = request.args.get('all_deps', None)
-    if all_deps not in ('1', None):
-        abort(400)  # Bad request
+    data = current_app.config['data']
+    packages = data['packages']
 
-    db = current_app.config['DB']()
-    if pkg is None:
-        db = current_app.config['DB']()
-        query = queries.packages(db)
-        query = query.filter(~tables.Package.status.in_(DONE_STATUSES))
-        if grp:
-            query = query.join(tables.GroupPackage)
-            query = query.filter(tables.GroupPackage.group_ident == grp)
-        query = query.options(joinedload(
-            tables.Package.requirers if all_deps else tables.Package.run_time_requirers))
-        packages = list(query)
-    else:
-        query = db.query(tables.Package)
-        root_package = query.get(pkg)
-        if root_package is None:
-            abort(404)
-        todo = {root_package}
-        requirements = set()
-        while todo:
-            package = todo.pop()
-            if package not in requirements:
-                requirements.add(package)
-                pkg_requirements = package.requirements if all_deps else package.run_time_requirements
-                todo.update(p for p in pkg_requirements
-                            if p.status not in DONE_STATUSES and
-                            not p.nonblocking)
-        todo = {root_package}
-        requirers = set()
-        while todo:
-            package = todo.pop()
-            if package not in requirers:
-                requirers.add(package)
-                pkg_requirers = package.requirers if all_deps else package.run_time_requirers
-                todo.update(p for p in pkg_requirers
-                            if p.status not in DONE_STATUSES and
-                            not p.nonblocking)
-        packages = list(requirements | requirers | {root_package})
+    # Get a list of all dependency relationships, as pairs of package names.
+    # Package names will be later used as nodes of several graphs.
+    link_pairs = [
+        (dep_name, pkg_name)
+        for pkg_name, pkg_dict in packages.items()
+        for attr in ('dependents', 'build_dependents')
+        for dep_name in pkg_dict[attr]
+    ]
 
-    package_names = {p.name for p in packages}
-    query = db.query(tables.Dependency)
-    if not all_deps:
-        query = query.filter(tables.Dependency.run_time)
-    linked_pairs = {(d.requirer_name, d.requirement_name)
-                    for d in query
-                    if d.requirer_name in package_names
-                        and d.requirement_name in package_names
-                        and not d.requirement.nonblocking}
-    linked_names = (set(p[0] for p in linked_pairs) |
-                    set(p[1] for p in linked_pairs))
-    if pkg:
-        linked_names.add(pkg)
+    # Find "tiers" of packages: if the Python 2 dropping was done by removing
+    # all leaf packages at once, a package's "tier" is how many of those
+    # removals would be needed to drop it.
+    # "Clusters" of packages that form cycles are removed at once.
 
-    nodes = [{'name': p.name,
-              'status': p.status,
-              'color': graph_color(p),
-              'status_color': '#' + p.status_obj.color,
-              'size': 3.5+math.log((p.loc_python or 1)+(p.loc_capi or 1), 50),
-              'num_requirers': len(p.pending_requirers),
-              'num_requirements': len(p.pending_requirements),
-             }
-             for p in packages
-             if p.name in linked_names and p.name in package_names]
-    names = [n['name'] for n in nodes]
+    # For each such cluster, find some "representative" (rep) that will
+    # identify the cluster.
+    # (The rep will be the first node in the cluster, in alphabetical order.)
+    reps = {name: name for name in packages}
 
+    # The cluster that has python2 is quite complex.
+    # Networkx's `simple_cycles` will have a **lot** less work if we
+    # strategically remove these packages from the graph, and put them in
+    # python2's cluster manually.
+    usual_suspects = [
+        'python-sphinx',
+        'pytest',
+        'python-setuptools',
+        'python-mock',
+    ]
+    for name in usual_suspects:
+        reps[name] = 'python2'
 
-    links = [{"source": names.index(d.requirer_name),
-              "target": names.index(d.requirement_name),
-             }
-             for d in query
-             if d.requirer_name in names and d.requirement_name in names
-                 and not d.requirement.nonblocking]
+    # Build a graph where all nodes are replaced by their representative
+    # (ignoring duplicate edges and self-loops)
+    graph = networkx.DiGraph()
+    graph.add_edges_from(set(
+        (reps[a], reps[b]) for a, b in link_pairs if reps[a] != reps[b]
+    ))
 
-    nodes_in_links = (set(l['source'] for l in links) |
-                      set(l['target'] for l in links))
+    # For all cycles in this graph, replace all nodes in the cycle by a
+    # representative.
+    for cycle in networkx.cycles.simple_cycles(graph):
+        rep = min(reps[name] for name in cycle)
+        for name in cycle:
+            reps[name] = rep
 
-    nodes = [n for i, n in enumerate(nodes) if i in nodes_in_links]
+    # Since python2's rep probably changed, adjust the nodes previously removed
+    for name in usual_suspects:
+        reps[name] = reps['python2']
+
+    # Build a graph whose nodes are the representatives (standing for clusters)
+    # (ignoring duplicate edges and self-loops)
+    cluster_graph = networkx.DiGraph()
+    cluster_graph.add_edges_from(set(
+        (reps[a], reps[b]) for a, b in link_pairs if reps[a] != reps[b]
+    ))
+
+    # Iteratively remove the cluster graph's leaves, keeping track of which
+    # iteration each node was removed in.
+    tiers = {}
+    tier = 0
+    while cluster_graph.nodes:
+        tier += 1
+        leaves = [
+            n for n, d in cluster_graph.in_degree(cluster_graph.nodes)
+            if d == 0
+        ]
+        print(len(leaves), 'clusters in tier', tier)
+        if not leaves:
+            # Theoretically, we should have an acyclic graph here, so it
+            # should be possible to remove leaves until the graph is empty.
+            # However, because of the "usual_suspects" stuff above, something
+            # can be left over. Just put it in the last tier.
+            print(len(cluster_graph.nodes), 'clusters remaining')
+            for rep in cluster_graph.nodes:
+                tiers[rep] = tier
+            break
+        for rep in leaves:
+            if tier == 1 and packages[rep]['status'] in DONE_STATUSES:
+                # The first tier is separated into py3-only/legacy-leaf
+                # (tier=0) idle/blocked (tier=1) to make the outside of the
+                # graph look less crowded
+                tiers[rep] = 0
+            else:
+                tiers[rep] = tier
+        cluster_graph.remove_nodes_from(leaves)
+
+    # Having found the tier numbers, abandon cluster_graph.
+    # Convert a new, full graph (from link_pairs) for use in JS.
+    nodes = []
+    node_indices = {}
+    for i, node in enumerate(set(node for pair in link_pairs for node in pair)):
+        node_indices[node] = i
+        tier = tiers.get(reps[node])
+        pkg = packages[node]
+        color = pkg['status_obj']['color']
+        nodes.append({
+            'name': node,
+            'color': graph_color(pkg['status_obj']['color'], tier),
+            'status_color': '#' + pkg['status_obj']['color'],
+            'tier': tier,
+        })
+    links = [
+        {
+            "source": node_indices[src],
+            "target": node_indices[target],
+        }
+        for src, target in link_pairs
+    ]
 
     return jsonify(nodes=nodes, links=links)
 
 
-def graph_json_grp(grp):
-    return graph_json(grp=grp)
-
-
-def graph_color(package):
+def graph_color(color, depth):
     def component_color(c):
         c /= 255
-        c = c / 2
-        c = c ** 0.2
-        c = c ** (1.1 ** len(package.pending_requirers))
+        c = c ** (1.1 ** depth)
         c *= 255
         return '{0:02x}'.format(int(c))
 
-    sc = package.status_obj.color
+    sc = color
     return '#' + ''.join(component_color(int(sc[x:x+2], 16))
                          for x in (0, 2, 4))
 
@@ -670,7 +688,6 @@ def first_decimal(number, digits=1):
 
 def create_app(db_url, directories, cache_config=None):
     app = Flask(__name__)
-    app.config['DB'] = sessionmaker(bind=create_engine(db_url))
     app.config['data'] = data = get_data('data/')
     app.config['CONFIG'] = data['config']
     app.jinja_env.undefined = StrictUndefined
@@ -705,8 +722,6 @@ def create_app(db_url, directories, cache_config=None):
     _add_route("/piechart.svg", piechart_svg)
     _add_route("/status/<status>.svg", status_svg)
     _add_route("/grp/<grp>/piechart.svg", piechart_grp)
-    _add_route("/grp/<grp>/graph/", graph_grp)
-    _add_route("/grp/<grp>/graph/data.json", graph_json_grp)
     _add_route("/mispackaged/", mispackaged)
     _add_route("/namingpolicy/", namingpolicy)
     _add_route("/namingpolicy/piechart.svg", piechart_namingpolicy)

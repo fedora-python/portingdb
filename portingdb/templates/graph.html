@@ -22,13 +22,13 @@
     }
 
     .link {
-    stroke: #bbb;
-    stroke-opacity: 1;
+    stroke: #000;
+    stroke-opacity: 0.1;
     }
 
     .marker {
-    fill: #bbb;
-    fill-opacity: 1;
+    fill: #000;
+    fill-opacity: 0.1;
     }
 
     .d3-tip {
@@ -90,7 +90,6 @@ var width = 1200,
     height = 900;
 
 var force = d3.layout.force()
-    .linkDistance(15)
     .size([width, height]);
 
 var svg = d3.select("#graph-goes-here").append("svg")
@@ -108,11 +107,32 @@ d3.json(
     , function(error, graph) {
   if (error) throw error;
 
+  function distance(tier) {
+      return height/(tier+2)/2;
+  }
+
+  var centernode = {x: width/2, y: height/2, fixed: true};
+  graph.nodes.forEach(function(n, i) {
+    graph.links.push({'source': centernode, 'target': n});
+    n.x = width/2 + Math.cos(i) * distance(n.tier)*2;
+    n.y = height/2 + Math.sin(i) * distance(n.tier)*2;
+  });
+  graph.nodes.push(centernode);
+
   force
-      .charge(-9000 / Math.pow(graph.nodes.length, 0.9))
+      .charge(-600 / Math.pow(graph.nodes.length, 0.3))
+      .linkStrength(function(l) {
+        return (l.source == centernode) ? 1 :
+            1/(Math.abs(l.source.tier - l.target.tier)+5);
+        })
+      .linkDistance(function(l) {
+        return (l.source == centernode) ?
+            distance(l.target.tier) :
+            Math.max(Math.abs(distance(l.source.tier) - distance(l.target.tier)), 15);
+        })
+      .gravity(0.1)
       .nodes(graph.nodes)
-      .links(graph.links)
-      .start();
+      .links(graph.links);
 
 svg.append("svg:defs").selectAll("marker")
     .data(["end"])      // Different link/path types can be defined here
@@ -129,26 +149,27 @@ svg.append("svg:defs").selectAll("marker")
     .attr("d", "M0,-5L10,0L0,5");
 
   var link = svg.selectAll(".link")
-      .data(graph.links)
+      .data(graph.links.filter(function(l){return l.source != centernode}))
     .enter().append("line")
       .attr("class", "link")
-    .attr("marker-end", "url(#end)")
+      .attr("marker-end", "url(#end)")
+      .attr("stroke-opacity", function(l) { return l.source == centernode ? 0 : 1 })
       .style("stroke-width", 1);
 
     var tip = d3.tip()
       .attr('class', 'd3-tip')
       .offset([-10, 0])
       .html(function(d) {
-        return '<i class="pkgstatus-icon" style="background-color:' + d.status_color + '">&nbsp;</i> ' + d.name;
+        return `<i class="pkgstatus-icon" style="background-color:${d.status_color}">&nbsp;</i> ${d.name}`;
       })
 
   var node = svg.selectAll(".node")
-      .data(graph.nodes)
+      .data(graph.nodes.filter(function(l){return l != centernode}))
     .enter().append("svg:a")
-      .attr("xlink:href", function(d) { return "/pkg/" + d.name + "/"; })
+      .attr("xlink:href", function(d) { return `/pkg/${d.name}/`; })
     .append("circle")
       .attr("class", "node")
-      .attr("r", function(d) { return d.size; })
+      .attr("r", 5 )
       .style("fill", function(d) { return d.color; })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
@@ -166,10 +187,6 @@ svg.append("svg:defs").selectAll("marker")
     var avg_requirers = total_requirers / graph.nodes.length;
 
   force.on("tick", function(e) {
-    graph.nodes.forEach(function(o, i) {
-        o.y += (o.num_requirements - avg_requirements - o.num_requirers + avg_requirers) * e.alpha / 5;
-    });
-
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
@@ -179,6 +196,8 @@ svg.append("svg:defs").selectAll("marker")
         .attr("cy", function(d) { return d.y; });
 
     });
+
+  force.start();
 });
 
 </script>
