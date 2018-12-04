@@ -31,7 +31,7 @@ import collections
 
 import click
 
-from portingdb import tables
+from portingdb.load_data import get_data
 
 
 cache_dir = Path('./_check_drops')
@@ -401,7 +401,7 @@ class SaxPrimaryHandler(xml.sax.ContentHandler):
 @click.pass_context
 def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
     """Check packages that should be dropped from the distribution."""
-    db = ctx.obj['db']
+    data = get_data(*ctx.obj['datadirs'])
 
     cache_dir.mkdir(exist_ok=True)
 
@@ -514,13 +514,13 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
 
     # Set legacy_leaf flags
 
-    query = db.query(tables.RPM)
-    for rpm in query:
-        # TODO: better way to match portingdb entry to package name
-        name = rpm.rpm_name.rsplit('-', 2)[0]
-        result = results.get(name)
-        if result:
-            result['legacy_leaf'] = rpm.legacy_leaf
+    for pkg in data['packages'].values():
+        for rpm_name, rpm in pkg['rpms'].items():
+            # TODO: better way to match portingdb entry to package name
+            name = rpm_name.rsplit('-', 2)[0]
+            result = results.get(name)
+            if result:
+                result['legacy_leaf'] = rpm['legacy_leaf']
 
     # hardcoded packages
 
