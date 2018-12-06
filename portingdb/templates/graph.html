@@ -47,31 +47,13 @@
     <div class="col-12">
         <h1>A Graph</h1>
         <p>
-            Here is a graph showing all dependency relationships for unported
-            packages (idle, blocked, and mispackaged)
-            {% if grp %}
-                in the <a href='{{ url_for("group", grp=grp) }}'>{{ grp }}</a>
-                group
-            {% elif pkg %}
-                related to the
-                <a href='{{ url_for("package", pkg=pkg) }}'>{{ pkg }}</a>
-                package, as
-            {% endif %}
-            tracked by <a href='{{ url_for("hello") }}'>portingdb</a>.
-            Packages with no relationship to other unported packages are not
-            shown.
-            Darker colors mean more dependencies.
+            Here is a graph showing dependency relationships for
+            packages in Fedora Rawhide that need Python 2 in some way.
+            Brighter colors roughly mean the package can be removed sooner.
             Hover over a package to see its name; click it to open its portingdb summary.
         </p>
         <p>
-            Bigger nodes mean more Python (+C extension) code.
-        </p>
-        <p>
-            {% if all_deps %}
-                Both build time and run time dependencies are displayed on the graph.
-            {% else %}
-                The graph shows only run time dependencies.
-            {% endif %}
+            The graph shows both run-time and build-time dependencies.
         </p>
         <p>
             Large graphs are quite CPU-hungry. Sorry for that!
