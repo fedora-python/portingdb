@@ -2,6 +2,7 @@ import logging
 import os
 import urllib.parse
 import json
+from pathlib import Path
 
 import click
 from sqlalchemy import create_engine, func, or_, and_
@@ -14,13 +15,15 @@ from portingdb.check_drops import check_drops
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
+# Default '--datadir' is the `data` directory from this repo
+DEFAULT_DATADIR = Path(__file__).parent / '../data'
 
 def main():
     return cli(obj={})
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)
-@click.option('--datadir', default='.', envvar='PORTINGDB_DATA', multiple=True,
+@click.option('--datadir', envvar='PORTINGDB_DATA', multiple=True,
               help="Data directory. If given multiple times, the directories "
                 "are searched in order: files in directories that appear "
                 "earlier on the command line shadow the later ones.")
@@ -40,6 +43,8 @@ def cli(ctx, datadir, db, verbose, quiet):
             level = logging.INFO
         logging.basicConfig(level=level)
         logging.getLogger('sqlalchemy.engine').setLevel(level)
+    if not datadir:
+        datadir = [DEFAULT_DATADIR]
     ctx.obj['datadirs'] = [os.path.abspath(d) for d in datadir]
 
     if 'db' in ctx.obj:
