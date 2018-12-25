@@ -33,8 +33,6 @@ skf:
 # It's not necessary to manually record new bugs any more; just make sure
 # your bug blocks https://bugzilla.redhat.com/show_bug.cgi?id=1285816
 
-adonthell:
-    dead-upstream: true
 alacarte:
     status: dropped
     note: |
@@ -277,14 +275,6 @@ pyPdf:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=991102
     note: |
         Suggested replacement: `python-PyPDF2`, which has official py3+ support on v1.20 onwards.
-Pyrex:
-    status: dropped
-    note: |
-        The last Pyrex release was in 2010.
-        Cython, originally a Pyrex fork, is now a mature and widely used tool.
-        It does introduce some incompatible extensions, however.
-
-        Suggested replacement: `Cython`
 pyserial:
     nonblocking: true
     note: |
@@ -648,9 +638,6 @@ yum-utils:
     status: dropped
     note: |
       DNF should replace yum.
-python-shove:
-    note: |
-        [threebean](http://threebean.org) is working on this.
 youtube-dl:
     note: |
         spec updated and built for Rawhide
