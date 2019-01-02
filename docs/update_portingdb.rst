@@ -72,7 +72,7 @@ The following steps are needed to update pordingdb data. You can run them all wi
 
     (venv) $ git show
 
-   For "idle -> released" and "mispackaged -> released", award badges: add new entries to `data/badges.txt`.
+   For "idle/mispackaged -> released" (or "idle/mispackaged -> legacy-leaf"), award badges: add new entries to `data/badges.txt`.
 
    Find responsible people at https://src.fedoraproject.org/rpms/python-FOO/commits/master
 
