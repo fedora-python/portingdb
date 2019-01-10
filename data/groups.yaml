@@ -2,11 +2,13 @@ identity:
   name: Identity Management
   hidden: false
   packages:
+    - 389-ds-base
     - freeipa
     - samba
     - ipsilon
+    - sssd
 fedora-infra:
-  name: Fedora Infrastructure
+  name: Fedora Infrastructure and Packaging
   packages:
     - koschei
     - koji
@@ -21,8 +23,19 @@ fedora-infra:
     - fedora-gooey-karma
     - fedora-easy-karma
     - fedora-cert
+    - python-fedora
     - python-offtrac
+    - ipsilon
     # TODO: etc.
+cloud-management:
+  name: Cloud Management Tools
+  packages:
+    - cloud-utils
+    - imagefactory
+    - imagefactory-plugins
+    - python-boto
+    - python-libcloud
+    - python-openstackclient
 openstack:
   name: OpenStack
   packages:
@@ -104,96 +117,37 @@ xfce-spin:
     name: Xfce spin
     hidden: true
     packages:
+    - abiword
     - abrt
-    - anaconda
-    - authconfig
-    - bind
-    - dbus-python
+    - blueberry
+    - catfish
+    - claws-mail
     - dnf
-    - dnf-langpacks
-    - dnf-plugins-core
+    - dnfdragora
+    - exo
     - firewalld
-    - fros
-    - gdb
-    - glade
+    - gettext
     - gnome-abrt
+    - gnumeric
     - gutenprint
+    - gvfs
     - hawkey
     - ibus
     - ibus-hangul
     - ibus-libpinyin
     - ibus-typing-booster
     - initial-setup
+    - initial-setup
     - iscsi-initiator-utils
-    - langtable
-    - libcomps
-    - libpwquality
-    - librepo
-    - libreport
-    - libselinux
-    - libxml2
-    - newt
-    - nfs-utils
+    - openconnect
     - pidgin
-    - pygobject3
-    - python-pygpgme
-    - pykickstart
-    - pyparted
-    - python-augeas
-    - python-blivet
-    - python-chardet
-    - python-coverage
-    - python-cups
-    - python-decorator
-    - python-dmidecode
-    - python-enchant
-    - python-humanize
-    - python-iniparse
-    - python-inotify
-    - python-kitchen
-    - python-meh
-    - python-ntplib
-    - python-pexpect
-    - python-pid
-    - python-pip
-    - python-pycurl
-    - python-pyudev
-    - python-requests
-    - python-requests-file
-    - python-requests-ftp
-    - python-setuptools
-    - python-six
-    - python-slip
-    - python-systemd
-    - python-urllib3
-    - python3
-    - python3-cairo
-    - pytz
-    - pyxattr
-    - pyxdg
     - rpm
-    - sos
-    - sssd
+    - system-config-keyboard
+    - system-config-language
     - system-config-printer
-    - unbound
-    - bcache-tools
-    - catfish
-    - exo
-    - fpaste
-    - gettext
-    - gnumeric
-    - libreswan
-    - pycairo
-    - pygobject2
-    - pygtk2
-    - pyliblzma
-    - python2
-    - python-urlgrabber
-    - python-xpyb
-    - vte
-    - yum
-    - yum-metadata-parser
-    - yumex
+    - system-config-users
+    - xfce4-panel-profiles
+    - xfpanel-switch
 kde-spin:
     name: KDE spin
     hidden: true
