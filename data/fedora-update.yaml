@@ -1,7 +1,7 @@
 
 # These are out of order because they define an alias that is used later in the file
 
-glib2: &devel-only
+gtk2: &devel-only
     nonblocking: true
     note: |
       Only the -devel subpackage depends on Python.
@@ -54,12 +54,6 @@ arandr:
     being-ported: true
 archivemail:
     dead-upstream: true
-binclock:
-    dead-upstream: true
-    note: |
-        Upstream inactive since 2001.
-        Upstream email <brian@linuxee.sk> bounces.
-        Bugzilla porting patch without reponse.
 bmpanel2:
     dead-upstream: true
 boost:
@@ -95,13 +89,6 @@ createrepo:
         Dependant packages should be ported to `createrepo_c`.
 cwiid:
     dead-upstream: true
-dnf-plugins-core:
-    note: |
-        Only `python2-dnf-plugin-migrate` is not available for Python 3,
-        because it depends on `yum`.
-dpdk:
-    note: |
-        Python 3 support committed but not yet released. (March 2016)
 dreampie:
     status: idle
     is_misnamed: False
@@ -122,20 +109,8 @@ edk2:
         things.
 epydoc:
     dead-upstream: true
-exo:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282165
-fedmsg:
-    note: |
-        The python3-fedmsg-core package is done and available, but the commands
-        modules won't be do-able until twisted is done.
 findthatword:
     dead-upstream: true
-fleet-commander-admin:
-    status: idle
-    note: |
-        Only `fleet-commander-logger` was ported to Python 3,
-        `fleet-commander-admin` is still Python 2 only.
 fwfstab:
     dead-upstream: true
 glade3:
@@ -171,14 +146,10 @@ gnome-python2-extras:
     status: dropped
     note: |
       Suggested replacement: `pygobject3`
-gobject-introspection: *devel-only
-gst-inspector:
-    dead-upstream: true
 gstreamer-python:
     status: dropped
     note: |
       Replacement: `python-gstreamer1`
-gtk2: *devel-only
 international-time:
     dead-upstream: true
 koji:
@@ -187,26 +158,11 @@ koji:
         Lots of the codebase it ported. This includes the Python library.
         Dependencies that use the library or call koji binaries directly
         can begin porting.
-krop:
-    note: |
-        Krop currently does not work with Python 3, therefore it is built with
-        Python 2. See [Bugzilla](https://bugzilla.redhat.com/show_bug.cgi?id=1321376)
-        for more details.
 libglade2: *devel-only
 libiptcdata:
     dead-upstream: true
 libkdtree++:
     dead-upstream: true
-libssh2-python:
-    note: |
-        Code is old, but it's just a binding: it seems to work with Python 3.4
-        Should it be renamed python{2,3}-libssh2?
-lorem-ipsum-generator:
-    links:
-        repo: https://github.com/Riamse/lorem-ipsum-generator/
-    note: |
-        Riamse is doing it.
-        This has been ported. All we're waiting for is for upstream to point the sources to this repo.
 lunatic-python:
     status: dropped
     note: |
@@ -275,13 +231,6 @@ pyPdf:
         bug: https://bugzilla.redhat.com/show_bug.cgi?id=991102
     note: |
         Suggested replacement: `python-PyPDF2`, which has official py3+ support on v1.20 onwards.
-pyserial:
-    nonblocking: true
-    note: |
-        Bug 1187837 - A file in the python2 backage requires python3.
-pysnmp:
-    note: |
-        Current build version should support Python 3.
 python2:
     status: dropped
     note: |
@@ -398,9 +347,6 @@ python-inotify:
     status: released
     note: |
         `python2-inotify-examples` only contains examples of how `python2-inotify` can be used and does not need to be ported.
-python-instant:
-    note: |
-      spec file updated and built in rawhide by [fab](http://fabian-affolter.ch).
 python-kerberos:
     note: |
       Suggested replacement: `python-gssapi`
@@ -418,9 +364,6 @@ python2-matplotlib:
     status: dropped
     note: |
         Replacement: `python-matplotlib`
-python-mpd:
-    note: |
-        [threebean](http://threebean.org) submitted a patch for this.
 python-musicbrainz2:
     status: dropped
     note: |
@@ -431,16 +374,6 @@ python-musicbrainz2:
         > and with the ws/1 legacy web service.
 
         There is a newer bindings library: `python-musicbrainzngs`.
-python-mutagen:
-    nonblocking: true
-    note: |
-        Ported, but the devel package needs py3
-python-netlib:
-    note: |
-      spec file updated and built in rawhide by [fab](http://fabian-affolter.ch).
-python-nss:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=985290
 python-oauth:
     status: dropped
     note: |
@@ -449,42 +382,15 @@ python-openid:
     status: dropped
     note: |
       Replacement: `python3-openid`
-python-oslo-concurrency:
-    nonblocking: true
-    note: |
-        The tests subpackage is still Python2-only.
 python-oslo-config:
     nonblocking: true
     note: |
         The main package is ported to Python 3
-python-oslo-context:
-    nonblocking: true
-    note: |
-        The tests subpackage is still Python2-only.
-python-oslo-log:
-    nonblocking: true
-    note: |
-        The tests subpackage is still Python2-only.
-python-oslo-reports:
-    nonblocking: true
-    note: |
-        The tests subpackage is still Python2-only.
-python-oslo-serialization:
-    nonblocking: true
-    note: |
-        The tests subpackage is still Python2-only.
-python-oslo-utils:
-    nonblocking: true
-    note: |
-        The tests subpackage is still Python2-only.
 python-pathlib:
   status: dropped
   note: |
     This is a backport of `pathlib`, part of the Python 3.4
     standard library.
-python-pdfrw:
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282219
 python-progressbar:
   status: dropped
   note: |
@@ -497,12 +403,6 @@ python-pylons:
   status: dropped
   note: |
     Recommended replacement: `python-pyramid`
-python-pyudev:
-  nonblocking: true
-  note: |
-    Some backends are not yet ported.
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1560484
 python-simpletal:
   status: dropped
   note: |
@@ -526,13 +426,6 @@ python-tw-forms:
     status: dropped
     note: |
       Suggested Replacement: python-tw2-forms
-python-twiggy:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282112
-python-upoints:
-    note: |
-      Depends on [aaargh](https://pypi.python.org/pypi/aaargh/0.7.1),
-      which isn't packaged yet.
 python-urlgrabber:
     status: dropped
     note: |
@@ -548,9 +441,6 @@ python-webtest1.3:
       ported to the current version of the library as part of porting to
       python3.
       Replacement: `python-webtest`
-python-whisper:
-    note: |
-        Whisper as library is python3 compatible, but the executables not yet.
 python-zbase32: &pyutil-zbase32-cycle
     nonblocking: true
     note: |
@@ -588,20 +478,12 @@ pywebkitgtk:
         [An example] that works with Python 3 is provided on the GTK wiki.
 
         [An example]: https://wiki.gnome.org/Projects/WebKitGtk/ProgrammingGuide/Bindings-libnotify
-subunit:
-    nonblocking: true
-    note: |
-        A Python 3 subpackage exists, but isn't packaged well yet.
-        Also the plugins aren't ported.
 texlive-base:
     status: idle
     note: |
         texlive-pythontex depends on both Pythons by design upstream. See discussion
         in the Bugzilla for more details.
 tomoe-gtk: *devel-only
-tracer:
-    note: |
-      Upstream supports python3, fedora packager(=upstream) promised to update the spec file. (2016-03-11)
 vegastrike: &vegastrike-cycle
     nonblocking: true
     note: |
@@ -638,8 +520,3 @@ yum-utils:
     status: dropped
     note: |
       DNF should replace yum.
-youtube-dl:
-    note: |
-        spec updated and built for Rawhide
-    links:
-        repo: https://github.com/rg3/youtube-dl/
