@@ -7,55 +7,6 @@ obnam: &obnam
     See the [mailing list post](http://listmaster.pepperfish.net/pipermail/obnam-dev-obnam.org/2015-October/000238.html).
 
 
-# Packages where the upstream link points to PyPI and the Trove classifiers
-# include the Python 3 tag
-# If you have better information, move the entry to the section below
-
-pagure:
-  links:
-    bug: https://pagure.io/pagure/issue/849
-pkgwat: &pypi-trove-compatible
-  status: released
-  note: |
-    Trove classifiers on PyPI suggest that this software is ported upstream.
-pki-core:
-  links:
-    repo: https://git.fedorahosted.org/cgit/pki.git/
-python-PSI: *pypi-trove-compatible
-python-altgraph: *pypi-trove-compatible
-python-barbicanclient: *pypi-trove-compatible
-python-bashate: *pypi-trove-compatible
-python-bucky: *pypi-trove-compatible
-python-cloud-sptheme: *pypi-trove-compatible
-python-concurrentloghandler: *pypi-trove-compatible
-python-django-threadedcomments: *pypi-trove-compatible
-python-django-tinymce: *pypi-trove-compatible
-python-flask-classy: *pypi-trove-compatible
-python-gerritlib: *pypi-trove-compatible
-python-gntp: *pypi-trove-compatible
-python-heatclient: *pypi-trove-compatible
-python-importanize: *pypi-trove-compatible
-python-ironicclient: *pypi-trove-compatible
-python-landslide: *pypi-trove-compatible
-python-mailer: *pypi-trove-compatible
-python-manilaclient: *pypi-trove-compatible
-python-pyramid-mako: *pypi-trove-compatible
-python-pyudev: *pypi-trove-compatible
-python-rfc3986: *pypi-trove-compatible
-python-setuptools_git: *pypi-trove-compatible
-python-setuptools_hg: *pypi-trove-compatible
-python-shade: *pypi-trove-compatible
-python-swiftclient: *pypi-trove-compatible
-python-termcolor: *pypi-trove-compatible
-python-upoints: *pypi-trove-compatible
-python-virtualenvwrapper: *pypi-trove-compatible
-python-yaql: *pypi-trove-compatible
-python-zope-contenttype: *pypi-trove-compatible
-python-zope-filerepresentation: *pypi-trove-compatible
-python-zope-i18n: *pypi-trove-compatible
-python-zope-proxy: *pypi-trove-compatible
-
-
 # Please keep everything from here on alphabetized
 
 abiword:
@@ -77,50 +28,13 @@ alacarte:
   links:
     repo: https://github.com/GNOME/alacarte/
     bug: https://bugzilla.gnome.org/show_bug.cgi?id=787490
-autojump:
-  status: released
-  links:
-    repo: https://github.com/wting/autojump
-autotrash:
-  note: |
-    Spec file fixed; package rebuilt
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282044
-    repo: https://github.com/bneijt/autotrash/
-blosc:
-  status: released
-  links:
-    repo: https://github.com/Blosc/c-blosc
-btest:
-  links:
-    homepage: https://www.bro.org/sphinx/components/btest/README.html
-    bug: https://github.com/bro/btest/pull/2
-certbot:
-  links:
-    repo: https://github.com/certbot/certbot
-    bug: https://github.com/certbot/certbot/issues/3179
-  note: |
-    Recently (2016-08) patches went in and tests are enabled against Python 3.
 cloudtoserver:
   links:
     bug: https://github.com/fedora-cloud/cloudtoserver/pull/6
 cmdtest: *obnam
-copr-frontend:
-  status: released
-  links:
-    homepage: https://pagure.io/copr/copr
-createrepo_c:
-  links:
-    bug: https://github.com/rpm-software-management/createrepo_c/pull/43
-  note: |
-    Pull request merged upstream!  Hooray!
 crudini:
   links:
     bug: https://github.com/pixelb/crudini/pull/28
-custodia:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/custodia
 dib-utils:
   status: released
   links:
@@ -138,109 +52,23 @@ diskimage-builder:
   status: released
   links:
     homepage: https://pypi.python.org/pypi/diskimage-builder
-docker-compose:
-    status: released
-    links:
-        homepage: https://www.docker.com/
-        repo: https://github.com/docker/compose
-python-ethtool:
-  note: |
-    A patch was sent to the mailing list, with no reply.
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1018525
-evemu:
-  status: released
-  links:
-    homepage: https://www.freedesktop.org/wiki/Evemu/
-    repo: https://cgit.freedesktop.org/evemu
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1536907
-exo:
-  note: |
-    Upstream does not use Python at all, it's Fedora only dependency.
-fail2ban:
-  links:
-      repo: https://github.com/fail2ban/fail2ban
-      bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282498
-  note: |
-      Upstream claims support of python-3.2+
-fonts-tweak-tool:
-  links:
-    repo: https://bitbucket.org/tagoh/fonts-tweak-tool/src
-freeipa:
-  links:
-      homepage: https://www.freeipa.org
-      repo: https://git.fedorahosted.org/cgit/freeipa.git
-frescobaldi:
-    status: released
-    links:
-        homepage: http://www.frescobaldi.org/
-        repo: https://github.com/wbsoft/frescobaldi
 genbackupdata: *obnam
 gitstats:
   note: |
       Pending upstream pull request
   links:
       bug: https://github.com/hoxu/gitstats/pull/61
-glances:
-    links:
-      repo: https://github.com/nicolargo/glances
-      bug: https://bugzilla.redhat.com/show_bug.cgi?id=1175164
 glacier-cli:
     links:
         bug: https://github.com/basak/glacier-cli/pull/54
-gobject-introspection:
-  status: released
-  links:
-    homepage: https://wiki.gnome.org/Initiatives/GnomeGoals/Python3Porting
-    bug: https://bugzilla.gnome.org/show_bug.cgi?id=679438
-graphviz:
-  links:
-    repo: https://github.com/ellson/graphviz/
-    homepage: http://www.graphviz.org/
 gyp:
     links:
         bug: https://codereview.chromium.org/1454433002
-holland:
-  status: released
-  links:
-    homepage: http://hollandbackup.org
-    repo: https://github.com/holland-backup/holland
-iotop:
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282186
-    homepage: http://guichaz.free.fr/iotop/
-    repo: http://repo.or.cz/w/iotop.git
-  note: |
-    Patch to spec file accepted by maintainer, in QA
-isomd5sum:
-  links:
-    bug: https://github.com/rhinstaller/isomd5sum/pull/1
 jabber-roster:
   bug: https://github.com/kparal/jabber-roster/issues/2
   repo: https://github.com/kparal/jabber-roster
   note: |
     Porting will start if deps are available.
-konversation:
-    links:
-        homepage: https://konversation.kde.org/
-    note: |
-        Partially ported: the
-        [media script](https://quickgit.kde.org/?p=konversation.git&a=commit&h=285fc5f496363937b3676f33e7b468b8d85cce5e)
-        is ported to Python 3 while the rest of the package is not.
-libldb:
-  notes: |
-    Ported since ldb 1.1.23.
-libfreenect:
-  note: |
-    Opened new PR fixing issues; most examples require an update for OpenCV though,
-    but shouldn't affect actual compatibility.
-  links:
-    bug: https://github.com/OpenKinect/libfreenect/issues/458
-libplist:
-  links:
-    repo: http://cgit.libimobiledevice.org/libplist.git/tree/cython
-libtevent:
-  note: Ported in tevent 0.9.25
 libxslt:
   links:
     homepage: http://xmlsoft.org/libxslt/
@@ -251,46 +79,9 @@ libxslt:
 lilypond:
   status: idle
   note: Python 3 is not currently supported upstream.
-livecd-tools:
-  links:
-    bug: https://github.com/rhinstaller/livecd-tools/pull/37
-    repo: https://github.com/rhinstaller/livecd-tools
-  note: |
-      Kevin Kofler ported livecd-tools to DNF, and Neal Gompa ported livecd-tools to Python 3.
-      The changes are pending upstream review via GitHub pull request.
 lnst:
   links:
     bug: https://github.com/jpirko/lnst/issues/105
-lorem-ipsum-generator:
-  status: idle
-m2crypto:
-  links:
-      repo: https://gitlab.com/m2crypto/m2crypto
-      bug: https://gitlab.com/m2crypto/m2crypto/merge_requests/65
-  note: |
-    Matěj Cepl has ported m2crypto to Python 3, see the linked pull request.
-
-    [rodrigc](https://github.com/rodrigc) submitted many fixes upstream.
-    Some were merged.
-meld:
-  links:
-    homepage: http://meldmerge.org/
-mintlocale:
-  links:
-    homepage: http://developer.linuxmint.com/projects/mint-projects.html
-    repo: https://github.com/linuxmint/mintlocale
-    bug: https://github.com/linuxmint/mintlocale/pull/49
-  note: |
-    A pull request which implements python 3 compatibility has been submitted
-    upstream.
-mpi4py:
-    status: released
-    links:
-        homepage: http://pythonhosted.org/mpi4py/
-        repo: https://bitbucket.org/mpi4py/mpi4py
-python-multilib:
-  links:
-    bug: https://github.com/Zyzyx/python-multilib/pull/2
 python-muranoclient:
   status: released
   links:
@@ -299,58 +90,19 @@ mypaint:
   note: Porting efforts partially underway by [Elliott Sales de Andrade](https://github.com/QuLogic)
   links:
     bug: https://github.com/mypaint/mypaint/issues/392
-odfpy:
-  links:
-    repo: https://github.com/eea/odfpy
-  note: odfpy is said to support Python 3 as of version 1.3.
-openbox:
-  links:
-    homepage: http://openbox.org/wiki/Main_Page
-    repo: https://github.com/mikachu/openbox
-    bug: https://github.com/Mikachu/openbox/pull/9
-  note: |
-    A pull request resolving very minor python 3 issues was submitted, however
-    the last release was two years ago so it is uncertain if/when the
-    request will be reviewed.
-opencv:
-  note: Available since 3.0 release
 os-refresh-config:
   status: released
   links:
     homepage: https://pypi.python.org/pypi/os-refresh-config
-powerline:
-  links:
-    repo: https://github.com/powerline/powerline
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282487
-psi4:
-  note: |
-    A major porting effort by Robert T. McGibbon was [merged](https://github.com/psi4/psi4public/pull/160).
-pssh:
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282544
-    repo: https://code.google.com/p/parallel-ssh/source/browse/setup.py
 pyexiv2:
   status: dropped
   links:
     homepage: http://tilloy.net/dev/pyexiv2/
   note: 'Per homepage: "pyexiv2 is now deprecated in favour of GExiv2."'
-pygsl:
-  note: See [release message](http://sourceforge.net/p/pygsl/mailman/message/34494662/)
-pyhunspell:
-  links:
-    repo: https://github.com/blatinier/pyhunspell
 pymunk:
   links:
     repo: https://github.com/viblo/pymunk
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282551
-pypolicyd-spf:
-    status: released
-    links:
-        homepage: https://launchpad.net/pypolicyd-spf
-pyppd:
-  links:
-    repo: https://github.com/vitorbaptista/pyppd
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282555
 PyQuante:
   note: Part of re-write, may not finish any time soon
   links:
@@ -361,24 +113,11 @@ pyrasite:
     links:
         homepage: http://pyrasite.com/
         repo: https://github.com/lmacken/pyrasite
-python-pysb:
-  note: |
-    Version 1.1.0 should be Python3 compatible when it's released.
-  links:
-    bug: https://github.com/pysb/pysb/pull/124
-pysendfile:
-    links:
-        repo: https://github.com/giampaolo/pysendfile
-    note: |
-        Latest upstream version supports Python 3.
 pysysbot:
   note: |
     Being ported by [Fabian Affolter](http://fabian-affolter.ch/).
   links:
     homepage: http://affolter-engineering.ch/pysysbot/
-python-AppTools:
-  links:
-    bug: https://github.com/enthought/apptools/pull/54
 python-anfft:
   status: dropped
   note: Authors recommend using [pyFFTW](https://hgomersall.github.io/pyFFTW/) instead
@@ -387,29 +126,9 @@ python-atfork:
   links:
     bug: https://github.com/google/python-atfork/pull/1
     repo: https://github.com/google/python-atfork
-python-bitarray:
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282557
-    repo: https://github.com/ilanschnell/bitarray
-python-biopython:
-  note: Python 3.4 supported since 1.64
-python-bitmath:
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282560
-    repo: https://github.com/tbielawa/bitmath
-python-caja:
-  status: released
-  links:
-    homepage: https://mate-desktop.org
-    repo: https://github.com/mate-desktop/python-caja
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1560724
 python-carddav:
   status: dropped
   note: Autors recommend using `khard` instead
-python-ceilometermiddleware:
-  status: released
-  links:
-    repo: https://pypi.python.org/pypi/ceilometermiddleware
 python-CDDB:
   status: idle
   note: "It hasn't been maintained upstream since 2003."
@@ -425,70 +144,6 @@ python-cli:
     Upstream owner has discontinued project (see
     [comment on pull request](https://github.com/geertj/python-cli/pull/3#issuecomment-282409089)).
 python-cliapp: *obnam
-python-datanommer-models:
-  links:
-    bug: https://github.com/fedora-infra/datanommer/pull/82
-python-django-annoying:
-  links:
-    repo: https://github.com/dmpayton/django-admin-honeypot
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282106
-python-django-authority:
-  status: released
-  links:
-    homepage: https://github.com/jazzband/django-authority
-    repo: https://pypi.python.org/pypi/django-authority
-python-django-avatar:
-  links:
-    repo: https://github.com/grantmcconnaughey/django-avatar/
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282108
-python-django-countries:
-  links:
-    repo: https://github.com/SmileyChris/django-countries/
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282237
-python-django-haystack:
-  status: released
-  links:
-    homepage: http://haystacksearch.org/
-    repo: https://pypi.python.org/pypi/django-haystack/2.5.0
-python-django-pipeline:
-  status: released
-  links:
-    homepage: https://github.com/jazzband/django-pipeline
-    repo: https://pypi.python.org/pypi/django-pipeline
-python-django-pyscss:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/django-pyscss/2.0.2
-python-django-stopforumspam:
-  status: released
-  links:
-    repo: https://github.com/benjaoming/django-stopforumspam
-    homepage: https://pypi.python.org/pypi/stopforumspam
-python-django-threadedcomments:
-  links:
-    homepage: https://github.com/HonzaKral/django-threadedcomments
-    repo: https://pypi.python.org/pypi/django-threadedcomments
-    bug: https://github.com/HonzaKral/django-threadedcomments/issues/79
-python-eyed3:
-  links:
-    bug: https://bitbucket.org/nicfit/eyed3/issues/25/python-3-compatibilty
-python-flask-debugtoolbar:
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282082
-python-flask-mako:
-  links:
-      homepage: https://pypi.python.org/pypi/Flask-Mako/
-      repo: https://github.com/benselme/flask-mako
-  note: "reported with <3 by decause"
-python-flask-xml-rpc:
-  links:
-    homepage: https://pypi.python.org/pypi/Flask-Mako/
-    repo: https://github.com/benselme/flask-mako
-    bug: https://bitbucket.org/leafstorm/flask-xml-rpc/pull-requests/2/added-python3-support-alongside-python2/
-  note: "pull request exists, upstream unresponsive"
-python-formencode:
-  note: |
-    Upstream has support from 1.3.0.  Some incompatibilities with earlier versions exist.
 python-gencpp:
     repo: https://github.com/ros/gencpp
     note: "[changelog](https://github.com/ros/gencpp/blob/indigo-devel/CHANGELOG.rst#0415-2014-01-07)"
@@ -500,215 +155,46 @@ python-genpy:
     status: released
     repo: https://github.com/ros/genpy
     note: "[changelog](https://github.com/ros/genpy/blob/indigo-devel/CHANGELOG.rst#0415-2014-01-07)"
-python-glanceclient:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/python-glanceclient/1.2.0
 python-glance-store:
   status: released
   links:
     homepage: https://pypi.python.org/pypi/glance_store
-python-glue:
- repo: https://github.com/jorgebastida/glue
 python-ironic-inspector-client:
   status: released
   links:
     homepage: https://pypi.python.org/pypi/python-ironic-inspector-client
-python-keystoneclient:
-  links:
-    repo: https://github.com/openstack/python-keystoneclient
-  note: PY3 compatible since 0.7.0 (see commit aa6c99e)
-python-keystonemiddleware:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/keystonemiddleware/4.4.0
 python-larch: *obnam
-python-Lektor:
-  links:
-    bug: https://github.com/lektor/lektor/pull/207
 python-mechanize:
   links:
     bug: https://github.com/jjlee/mechanize/issues/96
-python-mwclient:
-  links:
-    repo: https://github.com/mwclient/mwclient
-  note: |
-    Upstream git has support for py3.3, py3.4, and py3.5 with tox and travis
-    checking this.
-    It is included in mwclient-0.8.
-python-oauth2:
-  link:
-    repo: https://github.com/joestump/python-oauth2
-  note:
-    Latest 1.9.0 upstream supports Python 3.
-python-os-brick:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/os-brick
-python-oslo-vmware:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/oslo.vmware
-python-openstackclient:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/python-openstackclient
-python-paste-script:
-  status: released
-  note: |
-    Python3 support was added in 2.0.0 with numerous python3-related bugfixes through 2.0.2
-python-pdfrw:
-  links:
-    repo: https://github.com/pmaupin/pdfrw
-  note: |
-    Upstream states they support 3.3 and 3.4
-python-peewee:
-  links:
-    repo: https://github.com/coleifer/peewee
-  note:
-    Since the version 2.1.0, upstream supports Python 3. Also, the code base is
-    actively [tested against Python 3.2](https://travis-ci.org/coleifer/peewee) and later.
-python-pmw:
-  links:
-    homepage: https://pypi.python.org/pypi/Pmw/2.0.1
-  note: |
-    Python-PMW 2.0.0+ is Python3-only, and 1.3.x is Python2 only.
-    The easiest way for Fedora would probably be a new `python3-pmw` source
-    package.
-python-pycha:
-  links:
-    bug: https://bitbucket.org/lgs/pycha/pull-requests/5/port-to-python-3
-python-pylibmc:
-  note: |
-    Upstream does support python3; Fedora package needs to be updated
-  links:
-    repo: https://github.com/lericson/pylibmc
 python-progressbar:
   links:
     bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282094
-python-proteus:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/proteus
-python-relatorio:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/relatorio
-python-repoze-who-plugins-sa:
-  links:
-    repo: https://github.com/repoze/repoze.who-sqlalchemy/commits/master
-  note: |
-    Python3 support (as well as resistance to timing attacks!) may be
-    unreleased but committed to upstream source repository
 python-restkit:
   links:
     homepage: https://github.com/benoitc/restkit
     bug: https://github.com/benoitc/restkit/issues/47
-python-restsh:
-  links:
-    repo: https://github.com/jespino/restsh
-  note:
-    Upstream claims to have support for Python 3.2. Fedora package needs to be updated.
-python-routes:
-  note: |
-    Upstream python3 support as of 2.2
-python-rows:
-  links:
-    bug: https://github.com/turicas/rows/issues/46
-python-saharaclient:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/python-saharaclient
-python-scrapy:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/Scrapy
 python-sexy:
     status: idle
     note: |
         Upstream has not maintained this project in almost 10 years (Sept 2006). They are also the authors of libsexy which has not been maintained in 7 years. Refer to the [python-sexy](http://osiris.chipx86.com/svn/osiris-misc/trunk/sexy-python/ChangeLog) and [libsexy](http://osiris.chipx86.com/svn/osiris-misc/trunk/libsexy/ChangeLog) changelogs.
-python-sqlobject:
-  note: |
-    Upstream python3 support is present in 3.0.0a1dev (official snapshot uploaded to pypi).
-python-fedmsg-meta-fedora-infrastructure:
-  status: released
-python-statsd:
-  links:
-    repo: https://github.com/jsocol/pystatsd
-  note: |
-    Upstream has already fixed the code to support Python 3. The unit tests are
-    also [running against 3.X](https://travis-ci.org/jsocol/pystatsd).
 python-tgext-admin:
   status: released
   links:
     homepage: https://pypi.python.org/pypi/tgext.admin/
-python-tgext-crud:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/tgext.crud/
-python-tgscheduler:
-  links:
-    homepage: https://pypi.python.org/pypi/TGScheduler
 python-tracing: *obnam
 python-ttystatus: *obnam
-python-tw2-forms:
-  note: |
-    Upstream support from 2.2.0 on
-python-wtf-peewee:
-  status: released
-  note: |
-    Judging from the _compat.py module, this is ported upstream.
-python-xlib:
-  note: |
-    A Python 3 fork is available at [LiuLang's Github](https://github.com/LiuLang/python3-xlib).
-  links:
-    bug: http://sourceforge.net/p/python-xlib/mailman/python-xlib-users/thread/1447862425.2461.3.camel%40gmail.com/#msg34629506
 python-yolk:
   links:
     bug: https://github.com/cakebread/yolk/pull/14
     homepage: https://pypi.python.org/pypi/yourls
   note: |
     A py3-compatible fork, and pull requests, are available.
-python-yourls:
-  links:
-    homepage: https://pypi.python.org/pypi/yourls
-  note: |
-    Upstream is py3-compatible.
-python-zaqarclient:
-  links:
-    repo: https://github.com/openstack/zaqar
-  note: |
-    Upstream version 0.3.0 is py3-compatible.
-python-zope-datetime:
-  links:
-    homepage: https://pypi.python.org/pypi/zope.datetime
-  note: |
-    Upstream is py3-compatible since version 4.0.0.
-python-zope-processlifetime:
-  links:
-    homepage: https://pypi.python.org/pypi/zope.processlifetime
-  note: |
-    Upstream is py3-compatible since version 2.1.0.
-python-zope-sequencesort:
-  links:
-    homepage: https://pypi.python.org/pypi/zope.sequencesort
-  note: |
-    Upstream is py3-compatible since version 4.0.0.
 python-zope-structuredtext:
   links:
     homepage: https://pypi.python.org/pypi/zope.structuredtext
   note: |
     Upstream is py3-compatible since version 4.0.0.
-pywebdav:
-  status: released
-  note: |
-    The Python 3 version is exists as a sepatate project on PyPI
-    ([py2](https://pypi.python.org/pypi/PyWebDAV),
-    [py3](https://pypi.python.org/pypi/PyWebDAV3)).
-    For Fedora, this means a new package might be preferrable to, adding a
-    subpackage.
-  links:
-    homepage: https://pypi.python.org/pypi/PyWebDAV3
 rapid-photo-downloader:
   note: |
     Being ported by the developer, [Damon Lynch](http://www.damonlynch.net/).
@@ -718,13 +204,6 @@ rapid-photo-downloader:
     bug: https://bugs.launchpad.net/rapid/+bug/1074028
     homepage: http://damonlynch.net/rapid/
     repo: https://code.launchpad.net/rapid
-rb_libtorrent:
-  status: idle
-  note: The code is written for Python2 and upstream work is needed to port it to Python3
-samba:
-  note: |
-    Somewhat stale work-in-progress branch at [Github](https://github.com/encukou/samba/tree/py3).
-    Please contact Petr Viktorin (FAS: `pviktori`) for details and coordination.
 seivot: *obnam
 solfege:
   status: idle
@@ -734,23 +213,11 @@ solfege:
     the fact it depends upon PyGTK2.
   links:
     homepage: https://www.gnu.org/software/solfege/
-speedtest-cli:
-  links:
-    bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282189
-    homepage: https://github.com/sivel/speedtest-cli
-    repo: https://github.com/sivel/speedtest-cli.git
-  note: |
-    Once the 5.100 upstream (with patches) is released, patched spec file will
-    go in for rawhide
 summain: *obnam
 supernova:
     status: released
     links:
         repo: https://github.com/major/supernova
-supervisor:
-  links:
-    homepage: https://github.com/supervisor/supervisor
-    bug: https://github.com/Supervisor/supervisor/labels/python%203
 supybot-fedora:
   links:
     bug: https://github.com/fedora-infra/supybot-fedora/issues/50
@@ -762,184 +229,6 @@ trash-cli:
   links:
     repo: https://github.com/andreafrancia/trash-cli/
     homepage: https://pypi.python.org/pypi/trash-cli/
-trytond:
-  status: released
-  links:
-    bug: https://bugs.tryton.org/issue3211
-    homepage: https://pypi.python.org/pypi/trytond
-trytond-account:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account
-trytond-account-be:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account_be
-trytond-account-de-skr03:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account_de_skr03
-trytond-account-invoice:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account_invoice
-trytond-account-invoice-history:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account_invoice_history
-trytond-account-invoice-line-standalone:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account_invoice_line_standalone
-trytond-account-product:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account_product
-trytond-account-statement:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account_statement
-trytond-account-stock-anglo-saxon:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account_stock_anglo_saxon
-trytond-account-stock-continental:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_account_stock_continental
-trytond-analytic-account:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_analytic_account
-trytond-analytic-invoice:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_analytic_invoice
-trytond-analytic-purchase:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_analytic_purchase
-trytond-analytic-sale:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_analytic_sale
-trytond-company:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_company
-trytond-company-work-time:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_company_work_time
-trytond-country:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_country
-trytond-currency:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_currency
-trytond-dashboard:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_dashboard
-trytond-google-maps:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_google_maps
-trytond-party:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_party
-trytond-party-siret:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_party_siret
-trytond-product:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_product
-trytond-product-cost-fifo:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_product_cost_fifo
-trytond-product-cost-history:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_product_cost_history
-trytond-product-price-list:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_product_price_list
-trytond-project:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_project
-trytond-project-plan:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_project_plan
-trytond-project-revenue:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_project_revenue
-trytond-purchase:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_purchase
-trytond-purchase-invoice-line-standalone:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_purchase_invoice_line_standalone
-trytond-sale:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_sale
-trytond-sale-opportunity:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_sale_opportunity
-trytond-sale-price-list:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_sale_price_list
-trytond-stock:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_stock
-trytond-stock-forecast:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_stock_forecast
-trytond-stock-inventory-location:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_stock_inventory_location
-trytond-stock-location-sequence:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_stock_location_sequence
-trytond-stock-product-location:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_stock_product_location
-trytond-stock-supply:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_stock_supply
-trytond-stock-supply-day:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_stock_supply_day
-trytond-timesheet:
-  status: released
-  links:
-    homepage: https://pypi.python.org/pypi/trytond_timesheet
-TurboGears2:
-  note: |
-    The latest release supports python3
-veusz:
-  note: Available since 1.19 release
 ViTables:
   links:
     repo: https://github.com/uvemas/ViTables/tree/develop
