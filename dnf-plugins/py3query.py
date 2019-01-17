@@ -141,7 +141,7 @@ def set_status(result, pkgs, python_versions):
             'to prevent it from always dragging the py2 dependency in.')
     elif not name_by_version[2]:
         # Hooray!
-        result['status'] = 'released'
+        result['status'] = 'py3-only'
     else:
         # Otherwise, a srpm isn't ported if it has more packages that need py2
         # than those that need py3
