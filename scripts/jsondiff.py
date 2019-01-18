@@ -124,7 +124,17 @@ def main(first_filename, second_filename):
     print()
 
     for change, packages in sorted(status_changes.items()):
-        print(term.blue('**{}** → **{}** ({})'.format(*change, len(packages))))
+        change_from, change_to = change
+        if (
+            change_from in {'idle', 'mispackaged'}
+            and change_to in {'released', 'legacy-leaf', 'py3-only'}
+        ):
+            badge_marker = '♥'
+        else:
+            badge_marker = ''
+        print(term.blue('**{}** → **{}** ({}) {}'.format(
+            *change, len(packages), badge_marker,
+        )))
         for package in packages:
             print('-', package)
         print()
