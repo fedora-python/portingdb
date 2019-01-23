@@ -74,9 +74,10 @@
                 <span class="big-percentage"
                     style="color: {{ statuses['py3-only'].color }};"
                 >
-                    {{ (the_score * 100) | int -}}
+                    {% set score_parts = (the_score * 100) | split_digits(1) %}
+                    {{ score_parts[0] -}}
                     <span class="smaller">.
-                        {{- (the_score * 100) | first_decimal -}}%
+                        {{- score_parts[1] -}}%
                     </span>
                 </span>
                 <span class="stuffing">
@@ -87,9 +88,11 @@
             <div class="summary-sentence">
                 <span class="big-percentage"
                     style="color: {{ statuses['released'].color }};"
-                >{{ (py2_score * 100) | int -}}
+                >
+                    {% set score_parts = (py2_score * 100) | split_digits(1) %}
+                    {{ score_parts[0] -}}
                     <span class="smaller">.
-                        {{- (py2_score * 100) | first_decimal -}}%
+                        {{- score_parts[1] -}}%
                     </span>
                 </span>
                 <span class="stuffing">

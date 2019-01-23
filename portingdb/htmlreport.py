@@ -679,11 +679,17 @@ def format_percent(num):
     return str(num) + '%'
 
 
-def first_decimal(number, digits=1):
-    """Return the first `digits` digit after the decimal point"""
-    number = abs(number)
-    number = number - int(number)
-    return int(round(number * 10**digits))
+def split_digits(number, digits_after_dp=1):
+    """Return digits before and after a decimal point"""
+    number = round(float(number), digits_after_dp)
+    return str(number).split('.')
+
+assert split_digits(1) == ['1', '0']
+assert split_digits(1.234) == ['1', '2']
+assert split_digits(1234.56) == ['1234', '6']
+assert split_digits(1234.56, 2) == ['1234', '56']
+assert split_digits(73.98) == ['74', '0']
+assert split_digits(-8.5) == ['-8', '5']
 
 
 def create_app(db_url, directories, cache_config=None):
@@ -697,7 +703,7 @@ def create_app(db_url, directories, cache_config=None):
     app.jinja_env.filters['format_percent'] = format_percent
     app.jinja_env.filters['format_time_ago'] = format_time_ago
     app.jinja_env.filters['sort_by_status'] = sort_by_status
-    app.jinja_env.filters['first_decimal'] = first_decimal
+    app.jinja_env.filters['split_digits'] = split_digits
     app.jinja_env.filters['summarize_statuses'] = (
         lambda p: summarize_statuses(data['statuses'], p))
 
