@@ -255,6 +255,8 @@ def handle_entrypoints(result, config):
                          'pygments.',  # pygments the tool is py3
                          'pyface.',  # self contained
                          'turbomail.',  # self contained
+                         'setuptools.',  # developer oriented, use virtualenv
+                         'setuptools_scm.',  # as ^
                          'shove.',  # self contained
                          'statscache.',  # self contained
                          'subliminal.',  # self contained
