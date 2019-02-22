@@ -541,6 +541,9 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
 
     # https://bugzilla.redhat.com/show_bug.cgi?id=1629435
     keep_manually('python2-q', 'debugging tool')
+    
+    # python-requests-cache is needed for MythTV @ RPM Fusion
+    keep_manually('python2-requests-cache', 'MythTV dependency')
 
     for result in results.values():
         if result.get('needs_investigation'):
