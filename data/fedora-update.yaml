@@ -79,12 +79,6 @@ cracklib:
     status: dropped
     note: |
         Dependant packages should be ported to `libpwquality`.
-createrepo:
-    status: dropped
-    note: |
-        This has a dependency on `yum`, which is not going to be ported.
-
-        Dependant packages should be ported to `createrepo_c`.
 cwiid:
     dead-upstream: true
 dreampie:
@@ -375,10 +369,6 @@ python-pydns:
   status: dropped
   note: |
     Recommended replacement: `python3-py3dns`
-python-pylons:
-  status: dropped
-  note: |
-    Recommended replacement: `python-pyramid`
 python-simpletal:
   status: dropped
   note: |
@@ -401,13 +391,6 @@ python-urlgrabber:
       lack of test coverage).
       Suggested replacement: `python-pycurl` which covers most of the
       functionality
-python-webtest1.3:
-    status: dropped
-    note: |
-      This is a backwards compatibility package.  Code that uses this should be
-      ported to the current version of the library as part of porting to
-      python3.
-      Replacement: `python-webtest`
 python-zbase32: &pyutil-zbase32-cycle
     nonblocking: true
     note: |
@@ -422,11 +405,6 @@ python2-typing:
     note: |
         The `typing` module is part of the standard library in Python 3.5+;
         no need for this backport there.
-python2-prompt-toolkit:
-    status: dropped
-    note: |
-        Replacement: `python-prompt-toolkit` (with the `python3-prompt-toolkit`
-        binary RPM)
 pyutil: *pyutil-zbase32-cycle
 pywebkitgtk:
     status: dropped
@@ -475,15 +453,3 @@ wxPython:
     status: dropped
     note: |
       Replacement: `python-wxpython4`
-yum:
-    status: dropped
-    note: |
-      Replacement: `dnf`
-yum-metadata-parser:
-    status: dropped
-    note: |
-      A `yum` dependency. `yum` is replaced by `dnf`
-yum-utils:
-    status: dropped
-    note: |
-      DNF should replace yum.
