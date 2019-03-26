@@ -62,13 +62,6 @@ def cli(ctx, datadir, db, verbose, quiet):
         ctx.obj['db'] = get_db(None, engine=engine)
     ctx.obj['db_url'] = url
 
-
-@cli.command()
-@click.pass_context
-def status(ctx):
-    """Print database info and high-level stats"""
-    print_status(ctx)
-
 def print_status(ctx):
     datadirs = ctx.obj['datadirs']
     db_url = ctx.obj['db_url']
@@ -139,62 +132,6 @@ def load(ctx):
         print_status(ctx)
 
 
-def print_collection_header(collections, foot=False):
-    if not foot:
-        for i, collection in enumerate(collections):
-            print('│  ' * i + '┌╴' + collection.name)
-    else:
-        for i, collection in enumerate(reversed(collections)):
-            print('│  ' * (len(collections)-i-1) + '└╴' + collection.name)
-
-
-def print_collection_info(package, collections):
-    if package:
-        for collection in collections:
-            cp = package.by_collection.get(collection.ident)
-            if cp:
-                state = cp.status_obj.term
-                prio = cp.priority_obj.term
-                click.echo('├{}{}'.format(state, prio), nl=False)
-            else:
-                print('│  ', end='')
-    else:
-        for collection in collections:
-            print('│  ', end='')
-
-@cli.command()
-@click.pass_context
-def report(ctx):
-    """Print out a report of all packages"""
-    db = ctx.obj['db']
-    columns, rows = click.get_terminal_size()
-    collections = list(db.query(tables.Collection).order_by(tables.Collection.order))
-
-    print_collection_header(collections)
-
-    print('│  ' * len(collections))
-    query = db.query(tables.Package)
-    query = query.order_by(func.lower(tables.Package.name))
-    query = query.options(eagerload(tables.Package.by_collection))
-    query = query.options(subqueryload(tables.Package.run_time_requirements))
-    for package in query:
-        print_collection_info(package, collections)
-        print(' ' + package.name, end=' ')
-        reqs = []
-        for req in package.run_time_requirements:
-            for cp in req.by_collection.values():
-                if cp.status not in ('released', 'legacy-leaf', 'py3-only'):
-                    reqs.append(req.name)
-                    break
-        if reqs:
-            print('({})'.format(', '.join(reqs)), end='')
-        print()
-
-    print('│  ' * len(collections))
-
-    print_collection_header(collections, foot=True)
-
-
 @cli.command()
 @click.option('--debug/--no-debug', help="Run in debug mode")
 @click.option('--cache',
@@ -216,107 +153,6 @@ def serve(ctx, debug, cache, port):
     htmlreport.main(db_url=db_url, debug=debug, cache_config=cache_config,
                     directories=datadirs,
                     port=port)
-
-
-@cli.command()
-@click.option('-x', '-exclude', help="Package(s) to exclude", multiple=True)
-@click.option('-t/-T', '--trim/--no-trim', help="Don't recurse into ported packages (default: on)", default=True)
-@click.option('-s/-S', '--skip/--no-skip', help="Don't show ported packages at all")
-@click.option('-g/-G', '--graph/--no-graph', help="Show graph (default: on)", default=True)
-@click.argument('package', nargs=-1)
-@click.pass_context
-def deps(ctx, package, exclude, trim, skip, graph):
-    """Print a dependency graph of the given package(s)"""
-    db = ctx.obj['db']
-
-    collections = list(db.query(tables.Collection).order_by(tables.Collection.order))
-
-    query = db.query(tables.Package)
-
-    seen = set()
-    exclude = set(exclude)
-    seen.update(query.get(n) for n in exclude)
-
-    print_collection_header(collections)
-
-    if graph:
-        print_collection_info(None, collections)
-        print('[{}]'.format(','.join(package)))
-
-    def can_ignore(pkg):
-        if not trim:
-            return False
-        result = False
-        for col in collections:
-            cp = pkg.by_collection.get(col.ident)
-            if cp:
-                if cp.status not in ('released', 'legacy-leaf', 'dropped'):
-                    return False
-                result = True
-        return result
-
-    pkgs = [None] + [query.get(n) for n in package]
-    while pkgs:
-        pkg = pkgs.pop()
-        if pkg is None:
-            continue
-        if pkg in seen:
-            if not graph:
-                continue
-            reqs = []
-            e = '*'
-        elif can_ignore(pkg):
-            reqs = []
-            e = '✔'
-        else:
-            seen.add(pkg)
-            reqs = [p for p in pkg.run_time_requirements if p is not pkg]
-            if skip:
-                reqs = [r for r in reqs
-                        if not (can_ignore(r) or r.name in exclude)]
-            e = ''
-        if reqs:
-            c = '┬'
-        else:
-            c = '─'
-        lines = []
-        found = False
-        for p in pkgs:
-            if p is None:
-                if found:
-                    lines.append('─')
-                else:
-                    lines.append(' ')
-            elif p is pkg:
-                if found:
-                    lines.append('┴')
-                else:
-                    lines.append('└')
-                found = True
-            else:
-                if found:
-                    lines.append('┼')
-                else:
-                    lines.append('│')
-        if found:
-            l = '┴'
-        else:
-            l = '└'
-        print_collection_info(pkg, collections)
-        if graph:
-            print(''.join(lines) + l + '╴', end='')
-        else:
-            print(' ', end='')
-        print(pkg.name + e)
-        pkgs = [None if p is pkg else p for p in pkgs]
-        if graph and len(reqs) > 1:
-            print_collection_info(None, collections)
-            print(''.join('│' if n else ' ' for n in pkgs), end='  ')
-            print('├' + '┬' * (len(reqs) - 2) + '┐')
-        pkgs.extend([None, None])
-        pkgs.extend(reqs)
-
-    print_collection_header(collections, foot=True)
 
 
 @cli.command()
