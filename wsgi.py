@@ -9,7 +9,6 @@ from portingdb import htmlreport
 
 level = logging.INFO
 logging.basicConfig(level=level)
-logging.getLogger('sqlalchemy.engine').setLevel(level)
 
 sqlite_path = os.getcwd() + '/portingdb.sqlite'
 

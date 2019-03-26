@@ -18,7 +18,6 @@ class PyTest(TestCommand):
 
 
 requires = [
-    'sqlalchemy >= 1.0, < 2.0',
     'PyYAML >= 3.11, < 5.0',
     'click >= 7.0, < 8.0',
     'flask >= 1.0, < 2.0',
