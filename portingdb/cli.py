@@ -418,31 +418,28 @@ def closed_mispackaged(ctx):
 
     Use the --verbose flag to get the output pretty-printed for humans.
     """
-    db = ctx.obj['db']
+    data = get_data(*ctx.obj['datadirs'])
 
-    query = db.query(tables.Package)
-    query = query.filter(tables.Package.status == 'mispackaged')
-    query = query.join(tables.CollectionPackage)
-    query = query.filter(
-            tables.CollectionPackage.collection_ident == 'fedora')
-    query = query.join(tables.Link)
-    query = query.filter(tables.Link.type == 'bug')
-    query = query.filter(tables.Link.note.like("CLOSED %"))
+    results = []
+    for package in data['packages'].values():
+        if package['status'] == 'mispackaged':
+            for link in package['links']:
+                if link['type'] == 'bug' and link['note'].startswith('CLOSED'):
+                    results.append(package)
 
-    results = list(query)
     if ctx.obj['verbose'] > 0:
         if results:
             print("\nThe following packages are both 'mispackaged' and "
                     "their associated Bugzilla report is CLOSED:\n")
             for p in results:
-                print("\t{}".format(p.name))
+                print("\t{}".format(p['name']))
             print()
         else:
             print("\nThere are no packages both 'mispackaged' and "
                     "having the associated Bugzilla report CLOSED.\n")
     else:
         for p in results:
-            print("{}".format(p.name))
+            print("{}".format(p['name']))
 
     if results:
         exit(1)
