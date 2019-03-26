@@ -328,41 +328,6 @@ def update(ctx):
     from . import queries
     queries.update_group_closures(db)
 
-@cli.command('upstream-idle')
-@click.pass_context
-def upstream_idle(ctx):
-    """List packages marked as released upstream which are currently idle.
-
-    Exits with error code 1 if such packages are found.
-
-    Use the --verbose flag to get the output pretty-printed for humans.
-    """
-    db = ctx.obj['db']
-
-    query = db.query(tables.CollectionPackage)
-    query = query.join(tables.Package,
-            tables.Package.name == tables.CollectionPackage.name)
-    query = query.filter(tables.Package.status == 'idle')
-    query = query.filter(
-            tables.CollectionPackage.collection_ident == 'upstream')
-    query = query.filter(tables.CollectionPackage.status == 'released')
-
-    results = list(query)
-    if ctx.obj['verbose'] > 0:
-        if results:
-            print("\nThe following packages are both 'idle' and marked as "
-                    "'released' upstream:\n")
-            for r in results:
-                print("\t{}".format(r.name))
-            print()
-        else:
-            print("\nThere are no packages both 'idle' and marked as "
-                    " 'released' upstream.\n")
-    else:
-        for r in results:
-            print("{}".format(r.name))
-    if results:
-        exit(1)
 
 @cli.command('bugless-mispackaged')
 @click.pass_context
