@@ -20,7 +20,6 @@ import os
 
 import click
 
-from portingdb import tables
 from portingdb.load_data import get_data
 
 

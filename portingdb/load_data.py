@@ -7,10 +7,6 @@ import csv
 import yaml
 import click
 
-from . import tables
-from . import queries
-from .load import _merge_updates
-
 
 PY2_STATUSES = {'released', 'legacy-leaf', 'py3-only'}
 DONE_STATUSES = PY2_STATUSES | {'dropped'}
@@ -56,6 +52,36 @@ def decode_file(filename):
             return json.load(f)
         else:
             return yaml.load(f, Loader=SafeLoader)
+
+
+def _merge_updates(base, updates, warnings=None, parent_keys=()):
+    for key, new_value in updates.items():
+        if (key in base and
+                isinstance(base[key], dict) and
+                isinstance(new_value, dict)):
+            _merge_updates(base[key], new_value, warnings,
+                           parent_keys + (key, ))
+        else:
+            for good_status in ('released', 'legacy-leaf', 'py3-only'):
+                if (warnings is not None and
+                            key == 'status' and
+                            base.get(key) == good_status):
+                    warnings.append(
+                        'overriding "{}" status: {}'.format(
+                            good_status, ': '.join(parent_keys)))
+            if (warnings is not None and
+                        key == 'bug' and
+                        base.get(key)):
+                warnings.append(
+                    'overriding bug: {}: {}->{}'.format(
+                        ': '.join(parent_keys), base.get(key), new_value))
+
+            # Override misnamed status for rpms in the package.
+            if key == 'is_misnamed':
+                for rpm in base.get('rpms', []):
+                    base['rpms'][rpm][key] = new_value
+
+            base[key] = new_value
 
 
 def load_from_directories(data, directories):
