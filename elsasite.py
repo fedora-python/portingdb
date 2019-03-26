@@ -8,11 +8,7 @@ logging.basicConfig(level=level)
 
 sqlite_path = 'portingdb.sqlite'
 
-db_url = 'sqlite:///' + sqlite_path
-
-application = htmlreport.create_app(
-    db_url=db_url, directories=['data'], cache_config=None
-)
+application = htmlreport.create_app(directories=['data'], cache_config=None)
 
 if __name__ == '__main__':
     from elsa import cli

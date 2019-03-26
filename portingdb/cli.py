@@ -5,11 +5,8 @@ import json
 from pathlib import Path
 
 import click
-from sqlalchemy import create_engine, func, or_, and_
-from sqlalchemy.orm import eagerload, subqueryload
 
 from portingdb import tables
-from portingdb.load import get_db, load_from_directories
 from portingdb.load_data import get_data
 from portingdb.check_drops import check_drops
 
@@ -27,11 +24,10 @@ def main():
               help="Data directory. If given multiple times, the directories "
                 "are searched in order: files in directories that appear "
                 "earlier on the command line shadow the later ones.")
-@click.option('--db', help="Database file", default='portingdb.sqlite', envvar='PORTINGDB_FILE')
 @click.option('-v', '--verbose', help="Output lots of information", count=True)
 @click.option('-q', '--quiet', help="Output less information", count=True)
 @click.pass_context
-def cli(ctx, datadir, db, verbose, quiet):
+def cli(ctx, datadir, verbose, quiet):
     """Manipulate and query a package porting database.
     """
     verbose -= quiet
@@ -42,94 +38,9 @@ def cli(ctx, datadir, db, verbose, quiet):
         else:
             level = logging.INFO
         logging.basicConfig(level=level)
-        logging.getLogger('sqlalchemy.engine').setLevel(level)
     if not datadir:
         datadir = [DEFAULT_DATADIR]
     ctx.obj['datadirs'] = [os.path.abspath(d) for d in datadir]
-
-    if 'db' in ctx.obj:
-        url = '<passed in>'
-    else:
-        if db is None:
-            url = 'sqlite:///'
-        else:
-            parsed = urllib.parse.urlparse(db)
-            if parsed.scheme:
-                url = db
-            else:
-                url = 'sqlite:///' + os.path.abspath(db)
-        engine = create_engine(url)
-        ctx.obj['db'] = get_db(None, engine=engine)
-    ctx.obj['db_url'] = url
-
-def print_status(ctx):
-    datadirs = ctx.obj['datadirs']
-    db_url = ctx.obj['db_url']
-    db = ctx.obj['db']
-
-    pkg_count = db.query(tables.Package).count()
-    if ctx.obj['verbose']:
-        print('Data directory: {}'.format(':'.join(datadirs)))
-        print('Database: {}'.format(db_url))
-
-        print('Package count: {}'.format(pkg_count))
-    if not pkg_count:
-        click.secho('Database not filled; please run portingdb load', fg='red')
-
-    collections = list(db.query(tables.Collection).order_by(tables.Collection.order))
-    if collections:
-        max_name_len = max(len(c.name) for c in collections)
-        for i, collection in enumerate(collections):
-            query = db.query(tables.CollectionPackage.status,
-                             func.count(tables.CollectionPackage.id))
-            query = query.filter(tables.CollectionPackage.collection == collection)
-            query = query.join(tables.CollectionPackage.status_obj)
-            query = query.group_by(tables.CollectionPackage.status)
-            query = query.order_by(tables.Status.order)
-            data = dict(query)
-            total = sum(v for k, v in data.items())
-            detail = ', '.join('{1} {0}'.format(k, v) for k, v in data.items())
-            if total:
-                num_done = sum(data.get(s, 0)
-                               for s in ('released', 'dropped', 'legacy-leaf', 'py3-only'))
-                print('{score:5.1f}% {name}  ({detail}) / {total}'.format(
-                    name=collection.name,
-                    max_name_len=max_name_len,
-                    score=num_done / total * 100,
-                    detail=detail,
-                    total=total
-                ))
-            else:
-                print('  ???% {name:>{max_name_len}}'.format(
-                    name=collection.name,
-                    max_name_len=max_name_len,
-                ))
-
-
-@cli.command()
-@click.pass_context
-def load(ctx):
-    """Load the database from JSON/YAML data"""
-    datadirs = ctx.obj['datadirs']
-    db = ctx.obj['db']
-
-    db.execute('PRAGMA journal_mode=WAL')
-
-    if ctx.obj['verbose']:
-        click.secho('Before load:', fg='cyan')
-        print_status(ctx)
-
-    for table in tables.metadata.sorted_tables:
-        db.execute(table.delete())
-
-    warnings = load_from_directories(db, datadirs)
-    for warning in warnings:
-        click.secho(warning, fg='red')
-    db.commit()
-
-    if ctx.obj['verbose']:
-        click.secho('After load:', fg='cyan')
-        print_status(ctx)
 
 
 @cli.command()
@@ -141,7 +52,6 @@ def load(ctx):
 @click.pass_context
 def serve(ctx, debug, cache, port):
     """Serve HTML reports via a HTTP server"""
-    db_url = ctx.obj['db_url']
     datadirs = ctx.obj['datadirs']
     from . import htmlreport
 
@@ -150,19 +60,9 @@ def serve(ctx, debug, cache, port):
     else:
         cache_config = json.loads(cache)
 
-    htmlreport.main(db_url=db_url, debug=debug, cache_config=cache_config,
+    htmlreport.main(debug=debug, cache_config=cache_config,
                     directories=datadirs,
                     port=port)
-
-
-@cli.command()
-@click.pass_context
-def update(ctx):
-    """Update the calculated data in thre database"""
-    db = ctx.obj['db']
-
-    from . import queries
-    queries.update_group_closures(db)
 
 
 @cli.command('bugless-mispackaged')

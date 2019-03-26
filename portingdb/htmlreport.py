@@ -692,7 +692,7 @@ assert split_digits(73.98) == ['74', '0']
 assert split_digits(-8.5) == ['-8', '5']
 
 
-def create_app(db_url, directories, cache_config=None):
+def create_app(directories, cache_config=None):
     app = Flask(__name__)
     app.config['data'] = data = get_data('data/')
     app.config['CONFIG'] = data['config']
@@ -740,6 +740,6 @@ def create_app(db_url, directories, cache_config=None):
     return app
 
 
-def main(db_url, directories, cache_config=None, debug=False, port=5000):
-    app = create_app(db_url, directories)
+def main(directories, cache_config=None, debug=False, port=5000):
+    app = create_app(directories)
     app.run(debug=debug, port=port)

@@ -13,8 +13,6 @@ logging.getLogger('sqlalchemy.engine').setLevel(level)
 
 sqlite_path = os.getcwd() + '/portingdb.sqlite'
 
-db_url = 'sqlite:///' + sqlite_path
-
 redis_configured = all(
     var in os.environ for var in
     ('REDIS_SERVICE_HOST', 'REDIS_SERVICE_PORT', 'REDIS_PASSWORD'))
@@ -32,7 +30,7 @@ cache_config = {
     }
 } if redis_configured else None
 
-application = htmlreport.create_app(db_url=db_url, cache_config=cache_config)
+application = htmlreport.create_app(cache_config=cache_config)
 
 
 if __name__ == '__main__':
