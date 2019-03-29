@@ -28,6 +28,8 @@ import subprocess
 import configparser
 import shutil
 import collections
+import tempfile
+import contextlib
 
 import click
 
@@ -41,7 +43,7 @@ xml_option_args = {}
 
 for x in 'filelists', 'primary':
     xml_default[x] = list(Path('/var/cache/dnf').glob(
-        f'rawhide-????????????????/repodata/*-{x}.xml.gz'))
+        f'rawhide-????????????????/repodata/*-{x}.xml.*'))
 
     if len(xml_default[x]) == 1:
         xml_option_args[x] = {'default': xml_default[x][0]}
@@ -385,12 +387,37 @@ class SaxPrimaryHandler(xml.sax.ContentHandler):
             self.source_parts.append(content)
 
 
+@contextlib.contextmanager
+def xmlfile(path):
+    path = Path(path)
+    try:
+        if path.suffix == '.gz':
+            fileobj = gzip.open(path, 'r')
+        elif path.suffix == '.zck':
+            import libdnf.utils  # we only import if needed
+            # there is no library yet to read this, we need to unpack on disk
+            tmppath = tempfile.NamedTemporaryFile(delete=False)
+            tmppath.close()
+            libdnf.utils.decompress(str(path), tmppath.name, 0o644, '.zck')
+            fileobj = open(tmppath.name, 'r')
+        else:
+            # uncompressed XML maybe?
+            fileobj = open(path, 'r')
+        yield fileobj
+    finally:
+        with contextlib.suppress(NameError):
+            fileobj.close()
+        with contextlib.suppress(NameError):
+            tmppath.close()
+            os.unlink(tmppath.name)
+
+
 @click.command(name='check-drops')
-@click.option('-f', '--filelist', type=click.File('rb'),
+@click.option('-f', '--filelist', type=click.Path(exists=True),
               **xml_option_args['filelists'],
               help='Location of the filelist xml.gz file '
               '(required if not found automatically)')
-@click.option('-p', '--primary', type=click.File('rb'),
+@click.option('-p', '--primary', type=click.Path(exists=True),
               **xml_option_args['primary'],
               help='Location of the primary xml.gz file '
               '(required if not found automatically)')
@@ -407,7 +434,7 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
 
     cache_dir.mkdir(exist_ok=True)
 
-    # Analyze filelists.xml.gz and primary.xml.gz
+    # Analyze filelists.xml.(gz|zck) and primary.xml.(gz|zck)
 
     cache_path = cache_dir / 'sax_results.json'
 
@@ -415,19 +442,15 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
         with cache_path.open('r') as f:
             results, sources = json.load(f)
     else:
-        filelist = gzip.GzipFile(fileobj=filelist, mode='r')
+        with xmlfile(filelist) as f:
+            handler = SaxFilesHandler()
+            xml.sax.parse(f, handler)
+            results = handler.results
 
-        handler = SaxFilesHandler()
-        xml.sax.parse(filelist, handler)
-
-        results = handler.results
-
-        primary = gzip.GzipFile(fileobj=primary, mode='r')
-
-        handler = SaxPrimaryHandler()
-        xml.sax.parse(primary, handler)
-
-        sources = handler.sources
+        with xmlfile(primary) as p:
+            handler = SaxPrimaryHandler()
+            xml.sax.parse(p, handler)
+            sources = handler.sources
 
         with cache_path.open('w') as f:
             json.dump([results, sources], f)

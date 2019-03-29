@@ -46,7 +46,19 @@ To start a HTML report server, start:
 There is a script that checks what python2 packages can be dropped from Fedora
 during the [Mass Python 2 Package Removal](https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal).
 
-Run it with:
+Change your Python virtual environment to include system side packages:
+
+    (venv) $ cat venv/pyvenv.cfg
+    ...
+    include-system-site-packages = true
+    ...
+
+Reactivate if needed:
+
+    (venv) $ deactivate
+    $ . venv/bin/activate
+
+And run it with:
 
     (venv) $ python -m portingdb --datadir data/ check-drops
 
