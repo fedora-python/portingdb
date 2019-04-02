@@ -6,9 +6,6 @@ To run this:
 - Install portingdb in a virtualenv:
   python -m pip install -e.
 
-- Load portingdb data:
-    python3 -m portingdb --datadir data/ load
-
 - Run this script:
   python -m portingdb check-drops
 
