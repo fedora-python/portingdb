@@ -23,19 +23,6 @@ Then run directly from Git working directory:
 
 # Usage
 
-First, you will need to load a database.
-
-    (venv) $ python -m portingdb --datadir data/ load
-
-This will create a `portingdb.sqlite` file in the current directory.
-Currently, the database needs re-loaded every time the data changes.
-(If the schema changes, you will need to delete the `portingdb.sqlite` file
-before re-loading data.)
-
-To check the database, do:
-
-    (venv) $ python -m portingdb status
-
 To start a HTML report server, start:
 
     (venv) $ export PYTHONPATH=.

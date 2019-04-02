@@ -29,8 +29,8 @@ To use the portingdb update scripts, you will need to install and configure the 
 
     (venv) $ pip install -r requirements.txt
 
-Update and load data
-********************
+Update the data
+***************
 
 The following steps are needed to update pordingdb data. You can run them all with a single command ``./scripts/update_portingdb.sh``:
 
@@ -58,10 +58,6 @@ The following steps are needed to update pordingdb data. You can run them all wi
 #. Update the maintainer list::
 
     $ wget https://src.fedoraproject.org/extras/pagure_owner_alias.json -O data/pagure_owner_alias.json
-
-#. Load the newly generated data into the database::
-
-    (venv) $ python -m portingdb -v --datadir=data/ load
 
 #. You can check how portingdb looks with the new data:
 
