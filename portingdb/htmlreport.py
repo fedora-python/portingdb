@@ -14,6 +14,7 @@ import networkx
 from .history_graph import history_graph
 from .load_data import get_data, DONE_STATUSES, PY2_STATUSES
 
+PAGE_NAME = 'Python 2 Dropping Database'
 tau = 2 * math.pi
 
 
@@ -82,7 +83,7 @@ def hello():
     return render_template(
         'index.html',
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
         ),
         statuses=statuses,
         total_pkg_count=len(packages),
@@ -187,7 +188,7 @@ def package(pkg):
     return render_template(
         'package.html',
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
             (url_for('package', pkg=pkg), pkg),
         ),
         pkg=package,
@@ -217,7 +218,7 @@ def group(grp):
     return render_template(
         'group.html',
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
             (url_for('group', grp=grp), group['name']),
         ),
         grp=group,
@@ -287,7 +288,7 @@ def graph(grp=None, pkg=None):
     return render_template(
         'graph.html',
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
             (url_for('graph'), 'Graph'),
         ),
         grp=grp,
@@ -482,7 +483,7 @@ def howto():
     return render_template(
         'howto.html',
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
             (url_for('howto'), 'So you want to contribute?'),
         ),
         idle_len=len(by_status['idle']),
@@ -510,7 +511,7 @@ def history(expand=False):
         graph=graph,
         expand=bool(expand),
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
             (url_for('history'), 'History'),
         ),
     )
@@ -528,7 +529,7 @@ def mispackaged():
     return render_template(
         'mispackaged.html',
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
             (url_for('mispackaged', requested=1), 'Mispackaged'),
         ),
         mispackaged=mispackaged,
@@ -560,7 +561,7 @@ def namingpolicy():
     return render_template(
         'namingpolicy.html',
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
             (url_for('namingpolicy'), 'Naming Policy'),
         ),
         misnamed=misnamed,
@@ -612,7 +613,7 @@ def history_naming():
         'history-naming.html',
         graph=graph,
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
             (url_for('namingpolicy'), 'Naming Policy'),
             (url_for('history'), 'History'),
         )
@@ -639,7 +640,7 @@ def maintainer(name):
         maintainer=maintainer,
         comaintainers=comaintainers,
         breadcrumbs=(
-            (url_for('hello'), 'Python 3 Porting Database'),
+            (url_for('hello'), PAGE_NAME),
             (url_for('maintainer', name=name), name),
         )
     )
