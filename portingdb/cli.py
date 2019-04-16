@@ -8,6 +8,7 @@ import click
 
 from portingdb.load_data import get_data
 from portingdb.check_drops import check_drops
+from portingdb.check_fti import check_fti
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -151,3 +152,4 @@ def naming(ctx, category):
 
 
 cli.add_command(check_drops)
+cli.add_command(check_fti)
