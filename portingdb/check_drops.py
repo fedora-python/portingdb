@@ -285,9 +285,9 @@ def handle_entrypoints(result, config):
             result['keep'] = True
             result['notes'].append('Certobot plugin')
             result['plugin_certbot'] = section
-        elif section in ('pytest11', ):
+        elif section in ('pytest11', 'nose.plugins', 'nose.plugins.0.10'):
             # don't keep
-            result['notes'].append('Pytest plugin')
+            result['notes'].append('Pytest/nose plugin')
             result['plugin_pytest'] = section
         elif section.startswith(('pylama.linter', 'flake8')):
             # don't keep
