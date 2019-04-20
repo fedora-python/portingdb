@@ -269,10 +269,6 @@ def handle_entrypoints(result, config):
         elif (section == 'envisage.plugins'
               and result['name'] == 'python2-envisage'):
             pass
-        elif section in ('pytest11', ):
-            result['keep'] = True
-            result['notes'].append('Pytest plugin')
-            result['plugin_pytest'] = section
         elif section in ('trac.plugins', ):
             result['keep'] = True
             result['notes'].append('Trac plugin')
@@ -281,10 +277,6 @@ def handle_entrypoints(result, config):
             result['keep'] = True
             result['notes'].append('Avocado plugin')
             result['plugin_avocado'] = section
-        elif section.startswith(('pylama.linter', 'flake8')):
-            result['keep'] = True
-            result['notes'].append('Flake 8 / PyLama plugin')
-            result['plugin_pylama'] = section
         elif section.startswith('pulp.extensions'):
             result['keep'] = True
             result['notes'].append('Pulp plugin')
@@ -293,6 +285,14 @@ def handle_entrypoints(result, config):
             result['keep'] = True
             result['notes'].append('Certobot plugin')
             result['plugin_certbot'] = section
+        elif section in ('pytest11', ):
+            # don't keep
+            result['notes'].append('Pytest plugin')
+            result['plugin_pytest'] = section
+        elif section.startswith(('pylama.linter', 'flake8')):
+            # don't keep
+            result['notes'].append('Flake 8 / PyLama plugin')
+            result['plugin_pylama'] = section
         else:
             # Possibly a plugin
             result['needs_investigation'] = True
