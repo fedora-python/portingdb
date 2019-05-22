@@ -35,18 +35,6 @@ from portingdb.load_data import get_data
 
 cache_dir = Path('./_check_drops')
 
-xml_default = {}
-xml_option_args = {}
-
-for x in 'filelists', 'primary':
-    xml_default[x] = list(Path('/var/cache/dnf').glob(
-        f'rawhide-????????????????/repodata/*-{x}.xml.*'))
-
-    if len(xml_default[x]) == 1:
-        xml_option_args[x] = {'default': xml_default[x][0]}
-    else:
-        xml_option_args[x] = {'required': True}
-
 
 def log(*args, **kwargs):
     """Print to stderr"""
@@ -410,14 +398,19 @@ def xmlfile(path):
 
 
 @click.command(name='check-drops')
-@click.option('-f', '--filelist', type=click.Path(exists=True),
-              **xml_option_args['filelists'],
+@click.option('-f', '--filelists', type=click.Path(exists=True),
+              default=None,
               help='Location of the filelist xml.gz file '
               '(required if not found automatically)')
 @click.option('-p', '--primary', type=click.Path(exists=True),
-              **xml_option_args['primary'],
+              default=None,
               help='Location of the primary xml.gz file '
               '(required if not found automatically)')
+@click.option('-r', '--repo',
+              default='rawhide',
+              metavar='REPO',
+              show_default=True,
+              help='The repo to use for queries')
 @click.option('--cache-sax/--no-cache-sax',
               help='Use cached results of filelist parsing, if available '
               '(crude; use when hacking on other parts of the code)')
@@ -425,26 +418,39 @@ def xmlfile(path):
               help='Use previously downloaded RPMs '
               '(crude; use when hacking on other parts of the code)')
 @click.pass_context
-def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
+def check_drops(ctx, filelists, primary, repo, cache_sax, cache_rpms):
     """Check packages that should be dropped from the distribution."""
     data = get_data(*ctx.obj['datadirs'])
 
     cache_dir.mkdir(exist_ok=True)
 
-    # Analyze filelists.xml.(gz|zck) and primary.xml.(gz|zck)
+    xml_paths = {}
 
+    for kind in 'filelists', 'primary':
+        xml_paths[kind] = locals()[kind]
+        if xml_paths[kind] is None:
+            glob = list(Path('/var/cache/dnf').glob(
+                f'{repo}-????????????????/repodata/*-{kind}.xml.*'))
+
+            if len(glob) == 1:
+                xml_paths[kind] = glob[0]
+            else:
+                raise click.BadParameter(
+                    f"Repo {repo} doesn't have default {kind} XML")
+
+    # Analyze filelists.xml.(gz|zck) and primary.xml.(gz|zck)
     cache_path = cache_dir / 'sax_results.json'
 
     if (cache_sax and cache_path.exists()):
         with cache_path.open('r') as f:
             results, sources = json.load(f)
     else:
-        with xmlfile(filelist) as f:
+        with xmlfile(xml_paths['filelists']) as f:
             handler = SaxFilesHandler()
             xml.sax.parse(f, handler)
             results = handler.results
 
-        with xmlfile(primary) as p:
+        with xmlfile(xml_paths['primary']) as p:
             handler = SaxPrimaryHandler()
             xml.sax.parse(p, handler)
             sources = handler.sources
@@ -471,7 +477,7 @@ def check_drops(ctx, filelist, primary, cache_sax, cache_rpms):
 
     while entrypoint_packages:
         cp = subprocess.run(
-            ['dnf', 'download', '--repo=rawhide', '--',
+            ['dnf', 'download', f'--repo={repo}', '--',
              *entrypoint_packages],
             cwd=rpm_dl_path,
             stdout=sys.stderr,
