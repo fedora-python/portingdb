@@ -379,23 +379,6 @@ python2-typing:
         The `typing` module is part of the standard library in Python 3.5+;
         no need for this backport there.
 pyutil: *pyutil-zbase32-cycle
-pywebkitgtk:
-    status: dropped
-    note: |
-        This package provided customized static Python bindings to a GTK
-        library.
-        GTK3 and GObject introspection provide dynamic bindings that do not
-        need to be customized for each language, thus this package is
-        not necessary.
-
-        Suggested replacement: `python-gobject` (provides the `gi` module)
-        and `webkitgtk4` (provides the `gi.repository.WebKit2` module).
-        Note that `webkitgtk4` is not specific to Python and thus does
-        not show up in portingdb.
-
-        [An example] that works with Python 3 is provided on the GTK wiki.
-
-        [An example]: https://wiki.gnome.org/Projects/WebKitGtk/ProgrammingGuide/Bindings-libnotify
 texlive-base:
     status: idle
     note: |
