@@ -355,6 +355,11 @@ python-pydns:
   status: dropped
   note: |
     Recommended replacement: `python3-py3dns`
+python-qpid:
+  nonblocking: true
+  note: |
+    Only `qpid-cpp` depends on `python-qpid`, and `python-qpid` depends
+    back on `qpid-cpp`.
 python-simpletal:
   status: dropped
   note: |
@@ -379,6 +384,11 @@ python2-typing:
         The `typing` module is part of the standard library in Python 3.5+;
         no need for this backport there.
 pyutil: *pyutil-zbase32-cycle
+qpid-cpp:
+  nonblocking: true
+  note: |
+    Only `qpid-cpp` depends on `python-qpid`, and `python-qpid` depends
+    back on `qpid-cpp`.
 texlive-base:
     status: idle
     note: |
