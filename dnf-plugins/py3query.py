@@ -60,13 +60,16 @@ SEED_PACKAGES = {
     ],
     3: [
         'python3-devel', 'python3', 'python3-libs', 'python(abi) = 3.4',
-        'system-python', '/usr/libexec/system-python',
         '/usr/bin/python3', '/usr/bin/python3.4', 'libpython3.4m.so.1.0',
         'libpython3.so', 'python3-cairo',
         'python(abi) = 3.5', '/usr/bin/python3.5', 'libpython3.5m.so.1.0',
-        "libpython3.5m.so.1.0()(64bit)",
+        'libpython3.5m.so.1.0()(64bit)',
         'python(abi) = 3.6', '/usr/bin/python3.6', 'libpython3.6m.so.1.0',
-        "libpython3.6m.so.1.0()(64bit)",
+        'libpython3.6m.so.1.0()(64bit)',
+        'python(abi) = 3.7', '/usr/bin/python3.7', 'libpython3.7m.so.1.0',
+        'libpython3.7m.so.1.0()(64bit)',
+        'python(abi) = 3.8', '/usr/bin/python3.8', 'libpython3.8.so.1.0',
+        'libpython3.8.so.1.0()(64bit)',
     ]
 }
 
