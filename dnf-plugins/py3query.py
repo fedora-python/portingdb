@@ -57,6 +57,7 @@ SEED_PACKAGES = {
         'python(abi) = 2.7', '/usr/bin/python', '/usr/bin/python2',
         '/usr/bin/python2.7', 'libpython2.7.so.1.0', 'libpython2.7.so.1.0()(64bit)',
         'pygtk2', 'pygobject2', 'pycairo',
+        'tkinter', 'tkinter2',
     ],
     3: [
         'python3-devel', 'python3', 'python3-libs', 'python(abi) = 3.4',
