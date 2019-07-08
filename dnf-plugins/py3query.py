@@ -30,22 +30,17 @@ from taskotron_python_versions.two_three import NAME_NOTS
 
 BUGZILLA_URL = 'bugzilla.redhat.com'
 # Tracker bugs which are used to find all relevant package bugs
-TRACKER_BUG_IDS = [
-    1285816,  # The Python 3 tracking bug
-    1322027,  # The Python 3 Upstream Porting tracking bug
-    1432186,  # Missing PY3-EXECUTABLES
-]
-# Trackers of bugs whose presence indicates the given package is mispackaged.
-MISPACKAGED_TRACKER_BUG_IDS = [
-    1285816,  # The Python 3 tracking bug
-]
-# Trackers of bugs whose presence gives us additional information about the
-# status quo.
-ADDITIONAL_TRACKER_BUGS = [
-    1312032,  # PY3PATCH-AVAILABLE
-    1333770,  # PY3PATCH-PUSH
-    1432186,  # Missing PY3-EXECUTABLES
-]
+TRACKER_BUGS = {
+    1698500: "F31_PY2REMOVAL",
+    1690439: "PY2FTBI",
+    1312032: "PY3PATCH-AVAILABLE",
+    1333770: "PY3PATCH-PUSH",
+    1432186: "PY3-EXECUTABLES",
+    1285816: "PYTHON3",
+    1322027: "PYTHON3-UPSTREAM",
+    1700324: "F31FailsToInstall",
+    1700317: "F31FTBFS",
+}
 # Bugzilla statuses that indicate the bug was filed in error
 NOTABUG_STATUSES = {'CLOSED NOTABUG', 'CLOSED WONTFIX', 'CLOSED CANTFIX'}
 
@@ -415,10 +410,11 @@ class Py3QueryCommand(dnf.cli.Command):
 
             next(bar)
             include_fields = ['id', 'depends_on', 'blocks', 'component',
-                              'status', 'resolution', 'last_change_time']
-            trackers = bz.getbugs(TRACKER_BUG_IDS,
+                              'status', 'resolution', 'last_change_time',
+                              'short_desc']
+            trackers = bz.getbugs(TRACKER_BUGS,
                                   include_fields=include_fields)
-            all_ids = [b for t in trackers for b in t.depends_on]
+            all_ids = set(b for t in trackers for b in t.depends_on)
 
             next(bar)
             bugs = bz.getbugs(all_ids, include_fields=include_fields)
@@ -438,30 +434,24 @@ class Py3QueryCommand(dnf.cli.Command):
             for bug in progressbar(bugs, 'Merging bugs',
                                    namegetter=bug_namegetter):
                 r = json_output.get(bug.component, {})
-                if 'bug' in r.get('links', {}):
-                    continue
-                status = bug.status
-                if bug.resolution:
-                    status += ' ' + bug.resolution
-                # Let's get the datetime of the last comment and convert to string
-                last_change_datetime = time.strftime(
-                    '%Y-%m-%d %H:%M:%S',
-                    bug.last_change_time.timetuple())
-                r.setdefault('links', {})['bug'] = [
-                    bug.weburl, status, last_change_datetime]
-
-                for tb in bug.blocks:
-                    if tb in ADDITIONAL_TRACKER_BUGS:
-                        r.setdefault('tracking_bugs', []).append(
-                            BUGZILLA_BUG_URL.format(tb))
-
-                if (any(tb in bug.blocks for tb in MISPACKAGED_TRACKER_BUG_IDS) and
-                        r.get('status') == 'idle' and
-                        status not in NOTABUG_STATUSES):
-                    r['status'] = "mispackaged"
-                    r['note'] = ('There is a problem in Fedora packaging, '
-                                 'not necessarily with the software itself. '
-                                 'See the linked Fedora bug.')
+                bugs = r.setdefault('bugs', {})
+                entry = bugs.get(bug.id)
+                if not entry:
+                    entry = {
+                        'url': bug.weburl,
+                        'short_desc': bug.short_desc,
+                        'status': bug.status,
+                        'resolution': bug.resolution,
+                        'last_change': time.strftime(
+                            '%Y-%m-%d %H:%M:%S',
+                            bug.last_change_time.timetuple()),
+                        'trackers': [],
+                    }
+                    for tb in bug.blocks:
+                        alias = TRACKER_BUGS.get(tb)
+                        if alias:
+                            entry['trackers'].append(alias)
+                    bugs[bug.id] = entry
 
         # Print out output
 
