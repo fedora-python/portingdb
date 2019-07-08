@@ -337,7 +337,7 @@ class Py3QueryCommand(dnf.cli.Command):
                     requirer_srpm_name = get_srpm_name(pkg)
                     unversioned_requirers[requirement_srpm_name].add(requirer_srpm_name)
 
-        # deps_of_pkg: {srpm name: info}
+        # json_output: {srpm name: info}
         json_output = dict()
         for name in progressbar(by_srpm_name, 'Generating output'):
             pkgs = sorted(by_srpm_name[name])
