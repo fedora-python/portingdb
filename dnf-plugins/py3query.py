@@ -293,6 +293,11 @@ class Py3QueryCommand(dnf.cli.Command):
         for pkg in progressbar(sorted(python_versions.keys()), 'Getting requirements'):
             if python_versions[pkg] == {3}:
                 continue
+            if pkg.name in NAME_NOTS:
+                # "NAME_NOTS" are Python-version-agnostic packages,
+                # such as wheels, RPM macros and documentation.
+                # Don't track those as python2 dependencies.
+                continue
             reqs = set()
             build_reqs = set()
             for provide in pkg.provides:
