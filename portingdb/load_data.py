@@ -281,14 +281,17 @@ def load_from_directories(data, directories):
     for name, package in packages.items():
         releasever = None
         for rpm_name in package['rpms']:
-            nvr, sep, dist_tag = rpm_name.rpartition('.')
-            if dist_tag.startswith('fc'):
-                try:
-                    releasever = int(dist_tag[2:])
-                except ValueError:
-                    continue
-                else:
-                    break
+            nv, sep, release = rpm_name.rpartition('-')
+            for part in reversed(release.split('.')):
+                if part.startswith('fc'):
+                    try:
+                        releasever = int(part[2:])
+                    except ValueError:
+                        continue
+                    else:
+                        break
+            if releasever:
+                break
         if releasever:
             package['last_build_releasever'] = releasever
             package['ftbfs_age'] = max(CURRENT_FEDORA - releasever, 0)
