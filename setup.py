@@ -24,6 +24,8 @@ requires = [
     'markdown >= 3.0, < 4.0',
     'taskotron-python-versions >= 0.1.dev2',
     'plotly >= 3.0, < 4.0',
+    'blessings >= 1.7, < 2.0',
+    'elsa >= 0.1.5, < 1.0',
     'networkx >= 2.2, < 3.0',
 ]
 

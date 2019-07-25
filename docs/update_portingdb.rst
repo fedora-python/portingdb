@@ -25,9 +25,9 @@ To use the portingdb update scripts, you will need to install and configure the 
     
     $ sudo dnf install fedora-repos-rawhide
 
-#. Install requirements into your virtualenv::
+#. Install portingdb into your virtualenv::
 
-    (venv) $ pip install -r requirements.txt
+    (venv) $ pip install --editable .  # Mind the dot at the end!
 
 Update the data
 ***************
@@ -61,7 +61,6 @@ The following steps are needed to update pordingdb data. You can run them all wi
 
 #. You can check how portingdb looks with the new data:
 
-    (venv) $ export PYTHONPATH=.
     (venv) $ python -m portingdb -v --datadir=data/ serve --debug
 
 #. At this point, take a closer look at the jsondiff (the last commit message):
