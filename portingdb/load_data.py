@@ -297,3 +297,14 @@ def load_from_directories(data, directories):
             package['ftbfs_age'] = max(CURRENT_FEDORA - releasever, 0)
         else:
             package['ftbfs_age'] = 0
+
+    # Consolidate non-Python requirers
+    for name, package in packages.items():
+        # fedora.json contains non_python_requirers data for each RPM.
+        # Add a summary to each component.
+        nonpy_requirers = {}
+        for rpm in package['rpms'].values():
+            for kind, names in rpm.get('non_python_requirers', {}).items():
+               if names:
+                    nonpy_requirers.setdefault(kind, set()).update(names)
+        package['non_python_requirers'] = nonpy_requirers

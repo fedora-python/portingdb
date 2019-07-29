@@ -6,26 +6,36 @@
     {{ url_for('status_svg', status=pkg.status) }}?{{ cache_tag }}
 {%- endblock favicon_url %}
 
-{% macro related_packages(runtime, buildtime, tree) %}
-    (Python 2 packages only)
-    <h4>Run time <i class="fa fa-rocket"></i></h4>
-    {% if runtime %}
-        {{ progress_legend(runtime.values()) }}
+{% macro related_block(name, icon, packages, nonpy=None) %}
+    <h4>{{ name }} <i class="fa fa-{{ icon }}"></i></h4>
+    {% if packages %}
+        {{ progress_legend(packages.values(), kind='Python 2') }}
         <table class="table table-striped table-condensed table-hovered">
-            {{ pkglist_table_content(runtime.values(), show_nonblocking=1) }}
+            {{ pkglist_table_content(packages.values(), show_nonblocking=1) }}
         </table>
     {% else %}
-        None.
+        <div>No Python 2 packages.</div>
     {% endif %}
-    <h4>Build time <i class="fa fa-wrench"></i></h4>
-    {% if buildtime %}
-        {{ progress_legend(buildtime.values()) }}
-        <table class="table table-striped table-condensed table-hovered">
-            {{ pkglist_table_content(buildtime.values(), show_nonblocking=1) }}
-        </table>
-    {% else %}
-        None.
+
+    {% if nonpy %}
+        {{ nonpy | length }} non-Python packages:
+        <ul>
+            {% for name in nonpy | sort %}
+                <li>
+                    {{ name }}
+                    (<a href="https://src.fedoraproject.org/rpms/{{ name }}/"
+                     >Pagure</a>,
+                     <a href="https://src.fedoraproject.org/rpms/{{ name }}/blob/master/f/{{ name }}.spec"
+                     >spec</a>)
+                </li>
+            {% endfor %}
+        </ul>
     {% endif %}
+{% endmacro %}
+
+{% macro related_packages(runtime, buildtime, tree, nonpy={}) %}
+    {{ related_block('Run time', 'rocket', runtime, nonpy.get('run_time')) }}
+    {{ related_block('Build time', 'wrench', buildtime, nonpy.get('build_time')) }}
     {% if tree %}
         <h3>Dependency Tree</h3>
         {{ print_deptree(tree) }}
@@ -213,6 +223,7 @@
            or pkg['build_deps']
            or pkg['dependents']
            or pkg['build_dependents']
+           or pkg['non_python_requirers']
         %}
             <div class="col-md-4 related-packages">
                 <h2>Dependencies</h2>
@@ -228,6 +239,7 @@
                     pkg['dependents'],
                     pkg['build_dependents'],
                     dependent_tree,
+                    nonpy=pkg['non_python_requirers'],
                 ) }}
             </div>
         {% endif %}

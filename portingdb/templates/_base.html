@@ -198,10 +198,10 @@
     </div>
 {%- endmacro %}
 
-{% macro progress_summary_legend(status_counts, total=None) -%}
+{% macro progress_summary_legend(status_counts, total=None, kind='') -%}
     <div>
         {% if total != None %}
-            {{ total }} packages:
+            {{ total }} {{ kind }} packages:
         {% endif %}
         {% for status, num in status_counts %}
             <span class="progress-legend-item">
@@ -212,8 +212,8 @@
     </div>
 {%- endmacro %}
 
-{% macro progress_legend(packages) -%}
-    {{ progress_summary_legend(packages|summarize_statuses, packages|length) }}
+{% macro progress_legend(packages, kind) -%}
+    {{ progress_summary_legend(packages|summarize_statuses, packages|length, kind=kind) }}
 {%- endmacro %}
 
 {% macro loc_chart(pkg) -%}
