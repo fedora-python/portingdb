@@ -65,40 +65,6 @@ def serve(ctx, debug, cache, port):
                     port=port)
 
 
-@cli.command('bugless-mispackaged')
-@click.pass_context
-def bugless_mispackaged(ctx):
-    """List mispackaged packages that do not have a BugZilla report yet.
-
-    Exits with error code 1 if such packages are found.
-
-    Use the --verbose flag to get the output pretty-printed for humans.
-    """
-    data = get_data(*ctx.obj['datadirs'])
-
-    results = []
-    for package in data['packages'].values():
-        if package['status'] == 'mispackaged':
-            if not any(link['type'] == 'bug' for link in package['links']):
-                results.append(package)
-
-    if ctx.obj['verbose'] > 0:
-        if results:
-            print("\nThe following packages are both 'mispackaged' and "
-                    "do not have an associated Bugzilla report:\n")
-            for p in results:
-                print("\t{}".format(p['name']))
-            print()
-        else:
-            print("\nThere are no packages both 'mispackaged' and "
-                    "not having an associated Bugzilla report.\n")
-    else:
-        for p in results:
-            print("{}".format(p['name']))
-
-    if results:
-        exit(1)
-
 @cli.command('closed-mispackaged')
 @click.pass_context
 def closed_mispackaged(ctx):
