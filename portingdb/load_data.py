@@ -150,6 +150,7 @@ def load_from_directories(data, directories):
         package.setdefault('build_dependents', {})
         package.setdefault('groups', {})
         package.setdefault('tracking_bugs', ())
+        package.setdefault('bugs', {})
         package.setdefault('last_link_update', None)
         package.setdefault('unversioned_requires', {})
         package.setdefault('blocked_requires', {})
@@ -193,7 +194,7 @@ def load_from_directories(data, directories):
     for name, package in packages.items():
         package['status_obj'] = statuses.get(package['status'])
 
-    # Convert bug info
+    # Convert link info
     for name, package in packages.items():
         links = []
         link_updates = []
@@ -306,6 +307,18 @@ def load_from_directories(data, directories):
             package['ftbfs_age'] = max(CURRENT_FEDORA - releasever, 0)
         else:
             package['ftbfs_age'] = 0
+
+    # Postprocess bugs
+    # - Add bug ID to the bug's info dict
+    # - Convert last_change to datetime
+    for name, package in packages.items():
+        for id, bug in package['bugs'].items():
+            bug['id'] = id
+            if bug['last_change']:
+                last_change = datetime.datetime.strptime(
+                    bug['last_change'], '%Y-%m-%d %H:%M:%S',
+                )
+                bug['last_change'] = last_change
 
     # Consolidate non-Python requirers
     for name, package in packages.items():

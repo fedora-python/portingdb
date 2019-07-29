@@ -166,12 +166,6 @@
 {% macro iconlink_class(link) -%}
     {% if link.type == 'repo' %}
         iconlink fa fa-code
-    {% elif link.type == 'bug' %}
-        iconlink fa fa-bug
-        {% if link.note %}
-            iconlink-bug-{{ link.note.partition(' ')[0] }}
-            iconlink-bug-{{ link.note | replace(' ', '-') }}
-        {% endif %}
     {% elif link.type == 'homepage' %}
         iconlink fa fa-home
     {% endif %}
@@ -183,6 +177,16 @@
         {{" "}}({{ link.note }})
     {%- endif -%}
 {%- endmacro %}
+
+{% macro bugicon(bug, extra_class='') %}
+    <i class="iconlink fa fa-bug {{ extra_class }} iconlink-bug-{{ bug.status }}
+    {% if bug.resolution %}iconlink-bug-{{ bug.status }}-{{ bug.resolution }}{% endif %}
+    "
+    title="{{ bug.short_desc }} ({{ bug.status }}
+            {%- if bug.resolution %} {{ bug.resolution }}{% endif -%}
+            ; updated {{ bug.last_change.date() }})">
+    </i>
+{% endmacro %}
 
 {% macro iconlink(link) -%}
     <a href="{{ link.url }}" title="{{ iconlink_alt(link) }}" class="{{ iconlink_class(link) }}">
