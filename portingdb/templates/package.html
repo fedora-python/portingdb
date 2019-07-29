@@ -53,6 +53,19 @@
     {% endif %}
 {% endmacro %}
 
+{% macro buglink(bug) %}
+    <a href="{{ bug.url }}">#{{ bug.id }} {{ bug.short_desc }}</a>
+    {% if bug.trackers %}
+        <small>
+            (for {% for tracker in bug.trackers | sort -%}
+                <a href="https://bugzilla.redhat.com/show_bug.cgi?id={{ tracker }}"
+                >{{ tracker }}</a>
+                {%- if not loop.last %}, {% endif -%}
+            {% endfor %})
+        </small>
+    {% endif %}
+{% endmacro %}
+
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
@@ -106,6 +119,33 @@
             </div>
         </div>
         <div class="col-md-3">
+                {% if pkg['bugs'] %}
+                    <div>
+                        <h3>Bugs</h3>
+                        <ul class="pkg-link-list fa-ul">
+                            {% for id, bug in pkg['bugs'].items() %}
+                                <li>
+                                    {{ bugicon(bug, 'fa-li') }}
+                                    {{ buglink(bug) }}
+                                    <div>
+                                        <small>
+                                            {{ bug.status }}
+                                            {{ bug.resolution }}
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <small>
+                                            Updated
+                                            <span title="{{ bug.last_change }}">
+                                                {{ bug.last_change.date() }}
+                                            </span>
+                                        </small>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
                 {% set pc = pkg %}
                 {% if pc %}
                     {% if 'note' in pc %}
