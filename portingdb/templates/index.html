@@ -114,14 +114,35 @@
             {% if groups %}
                 <h2>Package Groups</h2>
                 <p>
-                    For some groups of packages,
+                    For some groups of packages which are likely to need
+                    <a href="https://fedoraproject.org/wiki/Changes/RetirePython2#The_python27_package">python27</a>
+                    in Fedora 32+,
                     we track how many Python2-only packages they bring into
-                    the system (including dependencies).
+                    the system (including the current Python 2 dependencies).
+                    <br>
+                    This makes it possible to see how big the dependency tree is,
+                    and possibly where it can be trimmed.
                 </p>
+                <div>
+                    If you're considering an exception for your package,
+                    let's talk at Bugzilla.
+                    Open a bug for your package (or use an existing bug) and
+                    make sure it:
+                    <ul>
+                        <li>blocks the
+                            <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1698500">
+                                F31_PY2REMOVAL
+                            </a> bug,
+                        </li>
+                        <li>has <code>python-maint@redhat.com</code> in CC,</li>
+                        <li>
+                            answers the questions in <a href="https://fedoraproject.org/wiki/Changes/F31_Mass_Python_2_Package_Removal#Information_on_Remaining_Packages">the F31 Mass Python 2 Package Removal change</a>.
+                        </li>
+                    </ul>
+                </div>
                 <p>
-                    These groups are selected somewhat arbitrarily.
-                    Please propose changes at
-                    <a href="https://github.com/fedora-python/portingdb/blob/master/data/groups.yaml">Github</a>.
+                    (Some packages listed do not have a FESCo exception yet.
+                    They <em>will</em> need one to stay in Fedora.)
                 </p>
                 {% for grp, (py3, dual, py2) in groups %}
                     <div>
@@ -137,8 +158,9 @@
                         {% if dual == py2 == 0 %}
                             {{len(grp.packages)}} py3-only packages.
                         {% else %}
-                            {{len(grp.seed_packages)}} packages
-                            bringing in {{ dual+py2 }} Python 2 packages.
+                            {{len(grp.seed_packages)}} package{%
+                                if len(grp.seed_packages) != 1 %}s{% endif %}
+                            bringing in <strong>{{ dual+py2 }}</strong> Python 2 packages.
                         {% endif %}
                     </div>
                 {% endfor %}
