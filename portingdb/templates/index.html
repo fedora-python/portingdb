@@ -175,7 +175,7 @@
             {% endif %}
             <h2 id="idle">Idle packages</h2>
             <div>
-                {{ len(ready_packages) }} packages are waiting for someone to pick them up.
+                {{ len(ready_packages) }} packages are not ported to Python 3 yet.
                 Grab your favorite, and go port it!
             </div>
             <div>
@@ -196,7 +196,7 @@
             </ul>
             <h2 id="blocked">Blocked packages</h2>
             <div>
-                {{ len(blocked_packages) }}  packages don't have all dependencies ported yet.
+                {{ len(blocked_packages) }}  packages don't have all dependencies ported to Python 3 yet.
             </div>
             <div>
                 (Or they could be false positives – check the package before giving up on it!)
