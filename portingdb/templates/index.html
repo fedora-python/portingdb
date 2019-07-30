@@ -188,29 +188,13 @@
                 <div>
                     {{ len(mispackaged_packages) }} packages were found to have some kind of packaging problem.
                 </div>
-                <table class="table table-striped table-condensed table-hovered">
-                    <tr>
-                        <th>Package</th>
-                        <th>Last Bugzilla activity</th>
-                    </tr>
-
-                    {% for pkg in mispackaged_packages %}
-                    <tr>
-                        <td>
-                            {{ pkglink(pkg) }}
-                        </td>
-                        <td>
-                            {% if pkg.last_link_update %}
-                                <time title="{{ pkg.last_link_update }}">
-                                    {{ pkg.last_link_update | format_time_ago }}
-                                </time>
-                            {% else %}
-                                no Bugzilla report yet
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                <ul class="simple-pkg-list">
+                {% for pkg in mispackaged_packages %}
+                    <li>
+                        <div title="{{ pkg.note }}">{{ pkglink(pkg) }}</div>
+                    </li>
+                {% endfor %}
+                </ul>
 
             {% endif %}
             <h2 id="idle">Idle packages</h2>
