@@ -19,10 +19,16 @@
             </div>
         {% endif %}
         {% if 'exception' in grp %}
-            <div class="col-md-12">
-                This groups corresponds to a <a href="{{ grp['exception'] }}">FESCo exception</a>.
-                (Not all packages below necessarily have the exception.)
-            </div>
+            {% if grp.hidden %}
+                <div class="col-md-12">
+                    There is a <a href="{{ grp['exception'] }}">FESCo exception request</a> for these packages.
+                </div>
+            {% else %}
+                <div class="col-md-12">
+                    This groups corresponds to a <a href="{{ grp['exception'] }}">FESCo exception</a>.
+                    (Not all packages below necessarily have the exception.)
+                </div>
+            {% endif %}
         {% endif %}
         <div class="col-md-12">
             Note that only Python 2 dependencies are tracked, and
@@ -48,6 +54,10 @@
                         </li>
                     {% endfor %}
                 </ul>
+                {% if 'exception' in grp and grp.hidden %}
+                    (In case of review requests, the packages might not yet
+                    exist and the links above might be dead.)
+                {% endif %}
             {% endif %}
         </div>
         {% if deptree %}

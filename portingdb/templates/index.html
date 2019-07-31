@@ -158,15 +158,21 @@
                             {{ grp.name }}
                         </a>
                         {% if 'exception' in grp %}
-                            <small>(<a href="{{ grp['exception'] }}">exc.</a>)</small>
+                            <small>(<a href="{{ grp['exception'] }}">
+                                {%- if grp.hidden -%}
+                                    exc. request
+                                {%- else -%}
+                                    exc.
+                                {%- endif -%}
+                            </a>)</small>
                         {% endif %}
                         –
                         {% set n = len(grp.seed_packages) + len(grp.untracked_packages) %}
                         {% if dual == py2 == 0 %}
                             {% if grp.packages %}
-                                {{ n }} py3-only packages.
+                                {{ n }} py3-only package{%if n != 1 %}s{% endif %}.
                             {% elif grp.untracked_packages %}
-                                {{ len(grp.untracked_packages) }} packages portingdb doesn't track.
+                                {{ n }} package{%if n != 1 %}s{% endif %} portingdb doesn't track.
                             {% else %}
                                 No packages that portingdb tracks.
                             {% endif %}
