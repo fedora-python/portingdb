@@ -227,11 +227,11 @@ def group(grp):
             (url_for('group', grp=grp), group['name']),
         ),
         grp=group,
-        deptree=generate_deptrees(
+        deptree=list(generate_deptrees(
             group['seed_packages'].values(),
             skip_statuses=set(),
             max_depth=7,
-        ),
+        )),
         status_summary=status_summary,
     )
 

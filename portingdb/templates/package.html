@@ -23,10 +23,7 @@
             {% for name in nonpy | sort %}
                 <li>
                     {{ name }}
-                    (<a href="https://src.fedoraproject.org/rpms/{{ name }}/"
-                     >Pagure</a>,
-                     <a href="https://src.fedoraproject.org/rpms/{{ name }}/blob/master/f/{{ name }}.spec"
-                     >spec</a>)
+                    ({{ nonpython_package_links(name) }})
                 </li>
             {% endfor %}
         </ul>

@@ -255,6 +255,13 @@
     </a>
 {%- endmacro -%}
 
+{%- macro nonpython_package_links(name) -%}
+    <a href="https://src.fedoraproject.org/rpms/{{ name }}/"
+        >Pagure</a>,
+    <a href="https://src.fedoraproject.org/rpms/{{ name }}/blob/master/f/{{ name }}.spec"
+        >spec</a>
+{%- endmacro -%}
+
 <html xmlns:xlink="http://www.w3.org/1999/xlink">
     <head>
         <title>{% block titlecontent %}Python 2 Dropping Database{% endblock titlecontent %}</title>

@@ -161,15 +161,17 @@
                             <small>(<a href="{{ grp['exception'] }}">exc.</a>)</small>
                         {% endif %}
                         –
+                        {% set n = len(grp.seed_packages) + len(grp.untracked_packages) %}
                         {% if dual == py2 == 0 %}
                             {% if grp.packages %}
-                                {{len(grp.packages)}} py3-only packages.
+                                {{ n }} py3-only packages.
+                            {% elif grp.untracked_packages %}
+                                {{ len(grp.untracked_packages) }} packages portingdb doesn't track.
                             {% else %}
                                 No packages that portingdb tracks.
                             {% endif %}
                         {% else %}
-                            {{len(grp.seed_packages)}} package{%
-                                if len(grp.seed_packages) != 1 %}s{% endif %}
+                            {{ n }} package{%if n != 1 %}s{% endif %}
                             bringing in <strong>{{ dual+py2 }}</strong> Python 2 packages.
                         {% endif %}
                     </div>
