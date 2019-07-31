@@ -112,7 +112,7 @@
                 </p>
             {% endif %}
             {% if groups %}
-                <h2>Package Groups</h2>
+                <h2>Package Groups and FESCo exceptions</h2>
                 <p>
                     For some groups of packages which are likely to need
                     <a href="https://fedoraproject.org/wiki/Changes/RetirePython2#The_python27_package">python27</a>
@@ -144,6 +144,9 @@
                     (Some packages listed do not have a FESCo exception yet.
                     They <em>will</em> need one to stay in Fedora.)
                 </p>
+                <p>
+                    Build dependencies are not yet tracked properly.
+                </p>
                 {% for grp, (py3, dual, py2) in groups %}
                     <div>
                         <td>
@@ -154,9 +157,16 @@
                             >
                             {{ grp.name }}
                         </a>
+                        {% if 'exception' in grp %}
+                            <small>(<a href="{{ grp['exception'] }}">exc.</a>)</small>
+                        {% endif %}
                         –
                         {% if dual == py2 == 0 %}
-                            {{len(grp.packages)}} py3-only packages.
+                            {% if grp.packages %}
+                                {{len(grp.packages)}} py3-only packages.
+                            {% else %}
+                                No packages that portingdb tracks.
+                            {% endif %}
                         {% else %}
                             {{len(grp.seed_packages)}} package{%
                                 if len(grp.seed_packages) != 1 %}s{% endif %}
