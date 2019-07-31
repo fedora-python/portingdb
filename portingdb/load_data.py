@@ -255,11 +255,10 @@ def load_from_directories(data, directories):
             package = packages[name]
             pkgs[name] = package
             package['groups'][ident] = group
-            if package['status'] != 'dropped':
-                for dep in package['deps']:
-                    names_to_add.add(dep)
-                for dep in packages[name]['build_deps']:
-                    names_to_add.add(dep)
+            for dep in package['deps']:
+                names_to_add.add(dep)
+            for dep in packages[name]['build_deps']:
+                names_to_add.add(dep)
 
     # Update unversioned requirers
     for name, package in packages.items():
