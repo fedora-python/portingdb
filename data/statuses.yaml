@@ -51,7 +51,7 @@
 
     If this is a false positive, file a portingdb bug.
 - ident: idle
-  name: Idle
+  name: Not ported
   abbrev: I
   color: 'DDDDDD'
   term: ' '
@@ -81,7 +81,7 @@
     (Note that there might be false positives; if you spot one, please
     [file a bug](https://github.com/fedora-python/portingdb/issues))
 - ident: dropped
-  name: Dropped
+  name: Legacy
   abbrev: X
   color: '888888'
   term: X
@@ -89,8 +89,8 @@
   description: Package will not be ported; dependents must use an alternative
   rank: 1
   instructions: |
-    This package will not be ported to Python 3. We can do without it – see
-    if there is an alternative listed in the notes.
+    This package will not be ported to Python 3.
+    Usually there is an alternative listed in the notes.
 
     If you think it would be good to port it anyway, get in touch with the upstream!
 - ident: unknown
