@@ -1,344 +1,15 @@
-identity:
-  name: Identity Management
-  hidden: false
-  packages:
-    - 389-ds-base
-    - freeipa
-    - samba
-    - ipsilon
-    - sssd
-fedora-infra:
-  name: Fedora Infrastructure and Packaging
-  packages:
-    - koschei
-    - koji
-    - bodhi
-    - fedmsg
-    - fedpkg
-    - fedora-packager
-    - fedora-review
-    - rpkg
-    - dnf
-    - datagrepper
-    - fedora-gooey-karma
-    - fedora-easy-karma
-    - fedora-cert
-    - python-fedora
-    - python-offtrac
-    - ipsilon
-    # TODO: etc.
-cloud-management:
-  name: Cloud Management Tools
-  packages:
-    - cloud-utils
-    - imagefactory
-    - imagefactory-plugins
-    - python-boto
-    - python-libcloud
-    - python-openstackclient
-openstack:
-  name: OpenStack
-  packages:
-    - openstack-ceilometer
-    - openstack-cinder
-    - openstack-designate
-    - openstack-glance
-    - openstack-gnocchi
-    - openstack-heat
-    - openstack-heat-gbp
-    - openstack-ironic
-    - openstack-ironic-discoverd
-    - openstack-ironic-python-agent
-    - python-ironic-inspector-client
-    - openstack-keystone
-    - openstack-manila
-    - openstack-manila-ui
-    - openstack-marconi
-    - openstack-neutron
-    - openstack-neutron-gbp
-    - openstack-nova
-    - openstack-packstack
-    - openstack-sahara
-    - openstack-swift
-    - openstack-swift-plugin-swift3
-    - openstack-tempest
-    - openstack-tripleo
-    - openstack-tripleo-heat-templates
-    - openstack-tripleo-image-elements
-    - openstack-trove
-    - openstack-tuskar
-    - openstack-tuskar-ui
-    - openstack-zaqar
-    - python-barbicanclient
-    - python-ceilometerclient
-    - python-cinderclient
-    - python-congressclient
-    - python-designateclient
-    - python-gbpclient
-    - python-glanceclient
-    - python-gnocchiclient
-    - python-heatclient
-    - python-ironic-inspector-client
-    - python-ironicclient
-    - python-keystoneclient
-    - python-magnumclient
-    - python-manilaclient
-    - python-mistralclient
-    - python-muranoclient
-    - python-neutronclient
-    - python-novaclient
-    - python-openstackclient
-    - python-saharaclient
-    - python-swiftclient
-    - python-troveclient
-    - python-tuskarclient
-    - python-zaqarclient
-    - supernova
-    - os-cloud-config
-    - python-pyrax
-    - python-novaclient-os-virtual-interfaces
-    - python-rackspace-auth-openstack
-    - python-novaclient-os-networks
-    - os-collect-config
-    - python-shade
-    - python-osprofiler
-    - python-oslo-concurrency
-    - python-oslo-db
-    - python-oslo-messaging
-    - python-oslo-middleware
-    - python-oslo-rootwrap
-    - python-oslo-versionedobjects
-    - python-oslo-vmware
-    - python-taskflow
-    - python-keystonemiddleware
-    - python-glance-store
-    - python-os-brick
-xfce-spin:
-    name: Xfce spin
+# N.B.: Use "hidden: true" if FESCo exception has not (yet) been granted.
+
+gimp:
+    name: GIMP
     hidden: true
     packages:
-    - abiword
-    - abrt
-    - blueberry
-    - catfish
-    - claws-mail
-    - dnf
-    - dnfdragora
-    - exo
-    - firewalld
-    - gettext
-    - gnome-abrt
-    - gnumeric
-    - gutenprint
-    - gvfs
-    - hawkey
-    - ibus
-    - ibus-hangul
-    - ibus-libpinyin
-    - ibus-typing-booster
-    - initial-setup
-    - initial-setup
-    - iscsi-initiator-utils
-    - openconnect
-    - pidgin
-    - rpm
-    - system-config-keyboard
-    - system-config-language
-    - system-config-printer
-    - system-config-users
-    - xfce4-panel-profiles
-    - xfpanel-switch
-kde-spin:
-    name: KDE spin
+    - gimp
+inkscape:
+    name: Inkscape
     hidden: true
     packages:
-    - PyQt4
-    - abrt
-    - anaconda
-    - authconfig
-    - bind
-    - dbus-python
-    - dnf
-    - dnf-langpacks
-    - dnf-plugins-core
-    - firewalld
-    - fros
-    - gdb
-    - glade
-    - gnome-abrt
-    - gutenprint
-    - hawkey
-    - initial-setup
-    - iscsi-initiator-utils
-    - langtable
-    - libcomps
-    - libpwquality
-    - librepo
-    - libreport
-    - libselinux
-    - libxml2
-    - newt
-    - nfs-utils
-    - pidgin
-    - pygobject3
-    - python-pygpgme
-    - pykickstart
-    - pyparted
-    - python-augeas
-    - python-blivet
-    - python-chardet
-    - python-coverage
-    - python-cups
-    - python-decorator
-    - python-dmidecode
-    - python-humanize
-    - python-iniparse
-    - python-inotify
-    - python-meh
-    - python-ntplib
-    - python-pid
-    - python-pip
-    - python-pycurl
-    - python-pyudev
-    - python-requests
-    - python-requests-file
-    - python-requests-ftp
-    - python-setuptools
-    - python-six
-    - python-slip
-    - python-systemd
-    - python-urllib3
-    - python3
-    - python3-cairo
-    - pytz
-    - rpm
-    - sip
-    - sos
-    - sssd
-    - system-config-printer
-    - unbound
-    - bcache-tools
-    - fpaste
-    - gettext
-    - gpsd
-    - kross-interpreters
-    - ktorrent
-    - libreswan
-    - liveusb-creator
-    - pycairo
-    - python2
-    - python-urlgrabber
-    - python-xpyb
-    - system-config-language
-    - telepathy-gabble
-tryton:
-    name: Tryton Application Platform
-    hidden: true
-    packages:
-    - neso
-    - python-proteus
-    - trytond-account
-    - trytond-account-be
-    - trytond-account-de-skr03
-    - trytond-account-invoice
-    - trytond-account-invoice-history
-    - trytond-account-invoice-line-standalone
-    - trytond-account-product
-    - trytond-account-statement
-    - trytond-account-stock-anglo-saxon
-    - trytond-account-stock-continental
-    - trytond-analytic-account
-    - trytond-analytic-invoice
-    - trytond-analytic-purchase
-    - trytond-analytic-sale
-    - trytond-calendar
-    - trytond-calendar-classification
-    - trytond-calendar-scheduling
-    - trytond-calendar-todo
-    - trytond-company
-    - trytond-company-work-time
-    - trytond-country
-    - trytond-currency
-    - trytond-dashboard
-    - trytond-google-maps
-    - trytond-ldap-authentication
-    - trytond-ldap-connection
-    - trytond-party
-    - trytond-party-siret
-    - trytond-party-vcarddav
-    - trytond-product
-    - trytond-product-cost-fifo
-    - trytond-product-cost-history
-    - trytond-product-price-list
-    - trytond-project
-    - trytond-project-plan
-    - trytond-project-revenue
-    - trytond-purchase
-    - trytond-purchase-invoice-line-standalone
-    - trytond-sale
-    - trytond-sale-opportunity
-    - trytond-sale-price-list
-    - trytond-stock
-    - trytond-stock-forecast
-    - trytond-stock-inventory-location
-    - trytond-stock-location-sequence
-    - trytond-stock-product-location
-    - trytond-stock-supply
-    - trytond-stock-supply-day
-    - trytond-timesheet
-django:
-    name: Django Web Framework
-    hidden: false
-    packages:
-    - python-django
-    - python-django-ajax-selects
-    - python-django-angular
-    - python-django-annoying
-    - python-django-appconf
-    - python-django-authority
-    - python-django-avatar
-    - python-django-babel
-    - python-django-celery
-    - python-django-classy-tags
-    - python-django-compressor
-    - python-django-contact-form
-    - python-django-countries
-    - python-django-database-url
-    - python-django-debug-toolbar
-    - python-django-fas
-    - python-django-filter
-    - python-django-formtools
-    - python-django-haystack
-    - python-django-jsonfield
-    - python-django-keyedcache
-    - python-django-markdown2
-    - python-django-mptt
-    - python-django-nose
-    - python-django-notification
-    - python-django-notifications-hq
-    - python-django-openstack-auth
-    - python-django-pipeline
-    - python-django-post_office
-    - python-django-pyscss
-    - python-django-pytest
-    - python-django-redis
-    - python-django-registration
-    - python-django-rest-framework
-    - python-django-rest-framework-braces
-    - python-django-reversion
-    - python-django-robots
-    - python-django-simple-captcha
-    - python-django-stopforumspam
-    - python-django-tables2
-    - python-django-tagging
-    - python-django-tastypie
-    - python-django-threadedcomments
-    - python-django-tinymce
-simcrs:
-    name: SimCRS
-    hidden: true
-    packages:
-    - simcrs
+    - inkscape
 olpc:
     name: OLPC/Sugar
     hidden: true
@@ -376,42 +47,6 @@ olpc:
     - olpc-update
     - olpc-utils
     - python-olpcgames
-xstatic:
-    name: XStatic Packages
-    hidden: true
-    packages:
-    - python-XStatic
-    - python-XStatic-Angular
-    - python-XStatic-Angular-Bootstrap
-    - python-XStatic-Angular-Cookies
-    - python-XStatic-Angular-FileUpload
-    - python-XStatic-Angular-Gettext
-    - python-XStatic-Angular-Mock
-    - python-XStatic-Angular-lrdragndrop
-    - python-XStatic-Bootstrap-Datepicker
-    - python-XStatic-Bootstrap-SCSS
-    - python-XStatic-D3
-    - python-XStatic-DataTables
-    - python-XStatic-Font-Awesome
-    - python-XStatic-Hogan
-    - python-XStatic-JQuery-Migrate
-    - python-XStatic-JQuery-TableSorter
-    - python-XStatic-JQuery-quicksearch
-    - python-XStatic-JSEncrypt
-    - python-XStatic-Jasmine
-    - python-XStatic-Magic-Search
-    - python-XStatic-Patternfly
-    - python-XStatic-Patternfly-Bootstrap-Treeview
-    - python-XStatic-QUnit
-    - python-XStatic-Rickshaw
-    - python-XStatic-Spin
-    - python-XStatic-bootswatch
-    - python-XStatic-jQuery
-    - python-XStatic-jquery-ui
-    - python-XStatic-mdi
-    - python-XStatic-roboto-fontface
-    - python-XStatic-smart-table
-    - python-XStatic-termjs
 trac:
     name: Version Control & Trac
     hidden: true
@@ -451,22 +86,26 @@ trac:
     - trac-workflowadmin-plugin
     - trac-xmlrpc-plugin
     - bitten
-ros:
-    name: Robot Operating System Packages
+    - mercurial
+chromium:
+    name: Chromium browser
     hidden: true
     packages:
-    - catkin
-    - python-bloom
-    - python-catkin-sphinx
-    - python-catkin_lint
-    - python-catkin_pkg
-    - python-catkin_tools
-    - python-gencpp
-    - python-genlisp
-    - python-genmsg
-    - python-genpy
-    - python-rosdep
-    - python-rosdistro
-    - python-rosinstall
-    - python-rosinstall_generator
-    - python-rospkg
+    - chromium
+calibre:
+    name: Calibre
+    hidden: true
+    packages:
+    - calibre
+pypy:
+    name: PyPy
+    exception: https://pagure.io/fesco/issue/2130
+    packages:
+    - pypy
+    - pypy3
+ptxdist:
+    name: PTXdist
+    exception: https://pagure.io/fesco/issue/2179
+    hidden: true
+    packages:
+    - ptxdist

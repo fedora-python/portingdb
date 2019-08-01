@@ -129,8 +129,10 @@ def generate_deptree(
     package, *, keys=('deps', 'build_deps'),
     skip_statuses=frozenset({'idle'} | DONE_STATUSES),
     max_depth=3,
+    seen=None,
 ):
-    seen = set()
+    if seen is None:
+        seen = set()
     def generate_subtree(pkg, depth):
         run_names = set(pkg[keys[0]])
         build_names = set(pkg[keys[1]])
@@ -168,11 +170,14 @@ def generate_deptrees(
     packages, skip_statuses=frozenset({'idle'} | DONE_STATUSES), **kwargs
 ):
     packages = sorted(packages, key=status_sort_key)
+    seen = set()
     for pkg in packages:
         if pkg['status'] in skip_statuses:
             tree = ()
         else:
-            tree = generate_deptree(pkg, skip_statuses=skip_statuses, **kwargs)
+            tree = generate_deptree(
+                pkg, skip_statuses=skip_statuses, seen=seen, **kwargs
+            )
         yield pkg, set(), tree
 
 
@@ -222,10 +227,11 @@ def group(grp):
             (url_for('group', grp=grp), group['name']),
         ),
         grp=group,
-        deptree=generate_deptrees(
+        deptree=list(generate_deptrees(
             group['seed_packages'].values(),
             skip_statuses=set(),
-        ),
+            max_depth=7,
+        )),
         status_summary=status_summary,
     )
 

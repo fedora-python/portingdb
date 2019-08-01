@@ -9,28 +9,63 @@
 {% block bodycontent %}
     <div class="container">
         <div class="col-md-12">
-            <h1>{{ grp.name }} <small>Group</small></h1>
+            <h1>
+                {{ grp.name }} <small>Group</small>
+            </h1>
         </div>
+        {% if grp.packages %}
+            <div class="col-md-12">
+                {{ progress_summary(status_summary, grp.packages|length) }}
+            </div>
+        {% endif %}
+        {% if 'exception' in grp %}
+            {% if grp.hidden %}
+                <div class="col-md-12">
+                    There is a <a href="{{ grp['exception'] }}">FESCo exception request</a> for these packages.
+                </div>
+            {% else %}
+                <div class="col-md-12">
+                    This groups corresponds to a <a href="{{ grp['exception'] }}">FESCo exception</a>.
+                    (Not all packages below necessarily have the exception.)
+                </div>
+            {% endif %}
+        {% endif %}
         <div class="col-md-12">
-            {{ progress_summary(status_summary, grp.packages|length) }}
+            Note that only Python 2 dependencies are tracked, and
+            some BuildRequires are currently ignored.
         </div>
-        <div class="col-md-12">
-            (Note that only Python 2 dependencies are tracked.)
-        </div>
-        <div class="col-md-8">
-            <h2>All Needed Packages</h2>
+        <div class="col-md-6">
+            <h2>Needed Packages</h2>
             {% if grp.packages %}
                 <table class="table table-striped table-condensed table-hovered">
                     {{ pkglist_table_content(grp.packages.values()) }}
                 </table>
             {% else %}
-                None.
+                No Python packages here.
+            {% endif %}
+            {% if grp.untracked_packages %}
+                <h3>Untracked packages</h3>
+                These packages in the group are not tracked by portingdb:
+                <ul>
+                    {% for name in grp.untracked_packages %}
+                        <li>
+                            {{ name }}
+                            ({{ nonpython_package_links(name) }})
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if 'exception' in grp and grp.hidden %}
+                    (In case of review requests, the packages might not yet
+                    exist and the links above might be dead.)
+                {% endif %}
             {% endif %}
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-3">
-            <h2>Dependency Tree</h2>
-            {{ print_deptree(deptree) }}
-        </div>
+        {% if deptree %}
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+                <h2>Dependency Tree</h2>
+                {{ print_deptree(deptree) }}
+            </div>
+        {% endif %}
     </div>
 {% endblock bodycontent %}

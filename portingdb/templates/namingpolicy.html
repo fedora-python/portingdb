@@ -102,8 +102,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a target="_blank" href="https://src.fedoraproject.org/rpms/{{ name }}/">Pagure</a>,
-                    <a target="_blank" href="https://src.fedoraproject.org/rpms/{{ name }}/blob/master/f/{{ name }}.spec">spec</a>
+                    {{ nonpython_package_links(name) }}
                 </td>
             </tr>
             {% endfor %}

@@ -242,8 +242,13 @@ def load_from_directories(data, directories):
     for ident, group in groups.items():
         group['ident'] = ident
         group.setdefault('hidden', False)
-        group['seed_packages'] = {
-            n: packages[n] for n in group['packages'] if n in packages}
+        group['seed_packages'] = {}
+        group['untracked_packages'] = set()
+        for name in group['packages']:
+            if name in packages:
+                group['seed_packages'][name] = packages[name]
+            else:
+                group['untracked_packages'].add(name)
         names_to_add = set(group['seed_packages'])
         names_added = set()
         group['packages'] = pkgs = {}
@@ -255,11 +260,10 @@ def load_from_directories(data, directories):
             package = packages[name]
             pkgs[name] = package
             package['groups'][ident] = group
-            if package['status'] != 'dropped':
-                for dep in package['deps']:
-                    names_to_add.add(dep)
-                for dep in packages[name]['build_deps']:
-                    names_to_add.add(dep)
+            for dep in package['deps']:
+                names_to_add.add(dep)
+            for dep in packages[name]['build_deps']:
+                names_to_add.add(dep)
 
     # Update unversioned requirers
     for name, package in packages.items():
