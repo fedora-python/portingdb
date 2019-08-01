@@ -1,4 +1,4 @@
-from collections import OrderedDict, Counter, defaultdict
+from collections import OrderedDict, Counter, defaultdict, deque
 import random
 import math
 import uuid
@@ -125,17 +125,37 @@ def get_status_counts(pkgs):
     return ordered
 
 
-def generate_deptree(
-    package, *, keys=('deps', 'build_deps'),
-    skip_statuses=frozenset({'idle'} | DONE_STATUSES),
-    max_depth=3,
-    seen=None,
-):
-    if seen is None:
-        seen = set()
-    def generate_subtree(pkg, depth):
-        run_names = set(pkg[keys[0]])
-        build_names = set(pkg[keys[1]])
+class TreeNode:
+    def __init__(self, package, kinds=None, parent=None):
+        self.name = package['name']
+        self.package = package
+        self.parent = parent
+        if kinds is None:
+            kinds = set()
+        self.kinds = kinds
+        self.children = []
+
+    @property
+    def path(self):
+        if self.parent:
+            return self.parent.path + '\n' + self.name
+        else:
+            return self.name
+
+
+def generate_deptree(package, **kwargs):
+    [tree] = generate_deptrees([package], **kwargs)
+    return tree.children
+
+
+def generate_deptrees(packages, keys=('deps', 'build_deps')):
+    nodes = [TreeNode(p, {'start'}) for p in packages]
+    to_expand = deque(nodes)
+    expanded = set()
+    MAX_NODES = 500  # (reached by stuff like python2 itself)
+    while to_expand and len(expanded) < MAX_NODES:
+        node = to_expand.popleft()
+        pkg = node.package
         packages = {
             pkg['name']: pkg
             for pkg in list(pkg[keys[0]].values()) + list(pkg[keys[1]].values())
@@ -144,41 +164,30 @@ def generate_deptree(
             packages.values(),
             key=status_sort_key,
         )
+        if not children:
+            continue
+        run_names = set(pkg[keys[0]])
+        build_names = set(pkg[keys[1]])
+        if node.name in expanded:
+            node.kinds.add('elided')
+            continue
+        expanded.add(node.name)
         for child in children:
-            kinds = set()
-            if child['name'] in run_names:
-                kinds.add('run')
-            if child['name'] in build_names:
-                kinds.add('build')
-
-            was_seen = (child['name'] in seen)
-            seen.add(child['name'])
-
-            if child['status'] in skip_statuses:
-                tree = ()
-            elif was_seen or depth >= max_depth:
-                tree = ()
-                kinds.add('elided')
-            else:
-                tree = list(generate_subtree(child, depth+1))
-
-            yield child, kinds, tree
-
-    return list(generate_subtree(package, 0))
-
-def generate_deptrees(
-    packages, skip_statuses=frozenset({'idle'} | DONE_STATUSES), **kwargs
-):
-    packages = sorted(packages, key=status_sort_key)
-    seen = set()
-    for pkg in packages:
-        if pkg['status'] in skip_statuses:
-            tree = ()
-        else:
-            tree = generate_deptree(
-                pkg, skip_statuses=skip_statuses, seen=seen, **kwargs
-            )
-        yield pkg, set(), tree
+            child_node = TreeNode(child, parent=node)
+            if child_node.name == 'python2':
+                # Everything here depends on Python 2.
+                # Don't show it in the summary.
+                continue
+            to_expand.append(child_node)
+            if child_node.name in run_names:
+                child_node.kinds.add('run')
+            if child_node.name in build_names:
+                child_node.kinds.add('build')
+            node.children.append(child_node)
+    while to_expand:
+        node = to_expand.popleft()
+        node.kinds.add('too-big')
+    return nodes
 
 
 def package(pkg):
@@ -204,7 +213,6 @@ def package(pkg):
         dependent_tree=generate_deptree(
             package,
             keys=('dependents', 'build_dependents'),
-            skip_statuses=frozenset(('py3-only', 'dropped')),
         ),
     )
 
@@ -227,11 +235,7 @@ def group(grp):
             (url_for('group', grp=grp), group['name']),
         ),
         grp=group,
-        deptree=list(generate_deptrees(
-            group['seed_packages'].values(),
-            skip_statuses=set(),
-            max_depth=7,
-        )),
+        deptree=generate_deptrees(group['seed_packages'].values()),
         status_summary=status_summary,
     )
 
