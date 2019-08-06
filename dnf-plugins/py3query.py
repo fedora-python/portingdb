@@ -21,6 +21,7 @@ import dnf.cli
 import dnf.subject
 from dnfpluginscore import _
 import bugzilla  # python-bugzilla
+import yaml
 
 from taskotron_python_versions.executables import have_binaries
 from taskotron_python_versions.naming_scheme import check_naming_policy, is_unversioned
@@ -215,6 +216,9 @@ class Py3QueryCommand(dnf.cli.Command):
         parser.add_argument('--qrepo', dest='py3query_repo', action='append',
                             help=_("Repo(s) to use for the query"))
 
+        parser.add_argument('--misnamed', dest='py3query_misnamed', action='store',
+                            help=_("YAML file with old misnamed packages"))
+
         parser.add_argument('--repo-groups', dest='repo_groups_file',
                             default=None, metavar='FILE', action='store',
                             help=_("Optional filename of a 'groups.json' file "
@@ -279,6 +283,14 @@ class Py3QueryCommand(dnf.cli.Command):
             by_srpm_name[srpm_name].add(pkg)
             repo_srpms.setdefault(pkg.reponame, set()).add(srpm_name)
 
+        old_misnamed = {}
+        old_misnamed_flat = {}
+        if self.opts.py3query_misnamed:
+            with open(self.opts.py3query_misnamed) as f:
+                old_misnamed = yaml.safe_load(f)
+            old_misnamed_flat = {pk: pr for pkg in old_misnamed
+                                        for pr, pk in old_misnamed[pkg].items()}
+
         # deps_of_pkg: {package: set of packages}
         deps_of_pkg = collections.defaultdict(set)
         # build_deps_of_srpm: {srpm: set of packages}
@@ -300,7 +312,13 @@ class Py3QueryCommand(dnf.cli.Command):
                 continue
             reqs = set()
             build_reqs = set()
+            provides = set(pkg.provides)
             for provide in pkg.provides:
+                str_provide = str(provide).split(' ')[0]
+                if str_provide in old_misnamed_flat:
+                    provides.add(old_misnamed_flat[str_provide])
+
+            for provide in provides:
                 reqs.update(self.whatrequires(provide, self.pkg_query))
                 build_reqs.update(self.whatrequires(provide, self.src_query))
 
@@ -327,16 +345,23 @@ class Py3QueryCommand(dnf.cli.Command):
             for require in (pkg.requires + pkg.requires_pre + pkg.recommends +
                             pkg.suggests + pkg.supplements + pkg.enhances):
                 require = str(require).split()[0]
+
+                real_require = require
+                if pkg.name in old_misnamed:
+                    if real_require in old_misnamed[pkg.name]:
+                        require = old_misnamed[pkg.name][real_require]
+
                 requirement = all_provides.get(require)
+
                 if (
-                    is_unversioned(require)
+                    is_unversioned(real_require)
                     and requirement
                     and not (
-                        require.endswith('-doc')
+                        real_require.endswith('-doc')
                         or python_versions.get(requirement) == {3}
                     )
-                    and require not in NAME_NOTS
-                    and require != 'python-unversioned-command'
+                    and real_require not in NAME_NOTS
+                    and real_require != 'python-unversioned-command'
                 ):
                     requirement_srpm_name = get_srpm_name(requirement)
                     requirer_srpm_name = get_srpm_name(pkg)
