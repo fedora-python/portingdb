@@ -347,9 +347,10 @@ class Py3QueryCommand(dnf.cli.Command):
                 require = str(require).split()[0]
 
                 real_require = require
-                if pkg.name in old_misnamed:
-                    if real_require in old_misnamed[pkg.name]:
-                        require = old_misnamed[pkg.name][real_require]
+                try:
+                    require = old_misnamed[pkg.name][real_require]
+                except KeyError:
+                    pass
 
                 requirement = all_provides.get(require)
 
