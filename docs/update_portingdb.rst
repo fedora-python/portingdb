@@ -32,7 +32,7 @@ To use the portingdb update scripts, you will need to install and configure the 
 Update the data
 ***************
 
-The following steps are needed to update pordingdb data. You can run them all with a single command ``./scripts/update_portingdb.sh``:
+The following steps are needed to update pordingdb data:
 
 #. Checkout a feature branch if that's your way of doing git changes::
 
@@ -40,7 +40,7 @@ The following steps are needed to update pordingdb data. You can run them all wi
 
 #. Get the Python 3 porting status using ``py3query`` dnf plugin. Use ``-o`` option to write the output directly to ``fedora.json``::
 
-    $ dnf-3 --disablerepo='*' --enablerepo=rawhide --enablerepo=rawhide-source py3query --refresh --installroot=/tmp/empty-install-root -o data/fedora.json
+    $ dnf-3 --repo=rawhide --repo=rawhide-source --qrepo=rawhide py3query --refresh --installroot=/tmp/empty-install-root -o data/fedora.json
 
 #. Compare statuses of packages in the new JSON file::
 
