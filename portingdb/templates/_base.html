@@ -32,16 +32,20 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro pkglink(pkg, ignore_misnamed=False, ignore_unversioned_requires=False) -%}
-    {{ pkglink_icon(pkg) }}&nbsp;<a href="{{ url_for('package', pkg=pkg.name) }}">
+{% macro pkglink(
+    pkg, ignore_misnamed=False, ignore_unversioned_requires=False, after_name='')
+-%}
+    {{- pkglink_icon(pkg) -}}
+    &nbsp;<a href="{{ url_for('package', pkg=pkg.name) }}">
         {{- pkg.name -}}
-        {{- pkg_naming_badge(
-            pkg,
-            ignore_misnamed=ignore_misnamed,
-            ignore_unversioned_requires=ignore_unversioned_requires,
-        ) -}}
-        {{- ftbfs_badge(pkg) -}}
     </a>
+    {{- after_name -}}
+    {{- pkg_naming_badge(
+        pkg,
+        ignore_misnamed=ignore_misnamed,
+        ignore_unversioned_requires=ignore_unversioned_requires,
+    ) -}}
+    {{- ftbfs_badge(pkg) -}}
 {%- endmacro %}
 
 {% macro pkglink_icon(pkg) -%}
@@ -66,12 +70,12 @@
 {%- endmacro %}
 
 {% macro pkg_naming_badge(pkg, ignore_misnamed=False, ignore_unversioned_requires=False) -%}
-    {% if pkg['is_misnamed'] and not ignore_misnamed %}
+    {%- if pkg['is_misnamed'] and not ignore_misnamed %}
         {{ misnamed_badge() }}
-    {% endif %}
-    {% if pkg['unversioned_requires'] and not ignore_unversioned_requires %}
+    {% endif -%}
+    {%- if pkg['unversioned_requires'] and not ignore_unversioned_requires %}
         {{ unversioned_requires_badge( pkg['blocked_requires']) }}
-    {% endif %}
+    {% endif -%}
 {%- endmacro %}
 
 {% macro _naming_badge(color, text) -%}
@@ -94,24 +98,34 @@
     {%- endif -%}
 {%- endmacro %}
 
-{% macro print_deptree(pkgs) -%}
+{% macro print_deptree(nodes) -%}
     <ul class="simple-pkg-list">
-        {{ sub_deptree(pkgs) }}
+        {{ sub_deptree(nodes) }}
     </ul>
 {%- endmacro %}
 
-{% macro sub_deptree(pkgs) -%}
-    {% for pkg, kinds, subtree in pkgs %}
-        <li>
-            {{ pkglink(pkg) }}
-            {% if 'run' in kinds %}<i class="dep-kind fa fa-rocket"></i>{% endif %}
-            {% if 'build' in kinds %}<i class="dep-kind fa fa-wrench"></i>{% endif %}
-            {% if 'elided' in kinds %}…{% endif %}
-            <ul class="simple-pkg-list" style="border-left: 1px solid #EEE">
-                {{ sub_deptree(subtree) }}
-            </ul>
+{% macro sub_deptree(nodes) -%}
+    {%- for node in nodes -%}
+        <li title="{{node.path}}">
+            {{ pkglink(node.package, after_name=':' if node.children else '') }}
+            {% if 'run' in node.kinds -%}
+                <i class="dep-kind fa fa-rocket" title="Run-time"></i>
+            {%- endif -%}
+            {%- if 'build' in node.kinds %}
+                <i class="dep-kind fa fa-wrench" title="Build-time"></i>
+            {%- endif -%}
+            {%- if 'elided' in node.kinds -%}
+                <span title="Subtree elided"> ⋯</span>
+            {%- endif -%}
+            {%- if node.children -%}
+                <ul class="simple-pkg-list deptree-level">
+                    {{- sub_deptree(node.children) -}}
+                </ul>
+            {%- elif 'too-big' in node.kinds -%}
+                <div class="deptree-level deptree-elided" title="Subtree elided (graph too large)">⋯</div>
+            {%- endif -%}
         </li>
-    {% endfor %}
+    {%- endfor -%}
 {%- endmacro %}
 
 {% macro pkglist_table_head() -%}
