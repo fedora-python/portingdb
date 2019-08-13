@@ -103,10 +103,15 @@ def load_from_directories(data, directories):
     collection_name = config.get('collection', 'fedora')
     packages = data.setdefault('packages', {})
     _pkgs = data_from_file(directories, collection_name)
-    _merge_updates(
-        _pkgs,
-        data_from_file(directories, collection_name + '-update')
-    )
+    _updates = data_from_file(directories, collection_name + '-update')
+    for name, pkg in _updates.items():
+        if name in _pkgs:
+            _merge_updates(_pkgs[name], _updates[name])
+        else:
+            print(
+                'WARNING: update for missing package:', name,
+                file=sys.stderr,
+            )
     packages.update(_pkgs)
 
     non_python_unversioned_requires = data.setdefault(
