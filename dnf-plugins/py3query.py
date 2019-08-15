@@ -54,15 +54,16 @@ BUGZILLA_BUG_URL = "https://bugzilla.redhat.com/show_bug.cgi?id={}"
 
 SEED_PACKAGES = {
     2: [
-        'python-devel', 'python2-devel', 'python', 'python2', 'python-libs',
-        'python(abi) = 2.7', '/usr/bin/python', '/usr/bin/python2',
+        'python2-devel', 'python2', 'python2-libs', 'python2-tkinter',
+        'python(abi) = 2.7', '/usr/bin/python2',
         '/usr/bin/python2.7', 'libpython2.7.so.1.0', 'libpython2.7.so.1.0()(64bit)',
         'pygtk2', 'pygobject2', 'pycairo',
-        'tkinter', 'tkinter2',
     ],
     3: [
-        'python3-devel', 'python3', 'python3-libs', 'python(abi) = 3.4',
-        '/usr/bin/python3', '/usr/bin/python3.4', 'libpython3.4m.so.1.0',
+        'python3-devel', 'python3', 'python3-libs', 'python3-tkinter',
+        'python-devel', 'python', 'python-libs',
+        '/usr/bin/python', '/usr/bin/python3',
+        'python(abi) = 3.4', '/usr/bin/python3.4', 'libpython3.4m.so.1.0',
         'libpython3.so', 'python3-cairo',
         'python(abi) = 3.5', '/usr/bin/python3.5', 'libpython3.5m.so.1.0',
         'libpython3.5m.so.1.0()(64bit)',
