@@ -740,7 +740,9 @@
         },
         "py_deps": {
           "/usr/bin/python3": 3,
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -1471,7 +1473,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -1523,12 +1527,11 @@
     ],
     "links": {
       "bug": [
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1324097",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=1492382",
         "NEW",
-        "2019-05-04 16:09:00"
+        "2019-05-04 23:14:51"
       ]
     },
-    "note": "There is a problem in Fedora packaging, not necessarily with the software itself. See the linked Fedora bug.",
     "rpms": {
       "alacarte-3.11.91-14.fc31": {
         "almost_leaf": true,
@@ -1543,7 +1546,7 @@
         }
       }
     },
-    "status": "mispackaged"
+    "status": "idle"
   },
   "alot": {
     "build_deps": [],
@@ -2281,7 +2284,9 @@
           "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python3": 3
+          "/usr/bin/python3": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -5055,8 +5060,10 @@
     "build_deps": [],
     "deps": [
       "dbus-python",
+      "libappindicator",
       "pygobject2",
       "pygtk2",
+      "python-enchant",
       "python2"
     ],
     "rpms": {
@@ -6440,7 +6447,9 @@
         "py_deps": {
           "/usr/bin/python3": 3,
           "python3": 3,
-          "python3 = 3.7.4-4.fc31": 3
+          "python3 = 3.7.4-4.fc31": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -7523,6 +7532,7 @@
       "lcgdm",
       "m2crypto",
       "python-dateutil",
+      "python-ldap",
       "python-mysql",
       "python-pycurl",
       "python2",
@@ -7539,7 +7549,9 @@
         "py_deps": {
           "/usr/bin/python2": 2,
           "python2": 2,
-          "python2 = 2.7.16-4.fc31": 2
+          "python2 = 2.7.16-4.fc31": 2,
+          "python2-libs": 2,
+          "python2-libs = 2.7.16-4.fc31": 2
         }
       },
       "dmlite-dpmhead-1.13.1-2.fc31": {
@@ -7573,7 +7585,9 @@
         },
         "py_deps": {
           "/usr/bin/python2": 2,
-          "python(abi) = 2.7": 2
+          "python(abi) = 2.7": 2,
+          "python2-libs": 2,
+          "python2-libs = 2.7.16-4.fc31": 2
         }
       },
       "python2-dmlite-1.13.1-2.fc31": {
@@ -8812,7 +8826,9 @@
           "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python2": 2
+          "/usr/bin/python2": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       }
     },
@@ -10729,7 +10745,9 @@
         "py_deps": {
           "/usr/bin/python2": 2,
           "python2": 2,
-          "python2 = 2.7.16-4.fc31": 2
+          "python2 = 2.7.16-4.fc31": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       }
     },
@@ -16404,6 +16422,7 @@
       "sugar-turtleart",
       "vte"
     ],
+    "note": "A single package depends on both Python 2 and Python 3.\nIt should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.",
     "rpms": {
       "icaro-1.0.9-4.fc31": {
         "almost_leaf": true,
@@ -16413,14 +16432,14 @@
           "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python": 2,
+          "/usr/bin/python": 3,
           "pygtk2": 2,
           "pygtk2 = 2.24.0-26.fc31": 2,
           "python(abi) = 2.7": 2
         }
       }
     },
-    "status": "idle"
+    "status": "mispackaged"
   },
   "icestorm": {
     "build_deps": [],
@@ -18902,6 +18921,7 @@
       "python2"
     ],
     "deps": [
+      "python-lxml",
       "python-mysql",
       "python2"
     ],
@@ -19234,8 +19254,8 @@
     ],
     "rpms": {
       "python2-appindicator-12.10.0-25.fc31": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
+        "almost_leaf": false,
+        "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -19245,7 +19265,10 @@
         }
       }
     },
-    "status": "idle"
+    "status": "idle",
+    "unversioned_requirers": [
+      "cherrytree"
+    ]
   },
   "libarcus": {
     "build_deps": [],
@@ -21949,7 +21972,9 @@
         },
         "py_deps": {
           "/usr/bin/python3": 3,
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -27583,6 +27608,7 @@
   },
   "pilas": {
     "build_deps": [
+      "python-setuptools",
       "python2"
     ],
     "deps": [
@@ -28635,6 +28661,7 @@
   },
   "puddletag": {
     "build_deps": [
+      "python-setuptools",
       "python2"
     ],
     "deps": [
@@ -43418,7 +43445,9 @@
           "build_time": [
             "klavaro"
           ],
-          "run_time": []
+          "run_time": [
+            "geany-plugins"
+          ]
         },
         "py_deps": {
           "python(abi) = 2.7": 2
@@ -43440,6 +43469,9 @@
     "status": "released",
     "tracking_bugs": [
       "https://bugzilla.redhat.com/show_bug.cgi?id=1432186"
+    ],
+    "unversioned_requirers": [
+      "geany-plugins"
     ]
   },
   "python-docx": {
@@ -43882,7 +43914,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 2.7": 2
+          "python(abi) = 2.7": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       },
       "python3-easygui-0.96-25.fc31": {
@@ -43893,7 +43927,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -44224,8 +44260,8 @@
     ],
     "rpms": {
       "python2-enchant-2.0.0-8.fc31": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
+        "almost_leaf": false,
+        "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -44246,7 +44282,10 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "released",
+    "unversioned_requirers": [
+      "cherrytree"
+    ]
   },
   "python-enlighten": {
     "build_deps": [],
@@ -48077,7 +48116,9 @@
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [],
+          "build_time": [
+            "tarantool"
+          ],
           "run_time": []
         },
         "py_deps": {
@@ -48098,7 +48139,10 @@
         }
       }
     },
-    "status": "released"
+    "status": "released",
+    "unversioned_requirers": [
+      "tarantool"
+    ]
   },
   "python-gflags": {
     "build_deps": [
@@ -49160,7 +49204,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -53633,7 +53679,10 @@
         }
       }
     },
-    "status": "released"
+    "status": "released",
+    "unversioned_requirers": [
+      "dmlite"
+    ]
   },
   "python-ldap3": {
     "build_deps": [
@@ -54453,7 +54502,10 @@
         }
       }
     },
-    "status": "released"
+    "status": "released",
+    "unversioned_requirers": [
+      "lcgdm"
+    ]
   },
   "python-ly": {
     "build_deps": [],
@@ -54475,7 +54527,9 @@
         },
         "py_deps": {
           "/usr/bin/python3": 3,
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -55211,7 +55265,9 @@
         },
         "py_deps": {
           "libpython3.7m.so.1.0()(64bit)": 3,
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       },
       "python3-matplotlib-wx-3.0.3-2.fc31.1": {
@@ -58169,7 +58225,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -62013,7 +62071,9 @@
         },
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
-          "python(abi) = 2.7": 2
+          "python(abi) = 2.7": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       },
       "python3-pillow-6.1.0-2.fc31": {
@@ -62069,7 +62129,9 @@
         },
         "py_deps": {
           "libpython3.7m.so.1.0()(64bit)": 3,
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -62584,7 +62646,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 2.7": 2
+          "python(abi) = 2.7": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       },
       "python3-pmw-2.0.0-13.fc31": {
@@ -62595,7 +62659,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -65658,7 +65724,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -68066,7 +68134,7 @@
       "bug": [
         "https://bugzilla.redhat.com/show_bug.cgi?id=1298167",
         "NEW",
-        "2019-07-25 01:22:38"
+        "2019-08-14 10:33:18"
       ]
     },
     "rpms": {
@@ -68204,7 +68272,9 @@
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
-          "run_time": []
+          "run_time": [
+            "fawkes"
+          ]
         },
         "py_deps": {}
       },
@@ -68263,7 +68333,11 @@
         }
       }
     },
-    "status": "released"
+    "status": "released",
+    "unversioned_requirers": [
+      "calibre",
+      "fawkes"
+    ]
   },
   "python-qtconsole": {
     "build_deps": [],
@@ -71455,7 +71529,11 @@
         }
       }
     },
-    "status": "released"
+    "status": "released",
+    "unversioned_requirers": [
+      "pilas",
+      "puddletag"
+    ]
   },
   "python-setuptools-lint": {
     "build_deps": [],
@@ -72195,7 +72273,9 @@
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
-          "build_time": [],
+          "build_time": [
+            "tarantool"
+          ],
           "run_time": []
         },
         "py_deps": {
@@ -72214,7 +72294,10 @@
         }
       }
     },
-    "status": "released"
+    "status": "released",
+    "unversioned_requirers": [
+      "tarantool"
+    ]
   },
   "python-slackclient": {
     "build_deps": [],
@@ -81593,7 +81676,8 @@
           "run_time": []
         },
         "py_deps": {
-          "libpython2.7.so.1.0()(64bit)": 2
+          "libpython2.7.so.1.0()(64bit)": 2,
+          "python2-libs(x86-64) = 2.7.16-4.fc31": 2
         }
       },
       "python2-debug-2.7.16-4.fc31": {
@@ -81605,7 +81689,9 @@
         },
         "py_deps": {
           "python2(x86-64) = 2.7.16-4.fc31": 2,
-          "python2-devel(x86-64) = 2.7.16-4.fc31": 2
+          "python2-devel(x86-64) = 2.7.16-4.fc31": 2,
+          "python2-libs(x86-64) = 2.7.16-4.fc31": 2,
+          "python2-tkinter(x86-64) = 2.7.16-4.fc31": 2
         }
       },
       "python2-devel-2.7.16-4.fc31": {
@@ -81625,6 +81711,7 @@
             "gstreamer1-plugins-good",
             "icecat",
             "ispc",
+            "kdepim3",
             "kdepim4",
             "kdissert",
             "klavaro",
@@ -81712,11 +81799,16 @@
         "py_deps": {
           "/usr/bin/python2.7": 2,
           "python2": 2,
-          "python2 = 2.7.16-4.fc31": 2
+          "python2 = 2.7.16-4.fc31": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       }
     },
-    "status": "idle"
+    "status": "idle",
+    "unversioned_requirers": [
+      "kdepim3"
+    ]
   },
   "python2-django1.11": {
     "build_deps": [
@@ -81865,7 +81957,9 @@
         },
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
-          "python(abi) = 2.7": 2
+          "python(abi) = 2.7": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       },
       "python2-matplotlib-wx-2.2.4-5.fc31.1": {
@@ -82101,7 +82195,8 @@
         "py_deps": {
           "python3(x86-64) = 3.7.4-4.fc31": 3,
           "python3-devel(x86-64) = 3.7.4-4.fc31": 3,
-          "python3-libs(x86-64) = 3.7.4-4.fc31": 3
+          "python3-libs(x86-64) = 3.7.4-4.fc31": 3,
+          "python3-tkinter(x86-64) = 3.7.4-4.fc31": 3
         }
       },
       "python3-devel-3.7.4-4.fc31": {
@@ -82127,7 +82222,9 @@
         },
         "py_deps": {
           "python3": 3,
-          "python3 = 3.7.4-4.fc31": 3
+          "python3 = 3.7.4-4.fc31": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       },
       "python3-libs-3.7.4-4.fc31": {
@@ -83487,7 +83584,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 2.7": 2
+          "python(abi) = 2.7": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       },
       "python3-rabbitvcs-0.17.1-11.fc31": {
@@ -83498,7 +83597,9 @@
           "run_time": []
         },
         "py_deps": {
-          "python(abi) = 3.7": 3
+          "python(abi) = 3.7": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       },
       "rabbitvcs-cli-0.17.1-11.fc31": {
@@ -83837,18 +83938,18 @@
     "deps": [],
     "rpms": {
       "redhat-lsb-languages-4.1-48.fc31": {
-        "almost_leaf": true,
+        "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python": 2
+          "/usr/bin/python": 3
         }
       }
     },
-    "status": "idle"
+    "status": "py3-only"
   },
   "rednotebook": {
     "build_deps": [],
@@ -85455,32 +85556,16 @@
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
-          "run_time": []
+          "run_time": [
+            "scribus-generator"
+          ]
         },
         "py_deps": {
           "libpython2.7.so.1.0()(64bit)": 2,
           "python2": 2,
-          "python2 = 2.7.16-4.fc31": 2
-        }
-      }
-    },
-    "status": "idle"
-  },
-  "scribus-generator": {
-    "build_deps": [],
-    "deps": [
-      "scribus"
-    ],
-    "rpms": {
-      "scribus-generator-2.8.1-2.fc31": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "tkinter": 2
+          "python2 = 2.7.16-4.fc31": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       }
     },
@@ -89665,7 +89750,9 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.7": 3,
           "python3": 3,
-          "python3 = 3.7.4-4.fc31": 3
+          "python3 = 3.7.4-4.fc31": 3,
+          "python3-tkinter": 3,
+          "python3-tkinter = 3.7.4-4.fc31": 3
         }
       }
     },
@@ -92063,7 +92150,9 @@
           "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python2": 2
+          "/usr/bin/python2": 2,
+          "python2-tkinter": 2,
+          "python2-tkinter = 2.7.16-4.fc31": 2
         }
       }
     },
@@ -94581,7 +94670,9 @@
   },
   "yubikey-manager": {
     "build_deps": [],
-    "deps": [],
+    "deps": [
+      "python-setuptools"
+    ],
     "rpms": {
       "python3-yubikey-manager-2.1.0-3.gitb44d719.fc31": {
         "almost_leaf": false,
