@@ -14,39 +14,77 @@ olpc:
     name: OLPC/Sugar
     hidden: true
     packages:
-    - sugar
-    - sugar-analyze
+    # dnf repoquery --repo rawhide 'sugar-*' 'olpc-*' --qf '- %{name}'
+    - olpc-kbdshim
+    - olpc-netutils
+    - olpc-switch-desktop
+    - olpc-update
+    - olpc-utils
+    - sugar-abacus
+    - sugar-artwork
     - sugar-base
+    - sugar-browse
+    - sugar-calculator
     - sugar-castle
+    - sugar-chat
+    - sugar-clock
+    - sugar-colordeducto
+    - sugar-connect
     - sugar-countries
     - sugar-datastore
+    - sugar-deducto
+    - sugar-distance
+    - sugar-finance
+    - sugar-flip
     - sugar-flipsticks
+    - sugar-fototoon
+    - sugar-fractionbounce
+    - sugar-getiabooks
+    - sugar-hello-world
+    - sugar-imageviewer
+    - sugar-implode
+    - sugar-infoslicer
+    - sugar-jukebox
     - sugar-kuku
     - sugar-labyrinth
+    - sugar-locosugar
     - sugar-log
+    - sugar-logos
+    - sugar-maze
     - sugar-measure
+    - sugar-memorize
     - sugar-moon
+    - sugar-nutrition
     - sugar-paint
     - sugar-physics
     - sugar-pippy
+    - sugar-playgo
+    - sugar-portfolio
+    - sugar-pukllanapac
+    - sugar-read
     - sugar-recall
     - sugar-record
+    - sugar-ruler
     - sugar-runner
+    - sugar-settings-manager
+    - sugar-speak
     - sugar-srilanka
+    - sugar-starchart
+    - sugar-stopwatch
+    - sugar-story
     - sugar-terminal
     - sugar-toolkit
     - sugar-toolkit-gtk3
     - sugar-turtleart
     - sugar-typing-turtle
+    - sugar-view-slides
+    - sugar-visualmatch
+    - sugar-words
+    - sugar-write
+    - sugar-xoeditor
     - sugar-xoirc
-    - dracut-modules-olpc
-    - olpc-contents
-    - olpc-netutils
-    - olpc-os-builder
-    - olpc-switch-desktop
-    - olpc-update
-    - olpc-utils
-    - python-olpcgames
+    - sugar-xomail
+    - sugar-yupana
 trac:
     name: Version Control & Trac
     hidden: true
