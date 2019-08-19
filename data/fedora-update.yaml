@@ -105,6 +105,21 @@ gstreamer-python:
     status: dropped
     note: |
       Replacement: `python-gstreamer1`
+hippo-canvas: &sugar-toolkit
+    status: dropped
+    note: |
+        From the maintainer, on
+        [BZ#1737929](https://bugzilla.redhat.com/show_bug.cgi?id=1737929#c7):
+
+        We're looking to deprecate `hippo-canvas` *\[and `sugar-toolkit`\]*,
+        it was used in the old
+        gtk2 *\[Sugar\]* Activities, there's a few more to migrate to the gtk3.
+
+        There's overall been a multi year effort to move to python3 including
+        moving from gstreamer 0.10 python bindings to py3 friendly
+        introspection based gst 1.0 bindings etc.
+        There's only a handful of gtk2 based Activities left
+        (`repoquery --whatrequires sugar-toolkit`)
 koji:
     nonblocking: true
     note: |
@@ -338,6 +353,7 @@ qpid-cpp:
   note: |
     Only `qpid-cpp` depends on `python-qpid`, and `python-qpid` depends
     back on `qpid-cpp`.
+sugar-toolkit: *sugar-toolkit
 texlive-base:
     status: idle
     note: |
