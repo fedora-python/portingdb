@@ -203,21 +203,6 @@ python2-django1.11:
         See [the "Django 2.0" change for Fedora 28](https://fedoraproject.org/wiki/Changes/Django20).
 
         Replacement: `python-django`
-python2-docs:
-    status: dropped
-    note: |
-        Documentation for the old Python.
-
-        Replacement: `python3-docs`
-python-elixir:
-    status: dropped
-    note: |
-      Suggested replacement: `python3-sqlalchemy` has a builtin declarative
-      layer now.  Porting to that is most likely the best route forward.
-      `python-elixir` had some work done in its source repository to support
-      python3 but that was never released.  The source repository has since
-      been taken down so that work has been lost and upstream appears to
-      have died.
 python-enum34:
     status: dropped
     note: |
@@ -332,10 +317,6 @@ python-qpid:
   note: |
     Only `qpid-cpp` depends on `python-qpid`, and `python-qpid` depends
     back on `qpid-cpp`.
-python-simpletal:
-  status: dropped
-  note: |
-    The Python 3 version is packaged as `python3-simpletal`.
 python-subprocess32:
     status: dropped
     note: |
