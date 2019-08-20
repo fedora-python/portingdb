@@ -32,6 +32,7 @@ BUGZILLA_URL = 'bugzilla.redhat.com'
 # Tracker bugs which are used to find all relevant package bugs
 TRACKER_BUGS = {
     1698500: "F31_PY2REMOVAL",
+    1625773: "PY2REMOVAL",
     1690439: "PY2FTBI",
     1312032: "PY3PATCH-AVAILABLE",
     1333770: "PY3PATCH-PUSH",
