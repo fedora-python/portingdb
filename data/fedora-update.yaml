@@ -33,9 +33,6 @@ alacarte:
     note: |
         Recommended replacement: `menulibre` (already supports python3
         and has fewer dependencies)
-anjuta:
-    links:
-        bug: https://bugzilla.redhat.com/show_bug.cgi?id=1282116
 arandr:
     being-ported: true
 archivemail:
@@ -199,11 +196,6 @@ python-bunch:
     status: dropped
     note: |
         Replacement: `python-munch` (Same API)
-python-cloudfiles:
-    status: dropped
-    note: |
-        Upstream no longer exists.
-        Suggested replacement: `python3-swiftclient`
 python2-django1.11:
     status: dropped
     note: |
@@ -223,26 +215,11 @@ python-futures:
   note: |
     This is a backport of `concurrent.futures`, part of the Python 3.2
     standard library.
-python-gdata:
-  status: dropped
-  note: |
-    This project is no longer actively maintained by Google, and the various
-    services handled by this library are moving away from the API versions
-    supported by this library.
-
-    Suggested replacement: `google-api-python-client`
 python-igor:
     note: |
         The package is functional under python3, but the executable output
         is  slightly nicer under python2. So it is on py2 on purpose
         according to the maintainer.
-python-ipaddr:
-    status: dropped
-    note: |
-        Python 3.3+ includes the `ipaddress` module, which has been backported
-        to Python 2 (`python-ipaddress`).
-
-        Packages that depend on `ipaddr` should consider porting to `ipaddress`.
 python-ipaddress:
     status: dropped
     note: |
@@ -354,7 +331,6 @@ texlive-base:
     note: |
         texlive-pythontex depends on both Pythons by design upstream. See discussion
         in the Bugzilla for more details.
-tomoe-gtk: *devel-only
 vte:
   status: dropped
   note: |
