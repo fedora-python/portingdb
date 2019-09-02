@@ -341,7 +341,7 @@ def graph_json(grp=None, pkg=None):
         'python-mock',
     ]
     for name in usual_suspects:
-        reps[name] = 'python2'
+        reps[name] = 'python27'
 
     # Build a graph where all nodes are replaced by their representative
     # (ignoring duplicate edges and self-loops)
@@ -357,9 +357,9 @@ def graph_json(grp=None, pkg=None):
         for name in cycle:
             reps[name] = rep
 
-    # Since python2's rep probably changed, adjust the nodes previously removed
+    # Since python27's rep probably changed, adjust the nodes previously removed
     for name in usual_suspects:
-        reps[name] = reps['python2']
+        reps[name] = reps['python27']
 
     # Build a graph whose nodes are the representatives (standing for clusters)
     # (ignoring duplicate edges and self-loops)
