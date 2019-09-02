@@ -330,19 +330,6 @@ def graph_json(grp=None, pkg=None):
     # (The rep will be the first node in the cluster, in alphabetical order.)
     reps = {name: name for name in packages}
 
-    # The cluster that has python2 is quite complex.
-    # Networkx's `simple_cycles` will have a **lot** less work if we
-    # strategically remove these packages from the graph, and put them in
-    # python2's cluster manually.
-    usual_suspects = [
-        'python-sphinx',
-        'pytest',
-        'python-setuptools',
-        'python-mock',
-    ]
-    for name in usual_suspects:
-        reps[name] = 'python27'
-
     # Build a graph where all nodes are replaced by their representative
     # (ignoring duplicate edges and self-loops)
     graph = networkx.DiGraph()
@@ -356,10 +343,6 @@ def graph_json(grp=None, pkg=None):
         rep = min(reps[name] for name in cycle)
         for name in cycle:
             reps[name] = rep
-
-    # Since python27's rep probably changed, adjust the nodes previously removed
-    for name in usual_suspects:
-        reps[name] = reps['python27']
 
     # Build a graph whose nodes are the representatives (standing for clusters)
     # (ignoring duplicate edges and self-loops)
@@ -382,7 +365,7 @@ def graph_json(grp=None, pkg=None):
         if not leaves:
             # Theoretically, we should have an acyclic graph here, so it
             # should be possible to remove leaves until the graph is empty.
-            # However, because of the "usual_suspects" stuff above, something
+            # However, the algorithm isn't quite right and a few common deps
             # can be left over. Just put it in the last tier.
             print(len(cluster_graph.nodes), 'clusters remaining')
             for rep in cluster_graph.nodes:
