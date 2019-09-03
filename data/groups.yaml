@@ -125,6 +125,12 @@ chromium:
     packages:
     - chromium
     - python-psutil
+flowblade:
+    name: Flowblade video editor
+    exception: https://pagure.io/fesco/issue/2219
+    hidden: true
+    packages:
+    - mlt  # note that flowblade itself is in rpmfusion, this is a dependency
 postgresql:
     name: PostgreSQL database
     exception: https://pagure.io/fesco/issue/2217
@@ -142,3 +148,9 @@ qt5-qtwebengine:
     exception: https://pagure.io/fesco/issue/2208
     packages:
     - qt5-qtwebengine
+texlive:
+    name: TeX Live
+    exception: https://pagure.io/fesco/issue/2215
+    hidden: true
+    packages:
+    - texlive-base
