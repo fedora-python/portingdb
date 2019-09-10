@@ -15,7 +15,7 @@ from portingdb.load_data import get_data
 
 CANNOT_RE = re.compile(r"can't install ((.+)-[^-]+-[^-]+):")
 BUGZILLA = 'bugzilla.redhat.com'
-FTI_TRACKER = 1700324  # F31FailsToInstall
+FTI_TRACKER = 1750909  # F32FailsToInstall
 PY2_TRACKER = 1690439  # PY2FTBI
 
 
