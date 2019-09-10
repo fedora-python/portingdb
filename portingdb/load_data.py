@@ -13,7 +13,7 @@ DONE_STATUSES = PY2_STATUSES | {'dropped'}
 
 # Current Fedora version, used to get info about long-term FTBFSs
 # Update to the Rawhide version after a mass rebuild.
-CURRENT_FEDORA = 30
+CURRENT_FEDORA = 31
 
 try:
     SafeLoader = yaml.CSafeLoader
