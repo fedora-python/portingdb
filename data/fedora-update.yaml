@@ -66,25 +66,6 @@ glade3:
         Suggested replacement: `glade`
 glue-validator:
     dead-upstream: true
-gnome-desktop:
-    status: dropped
-    note: |
-      Sugested replacement: `gnome-desktop3`
-
-      In [a bug](https://bugzilla.redhat.com/show_bug.cgi?id=1328871),
-      the maintainer clarified:
-
-      > so to be clear, gnome-desktop is an old library not used by much
-      > anymore. it doesn't have python bindings in the tarball. Those are
-      > provided by gnome-python2-desktop.
-      >
-      > gnome-desktop3 is actively used (in very limited ways), but it relies
-      > on gobject introspection to bind to python.
-
-      Note that since
-      [gnome-desktop3](https://src.fedoraproject.org/rpms/gnome-desktop3/)
-      uses GObject introspection, it has no own Python code and thus does not
-      show up in PortingDB.
 gnome-python2:
     status: dropped
     note: |
@@ -145,10 +126,6 @@ postgresql:
 pydot:
     note: |
       Suggested replacement: `python-pydotplus`
-pyexiv2:
-    status: dropped
-    note: |
-        Suggested replacement: `libgexiv2`
 pygame:
     nonblocking: true
     note: |
@@ -191,15 +168,6 @@ python-BeautifulSoup:
     status: dropped
     note: |
         Replacement: `python-beautifulsoup4`
-python2-django1.11:
-    status: dropped
-    note: |
-        Compatibility package for libraries needed by *applications* that
-        cannot switch to Python 3 just yet.
-
-        See [the "Django 2.0" change for Fedora 28](https://fedoraproject.org/wiki/Changes/Django20).
-
-        Replacement: `python-django`
 python-enum34:
     status: dropped
     note: |
@@ -256,11 +224,6 @@ python-oslo-config:
     nonblocking: true
     note: |
         The main package is ported to Python 3
-python2-pip:
-  status: dropped
-  note: |
-    This is the Python 2 version.
-    The `python-pip` package provides `python3-pip`.
 python2-pluggy:
     status: dropped
     note: |
