@@ -1361,7 +1361,7 @@
   "a2jmidid": {
     "bugs": {
       "1737919": {
-        "last_change": "2019-09-19 05:31:13",
+        "last_change": "2019-09-19 09:06:59",
         "resolution": "",
         "short_desc": "a2jmidid depends on Python 2",
         "status": "NEW",
@@ -3135,10 +3135,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1734956"
       },
       "1751484": {
-        "last_change": "2019-09-12 05:30:27",
-        "resolution": "",
+        "last_change": "2019-09-20 00:14:39",
+        "resolution": "RAWHIDE",
         "short_desc": "avahi depends on Python 2",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -3301,7 +3301,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "awscli-1.16.235-2.fc32": {
+      "awscli-1.16.241-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -3656,10 +3656,10 @@
   "bdii": {
     "bugs": {
       "1737909": {
-        "last_change": "2019-09-19 04:38:32",
-        "resolution": "",
+        "last_change": "2019-09-20 03:44:30",
+        "resolution": "RAWHIDE",
         "short_desc": "bdii depends on Python 2",
-        "status": "MODIFIED",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -3669,21 +3669,19 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "bdii-5.2.25-4.fc31": {
+      "bdii-5.2.25-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
-          "run_time": [
-            "fts"
-          ]
+          "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python2": 2
+          "/usr/bin/python3": 3
         }
       }
     },
-    "status": "idle"
+    "status": "py3-only"
   },
   "beaker": {
     "bugs": {
@@ -3887,7 +3885,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1734966"
       },
       "1751483": {
-        "last_change": "2019-09-12 05:29:49",
+        "last_change": "2019-09-19 08:44:31",
         "resolution": "",
         "short_desc": "bibus depends on Python 2",
         "status": "NEW",
@@ -4072,7 +4070,7 @@
   "blender": {
     "bugs": {
       "1734980": {
-        "last_change": "2019-08-13 18:36:35",
+        "last_change": "2019-09-19 09:08:30",
         "resolution": "",
         "short_desc": "blender: FTBFS in Fedora rawhide/f31",
         "status": "ASSIGNED",
@@ -5130,7 +5128,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1734995"
       },
       "1737937": {
-        "last_change": "2019-09-18 11:53:32",
+        "last_change": "2019-09-19 15:49:09",
         "resolution": "",
         "short_desc": "bzr depends on Python 2",
         "status": "NEW",
@@ -6250,10 +6248,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1735015"
       },
       "1750224": {
-        "last_change": "2019-09-18 14:31:16",
+        "last_change": "2019-09-20 03:02:14",
         "resolution": "",
         "short_desc": "cjdns depends on Python 2",
-        "status": "NEW",
+        "status": "ON_QA",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -8853,7 +8851,6 @@
     },
     "build_deps": [],
     "deps": [
-      "bdii",
       "m2crypto",
       "python-ldap"
     ],
@@ -10095,6 +10092,35 @@
     },
     "status": "idle"
   },
+  "eralchemy": {
+    "build_deps": [],
+    "deps": [],
+    "rpms": {
+      "eralchemy-1.2.10-2.fc32": {
+        "almost_leaf": false,
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "/usr/bin/python3": 3
+        }
+      },
+      "python3-eralchemy-1.2.10-2.fc32": {
+        "almost_leaf": false,
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 3.8": 3
+        }
+      }
+    },
+    "status": "py3-only"
+  },
   "eric": {
     "bugs": {
       "1342492": {
@@ -10882,7 +10908,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "fedora-review-0.7.2-3.fc32": {
+      "fedora-review-0.7.3-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -11906,7 +11932,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "flatpak-1.4.2-5.fc31": {
+      "flatpak-1.4.2-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -11917,7 +11943,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "flatpak-tests-1.4.2-5.fc31": {
+      "flatpak-tests-1.4.2-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -12800,7 +12826,7 @@
       "lilypond"
     ],
     "rpms": {
-      "frescobaldi-3.0.0-12.fc32": {
+      "frescobaldi-3.0.0-14.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -13456,10 +13482,10 @@
   "gdeploy": {
     "bugs": {
       "1738969": {
-        "last_change": "2019-09-18 13:49:11",
+        "last_change": "2019-09-20 01:56:48",
         "resolution": "",
         "short_desc": "gdeploy depends on Python 2",
-        "status": "NEW",
+        "status": "ON_QA",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -13823,7 +13849,7 @@
   "gimp": {
     "bugs": {
       "1737933": {
-        "last_change": "2019-09-16 21:53:43",
+        "last_change": "2019-09-19 12:19:36",
         "resolution": "",
         "short_desc": "gimp depends on Python 2",
         "status": "NEW",
@@ -13932,7 +13958,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1735255"
       },
       "1751502": {
-        "last_change": "2019-09-12 05:43:25",
+        "last_change": "2019-09-19 08:30:36",
         "resolution": "",
         "short_desc": "gimp-resynthesizer depends on Python 2",
         "status": "NEW",
@@ -14622,7 +14648,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "glibc-benchtests-2.30.9000-6.fc32": {
+      "glibc-benchtests-2.30.9000-7.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -15435,7 +15461,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "gns3-gui-2.1.16-4.fc32": {
+      "gns3-gui-2.1.16-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -19651,7 +19677,7 @@
   "jack-audio-connection-kit": {
     "bugs": {
       "1737980": {
-        "last_change": "2019-08-15 07:22:07",
+        "last_change": "2019-09-19 23:04:03",
         "resolution": "",
         "short_desc": "jack-audio-connection-kit depends on Python 2",
         "status": "NEW",
@@ -20519,7 +20545,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "koji-1.18.0-5.fc32": {
+      "koji-1.18.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20530,7 +20556,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "koji-builder-1.18.0-5.fc32": {
+      "koji-builder-1.18.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20541,7 +20567,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "koji-utils-1.18.0-5.fc32": {
+      "koji-utils-1.18.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20552,7 +20578,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "koji-vm-1.18.0-5.fc32": {
+      "koji-vm-1.18.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20563,7 +20589,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python3-koji-1.18.0-5.fc32": {
+      "python3-koji-1.18.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20574,7 +20600,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "python3-koji-cli-plugins-1.18.0-5.fc32": {
+      "python3-koji-cli-plugins-1.18.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20585,7 +20611,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "python3-koji-hub-1.18.0-5.fc32": {
+      "python3-koji-hub-1.18.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20594,7 +20620,7 @@
         },
         "py_deps": {}
       },
-      "python3-koji-hub-plugins-1.18.0-5.fc32": {
+      "python3-koji-hub-plugins-1.18.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20603,7 +20629,7 @@
         },
         "py_deps": {}
       },
-      "python3-koji-web-1.18.0-5.fc32": {
+      "python3-koji-web-1.18.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20821,7 +20847,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "krop-0.5.1-5.fc32": {
+      "krop-0.5.1-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20832,7 +20858,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python3-krop-0.5.1-5.fc32": {
+      "python3-krop-0.5.1-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -21804,34 +21830,23 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1751499"
       }
     },
-    "build_deps": [
-      "dbus-python",
-      "python-enum34",
-      "python-qt5",
-      "python-rpm-macros",
-      "python27",
-      "scons"
-    ],
-    "deps": [
-      "dbus-python",
-      "python-qt5",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "ffado-2.4.1-8.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
+      "ffado-2.4.1-9.fc32": {
+        "almost_leaf": false,
+        "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python2": 2,
-          "python(abi) = 2.7": 2
+          "/usr/bin/python3": 3,
+          "python(abi) = 3.8": 3
         }
       }
     },
-    "status": "idle"
+    "status": "py3-only"
   },
   "libfreenect": {
     "bugs": {
@@ -22347,7 +22362,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-libmodulemd-2.8.0-1.fc32": {
+      "python3-libmodulemd-2.8.0-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -24604,7 +24619,7 @@
   "mach": {
     "bugs": {
       "1738012": {
-        "last_change": "2019-09-05 10:41:20",
+        "last_change": "2019-09-19 08:51:39",
         "resolution": "",
         "short_desc": "mach depends on Python 2",
         "status": "NEW",
@@ -26673,7 +26688,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1736157"
       },
       "1751498": {
-        "last_change": "2019-09-12 05:40:31",
+        "last_change": "2019-09-19 08:30:28",
         "resolution": "",
         "short_desc": "mypaint depends on Python 2",
         "status": "NEW",
@@ -28445,7 +28460,7 @@
   "officeparser": {
     "bugs": {
       "1738063": {
-        "last_change": "2019-09-05 10:41:47",
+        "last_change": "2019-09-19 16:15:51",
         "resolution": "",
         "short_desc": "officeparser depends on Python 2",
         "status": "NEW",
@@ -28509,7 +28524,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1745465"
       },
       "1751496": {
-        "last_change": "2019-09-12 15:39:48",
+        "last_change": "2019-09-20 06:40:55",
         "resolution": "",
         "short_desc": "offlineimap depends on Python 2",
         "status": "NEW",
@@ -39327,7 +39342,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1736474"
       },
       "1751495": {
-        "last_change": "2019-09-12 05:39:25",
+        "last_change": "2019-09-19 08:30:19",
         "resolution": "",
         "short_desc": "python-arc depends on Python 2",
         "status": "NEW",
@@ -42041,7 +42056,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-botocore-1.12.225-1.fc32": {
+      "python3-botocore-1.12.231-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -42936,6 +42951,19 @@
     "status": "py3-only"
   },
   "python-catkin_pkg": {
+    "bugs": {
+      "1753802": {
+        "last_change": "2019-09-19 22:39:05",
+        "resolution": "",
+        "short_desc": "python-catkin_pkg: Remove (sub)packages from Fedora 32+: python2-catkin_pkg",
+        "status": "NEW",
+        "trackers": [
+          "F31_PY2REMOVAL",
+          "PY2REMOVAL"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753802"
+      }
+    },
     "build_deps": [
       "pyparsing",
       "python-dateutil",
@@ -44161,27 +44189,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752805"
       }
     },
-    "build_deps": [
-      "python2-pytest",
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-click-7.0-5.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-click-7.0-5.fc32": {
+      "python3-click-7.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -44193,7 +44204,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "python-click-completion": {
     "bugs": {
@@ -44610,10 +44621,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1736491"
       },
       "1751494": {
-        "last_change": "2019-09-12 05:38:44",
-        "resolution": "",
+        "last_change": "2019-09-19 10:58:39",
+        "resolution": "RAWHIDE",
         "short_desc": "python-cloudservers: Remove (sub)packages from Fedora 32+: python2-cloudservers",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL",
           "PY2REMOVAL"
@@ -45344,7 +45355,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-colcon-test-result-0.3.6-1.fc32": {
+      "python3-colcon-test-result-0.3.7-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -51899,6 +51910,19 @@
     "status": "py3-only"
   },
   "python-eventlet": {
+    "bugs": {
+      "1753699": {
+        "last_change": "2019-09-19 15:26:43",
+        "resolution": "",
+        "short_desc": "python-eventlet: Remove (sub)packages from Fedora 32+: python2-eventlet",
+        "status": "NEW",
+        "trackers": [
+          "F31_PY2REMOVAL",
+          "PY2REMOVAL"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753699"
+      }
+    },
     "build_deps": [
       "pyOpenSSL",
       "python-dns",
@@ -52344,7 +52368,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python-faker-doc-2.0.1-2.fc32": {
+      "python-faker-doc-2.0.2-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -52353,7 +52377,7 @@
         },
         "py_deps": {}
       },
-      "python3-faker-2.0.1-2.fc32": {
+      "python3-faker-2.0.2-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -53282,25 +53306,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752197"
       }
     },
-    "build_deps": [
-      "python-click",
-      "python-itsdangerous",
-      "python-jinja2",
-      "python-werkzeug",
-      "python2-pytest",
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python-click",
-      "python-itsdangerous",
-      "python-jinja2",
-      "python-werkzeug",
-      "python2-setuptools",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python-flask-doc-1:1.0.2-7.fc32": {
+      "python-flask-doc-1:1.0.2-8.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -53309,19 +53318,7 @@
         },
         "py_deps": {}
       },
-      "python2-flask-1:1.0.2-7.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "/usr/bin/python2": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-flask-1:1.0.2-7.fc32": {
+      "python3-flask-1:1.0.2-8.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -53334,7 +53331,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "python-flask-admin": {
     "bugs": {
@@ -57263,6 +57260,19 @@
     "status": "released"
   },
   "python-greenlet": {
+    "bugs": {
+      "1753701": {
+        "last_change": "2019-09-19 15:25:13",
+        "resolution": "",
+        "short_desc": "python-greenlet: Remove (sub)packages from Fedora 32+: python2-greenlet",
+        "status": "NEW",
+        "trackers": [
+          "F31_PY2REMOVAL",
+          "PY2REMOVAL"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753701"
+      }
+    },
     "build_deps": [
       "python2-setuptools",
       "python27"
@@ -57643,7 +57653,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python-h2-doc-3.1.0-6.fc32": {
+      "python-h2-doc-3.1.1-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -57652,7 +57662,7 @@
         },
         "py_deps": {}
       },
-      "python3-h2-3.1.0-6.fc32": {
+      "python3-h2-3.1.1-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -59277,7 +59287,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1672052"
       },
       "1738110": {
-        "last_change": "2019-09-17 09:21:21",
+        "last_change": "2019-09-19 13:46:09",
         "resolution": "",
         "short_desc": "python-impacket depends on Python 2",
         "status": "NEW",
@@ -60441,8 +60451,8 @@
     ],
     "rpms": {
       "python2-itsdangerous-0.24-18.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
+        "almost_leaf": true,
+        "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -60463,7 +60473,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "legacy-leaf"
   },
   "python-j1m.sphinxautointerface": {
     "bugs": {
@@ -66463,6 +66473,19 @@
     "status": "py3-only"
   },
   "python-monotonic": {
+    "bugs": {
+      "1753703": {
+        "last_change": "2019-09-19 15:26:43",
+        "resolution": "",
+        "short_desc": "python-monotonic: Remove (sub)packages from Fedora 32+: python2-monotonic",
+        "status": "NEW",
+        "trackers": [
+          "F31_PY2REMOVAL",
+          "PY2REMOVAL"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753703"
+      }
+    },
     "build_deps": [
       "python2-setuptools",
       "python27"
@@ -71414,6 +71437,19 @@
     "status": "py3-only"
   },
   "python-packaging": {
+    "bugs": {
+      "1753700": {
+        "last_change": "2019-09-19 15:24:14",
+        "resolution": "",
+        "short_desc": "python-packaging: Remove (sub)packages from Fedora 32+: python2-packaging",
+        "status": "NEW",
+        "trackers": [
+          "F31_PY2REMOVAL",
+          "PY2REMOVAL"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753700"
+      }
+    },
     "build_deps": [
       "pyparsing",
       "python-pretend",
@@ -73533,7 +73569,7 @@
   "python-pkginfo": {
     "bugs": {
       "1741002": {
-        "last_change": "2019-09-17 16:30:04",
+        "last_change": "2019-09-19 22:48:24",
         "resolution": "",
         "short_desc": "python-pkginfo depends on Python 2",
         "status": "ASSIGNED",
@@ -81125,7 +81161,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python-qtconsole-doc-4.5.5-1.fc32": {
+      "python-qtconsole-doc-4.5.5-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -81134,7 +81170,7 @@
         },
         "py_deps": {}
       },
-      "python3-qtconsole-4.5.5-1.fc32": {
+      "python3-qtconsole-4.5.5-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -83068,10 +83104,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1432570"
       },
       "1740997": {
-        "last_change": "2019-09-13 10:41:31",
-        "resolution": "",
+        "last_change": "2019-09-19 19:53:24",
+        "resolution": "RAWHIDE",
         "short_desc": "Remove python2-rosdep",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL",
           "PY2REMOVAL"
@@ -83133,6 +83169,19 @@
     "status": "legacy-leaf"
   },
   "python-rosdistro": {
+    "bugs": {
+      "1753800": {
+        "last_change": "2019-09-19 22:37:59",
+        "resolution": "",
+        "short_desc": "python-rosdistro: Remove (sub)packages from Fedora 32+: python2-rosdistro",
+        "status": "NEW",
+        "trackers": [
+          "F31_PY2REMOVAL",
+          "PY2REMOVAL"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753800"
+      }
+    },
     "build_deps": [
       "PyYAML",
       "python-catkin_pkg",
@@ -83270,6 +83319,19 @@
     "status": "py3-only"
   },
   "python-rospkg": {
+    "bugs": {
+      "1753803": {
+        "last_change": "2019-09-19 22:38:35",
+        "resolution": "",
+        "short_desc": "python-rospkg: Remove (sub)packages from Fedora 32+: python2-rospkg",
+        "status": "NEW",
+        "trackers": [
+          "F31_PY2REMOVAL",
+          "PY2REMOVAL"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753803"
+      }
+    },
     "build_deps": [
       "PyYAML",
       "python-catkin_pkg",
@@ -87981,7 +88043,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-spyder-kernels-1:0.2.4-6.fc32": {
+      "python3-spyder-kernels-1:0.5.2-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -88055,7 +88117,7 @@
       "python27"
     ],
     "rpms": {
-      "python-sqlalchemy-doc-1.3.7-1.fc32": {
+      "python-sqlalchemy-doc-1.3.8-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -88064,7 +88126,7 @@
         },
         "py_deps": {}
       },
-      "python2-sqlalchemy-1.3.7-1.fc32": {
+      "python2-sqlalchemy-1.3.8-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -88076,7 +88138,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-sqlalchemy-1.3.7-1.fc32": {
+      "python3-sqlalchemy-1.3.8-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -93355,10 +93417,10 @@
   "python-vcstools": {
     "bugs": {
       "1751490": {
-        "last_change": "2019-09-12 05:35:25",
-        "resolution": "",
+        "last_change": "2019-09-19 11:09:34",
+        "resolution": "RAWHIDE",
         "short_desc": "python-vcstools: Remove (sub)packages from Fedora 32+: python2-vcstools",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL",
           "PY2REMOVAL"
@@ -93937,7 +93999,7 @@
   "python-volatility": {
     "bugs": {
       "1738194": {
-        "last_change": "2019-09-05 10:41:12",
+        "last_change": "2019-09-19 14:47:48",
         "resolution": "",
         "short_desc": "python-volatility depends on Python 2",
         "status": "NEW",
@@ -94385,15 +94447,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752405"
       }
     },
-    "build_deps": [
-      "python2-pytest",
-      "python27"
-    ],
-    "deps": [
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python-webencodings-doc-0.5.1-9.fc32": {
+      "python-webencodings-doc-0.5.1-10.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -94402,20 +94459,7 @@
         },
         "py_deps": {}
       },
-      "python2-webencodings-0.5.1-9.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2,
-          "python2": 2,
-          "python2 = 2.7.16-9.fc32": 2
-        }
-      },
-      "python3-webencodings-0.5.1-9.fc32": {
+      "python3-webencodings-0.5.1-10.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -94429,7 +94473,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "python-webob": {
     "bugs": {
@@ -94688,29 +94732,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752803"
       }
     },
-    "build_deps": [
-      "python-hypothesis",
-      "python-requests",
-      "python2-pytest",
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-werkzeug-0.14.1-11.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-werkzeug-0.14.1-11.fc32": {
+      "python3-werkzeug-0.14.1-12.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -94721,7 +94746,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "python3-werkzeug-doc-0.14.1-11.fc32": {
+      "python3-werkzeug-doc-0.14.1-12.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -94731,7 +94756,7 @@
         "py_deps": {}
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "python-wheel": {
     "build_deps": [],
@@ -98459,7 +98484,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-poppler-qt5-0.24.2-14.fc32": {
+      "python3-poppler-qt5-0.24.2-15.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -100597,7 +100622,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "rmlint-2.8.0-3.fc32": {
+      "rmlint-2.9.0-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -103927,7 +103952,7 @@
   "sugar": {
     "bugs": {
       "1737929": {
-        "last_change": "2019-09-12 05:34:32",
+        "last_change": "2019-09-19 09:32:03",
         "resolution": "",
         "short_desc": "sugar depends on Python 2",
         "status": "ASSIGNED",
@@ -105128,7 +105153,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1736722"
       },
       "1751488": {
-        "last_change": "2019-09-17 10:35:34",
+        "last_change": "2019-09-19 09:32:03",
         "resolution": "",
         "short_desc": "sugar-paint depends on Python 2",
         "status": "NEW",
@@ -106330,7 +106355,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "swift-lang-5.1-0.28.20190813git425a146.fc32": {
+      "swift-lang-5.1-0.55.20190917git1f49050.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -106338,7 +106363,7 @@
           "run_time": []
         },
         "py_deps": {
-          "libpython3.7m.so.1.0()(64bit)": 3
+          "libpython3.8.so.1.0()(64bit)": 3
         }
       }
     },
@@ -109218,10 +109243,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1736922"
       },
       "1751487": {
-        "last_change": "2019-09-12 05:33:13",
+        "last_change": "2019-09-19 09:38:04",
         "resolution": "",
         "short_desc": "tryton depends on Python 2",
-        "status": "NEW",
+        "status": "ASSIGNED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -110197,7 +110222,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1736927"
       },
       "1751486": {
-        "last_change": "2019-09-12 17:17:44",
+        "last_change": "2019-09-20 06:43:03",
         "resolution": "",
         "short_desc": "txt2tags depends on Python 2",
         "status": "NEW",
@@ -111523,7 +111548,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739939"
       },
       "1751485": {
-        "last_change": "2019-09-12 05:32:39",
+        "last_change": "2019-09-19 08:30:00",
         "resolution": "",
         "short_desc": "virtio-forwarder depends on Python 2",
         "status": "NEW",
@@ -111655,7 +111680,7 @@
   "votca-csg": {
     "bugs": {
       "1738146": {
-        "last_change": "2019-09-09 05:42:34",
+        "last_change": "2019-09-20 06:38:37",
         "resolution": "",
         "short_desc": "votca-csg depends on Python 2",
         "status": "NEW",
@@ -113374,7 +113399,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1736989"
       },
       "1751481": {
-        "last_change": "2019-09-12 05:29:33",
+        "last_change": "2019-09-19 08:29:52",
         "resolution": "",
         "short_desc": "yaws depends on Python 2",
         "status": "NEW",
