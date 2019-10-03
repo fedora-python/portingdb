@@ -100,6 +100,16 @@
                 {% endif %}
                 <br>
             {% endif %}
+            {%- if 'orphan' in pkg['maintainers'] -%}
+                <div>
+                    <i class="fa fa-power-off" title="The package is orphaned."></i>
+                    This package is
+                    <a href="https://fedoraproject.org/wiki/Orphaned_package_that_need_new_maintainers">orphaned</a>.
+                    It will be removed from Fedora if no one steps up to
+                    maintain it.
+                </div>
+                <br>
+            {%- endif -%}
             {% if pkg.ftbfs_age %}
                 <div>
                     {{ ftbfs_badge(pkg) }}
