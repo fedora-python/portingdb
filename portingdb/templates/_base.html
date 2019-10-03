@@ -46,7 +46,16 @@
         ignore_unversioned_requires=ignore_unversioned_requires,
     ) -}}
     {{- ftbfs_badge(pkg) -}}
+    {{- orphan_badge(pkg) -}}
 {%- endmacro %}
+
+{% macro orphan_badge(pkg) -%}
+    {%- if 'orphan' in pkg['maintainers'] -%}
+        <sup>
+            <i class="fa fa-power-off" title="The package is orphaned."></i>
+        </sup>
+    {%- endif -%}
+{%- endmacro -%}
 
 {% macro pkglink_icon(pkg) -%}
     <span class="pkgstatus-icon" style="background-color: {{ pkg.status_obj.color }}">&nbsp;</span>
