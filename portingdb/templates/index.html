@@ -212,8 +212,11 @@
                         {{ pkglink(pkg) }}
                         {% if pkg.pending_dependents %}
                            (needed for
-                               {% for req in pkg.pending_dependents.values() %}
-                                   {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
+                                {% for req in pkg.pending_dependents.values() -%}
+                                   {{- pkglink_text(req) -}}
+                                   {{- orphan_badge(req) -}}
+                                   {%- if not loop.last %}, {% endif -%}
+                                {%- endfor -%})
                         {% endif %}
                    </li>
                 {% endfor %}
@@ -231,8 +234,11 @@
                         {{ pkglink(pkg) }}
                         {% if pkg.pending_deps %}
                            (needs
-                               {% for req in pkg.pending_deps.values() %}
-                                   {{ pkglink_text(req) }}{% if not loop.last %},{% endif %}{% endfor %})
+                               {% for req in pkg.pending_deps.values() -%}
+                                   {{- pkglink_text(req) -}}
+                                   {{- orphan_badge(req) -}}
+                                   {%- if not loop.last %}, {% endif -%}
+                                {%- endfor -%})
                         {% endif %}
                    </li>
                {% endfor %}
