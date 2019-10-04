@@ -268,18 +268,20 @@ def format_time_ago(date):
             return "{} years ago".format(math.floor(diff.days / 365))
         else:
             return "a year ago"
+
     # Months
-    elif diff.days >= 31:
-        if diff.days >= 2 * 30:
-            return "{} months ago".format(math.floor(diff.days / 30))
-        else:
-            return "a month ago"
+    # We only switch to weeks starting with "2 months":
+    # "7 weeks" is still understandable (and more precisse than "a month").
+    # Also, for package orphans we want to see "6 weeks".
+    elif diff.days >= 2 * 30:
+        return "{} months ago".format(math.floor(diff.days / 30))
+
     # Weeks
-    elif diff.days >= 7:
-        if diff.days >= 2 * 7:
-            return "{} weeks ago".format(math.floor(diff.days / 7))
-        else:
-            return "a week ago"
+    # We only switch to weeks starting with "2 weeks":
+    # "13 days" is still understandable (and more precisse than "a week").
+    elif diff.days >= 2 * 7:
+        return "{} weeks ago".format(math.floor(diff.days / 7))
+
     # Days
     elif diff.days >= 2:
         return "{} days ago".format(diff.days)
@@ -708,6 +710,7 @@ def create_app(directories, cache_config=None):
             'len': len,
             'log': math.log,
             'config': app.config['CONFIG'],
+            'now': datetime.datetime.utcnow(),
         }
 
     def _add_route(url, func, **kwargs):

@@ -53,9 +53,33 @@
     {%- if 'orphan' in pkg['maintainers'] -%}
         <sup>
             <i class="fa fa-power-off" title="The package is orphaned."></i>
+            {{ orphan_clock_badge(pkg) }}
         </sup>
     {%- endif -%}
 {%- endmacro -%}
+
+{% macro orphan_clock_badge(pkg) -%}
+    {%- set change = pkg.get('last_repo_metadata_change') -%}
+    {%- if change -%}
+        {%- if (now - change).days >= 6*7 -%}
+            {{ _orphan_clock_badge_i("hourglass-o", change) }}
+        {%- elif (now - change).days > 5*7 -%}
+            {{ _orphan_clock_badge_i("hourglass-3", change) }}
+        {%- elif (now - change).days > 3*7 -%}
+            {{ _orphan_clock_badge_i("hourglass-2", change) }}
+        {%- elif (now - change).days >= 0 -%}
+            {{ _orphan_clock_badge_i("hourglass-1", change) }}
+        {%- else -%}
+            {{ _orphan_clock_badge_i("hourglass", change) }}
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro -%}
+
+{% macro _orphan_clock_badge_i(icon, change) -%}
+    <i class="fa fa-{{ icon }}"
+       title="Orphaned since {{ change | format_time_ago }},
+       {{- "\n" }}{{ change  }} ({{ (now - change).days }} days)."></i>
+{%- endmacro %}
 
 {% macro pkglink_icon(pkg) -%}
     <span class="pkgstatus-icon" style="background-color: {{ pkg.status_obj.color }}">&nbsp;</span>
