@@ -269,13 +269,13 @@ def format_time_ago(date):
         else:
             return "a year ago"
     # Months
-    elif diff.days >= 31:
+    elif diff.days >= 8*7:
         if diff.days >= 2 * 30:
             return "{} months ago".format(math.floor(diff.days / 30))
         else:
             return "a month ago"
     # Weeks
-    elif diff.days >= 7:
+    elif diff.days >= 10:
         if diff.days >= 2 * 7:
             return "{} weeks ago".format(math.floor(diff.days / 7))
         else:
@@ -708,6 +708,7 @@ def create_app(directories, cache_config=None):
             'len': len,
             'log': math.log,
             'config': app.config['CONFIG'],
+            'now': datetime.datetime.utcnow(),
         }
 
     def _add_route(url, func, **kwargs):

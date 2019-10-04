@@ -107,6 +107,22 @@
                     <a href="https://fedoraproject.org/wiki/Orphaned_package_that_need_new_maintainers">orphaned</a>.
                     It will be removed from Fedora if no one steps up to
                     maintain it.
+                    {% if 'last_repo_metadata_change' in pkg %}
+                        <br>
+                        {{ orphan_clock_badge(pkg) }}
+                        It is orphaned (at least) since
+                        <time
+                            datetime="{{ pkg['last_repo_metadata_change']}}"
+                            title="{{ pkg['last_repo_metadata_change']}}"
+                        >
+                            {{ pkg['last_repo_metadata_change'] | format_time_ago -}}
+                        </time>.
+                        Check the
+                        <a href="https://churchyard.fedorapeople.org/orphans.txt">
+                            orphan report
+                        </a>
+                        for details
+                    {% endif %}
                 </div>
                 <br>
             {%- endif -%}
