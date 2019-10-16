@@ -3054,7 +3054,7 @@
   "autodownloader": {
     "bugs": {
       "1737908": {
-        "last_change": "2019-09-17 06:32:26",
+        "last_change": "2019-10-16 09:07:27",
         "resolution": "",
         "short_desc": "autodownloader depends on Python 2",
         "status": "NEW",
@@ -3819,7 +3819,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1734966"
       },
       "1751483": {
-        "last_change": "2019-10-04 12:23:48",
+        "last_change": "2019-10-14 08:03:51",
         "resolution": "",
         "short_desc": "bibus depends on Python 2",
         "status": "NEW",
@@ -3965,7 +3965,7 @@
   "blender": {
     "bugs": {
       "1734980": {
-        "last_change": "2019-10-04 12:16:23",
+        "last_change": "2019-10-16 13:23:55",
         "resolution": "",
         "short_desc": "blender: FTBFS in Fedora rawhide/f31",
         "status": "ASSIGNED",
@@ -5303,7 +5303,7 @@
   "capstone": {
     "bugs": {
       "1760277": {
-        "last_change": "2019-10-10 22:40:26",
+        "last_change": "2019-10-15 01:16:54",
         "resolution": "NEXTRELEASE",
         "short_desc": "capstone: Remove (sub)packages from Fedora 32+: python2-capstone",
         "status": "CLOSED",
@@ -6274,6 +6274,16 @@
           "PYTHON3"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1530224"
+      },
+      "1762325": {
+        "last_change": "2019-10-16 14:32:34",
+        "resolution": "",
+        "short_desc": "cloud-utils fails to install in Fedora rawhide: retired python-ipaddress, orphaned euca2ools",
+        "status": "NEW",
+        "trackers": [
+          "PY2FTBI"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1762325"
       }
     },
     "build_deps": [],
@@ -6938,6 +6948,18 @@
     "status": "py3-only"
   },
   "copr-backend": {
+    "bugs": {
+      "1762326": {
+        "last_change": "2019-10-16 14:32:55",
+        "resolution": "",
+        "short_desc": "copr-backend fails to install in Fedora rawhide: retired python-ipaddress, orphaned euca2ools",
+        "status": "NEW",
+        "trackers": [
+          "PY2FTBI"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1762326"
+      }
+    },
     "build_deps": [],
     "deps": [
       "euca2ools"
@@ -7881,10 +7903,10 @@
   "dblatex": {
     "bugs": {
       "1737967": {
-        "last_change": "2019-09-10 14:38:05",
-        "resolution": "",
+        "last_change": "2019-10-16 08:47:16",
+        "resolution": "RAWHIDE",
         "short_desc": "dblatex depends on Python 2",
-        "status": "ASSIGNED",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -8292,7 +8314,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "dh-make-2.201801-3.fc31": {
+      "dh-make-2.201902-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -8413,7 +8435,7 @@
   "dionaea": {
     "bugs": {
       "1735088": {
-        "last_change": "2019-10-13 04:22:44",
+        "last_change": "2019-10-15 01:08:17",
         "resolution": "",
         "short_desc": "dionaea: FTBFS in Fedora rawhide/f31",
         "status": "NEW",
@@ -10094,6 +10116,16 @@
           "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1738906"
+      },
+      "1761782": {
+        "last_change": "2019-10-15 11:21:59",
+        "resolution": "",
+        "short_desc": "euca2ools fails to install in Fedora rawhide due to retired python2-ipaddress",
+        "status": "NEW",
+        "trackers": [
+          "PY2FTBI"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761782"
       }
     },
     "build_deps": [
@@ -11406,10 +11438,10 @@
   "file": {
     "bugs": {
       "1761223": {
-        "last_change": "2019-10-13 12:20:04",
-        "resolution": "",
+        "last_change": "2019-10-14 08:44:40",
+        "resolution": "RAWHIDE",
         "short_desc": "file: Remove (sub)packages from Fedora 32+: python2-magic",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL",
           "PY2REMOVAL"
@@ -11934,10 +11966,10 @@
   "fluxbox": {
     "bugs": {
       "1738904": {
-        "last_change": "2019-10-14 01:09:27",
+        "last_change": "2019-10-14 14:51:48",
         "resolution": "",
         "short_desc": "fluxbox depends on Python 2",
-        "status": "MODIFIED",
+        "status": "ON_QA",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -12900,7 +12932,6 @@
       "python27"
     ],
     "deps": [
-      "python-twisted",
       "python27"
     ],
     "rpms": {
@@ -18320,6 +18351,16 @@
           "F31FailsToInstall"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1702996"
+      },
+      "1762327": {
+        "last_change": "2019-10-16 14:33:22",
+        "resolution": "",
+        "short_desc": "imagefactory-plugins-EC2 fails to install in Fedora rawhide: retired python-ipaddress, orphaned euca2ools",
+        "status": "NEW",
+        "trackers": [
+          "PY2FTBI"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1762327"
       }
     },
     "build_deps": [],
@@ -18670,7 +18711,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1735800"
       },
       "1739652": {
-        "last_change": "2019-09-12 15:41:43",
+        "last_change": "2019-10-15 12:23:26",
         "resolution": "",
         "short_desc": "ioprocess: Remove (sub)packages from Fedora 31+: python2-ioprocess",
         "status": "NEW",
@@ -24598,7 +24639,7 @@
   "mcomix": {
     "bugs": {
       "1737823": {
-        "last_change": "2019-09-12 15:39:38",
+        "last_change": "2019-10-15 12:23:26",
         "resolution": "",
         "short_desc": "mcomix depends on Python 2",
         "status": "NEW",
@@ -24755,7 +24796,7 @@
   "mercurial": {
     "bugs": {
       "1737931": {
-        "last_change": "2019-10-11 16:08:50",
+        "last_change": "2019-10-14 15:50:04",
         "resolution": "",
         "short_desc": "mercurial depends on Python 2",
         "status": "ASSIGNED",
@@ -27803,10 +27844,10 @@
   "officeparser": {
     "bugs": {
       "1738063": {
-        "last_change": "2019-10-04 12:25:40",
+        "last_change": "2019-10-15 07:46:45",
         "resolution": "",
         "short_desc": "officeparser depends on Python 2",
-        "status": "NEW",
+        "status": "ASSIGNED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -28615,7 +28656,7 @@
   "openvas-manager": {
     "bugs": {
       "1736397": {
-        "last_change": "2019-10-13 04:26:01",
+        "last_change": "2019-10-15 02:48:49",
         "resolution": "",
         "short_desc": "openvas-manager: FTBFS in Fedora rawhide/f31",
         "status": "NEW",
@@ -28794,7 +28835,6 @@
       "python-lxml",
       "python-mysql",
       "python-sqlobject",
-      "python-twisted",
       "python-zope-interface",
       "python27"
     ],
@@ -31718,11 +31758,9 @@
       }
     },
     "build_deps": [
-      "python-cryptography",
       "python27"
     ],
     "deps": [
-      "python-cryptography",
       "python-six",
       "python27"
     ],
@@ -32190,10 +32228,10 @@
   "pycscope": {
     "bugs": {
       "1741022": {
-        "last_change": "2019-09-22 17:10:12",
-        "resolution": "",
+        "last_change": "2019-10-16 12:36:11",
+        "resolution": "WONTFIX",
         "short_desc": "pycscope depends on Python 2",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -33619,7 +33657,7 @@
   "pyparted": {
     "bugs": {
       "1761222": {
-        "last_change": "2019-10-13 12:18:29",
+        "last_change": "2019-10-14 17:32:10",
         "resolution": "",
         "short_desc": "pyparted: Remove (sub)packages from Fedora 32+: python2-pyparted",
         "status": "NEW",
@@ -34356,31 +34394,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761207"
       }
     },
-    "build_deps": [
-      "python-m2r",
-      "python-setuptools_scm",
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python-attrs",
-      "python-six",
-      "python2-setuptools",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-Automat-0.7.0-7.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-Automat-0.7.0-7.fc32": {
+      "python3-Automat-0.7.0-8.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -34393,7 +34410,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "python-BTrees": {
     "build_deps": [],
@@ -35322,7 +35339,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-ROPGadget-5.4-6.fc32": {
+      "python3-ROPGadget-5.8-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -38508,7 +38525,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "apprise-0.8.0-1.fc32": {
+      "apprise-0.8.1-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -38520,7 +38537,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "python3-apprise-0.8.0-1.fc32": {
+      "python3-apprise-0.8.1-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -38873,10 +38890,10 @@
   "python-asn1crypto": {
     "bugs": {
       "1761084": {
-        "last_change": "2019-10-14 07:47:03",
-        "resolution": "",
+        "last_change": "2019-10-14 08:32:51",
+        "resolution": "RAWHIDE",
         "short_desc": "python-asn1crypto: Remove (sub)packages from Fedora 32+: python2-asn1crypto",
-        "status": "MODIFIED",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL",
           "PY2REMOVAL"
@@ -39327,10 +39344,6 @@
   },
   "python-attrs": {
     "build_deps": [
-      "python-hypothesis",
-      "python-six",
-      "python-zope-interface",
-      "python2-pytest",
       "python2-setuptools",
       "python27"
     ],
@@ -39338,7 +39351,7 @@
       "python27"
     ],
     "rpms": {
-      "python2-attrs-19.1.0-5.fc32": {
+      "python2-attrs-19.1.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -39349,7 +39362,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-attrs-19.1.0-5.fc32": {
+      "python3-attrs-19.1.0-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -40074,32 +40087,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1758868"
       }
     },
-    "build_deps": [
-      "python-cffi",
-      "python-six",
-      "python2-pytest",
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python-cffi",
-      "python-six",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-bcrypt-3.1.7-2.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "libpython2.7.so.1.0()(64bit)": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-bcrypt-3.1.7-2.fc32": {
+      "python3-bcrypt-3.1.7-3.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -40111,7 +40102,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "python-beaker": {
     "build_deps": [],
@@ -42860,17 +42851,10 @@
     "status": "released"
   },
   "python-cffi": {
-    "build_deps": [
-      "python-pycparser",
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python-pycparser",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python-cffi-doc-1.12.3-4.fc32": {
+      "python-cffi-doc-1.12.3-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -42879,19 +42863,7 @@
         },
         "py_deps": {}
       },
-      "python2-cffi-1.12.3-4.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "libpython2.7.so.1.0()(64bit)": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-cffi-1.12.3-4.fc32": {
+      "python3-cffi-1.12.3-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -42903,7 +42875,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "python-cftime": {
     "build_deps": [],
@@ -45239,26 +45211,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761209"
       }
     },
-    "build_deps": [
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-constantly-15.1.0-7.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-constantly-15.1.0-7.fc32": {
+      "python3-constantly-15.1.0-8.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -45270,7 +45226,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "python-construct": {
     "bugs": {
@@ -46094,10 +46050,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747669"
       },
       "1761081": {
-        "last_change": "2019-10-14 07:47:33",
-        "resolution": "",
+        "last_change": "2019-10-14 08:32:01",
+        "resolution": "RAWHIDE",
         "short_desc": "python-cryptography: Remove (sub)packages from Fedora 32+: python2-cryptography",
-        "status": "POST",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL",
           "PY2REMOVAL"
@@ -46105,42 +46061,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761081"
       }
     },
-    "build_deps": [
-      "python-cffi",
-      "python-enum34",
-      "python-hypothesis",
-      "python-idna",
-      "python-ipaddress",
-      "python-iso8601",
-      "python-pretend",
-      "python-six",
-      "python2-pytest",
-      "python2-setuptools",
-      "python27",
-      "pytz"
-    ],
-    "deps": [
-      "python-cffi",
-      "python-enum34",
-      "python-idna",
-      "python-ipaddress",
-      "python-six",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-cryptography-2.7-1.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "libpython2.7.so.1.0()(64bit)": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-cryptography-2.7-1.fc32": {
+      "python3-cryptography-2.7-3.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -46152,15 +46076,15 @@
         }
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "python-cryptography-vectors": {
     "bugs": {
       "1761082": {
-        "last_change": "2019-10-12 19:23:02",
-        "resolution": "",
+        "last_change": "2019-10-14 19:16:05",
+        "resolution": "RAWHIDE",
         "short_desc": "python-cryptography-vectors: Remove (sub)packages from Fedora 32+: python2-cryptography-vectors",
-        "status": "ON_QA",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL",
           "PY2REMOVAL"
@@ -50104,6 +50028,18 @@
     "status": "py3-only"
   },
   "python-dulwich": {
+    "bugs": {
+      "1761783": {
+        "last_change": "2019-10-15 11:22:45",
+        "resolution": "",
+        "short_desc": "python2-dulwich fails to install in Fedora rawhide due to retired python2-ipaddress",
+        "status": "NEW",
+        "trackers": [
+          "PY2FTBI"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761783"
+      }
+    },
     "build_deps": [
       "python-docutils",
       "python-nose",
@@ -55822,7 +55758,6 @@
       "python27"
     ],
     "deps": [
-      "python-twisted",
       "python-zope-interface",
       "python27"
     ],
@@ -56617,8 +56552,8 @@
     ],
     "rpms": {
       "python2-hamcrest-1.9.0-11.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
+        "almost_leaf": true,
+        "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -56639,7 +56574,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "legacy-leaf"
   },
   "python-hdfs": {
     "bugs": {
@@ -57667,17 +57602,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761205"
       }
     },
-    "build_deps": [
-      "python-idna",
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python-idna",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python-hyperlink-doc-19.0.0-4.fc32": {
+      "python-hyperlink-doc-19.0.0-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -57686,18 +57614,7 @@
         },
         "py_deps": {}
       },
-      "python2-hyperlink-19.0.0-4.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-hyperlink-19.0.0-4.fc32": {
+      "python3-hyperlink-19.0.0-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -57709,7 +57626,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "python-hypothesis": {
     "build_deps": [
@@ -58245,8 +58162,8 @@
     ],
     "rpms": {
       "python2-incremental-17.5.0-8.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
+        "almost_leaf": true,
+        "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -58267,7 +58184,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "legacy-leaf"
   },
   "python-indexed_gzip": {
     "build_deps": [],
@@ -58772,10 +58689,10 @@
   "python-ipaddress": {
     "bugs": {
       "1739531": {
-        "last_change": "2019-09-03 16:45:03",
-        "resolution": "",
+        "last_change": "2019-10-14 17:29:25",
+        "resolution": "RAWHIDE",
         "short_desc": "python-ipaddress depends on Python 2",
-        "status": "ASSIGNED",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -59186,8 +59103,8 @@
     ],
     "rpms": {
       "python2-iso8601-0.1.11-15.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
+        "almost_leaf": true,
+        "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -59208,7 +59125,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "legacy-leaf"
   },
   "python-isodate": {
     "bugs": {
@@ -59687,6 +59604,16 @@
           "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1741007"
+      },
+      "1761784": {
+        "last_change": "2019-10-15 11:23:40",
+        "resolution": "",
+        "short_desc": "python2-jenkinsapi fails to install in Fedora rawhide due to retired python2-ipaddress",
+        "status": "NEW",
+        "trackers": [
+          "PY2FTBI"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761784"
       }
     },
     "build_deps": [
@@ -73095,8 +73022,8 @@
     ],
     "rpms": {
       "python2-pretend-1.0.8-18.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
+        "almost_leaf": true,
+        "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -73117,7 +73044,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "legacy-leaf"
   },
   "python-prettyprinter": {
     "build_deps": [],
@@ -74579,8 +74506,8 @@
     ],
     "rpms": {
       "python2-pycparser-2.14-22.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
+        "almost_leaf": true,
+        "legacy_leaf": true,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
@@ -74601,15 +74528,15 @@
         }
       }
     },
-    "status": "released"
+    "status": "legacy-leaf"
   },
   "python-pycryptodomex": {
     "bugs": {
       "1761070": {
-        "last_change": "2019-10-12 09:30:45",
+        "last_change": "2019-10-15 12:00:05",
         "resolution": "",
         "short_desc": "python-pycryptodomex: Remove (sub)packages from Fedora 32+: python2-pycryptodomex",
-        "status": "NEW",
+        "status": "ASSIGNED",
         "trackers": [
           "F31_PY2REMOVAL",
           "PY2REMOVAL"
@@ -76235,33 +76162,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1758867"
       }
     },
-    "build_deps": [
-      "python-cffi",
-      "python-hypothesis",
-      "python-six",
-      "python2-pytest",
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python-cffi",
-      "python-six",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-pynacl-1.3.0-4.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "libpython2.7.so.1.0()(64bit)": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-pynacl-1.3.0-4.fc32": {
+      "python3-pynacl-1.3.0-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -76273,7 +76177,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "python-pynetdicom": {
     "build_deps": [],
@@ -80683,6 +80587,16 @@
           "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1738096"
+      },
+      "1761786": {
+        "last_change": "2019-10-15 11:24:12",
+        "resolution": "",
+        "short_desc": "python2-requestbuilder fails to install in Fedora rawhide due to retired python2-ipaddress",
+        "status": "NEW",
+        "trackers": [
+          "PY2FTBI"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761786"
       }
     },
     "build_deps": [
@@ -80710,6 +80624,18 @@
     "status": "idle"
   },
   "python-requests": {
+    "bugs": {
+      "1761787": {
+        "last_change": "2019-10-16 14:36:30",
+        "resolution": "",
+        "short_desc": "python2-requests fails to install in Fedora rawhide due to retired python2-ipaddress",
+        "status": "NEW",
+        "trackers": [
+          "PY2FTBI"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761787"
+      }
+    },
     "build_deps": [
       "python-chardet",
       "python-idna",
@@ -84452,7 +84378,6 @@
       "python27"
     ],
     "deps": [
-      "python-twisted",
       "python2-setuptools",
       "python27"
     ],
@@ -85315,7 +85240,7 @@
   "python-speedtest-cli": {
     "bugs": {
       "1740994": {
-        "last_change": "2019-09-13 21:11:48",
+        "last_change": "2019-10-16 12:25:39",
         "resolution": "",
         "short_desc": "python-speedtest-cli depends on Python 2",
         "status": "NEW",
@@ -87320,10 +87245,10 @@
   "python-subprocess32": {
     "bugs": {
       "1734859": {
-        "last_change": "2019-10-13 04:22:21",
+        "last_change": "2019-10-15 15:28:17",
         "resolution": "",
         "short_desc": "python-subprocess32: FTBFS in Fedora rawhide/f31",
-        "status": "NEW",
+        "status": "ON_QA",
         "trackers": [
           "F31FTBFS"
         ],
@@ -87340,7 +87265,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1735391"
       },
       "1751491": {
-        "last_change": "2019-09-13 05:55:07",
+        "last_change": "2019-10-15 12:23:26",
         "resolution": "",
         "short_desc": "python-subprocess32 depends on Python 2",
         "status": "NEW",
@@ -87492,27 +87417,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1759050"
       }
     },
-    "build_deps": [
-      "python-six",
-      "python2-pytest",
-      "python27"
-    ],
-    "deps": [
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-suds-0.7-0.15.94664ddd46a6.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-suds-0.7-0.15.94664ddd46a6.fc32": {
+      "python3-suds-0.7-0.16.94664ddd46a6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -87524,7 +87432,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "python-supersmoother": {
     "build_deps": [],
@@ -90244,37 +90152,6 @@
     },
     "status": "py3-only"
   },
-  "python-tw2-jquery": {
-    "bugs": {
-      "1739929": {
-        "last_change": "2019-09-14 16:31:08",
-        "resolution": "ERRATA",
-        "short_desc": "python2-tw2-jquery fails to install in Fedora 31",
-        "status": "CLOSED",
-        "trackers": [
-          "PY2FTBI",
-          "F31FailsToInstall"
-        ],
-        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739929"
-      }
-    },
-    "build_deps": [],
-    "deps": [],
-    "rpms": {
-      "python3-tw2-jquery-2.2.0.2-11.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 3.8": 3
-        }
-      }
-    },
-    "status": "py3-only"
-  },
   "python-twiggy": {
     "bugs": {
       "1629822": {
@@ -90391,42 +90268,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761204"
       }
     },
-    "build_deps": [
-      "python-incremental",
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python-Automat",
-      "python-attrs",
-      "python-constantly",
-      "python-hamcrest",
-      "python-hyperlink",
-      "python-incremental",
-      "python-zope-interface",
-      "python2-setuptools",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-twisted-19.7.0-1.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [
-            "telepathy-idle",
-            "telepathy-mission-control",
-            "telepathy-rakia",
-            "telepathy-salut"
-          ],
-          "run_time": []
-        },
-        "py_deps": {
-          "/usr/bin/python2": 2,
-          "libpython2.7.so.1.0()(64bit)": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-twisted-19.7.0-1.fc32": {
+      "python3-twisted-19.7.0-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -90439,7 +90284,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "python-twitter": {
     "bugs": {
@@ -91386,6 +91231,16 @@
           "F31FailsToInstall"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747672"
+      },
+      "1761789": {
+        "last_change": "2019-10-15 11:25:28",
+        "resolution": "",
+        "short_desc": "python2-urllib3 fails to install in Fedora rawhide due to retired python2-ipaddress",
+        "status": "NEW",
+        "trackers": [
+          "PY2FTBI"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761789"
       }
     },
     "build_deps": [
@@ -92329,7 +92184,7 @@
   "python-volatility": {
     "bugs": {
       "1738194": {
-        "last_change": "2019-10-07 08:10:50",
+        "last_change": "2019-10-14 21:50:23",
         "resolution": "",
         "short_desc": "python-volatility depends on Python 2",
         "status": "NEW",
@@ -95469,7 +95324,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1701932"
       },
       "1739520": {
-        "last_change": "2019-09-12 15:39:02",
+        "last_change": "2019-10-15 12:23:26",
         "resolution": "",
         "short_desc": "python2-matplotlib depends on Python 2",
         "status": "NEW",
@@ -95875,7 +95730,7 @@
   "python27": {
     "bugs": {
       "1690439": {
-        "last_change": "2019-10-10 11:46:34",
+        "last_change": "2019-10-16 14:33:22",
         "resolution": "",
         "short_desc": "Tracking bug for packages that fail to build or install due to missing Python 2 dependency",
         "status": "ASSIGNED",
@@ -95948,7 +95803,6 @@
             "lnav",
             "lv2-sorcer",
             "malaga-suomi-voikko",
-            "mchange-commons",
             "mingw-qt5-qtwebkit",
             "mingw-wine-gecko",
             "mozjs52",
@@ -96016,10 +95870,10 @@
   "python3": {
     "bugs": {
       "1312032": {
-        "last_change": "2019-04-05 03:05:03",
-        "resolution": "",
+        "last_change": "2019-10-15 13:06:26",
+        "resolution": "RAWHIDE",
         "short_desc": "Tracking: Packages with an existing Python 3 patch",
-        "status": "ASSIGNED",
+        "status": "CLOSED",
         "trackers": [
           "PYTHON3",
           "PY3PATCH-PUSH"
@@ -96027,7 +95881,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
       },
       "1322027": {
-        "last_change": "2019-04-05 03:05:04",
+        "last_change": "2019-10-15 13:08:09",
         "resolution": "",
         "short_desc": "Tracking: Python 3 Upstream Porting",
         "status": "NEW",
@@ -96058,20 +95912,20 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1333770"
       },
       "1340802": {
-        "last_change": "2019-09-06 10:09:28",
-        "resolution": "",
+        "last_change": "2019-10-15 13:12:30",
+        "resolution": "NOTABUG",
         "short_desc": "Tracking: Python RPMs that depend both on Python 2 and Python 3",
-        "status": "ASSIGNED",
+        "status": "CLOSED",
         "trackers": [
           "PYTHON3"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1340802"
       },
       "1432186": {
-        "last_change": "2019-04-05 03:05:09",
-        "resolution": "",
+        "last_change": "2019-10-15 13:12:58",
+        "resolution": "NOTABUG",
         "short_desc": "Tracking: Missing executables in Python 3 subpackage",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "PYTHON3"
         ],
@@ -98832,7 +98686,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1538657"
       },
       "1761211": {
-        "last_change": "2019-10-14 07:39:51",
+        "last_change": "2019-10-14 08:12:31",
         "resolution": "",
         "short_desc": "rpm: Remove (sub)packages from Fedora 32+: python2-rpm",
         "status": "NEW",
@@ -104683,7 +104537,7 @@
   "system-switch-java": {
     "bugs": {
       "1738165": {
-        "last_change": "2019-10-11 08:56:11",
+        "last_change": "2019-10-14 10:48:17",
         "resolution": "",
         "short_desc": "system-switch-java depends on Python 2",
         "status": "NEW",
@@ -104879,10 +104733,10 @@
   "taskcoach": {
     "bugs": {
       "1737873": {
-        "last_change": "2019-10-13 23:24:43",
-        "resolution": "",
+        "last_change": "2019-10-14 16:00:56",
+        "resolution": "RAWHIDE",
         "short_desc": "taskcoach depends on Python 2",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -104894,7 +104748,6 @@
     ],
     "deps": [
       "pygobject3",
-      "python-twisted",
       "python27",
       "wxPython"
     ],
@@ -104949,7 +104802,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-tbb-2019.8-4.fc32": {
+      "python3-tbb-2019.9-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -110162,11 +110015,12 @@
   "whipper": {
     "bugs": {
       "1739019": {
-        "last_change": "2019-10-10 15:41:36",
+        "last_change": "2019-10-15 11:26:53",
         "resolution": "",
         "short_desc": "whipper depends on Python 2",
         "status": "NEW",
         "trackers": [
+          "PY2FTBI",
           "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739019"
@@ -110335,7 +110189,6 @@
       "python-pam",
       "python-pillow",
       "python-pyasn1",
-      "python-twisted",
       "python-utmp",
       "python-xlib",
       "python27"
