@@ -135,8 +135,8 @@ def check_fti(ctx, repo, arch, results, open_bug_reports):
         source = rpms_srpms[name]
         filtered[name] = info
         filtered[name]['source'] = source
-        if source.startswith('sugar-'):
-            # too many broken sugars to file separately
+        if source.startswith(('sugar-', 'gr-')):
+            # too many broken sugars and radios to file separately
             continue
 
         will_file = False
