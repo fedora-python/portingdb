@@ -189,7 +189,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "Cadence-1.0.0-0.5.20180827git4a5f5b4.fc31": {
+      "Cadence-1.0.0-0.6.20191021git0642494.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -207,7 +207,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "Carla-2.0.0-0.11.20190501git41f81a8.fc31": {
+      "Carla-2.1-2.beta13322c9f.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -755,13 +755,13 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1735423"
       },
       "1764574": {
-        "last_change": "2019-10-23 11:12:56",
-        "resolution": "",
+        "last_change": "2019-10-30 13:38:21",
+        "resolution": "RAWHIDE",
         "short_desc": "PyGreSQL: Remove (sub)packages from Fedora 32+: python2-pygresql",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764574"
       }
@@ -769,23 +769,9 @@
     "build_deps": [
       "python27"
     ],
-    "deps": [
-      "python27"
-    ],
+    "deps": [],
     "rpms": {
-      "python2-pygresql-5.1-3.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "libpython2.7.so.1.0()(64bit)": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-pygresql-5.1-3.fc32": {
+      "python3-pygresql-5.1-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -797,7 +783,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "PyMca": {
     "build_deps": [],
@@ -1365,8 +1351,8 @@
         "short_desc": "abiword: FTBFS in Fedora rawhide/f31",
         "status": "ASSIGNED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "F31FTBFS"
+          "F31FTBFS",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1734919"
       },
@@ -1565,7 +1551,7 @@
         "py_deps": {
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -2147,7 +2133,7 @@
           "python3": 3,
           "python3 = 3.8.0-1.fc32": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -2526,7 +2512,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "asterisk-16.6.1-1.fc32": {
+      "asterisk-17.0.0-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -3144,7 +3130,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=555628"
       },
       "1737905": {
-        "last_change": "2019-10-21 00:08:30",
+        "last_change": "2019-10-29 12:43:53",
         "resolution": "",
         "short_desc": "b43-tools depends on Python 2",
         "status": "NEW",
@@ -4879,8 +4865,8 @@
         "status": "CLOSED",
         "trackers": [
           "PY2FTBI",
-          "F31_PY2REMOVAL",
-          "F31FailsToInstall"
+          "F31FailsToInstall",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1731396"
       },
@@ -4992,8 +4978,8 @@
         "short_desc": "capstone: Remove (sub)packages from Fedora 32+: python2-capstone",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1760277"
       }
@@ -5018,7 +5004,7 @@
   "captcp": {
     "bugs": {
       "1737903": {
-        "last_change": "2019-10-19 10:28:15",
+        "last_change": "2019-10-29 12:43:36",
         "resolution": "",
         "short_desc": "captcp depends on Python 2",
         "status": "NEW",
@@ -5231,7 +5217,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -5852,10 +5838,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1530224"
       },
       "1762325": {
-        "last_change": "2019-10-23 23:07:32",
+        "last_change": "2019-10-30 06:49:45",
         "resolution": "",
         "short_desc": "cloud-utils fails to install in Fedora rawhide: retired python-ipaddress, euca2ools",
-        "status": "NEW",
+        "status": "ASSIGNED",
         "trackers": [
           "PY2FTBI"
         ],
@@ -6058,7 +6044,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "cockpit-docker-205.1-1.fc32": {
+      "cockpit-docker-206-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -6069,7 +6055,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "cockpit-storaged-205.1-1.fc32": {
+      "cockpit-storaged-206-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -6950,7 +6936,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "crypto-policies-20190816-4.gitbb9bf99.fc32": {
+      "crypto-policies-20191002-1.gitc93dc99.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -7731,7 +7717,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "deluge-common-2.0.3-4.fc32": {
+      "deluge-common-2.0.3-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -7742,7 +7728,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "deluge-console-2.0.3-4.fc32": {
+      "deluge-console-2.0.3-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -7754,7 +7740,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "deluge-daemon-2.0.3-4.fc32": {
+      "deluge-daemon-2.0.3-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -7765,7 +7751,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "deluge-gtk-2.0.3-4.fc32": {
+      "deluge-gtk-2.0.3-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -7776,10 +7762,10 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       },
-      "deluge-web-2.0.3-4.fc32": {
+      "deluge-web-2.0.3-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -7886,6 +7872,48 @@
     "deps": [],
     "rpms": {
       "diceware-0.9.5-5.fc32": {
+        "almost_leaf": false,
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "/usr/bin/python3": 3,
+          "python(abi) = 3.8": 3
+        }
+      }
+    },
+    "status": "py3-only"
+  },
+  "did": {
+    "bugs": {
+      "1655126": {
+        "last_change": "2019-08-31 07:39:18",
+        "resolution": "EOL",
+        "short_desc": "did-0.11-1.fc30 not installable in rawhide",
+        "status": "CLOSED",
+        "trackers": [
+          "PY2FTBI",
+          "F31FailsToInstall"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1655126"
+      },
+      "1738912": {
+        "last_change": "2019-09-22 11:30:13",
+        "resolution": "WONTFIX",
+        "short_desc": "did depends on Python 2",
+        "status": "CLOSED",
+        "trackers": [
+          "F31_PY2REMOVAL"
+        ],
+        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1738912"
+      }
+    },
+    "build_deps": [],
+    "deps": [],
+    "rpms": {
+      "did-0.14-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -8725,7 +8753,7 @@
         "py_deps": {
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       },
       "python3-dogtail-scripts-0.9.11-6.fc32": {
@@ -8738,7 +8766,7 @@
         "py_deps": {
           "/usr/bin/python3": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -10856,8 +10884,8 @@
         "short_desc": "file: Remove (sub)packages from Fedora 32+: python2-magic",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761223"
       }
@@ -11320,10 +11348,10 @@
   "fluxbox": {
     "bugs": {
       "1738904": {
-        "last_change": "2019-10-26 17:25:42",
-        "resolution": "ERRATA",
+        "last_change": "2019-10-29 12:15:51",
+        "resolution": "",
         "short_desc": "fluxbox depends on Python 2",
-        "status": "CLOSED",
+        "status": "NEW",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -11671,7 +11699,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "frama-c-19.1-2.fc32": {
+      "frama-c-19.1-3.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -11689,7 +11717,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "freecad-1:0.18.3-5.fc32.1": {
+      "freecad-1:0.18.3-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -11926,7 +11954,7 @@
   "freeorion": {
     "bugs": {
       "1738008": {
-        "last_change": "2019-08-14 08:54:22",
+        "last_change": "2019-10-30 01:05:13",
         "resolution": "",
         "short_desc": "freeorion depends on Python 2",
         "status": "ASSIGNED",
@@ -12719,8 +12747,8 @@
         "short_desc": "gfal2-python: Remove (sub)packages from Fedora 32+: python2-gfal2",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752143"
       }
@@ -13425,7 +13453,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "glibc-benchtests-2.30.9000-15.fc32": {
+      "glibc-benchtests-2.30.9000-16.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -13861,7 +13889,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -13889,7 +13917,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "gnome-passwordsafe-3.32.0-2.fc32": {
+      "gnome-passwordsafe-3.32.0-3.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -15273,7 +15301,7 @@
         "py_deps": {
           "python(abi) = 3.7": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -15306,7 +15334,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.7": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -15320,8 +15348,8 @@
         "short_desc": "graphviz: Remove (sub)packages from Fedora 32+: graphviz-python2",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764870"
       }
@@ -15367,8 +15395,8 @@
         "short_desc": "grass: FTBFS in Fedora rawhide/f31",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "F31FTBFS"
+          "F31FTBFS",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1735313"
       },
@@ -15746,7 +15774,7 @@
           "python3": 3,
           "python3 = 3.8.0-1.fc32": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -16255,7 +16283,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1735339"
       },
       "1738953": {
-        "last_change": "2019-08-26 13:46:21",
+        "last_change": "2019-10-30 19:50:05",
         "resolution": "",
         "short_desc": "hgview depends on Python 2",
         "status": "NEW",
@@ -16275,8 +16303,7 @@
       "python-docutils",
       "python-inotify",
       "python-pygments",
-      "python27",
-      "qscintilla"
+      "python27"
     ],
     "rpms": {
       "hgview-1.12.0-1.fc32": {
@@ -16927,7 +16954,7 @@
         },
         "py_deps": {
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       },
       "ibus-anthy-tests-1.5.11-4.fc32": {
@@ -17255,7 +17282,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1702996"
       },
       "1762327": {
-        "last_change": "2019-10-23 23:07:58",
+        "last_change": "2019-10-30 10:43:26",
         "resolution": "",
         "short_desc": "imagefactory-plugins-EC2 fails to install in Fedora rawhide: retired python-ipaddress, euca2ools",
         "status": "NEW",
@@ -17616,8 +17643,8 @@
         "short_desc": "ioprocess: Remove (sub)packages from Fedora 31+: python2-ioprocess",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739652"
       }
@@ -18525,7 +18552,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "kernel-tools-5.4.0-0.rc1.git0.1.fc32": {
+      "kernel-tools-5.4.0-0.rc5.git0.1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -18536,7 +18563,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "python3-perf-5.4.0-0.rc1.git0.1.fc32": {
+      "python3-perf-5.4.0-0.rc5.git0.1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -18721,10 +18748,10 @@
   "kig": {
     "bugs": {
       "1738033": {
-        "last_change": "2019-10-20 11:59:48",
-        "resolution": "",
+        "last_change": "2019-10-29 14:46:16",
+        "resolution": "RAWHIDE",
         "short_desc": "kig depends on Python 2",
-        "status": "ASSIGNED",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -18737,19 +18764,20 @@
     ],
     "deps": [],
     "rpms": {
-      "kig-19.08.1-2.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
+      "kig-19.08.1-3.fc32": {
+        "almost_leaf": false,
+        "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
           "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python2": 2
+          "/usr/bin/python3": 3,
+          "libpython3.8.so.1.0()(64bit)": 3
         }
       }
     },
-    "status": "idle"
+    "status": "py3-only"
   },
   "kismon": {
     "build_deps": [],
@@ -18766,7 +18794,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -20521,7 +20549,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-libkml-1.3.0-23.fc32": {
+      "python3-libkml-1.3.0-24.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -20586,8 +20614,8 @@
         "short_desc": "libldb, libtalloc, libtevent, libtdb: Remove Python 2 subpackages from Fedora 31+",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1737644"
       }
@@ -21925,8 +21953,8 @@
         "short_desc": "libxml2: Remove (sub)packages from Fedora 32+: python2-libxml2",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764869"
       }
@@ -21968,7 +21996,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-libyang-0.16.105-4.fc32": {
+      "python3-libyang-1.0.73-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -22528,7 +22556,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -22848,8 +22876,8 @@
         "short_desc": "m2crypto: Remove (sub)packages from Fedora 32+: python2-m2crypto",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754899"
       }
@@ -23066,10 +23094,10 @@
   "mailnag": {
     "bugs": {
       "1737817": {
-        "last_change": "2019-08-15 06:37:37",
-        "resolution": "",
+        "last_change": "2019-10-31 07:01:44",
+        "resolution": "RAWHIDE",
         "short_desc": "mailnag depends on Python 2",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "F31_PY2REMOVAL"
         ],
@@ -23482,7 +23510,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -23829,7 +23857,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -24129,7 +24157,7 @@
       "python27"
     ],
     "rpms": {
-      "python2-mod_wsgi-4.6.6-4.fc32": {
+      "python2-mod_wsgi-4.6.6-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -24144,7 +24172,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-mod_wsgi-4.6.6-4.fc32": {
+      "python3-mod_wsgi-4.6.6-5.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -25277,8 +25305,8 @@
         "short_desc": "newt: Remove (sub)packages from Fedora 32+: python2-newt",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1763073"
       }
@@ -27258,7 +27286,7 @@
   "openvas-manager": {
     "bugs": {
       "1736397": {
-        "last_change": "2019-10-20 17:17:53",
+        "last_change": "2019-10-29 20:35:48",
         "resolution": "",
         "short_desc": "openvas-manager: FTBFS in Fedora rawhide/f31",
         "status": "ASSIGNED",
@@ -27592,7 +27620,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "ovn-2.12.0-3.fc32": {
+      "ovn-2.12.0-4.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -28062,8 +28090,8 @@
         "short_desc": "pcapy: Remove (sub)packages from Fedora 32+: python2-pcapy",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1760138"
       }
@@ -28387,7 +28415,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -28681,7 +28709,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -28838,7 +28866,7 @@
           "libpython3.8.so.1.0()(64bit)": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -29625,8 +29653,8 @@
         "short_desc": "protobuf: Remove (sub)packages from Fedora 32+: python2-protobuf",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1765879"
       }
@@ -30119,8 +30147,8 @@
         "short_desc": "pyOpenSSL: Remove (sub)packages from Fedora 32+: python2-pyOpenSSL",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1760139"
       }
@@ -30150,8 +30178,8 @@
         "short_desc": "pyatspi: Remove (sub)packages from Fedora 32+: python2-pyatspi",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746755"
       }
@@ -30358,7 +30386,7 @@
       "python27"
     ],
     "rpms": {
-      "python2-cairo-1.18.2-1.fc32": {
+      "python2-cairo-1.18.2-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -30370,7 +30398,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python2-cairo-devel-1.18.2-1.fc32": {
+      "python2-cairo-devel-1.18.2-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -30384,7 +30412,7 @@
           "python2-devel = 2.7.17-1.fc32": 2
         }
       },
-      "python3-cairo-1.18.2-1.fc32": {
+      "python3-cairo-1.18.2-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -30395,7 +30423,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "python3-cairo-devel-1.18.2-1.fc32": {
+      "python3-cairo-devel-1.18.2-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -30403,7 +30431,7 @@
           "run_time": []
         },
         "py_deps": {
-          "python3-cairo(x86-64) = 1.18.2-1.fc32": 3,
+          "python3-cairo(x86-64) = 1.18.2-2.fc32": 3,
           "python3-devel": 3,
           "python3-devel = 3.8.0-1.fc32": 3
         }
@@ -30686,8 +30714,8 @@
         "short_desc": "pyflakes: Remove (sub)packages from Fedora 32+: python2-pyflakes",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754877"
       }
@@ -30737,48 +30765,6 @@
           "python(abi) = 3.8": 3,
           "python3": 3,
           "python3 = 3.8.0-1.fc32": 3
-        }
-      }
-    },
-    "status": "py3-only"
-  },
-  "pyftpdlib": {
-    "bugs": {
-      "1361789": {
-        "last_change": "2016-07-30 16:11:52",
-        "resolution": "RAWHIDE",
-        "short_desc": "pyftpdlib: python2-pyftpdlib requires both Python 2 and Python 3",
-        "status": "CLOSED",
-        "trackers": [
-          "PYTHON3",
-          "PY3PATCH-AVAILABLE"
-        ],
-        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1361789"
-      },
-      "1686392": {
-        "last_change": "2019-04-03 12:27:43",
-        "resolution": "RAWHIDE",
-        "short_desc": "pyftpdlib: Remove (sub)packages from Fedora 31+: python2-pyftpdlib",
-        "status": "CLOSED",
-        "trackers": [
-          "PY2REMOVAL"
-        ],
-        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1686392"
-      }
-    },
-    "build_deps": [],
-    "deps": [],
-    "rpms": {
-      "python3-pyftpdlib-1.5.4-10.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "/usr/bin/python3": 3,
-          "python(abi) = 3.8": 3
         }
       }
     },
@@ -30966,7 +30952,7 @@
         },
         "py_deps": {
           "python(abi) = 3.8": 3,
-          "python3-cairo(x86-64) = 1.18.2-1.fc32": 3
+          "python3-cairo(x86-64) = 1.18.2-2.fc32": 3
         }
       },
       "python3-gobject-base-3.34.0-3.fc32": {
@@ -31924,8 +31910,8 @@
         "short_desc": "pyparted: Remove (sub)packages from Fedora 32+: python2-pyparted",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761222"
       }
@@ -32078,7 +32064,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "pyproject-rpm-macros-0-7.fc32": {
+      "pyproject-rpm-macros-0-8.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -32361,7 +32347,7 @@
   "pyside-tools": {
     "bugs": {
       "1738123": {
-        "last_change": "2019-10-17 18:38:37",
+        "last_change": "2019-10-30 13:41:06",
         "resolution": "",
         "short_desc": "pyside-tools depends on Python 2",
         "status": "NEW",
@@ -32481,8 +32467,8 @@
         "short_desc": "pysvn: Remove (sub)packages from Fedora 32+: python2-pysvn",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747666"
       }
@@ -32633,8 +32619,8 @@
         "short_desc": "python-Automat: Remove (sub)packages from Fedora 32+: python2-Automat",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761207"
       }
@@ -32929,8 +32915,8 @@
         "short_desc": "python-IPy: Remove (sub)packages from Fedora 31+: python2-IPy",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739662"
       }
@@ -32971,8 +32957,8 @@
         "short_desc": "python-Levenshtein: Remove (sub)packages from Fedora 31+: python2-Levenshtein",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739651"
       }
@@ -33488,8 +33474,8 @@
         "short_desc": "python-Pyped: Remove (sub)packages from Fedora 32+: python2-Pyped",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748829"
       }
@@ -33556,8 +33542,8 @@
         "short_desc": "python-ROPGadget: Remove (sub)packages from Fedora 32+: python2-ROPGadget",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746762"
       }
@@ -36005,8 +35991,8 @@
         "short_desc": "python-alembic: Remove (sub)packages from Fedora 32+: python2-alembic",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1751088"
       }
@@ -36690,8 +36676,8 @@
         "short_desc": "python-appdirs: Remove (sub)packages from Fedora 32+: python2-appdirs",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748315"
       }
@@ -36977,8 +36963,8 @@
         "short_desc": "python-arrow: Remove (sub)packages from Fedora 32+: python2-arrow",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748828"
       }
@@ -37087,8 +37073,8 @@
         "short_desc": "python-asn1crypto: Remove (sub)packages from Fedora 32+: python2-asn1crypto",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761084"
       }
@@ -37546,8 +37532,8 @@
         "short_desc": "python-audioread: Remove (sub)packages from Fedora 32+: python2-audioread",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747664"
       }
@@ -38170,8 +38156,8 @@
         "short_desc": "python-bcrypt: Remove (sub)packages from Fedora 32+: python2-bcrypt",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1758868"
       }
@@ -38219,8 +38205,8 @@
         "short_desc": "python-beanbag: Remove (sub)packages from Fedora 32+: python2-beanbag",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747965"
       }
@@ -38270,8 +38256,8 @@
         "short_desc": "python-beautifulsoup4: Remove (sub)packages from Fedora 32+: python2-beautifulsoup4",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748299"
       }
@@ -38798,7 +38784,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "black-19.3b0-5.fc32": {
+      "black-19.10~b0-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -38821,8 +38807,8 @@
         "short_desc": "python-bleach: Remove (sub)packages from Fedora 32+: python2-bleach",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746757"
       }
@@ -39365,8 +39351,8 @@
         "short_desc": "python-bottle: Remove (sub)packages from Fedora 32+: python2-bottle",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754878"
       }
@@ -39678,8 +39664,8 @@
         "short_desc": "python-bugzilla: Remove (sub)packages from Fedora 32+: python2-bugzilla",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746753"
       }
@@ -39883,7 +39869,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -40253,8 +40239,8 @@
         "short_desc": "python-catkin_pkg: Remove (sub)packages from Fedora 32+: python2-catkin_pkg",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753802"
       }
@@ -41010,8 +40996,8 @@
         "short_desc": "python-chai: Remove (sub)packages from Fedora 32+: python2-chai",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748833"
       }
@@ -41041,8 +41027,8 @@
         "short_desc": "python-chameleon: Remove (sub)packages from Fedora 32+: python2-chameleon",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747371"
       }
@@ -41406,8 +41392,8 @@
         "short_desc": "python-click: Remove (sub)packages from Fedora 32+: python2-click",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752805"
       }
@@ -41954,8 +41940,8 @@
         "short_desc": "python-cmdln: Remove (sub)packages from Fedora 32+: python2-cmdln",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761217"
       }
@@ -43037,8 +43023,8 @@
         "short_desc": "python-configobj: Remove (sub)packages from Fedora 32+: python2-configobj",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761220"
       }
@@ -43230,8 +43216,8 @@
         "short_desc": "python-constantly: Remove (sub)packages from Fedora 32+: python2-constantly",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761209"
       }
@@ -43291,8 +43277,8 @@
         "short_desc": "python-contextlib2: Remove (sub)packages from Fedora 32+: python2-contextlib2",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1755845"
       }
@@ -44080,8 +44066,8 @@
         "short_desc": "python-cryptography: Remove (sub)packages from Fedora 32+: python2-cryptography",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761081"
       }
@@ -44111,8 +44097,8 @@
         "short_desc": "python-cryptography-vectors: Remove (sub)packages from Fedora 32+: python2-cryptography-vectors",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761082"
       }
@@ -44598,8 +44584,8 @@
         "short_desc": "python-cycler: Remove (sub)packages from Fedora 32+: python2-cycler",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1763171"
       }
@@ -44778,8 +44764,8 @@
         "short_desc": "python-daemon: Remove (sub)packages from Fedora 31+: python2-daemon",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739656"
       }
@@ -46625,6 +46611,33 @@
     },
     "status": "py3-only"
   },
+  "python-django-health-check": {
+    "build_deps": [],
+    "deps": [],
+    "rpms": {
+      "python-django-health-check-doc-3.11.0-1.fc32": {
+        "almost_leaf": false,
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {}
+      },
+      "python3-django-health-check-3.11.0-1.fc32": {
+        "almost_leaf": false,
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 3.8": 3
+        }
+      }
+    },
+    "status": "py3-only"
+  },
   "python-django-helpdesk": {
     "bugs": {
       "1311536": {
@@ -47595,8 +47608,8 @@
         "short_desc": "python-docopt: Remove (sub)packages from Fedora 32+: python2-docopt",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754697"
       }
@@ -47708,8 +47721,8 @@
         "short_desc": "python-dogpile-cache: Remove (sub)packages from Fedora 32+: python2-dogpile-cache",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748419"
       }
@@ -47816,8 +47829,8 @@
         "short_desc": "python-dpath: Remove (sub)packages from Fedora 32+: python2-dpath",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746754"
       }
@@ -47857,8 +47870,8 @@
         "short_desc": "python-dpkt: Remove (sub)packages from Fedora 32+: python2-dpkt",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761203"
       }
@@ -48067,7 +48080,7 @@
   "python-dulwich": {
     "bugs": {
       "1761783": {
-        "last_change": "2019-10-23 06:02:21",
+        "last_change": "2019-10-29 19:22:51",
         "resolution": "",
         "short_desc": "python2-dulwich fails to install in Fedora rawhide due to retired python2-ipaddress",
         "status": "NEW",
@@ -48249,8 +48262,8 @@
         "short_desc": "python-editor: Remove (sub)packages from Fedora 32+: python2-editor",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753331"
       }
@@ -48547,8 +48560,8 @@
         "short_desc": "Drop python2-enchant from Fedora (once nothing else requires it)",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1737225"
       }
@@ -48586,7 +48599,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-enlighten-1.3.0-4.fc32": {
+      "python3-enlighten-1.4.0-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -48975,8 +48988,8 @@
         "short_desc": "python-eventlet: Remove (sub)packages from Fedora 32+: python2-eventlet",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753699"
       }
@@ -49178,8 +49191,8 @@
         "short_desc": "python-extras: Remove (sub)packages from Fedora 32+: python2-extras",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1755846"
       }
@@ -49462,8 +49475,8 @@
         "short_desc": "python-fasteners: Remove (sub)packages from Fedora 32+: python2-fasteners",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1745455"
       }
@@ -49673,8 +49686,8 @@
         "short_desc": "python-fedora: Remove (sub)packages from Fedora 32+: python2-fedora, python2-fedora-flask",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748242"
       }
@@ -49775,8 +49788,8 @@
         "short_desc": "python-feedparser: Remove (sub)packages from Fedora 32+: python2-feedparser",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1763071"
       }
@@ -50135,8 +50148,8 @@
         "short_desc": "python-fixtures: Remove (sub)packages from Fedora 32+: python2-fixtures",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1755848"
       }
@@ -50279,8 +50292,8 @@
         "short_desc": "python-flask: Remove (sub)packages from Fedora 32+: python2-flask",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752197"
       }
@@ -50441,8 +50454,8 @@
         "short_desc": "python-flask-babel: Remove (sub)packages from Fedora 32+: python2-flask-babel",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1750698"
       }
@@ -50871,8 +50884,8 @@
         "status": "CLOSED",
         "trackers": [
           "PY2FTBI",
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748418"
       }
@@ -51280,8 +51293,8 @@
         "short_desc": "python-flask-sqlalchemy: Remove (sub)packages from Fedora 32+: python2-flask-sqlalchemy",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1751089"
       }
@@ -51341,8 +51354,8 @@
         "short_desc": "python-flask-wtf: Remove (sub)packages from Fedora 32+: python2-flask-wtf",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748248"
       }
@@ -51560,8 +51573,8 @@
         "short_desc": "python-fluidity-sm: Remove (sub)packages from Fedora 32+: python2-fluidity-sm",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754912"
       }
@@ -51724,13 +51737,13 @@
   "python-formencode": {
     "bugs": {
       "1764571": {
-        "last_change": "2019-10-23 11:12:50",
-        "resolution": "",
+        "last_change": "2019-10-30 13:36:14",
+        "resolution": "RAWHIDE",
         "short_desc": "python-formencode: Remove (sub)packages from Fedora 32+: python2-formencode",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764571"
       }
@@ -51740,12 +51753,9 @@
       "python2-setuptools",
       "python27"
     ],
-    "deps": [
-      "python2-setuptools",
-      "python27"
-    ],
+    "deps": [],
     "rpms": {
-      "python-formencode-langpacks-1.3.1-9.fc32": {
+      "python-formencode-langpacks-1.3.1-10.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -51754,18 +51764,7 @@
         },
         "py_deps": {}
       },
-      "python2-formencode-1.3.1-9.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-formencode-1.3.1-9.fc32": {
+      "python3-formencode-1.3.1-10.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -51777,7 +51776,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "python-fpylll": {
     "bugs": {
@@ -51874,8 +51873,8 @@
         "short_desc": "python-freezegun: Remove (sub)packages from Fedora 32+: python2-freezegun",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752229"
       }
@@ -51983,7 +51982,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python-fsleyes-doc-0.31.0-1.fc32": {
+      "python-fsleyes-doc-0.31.2-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -51992,7 +51991,7 @@
         },
         "py_deps": {}
       },
-      "python3-fsleyes-0.31.0-1.fc32": {
+      "python3-fsleyes-0.31.2-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -52011,7 +52010,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python-fsleyes-props-doc-1.6.6-1.fc32": {
+      "python-fsleyes-props-doc-1.6.7-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -52020,7 +52019,7 @@
         },
         "py_deps": {}
       },
-      "python3-fsleyes-props-1.6.6-1.fc32": {
+      "python3-fsleyes-props-1.6.7-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -52050,7 +52049,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python-fsleyes-widgets-doc-0.8.2-1.fc32": {
+      "python-fsleyes-widgets-doc-0.8.4-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -52059,7 +52058,7 @@
         },
         "py_deps": {}
       },
-      "python3-fsleyes-widgets-0.8.2-1.fc32": {
+      "python3-fsleyes-widgets-0.8.4-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -52077,7 +52076,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python-fslpy-doc-2.6.1-1.fc32": {
+      "python-fslpy-doc-2.6.2-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -52086,7 +52085,7 @@
         },
         "py_deps": {}
       },
-      "python3-fslpy-2.6.1-1.fc32": {
+      "python3-fslpy-2.6.2-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -53673,8 +53672,8 @@
         "short_desc": "python-gnupg: Remove (sub)packages from Fedora 31+: python2-gnupg",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739670"
       }
@@ -53920,8 +53919,8 @@
         "short_desc": "python-graphviz: Remove (sub)packages from Fedora 32+: python2-graphviz",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754306"
       }
@@ -53960,8 +53959,8 @@
         "short_desc": "python-greenlet: Remove (sub)packages from Fedora 32+: python2-greenlet",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753701"
       }
@@ -54311,8 +54310,8 @@
         "short_desc": "python-h2: Remove (sub)packages from Fedora 32+: python2-h2",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748312"
       }
@@ -54412,8 +54411,8 @@
         "short_desc": "python-hamcrest: Remove (sub)packages from Fedora 32+: python2-hamcrest",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761206"
       }
@@ -54831,8 +54830,8 @@
         "short_desc": "python-hpack: Remove (sub)packages from Fedora 32+: python2-hpack",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1750717"
       }
@@ -54916,7 +54915,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-html2text-2019.8.11-2.fc32": {
+      "python3-html2text-2019.9.26-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -55438,8 +55437,8 @@
         "short_desc": "python-hyperframe: Remove (sub)packages from Fedora 32+: python2-hyperframe",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1750718"
       }
@@ -55469,8 +55468,8 @@
         "short_desc": "python-hyperlink: Remove (sub)packages from Fedora 32+: python2-hyperlink",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761205"
       }
@@ -55886,7 +55885,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-imagesize-1.0.0-8.fc32": {
+      "python3-imagesize-1.1.0-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -55998,8 +55997,8 @@
         "short_desc": "python-incremental: Remove (sub)packages from Fedora 32+: python2-incremental",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761208"
       }
@@ -56859,8 +56858,8 @@
         "short_desc": "python-iso8601: Remove (sub)packages from Fedora 32+: python2-iso8601",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761083"
       }
@@ -56890,8 +56889,8 @@
         "short_desc": "python-isodate: Remove (sub)packages from Fedora 32+: python2-isodate",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752404"
       }
@@ -56952,8 +56951,8 @@
         "short_desc": "python-itsdangerous: Remove (sub)packages from Fedora 32+: python2-itsdangerous",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752801"
       }
@@ -57384,8 +57383,8 @@
         "short_desc": "python-jinja2: Remove (sub)packages from Fedora 32+: python2-jinja2",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754955"
       }
@@ -58007,8 +58006,8 @@
         "short_desc": "python-jsonpickle: Remove (sub)packages from Fedora 32+: python2-jsonpickle",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1745456"
       }
@@ -58448,8 +58447,8 @@
         "short_desc": "python-jwt: Remove (sub)packages from Fedora 32+: python2-jwt",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1744643"
       }
@@ -58565,8 +58564,8 @@
         "short_desc": "python-kajiki: Remove (sub)packages from Fedora 32+: python2-kajiki",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747372"
       }
@@ -58696,8 +58695,8 @@
         "short_desc": "python-kerberos: Remove (sub)packages from Fedora 32+: python2-kerberos",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1750421"
       }
@@ -58833,8 +58832,8 @@
         "short_desc": "python-kitchen: Remove (sub)packages from Fedora 32+: python2-kitchen",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1750171"
       }
@@ -58875,8 +58874,8 @@
         "short_desc": "python-kiwisolver: Remove (sub)packages from Fedora 32+: python2-kiwisolver",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1763172"
       }
@@ -59430,8 +59429,8 @@
         "short_desc": "python-ldap: Remove (sub)packages from Fedora 32+: python2-ldap",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761210"
       }
@@ -59461,8 +59460,8 @@
         "short_desc": "python-ldap3: Remove (sub)packages from Fedora 30+: python2-ldap3",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1676844"
       }
@@ -59621,8 +59620,8 @@
         "short_desc": "python-lexicon: Remove (sub)packages from Fedora 32+: python2-lexicon",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754910"
       }
@@ -59738,8 +59737,8 @@
         "short_desc": "python-libcloud: Remove (sub)packages from Fedora 32+: python2-libcloud",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747667"
       }
@@ -59847,8 +59846,8 @@
         "short_desc": "python-libpagure: Remove (sub)packages from Fedora 31+: python2-libpagure",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739673"
       }
@@ -60051,8 +60050,8 @@
         "short_desc": "python-linecache2: Remove (sub)packages from Fedora 32+: python2-linecache2",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1757025"
       }
@@ -60312,8 +60311,8 @@
         "short_desc": "python-lockfile: Remove (sub)packages from Fedora 32+: python2-lockfile",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748245"
       }
@@ -61055,8 +61054,8 @@
         "short_desc": "python-manuel: Remove (sub)packages from Fedora 32+: python2-manuel",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752149"
       }
@@ -61387,7 +61386,7 @@
         "py_deps": {
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       },
       "python3-matplotlib-data-3.1.1-2.fc32": {
@@ -61488,7 +61487,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-matplotlib-scalebar-0.6.0-4.fc32": {
+      "python3-matplotlib-scalebar-0.6.1-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -61789,8 +61788,8 @@
         "short_desc": "python-memcached: Remove (sub)packages from Fedora 32+: python2-memcached",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1750696"
       }
@@ -62116,8 +62115,8 @@
         "short_desc": "python-mimeparse: Remove (sub)packages from Fedora 32+: python2-mimeparse",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1757447"
       }
@@ -62187,8 +62186,8 @@
         "short_desc": "python-minibelt: Remove (sub)packages from Fedora 32+: python2-minibelt",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748827"
       }
@@ -62615,8 +62614,8 @@
         "short_desc": "python-modestmaps: Remove (sub)packages from Fedora 32+: python2-modestmaps",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746665"
       }
@@ -62646,8 +62645,8 @@
         "short_desc": "python-moksha-common: Remove (sub)packages from Fedora 32+: python2-moksha-common",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746476"
       }
@@ -62839,8 +62838,8 @@
         "short_desc": "python-monotonic: Remove (sub)packages from Fedora 32+: python2-monotonic",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753703"
       }
@@ -63155,8 +63154,8 @@
         "short_desc": "python-msgpack: Remove (sub)packages from Fedora 32+: python2-msgpack",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747665"
       }
@@ -63396,8 +63395,8 @@
         "short_desc": "python-munch: Remove (sub)packages from Fedora 32+: python2-munch",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748247"
       }
@@ -64292,8 +64291,8 @@
         "short_desc": "python-netifaces: Remove (sub)packages from Fedora 32+: python2-netifaces",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764883"
       }
@@ -66289,8 +66288,8 @@
         "short_desc": "python-openid-cla: Remove (sub)packages from Fedora 32+: python2-openid-cla",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748250"
       }
@@ -66320,8 +66319,8 @@
         "short_desc": "python-openid-teams: Remove (sub)packages from Fedora 32+: python2-openid-teams",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748246"
       }
@@ -66351,8 +66350,8 @@
         "short_desc": "python-openidc-client: Remove (sub)packages from Fedora 32+: python2-openidc-client",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748249"
       }
@@ -67582,8 +67581,8 @@
         "short_desc": "python-packaging: Remove (sub)packages from Fedora 32+: python2-packaging",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753700"
       }
@@ -67682,8 +67681,8 @@
         "short_desc": "python-pam: Remove (sub)packages from Fedora 32+: python2-pam",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764884"
       }
@@ -68194,8 +68193,8 @@
         "short_desc": "python-paste: Remove (sub)packages from Fedora 32+: python2-paste",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1751087"
       }
@@ -68225,8 +68224,8 @@
         "short_desc": "python-paste-deploy: Remove (sub)packages from Fedora 32+: python2-paste-deploy",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748550"
       }
@@ -68326,8 +68325,8 @@
         "short_desc": "python-path: Remove (sub)packages from Fedora 32+: python2-path",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748826"
       }
@@ -68605,8 +68604,8 @@
         "short_desc": "python-pdfrw: Remove (sub)packages from Fedora 32+: python2-pdfrw",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748241"
       }
@@ -68951,8 +68950,8 @@
         "short_desc": "python-pexpect: Remove (sub)packages from Fedora 32+: python2-pexpect",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754911"
       }
@@ -69224,8 +69223,8 @@
         "short_desc": "python-pika: Remove (sub)packages from Fedora 32+: python2-pika",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746752"
       }
@@ -69727,8 +69726,8 @@
         "short_desc": "python-plaster: Remove (sub)packages from Fedora 32+: python2-plaster",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748551"
       }
@@ -69911,8 +69910,8 @@
         "short_desc": "python-ply: Remove (sub)packages from Fedora 32+: python2-ply",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761200"
       }
@@ -70430,8 +70429,8 @@
         "short_desc": "python-pretend: Remove (sub)packages from Fedora 32+: python2-pretend",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761085"
       }
@@ -70513,8 +70512,8 @@
         "short_desc": "python-priority: Remove (sub)packages from Fedora 32+: python2-priority",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748313"
       }
@@ -70862,8 +70861,8 @@
         "short_desc": "python-psycopg2: Remove (sub)packages from Fedora 32+: python2-psycopg2, python2-psycopg2-tests",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761216"
       }
@@ -70956,8 +70955,8 @@
         "short_desc": "python-ptyprocess: Remove (sub)packages from Fedora 32+: python2-ptyprocess",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754913"
       }
@@ -71353,8 +71352,8 @@
         "short_desc": "python-pyasn1: Remove (sub)packages from Fedora 32+: python2-pyasn1-modules, python2-pyasn1",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764573"
       }
@@ -71440,36 +71439,6 @@
         "py_deps": {}
       },
       "python3-pybids-0.9.4-1.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 3.8": 3
-        }
-      }
-    },
-    "status": "py3-only"
-  },
-  "python-pybloomfiltermmap": {
-    "bugs": {
-      "1634621": {
-        "last_change": "2018-10-12 19:02:21",
-        "resolution": "RAWHIDE",
-        "short_desc": "python-pybloomfiltermmap: Remove (sub)packages from Fedora 30+: python2-pybloomfiltermmap",
-        "status": "CLOSED",
-        "trackers": [
-          "PY2REMOVAL"
-        ],
-        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1634621"
-      }
-    },
-    "build_deps": [],
-    "deps": [],
-    "rpms": {
-      "python3-pybloomfiltermmap-0.3.15-15.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -71817,8 +71786,8 @@
         "short_desc": "python-pycparser: Remove (sub)packages from Fedora 32+: python2-pycparser",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761197"
       }
@@ -71916,8 +71885,8 @@
         "short_desc": "python-pycxx: Remove (sub)packages from Fedora 32+: python2-pycxx-devel",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748822"
       }
@@ -72010,13 +71979,13 @@
   "python-pydispatcher": {
     "bugs": {
       "1764572": {
-        "last_change": "2019-10-23 11:12:52",
-        "resolution": "",
+        "last_change": "2019-10-30 13:03:15",
+        "resolution": "RAWHIDE",
         "short_desc": "python-pydispatcher: Remove (sub)packages from Fedora 32+: python2-pydispatcher",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764572"
       }
@@ -72025,22 +71994,9 @@
       "python2-setuptools",
       "python27"
     ],
-    "deps": [
-      "python27"
-    ],
+    "deps": [],
     "rpms": {
-      "python2-pydispatcher-2.0.5-9.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-pydispatcher-2.0.5-9.fc32": {
+      "python3-pydispatcher-2.0.5-10.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -72052,7 +72008,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "python-pydns": {
     "bugs": {
@@ -73276,7 +73232,7 @@
       "python27"
     ],
     "rpms": {
-      "python-pymilter-common-1.0.4-4.fc32": {
+      "python-pymilter-common-1.0.4-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -73285,7 +73241,7 @@
         },
         "py_deps": {}
       },
-      "python-pymilter-selinux-1.0.4-4.fc32": {
+      "python-pymilter-selinux-1.0.4-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -73294,7 +73250,7 @@
         },
         "py_deps": {}
       },
-      "python2-pymilter-1.0.4-4.fc32": {
+      "python2-pymilter-1.0.4-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -73306,7 +73262,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-pymilter-1.0.4-4.fc32": {
+      "python3-pymilter-1.0.4-6.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -73485,8 +73441,8 @@
         "short_desc": "python-pynacl: Remove (sub)packages from Fedora 32+: python2-pynacl",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1758867"
       }
@@ -74141,8 +74097,8 @@
         "short_desc": "python-pyquery: Remove (sub)packages from Fedora 32+: python2-pyquery",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747971"
       }
@@ -74274,8 +74230,8 @@
         "short_desc": "python-pyramid-mako: Remove (sub)packages from Fedora 31+: python2-pyramid-mako",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739664"
       }
@@ -74305,8 +74261,8 @@
         "short_desc": "python-pyramid-tm: Remove (sub)packages from Fedora 31+: python2-pyramid-tm",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739650"
       }
@@ -74445,8 +74401,8 @@
         "short_desc": "python-pyroute2: Remove (sub)packages from Fedora 32+: python2-pyroute2",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1742834"
       }
@@ -75546,8 +75502,8 @@
         "short_desc": "python-pytest-flakes: Remove (sub)packages from Fedora 31+: python2-pytest-flakes",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739669"
       }
@@ -75719,8 +75675,8 @@
         "short_desc": "python-pytest-mock: Remove (sub)packages from Fedora 32+: python2-pytest-mock",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1754698"
       }
@@ -75814,8 +75770,8 @@
         "short_desc": "python-pytest-relaxed: Remove (sub)packages from Fedora 32+: python2-pytest-relaxed",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1758872"
       }
@@ -75894,13 +75850,13 @@
   "python-pytest-runner": {
     "bugs": {
       "1764118": {
-        "last_change": "2019-10-22 09:37:06",
-        "resolution": "",
+        "last_change": "2019-10-29 19:22:06",
+        "resolution": "RAWHIDE",
         "short_desc": "python-pytest-runner: Remove (sub)packages from Fedora 32+: python2-pytest-runner",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764118"
       }
@@ -75911,23 +75867,9 @@
       "python2-setuptools",
       "python27"
     ],
-    "deps": [
-      "python2-pytest",
-      "python27"
-    ],
+    "deps": [],
     "rpms": {
-      "python2-pytest-runner-4.0-7.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-pytest-runner-4.0-7.fc32": {
+      "python3-pytest-runner-4.0-8.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -75939,7 +75881,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "python-pytest-shutil": {
     "bugs": {
@@ -76680,8 +76622,8 @@
         "short_desc": "python-q: Remove python2-q once python2 is removed",
         "status": "ASSIGNED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1629435"
       }
@@ -77267,8 +77209,8 @@
         "short_desc": "python-rdflib: Remove (sub)packages from Fedora 32+: python2-rdflib",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1750495"
       }
@@ -77387,8 +77329,8 @@
         "short_desc": "python-redis: Remove (sub)packages from Fedora 32+: python2-redis",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747403"
       }
@@ -77664,8 +77606,8 @@
         "short_desc": "python-repoze-lru: Remove (sub)packages from Fedora 32+: python2-repoze-lru",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1744647"
       }
@@ -78061,8 +78003,8 @@
         "short_desc": "python-requests-kerberos: Remove (sub)packages from Fedora 32+: python2-requests-kerberos",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747963"
       }
@@ -78409,8 +78351,8 @@
         "short_desc": "python-retask: Remove (sub)packages from Fedora 31+: python2-retask",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739665"
       }
@@ -78777,8 +78719,8 @@
         "short_desc": "Remove python2-rosdep",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1740997"
       }
@@ -78818,8 +78760,8 @@
         "short_desc": "python-rosdistro: Remove (sub)packages from Fedora 32+: python2-rosdistro",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753800"
       }
@@ -78911,8 +78853,8 @@
         "short_desc": "Remove python2-rosinstall_generator",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1740996"
       }
@@ -78943,8 +78885,8 @@
         "short_desc": "python-rospkg: Remove (sub)packages from Fedora 32+: python2-rospkg",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753803"
       }
@@ -79260,8 +79202,8 @@
         "short_desc": "python-rsa: Remove (sub)packages from Fedora 32+: python2-rsa",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752155"
       }
@@ -80061,8 +80003,8 @@
         "short_desc": "python-scour: Remove (sub)packages from Fedora 32+: python2-scour",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746328"
       }
@@ -80174,8 +80116,8 @@
         "short_desc": "python-scripttest: Remove (sub)packages from Fedora 32+: python2-scripttest",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748069"
       }
@@ -80600,8 +80542,8 @@
         "short_desc": "python-service-identity: Remove (sub)packages from Fedora 32+: python2-service-identity",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748314"
       }
@@ -80864,8 +80806,8 @@
         "short_desc": "python-sh: Remove (sub)packages from Fedora 31+: python2-sh",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1740846"
       }
@@ -81074,8 +81016,8 @@
         "short_desc": "python-sieve: Remove (sub)packages from Fedora 32+: python2-sieve",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747373"
       }
@@ -81609,7 +81551,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-slackclient-2.3.0-1.fc32": {
+      "python3-slackclient-2.3.1-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -82236,8 +82178,8 @@
         "short_desc": "python-soupsieve: Remove (sub)packages from Fedora 32+: python2-soupsieve",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748298"
       }
@@ -82322,8 +82264,8 @@
         "short_desc": "python-speaklater: Remove (sub)packages from Fedora 32+: python2-speaklater",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752804"
       }
@@ -83333,7 +83275,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-sphinxcontrib-spelling-4.2.1-4.fc32": {
+      "python3-sphinxcontrib-spelling-4.3.0-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -83738,8 +83680,8 @@
         "short_desc": "python-sqlobject: Remove (sub)packages from Fedora 32+: python2-sqlobject",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761218"
       }
@@ -84498,8 +84440,8 @@
         "short_desc": "python-suds: Remove (sub)packages from Fedora 32+: python2-suds",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1759050"
       }
@@ -84779,8 +84721,8 @@
         "short_desc": "python-systemd: Remove (sub)packages from Fedora 32+: python2-systemd",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747663"
       }
@@ -85236,8 +85178,8 @@
         "short_desc": "python-tempita: Remove (sub)packages from Fedora 32+: python2-tempita",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753045"
       }
@@ -85537,8 +85479,8 @@
         "short_desc": "python-testrepository: Remove (sub)packages from Fedora 32+: python2-testrepository",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752152"
       }
@@ -85599,8 +85541,8 @@
         "short_desc": "python-testscenarios: Remove (sub)packages from Fedora 32+: python2-testscenarios",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1755843"
       }
@@ -85630,8 +85572,8 @@
         "short_desc": "python-testtools: Remove (sub)packages from Fedora 32+: python2-testtools",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1755847"
       }
@@ -85980,8 +85922,8 @@
         "short_desc": "python-tidy depends on Python 2",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1741791"
       },
@@ -86149,7 +86091,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-tinydb-3.15.0-1.fc32": {
+      "python3-tinydb-3.15.1-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -86550,8 +86492,8 @@
         "short_desc": "python-traceback2: Remove (sub)packages from Fedora 32+: python2-traceback2",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1757023"
       }
@@ -86641,8 +86583,8 @@
         "short_desc": "python-transaction: Remove (sub)packages from Fedora 32+: python2-transaction",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1744659"
       }
@@ -86717,8 +86659,8 @@
         "short_desc": "python-translationstring: Remove (sub)packages from Fedora 32+: python2-translationstring",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1744642"
       }
@@ -87240,8 +87182,8 @@
         "short_desc": "python-twisted: Remove (sub)packages from Fedora 32+: python2-twisted",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761204"
       }
@@ -87448,8 +87390,8 @@
         "short_desc": "python-txws: Remove (sub)packages from Fedora 31+: python2-txws",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1738469"
       }
@@ -87490,8 +87432,8 @@
         "short_desc": "python-txzmq: Remove (sub)packages from Fedora 31+: python2-txzmq",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1738468"
       }
@@ -87721,8 +87663,8 @@
         "short_desc": "python-ujson: Remove (sub)packages from Fedora 32+: python2-ujson",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1745779"
       }
@@ -87874,8 +87816,8 @@
         "short_desc": "python-unittest2: Remove (sub)packages from Fedora 32+: python2-unittest2",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1757022"
       }
@@ -88133,8 +88075,8 @@
         "short_desc": "python-urlgrabber: Remove (sub)packages from Fedora 32+: python2-urlgrabber",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753022"
       }
@@ -88382,8 +88324,8 @@
         "short_desc": "python-utmp: Remove (sub)packages from Fedora 32+: python2-utmp",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764882"
       }
@@ -88566,8 +88508,8 @@
         "short_desc": "python-vcrpy: Remove (sub)packages from Fedora 32+: python2-vcrpy",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1746447"
       }
@@ -88616,8 +88558,8 @@
         "short_desc": "python-vcstools: Remove (sub)packages from Fedora 32+: python2-vcstools",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1751490"
       }
@@ -88649,8 +88591,8 @@
         "short_desc": "python-venusian: Remove (sub)packages from Fedora 32+: python2-venusian",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1744655"
       }
@@ -89145,8 +89087,8 @@
         "short_desc": "python-vobject: Remove (sub)packages from Fedora 31+: python2-vobject",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739660"
       }
@@ -89172,7 +89114,7 @@
   "python-volatility": {
     "bugs": {
       "1738194": {
-        "last_change": "2019-10-25 23:25:37",
+        "last_change": "2019-10-31 00:20:02",
         "resolution": "",
         "short_desc": "python-volatility depends on Python 2",
         "status": "ASSIGNED",
@@ -89390,8 +89332,8 @@
         "short_desc": "python-waitress: Remove (sub)packages from Fedora 32+: python2-waitress",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748070"
       }
@@ -89632,8 +89574,8 @@
         "short_desc": "python-webencodings: Remove (sub)packages from Fedora 32+: python2-webencodings",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752405"
       }
@@ -89917,8 +89859,8 @@
         "short_desc": "python-werkzeug: Remove (sub)packages from Fedora 32+: python2-werkzeug",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752803"
       }
@@ -90191,8 +90133,8 @@
         "short_desc": "python-wrapt: Remove (sub)packages from Fedora 32+: python2-wrapt",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1748820"
       }
@@ -90403,8 +90345,8 @@
         "short_desc": "python-wtforms: Remove (sub)packages from Fedora 32+: python2-wtforms",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1750697"
       }
@@ -90500,8 +90442,8 @@
         "short_desc": "python-wxpython4: Remove (sub)packages from Fedora 32+: python2-wxpython4, python2-wxpython4-media, python2-wxpython4-webview",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1629793"
       }
@@ -90570,7 +90512,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python-x2go-doc-0.6.0.2-6.fc32": {
+      "python-x2go-doc-0.6.0.2-7.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -90579,7 +90521,7 @@
         },
         "py_deps": {}
       },
-      "python3-x2go-0.6.0.2-6.fc32": {
+      "python3-x2go-0.6.0.2-7.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -90714,13 +90656,13 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1360713"
       },
       "1764881": {
-        "last_change": "2019-10-23 23:29:11",
-        "resolution": "",
+        "last_change": "2019-10-30 01:41:51",
+        "resolution": "RAWHIDE",
         "short_desc": "python-xlib: Remove (sub)packages from Fedora 32+: python2-xlib",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764881"
       }
@@ -90731,12 +90673,9 @@
       "python-six",
       "python27"
     ],
-    "deps": [
-      "python-six",
-      "python27"
-    ],
+    "deps": [],
     "rpms": {
-      "python-xlib-doc-0.23-7.fc32": {
+      "python-xlib-doc-0.23-8.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -90745,18 +90684,7 @@
         },
         "py_deps": {}
       },
-      "python2-xlib-0.23-7.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-xlib-0.23-7.fc32": {
+      "python3-xlib-0.23-8.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -90768,7 +90696,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "python-xlrd": {
     "bugs": {
@@ -91925,8 +91853,8 @@
         "short_desc": "python-zope-component: Remove (sub)packages from Fedora 32+: python2-zope-component",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1744660"
       }
@@ -91956,8 +91884,8 @@
         "short_desc": "python-zope-configuration: Remove (sub)packages from Fedora 32+: python2-zope-configuration",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1744654"
       }
@@ -91987,8 +91915,8 @@
         "short_desc": "python-zope-deprecation: Remove (sub)packages from Fedora 32+: python2-zope-deprecation",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1744657"
       }
@@ -92018,8 +91946,8 @@
         "short_desc": "python-zope-event: Remove (sub)packages from Fedora 32+: python2-zope-event",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764879"
       }
@@ -92070,8 +91998,8 @@
         "short_desc": "python-zope-exceptions: Remove (sub)packages from Fedora 32+: python2-zope-exceptions",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752154"
       }
@@ -92101,8 +92029,8 @@
         "short_desc": "python-zope-i18nmessageid: Remove (sub)packages from Fedora 32+: python2-zope-i18nmessageid",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747402"
       }
@@ -92132,8 +92060,8 @@
         "short_desc": "python-zope-interface: Remove (sub)packages from Fedora 32+: python2-zope-interface",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1764880"
       }
@@ -92163,8 +92091,8 @@
         "short_desc": "python-zope-schema: Remove (sub)packages from Fedora 32+: python2-zope-schema",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1747401"
       }
@@ -92194,8 +92122,8 @@
         "short_desc": "python-zope-sqlalchemy: Remove (sub)packages from Fedora 31+: python2-zope-sqlalchemy",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739657"
       }
@@ -92225,8 +92153,8 @@
         "short_desc": "python-zope-testing: Remove (sub)packages from Fedora 32+: python2-zope-testing",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752153"
       }
@@ -92256,8 +92184,8 @@
         "short_desc": "python-zope-testrunner: Remove (sub)packages from Fedora 32+: python2-zope-testrunner",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752151"
       }
@@ -92539,7 +92467,7 @@
   "python2-typing": {
     "bugs": {
       "1739516": {
-        "last_change": "2019-10-22 08:52:28",
+        "last_change": "2019-10-29 12:40:30",
         "resolution": "",
         "short_desc": "python2-typing depends on Python 2",
         "status": "ASSIGNED",
@@ -92724,10 +92652,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1312032"
       },
       "1322027": {
-        "last_change": "2019-10-15 13:08:09",
-        "resolution": "",
+        "last_change": "2019-10-29 14:04:32",
+        "resolution": "NOTABUG",
         "short_desc": "Tracking: Python 3 Upstream Porting",
-        "status": "NEW",
+        "status": "CLOSED",
         "trackers": [
           "PYTHON3"
         ],
@@ -92913,7 +92841,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-docs-3.8.0~rc1-1.fc32": {
+      "python3-docs-3.8.0-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -93363,8 +93291,8 @@
         "short_desc": "pyusb: Remove (sub)packages from Fedora 32+: python2-pyusb",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1763919"
       }
@@ -93599,7 +93527,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "qbittorrent-1:4.1.8-1.fc32": {
+      "qbittorrent-1:4.2.0-0.1.20191027.git9c466d8.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -93799,8 +93727,8 @@
         "short_desc": "qpid-proton: Remove (sub)packages from Fedora 32+: python2-qpid-proton",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1763072"
       }
@@ -93870,54 +93798,9 @@
       "python27",
       "sip"
     ],
-    "deps": [
-      "PyQt4",
-      "python-qt5",
-      "python27",
-      "sip"
-    ],
+    "deps": [],
     "rpms": {
-      "python2-qscintilla-2.11.2-5.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python2-qscintilla-devel-2.11.2-5.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {}
-      },
-      "python2-qscintilla-qt5-2.11.2-5.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python2-qscintilla-qt5-devel-2.11.2-5.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {}
-      },
-      "python3-qscintilla-2.11.2-5.fc32": {
+      "python3-qscintilla-qt5-2.11.2-7.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -93928,27 +93811,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "python3-qscintilla-devel-2.11.2-5.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {}
-      },
-      "python3-qscintilla-qt5-2.11.2-5.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 3.8": 3
-        }
-      },
-      "python3-qscintilla-qt5-devel-2.11.2-5.fc32": {
+      "python3-qscintilla-qt5-devel-2.11.2-7.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -93958,7 +93821,7 @@
         "py_deps": {}
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "qt5-qtbase": {
     "bugs": {
@@ -94284,7 +94147,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "rb_libtorrent-python3-1.1.13-5.fc32": {
+      "rb_libtorrent-python3-1.2.2-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -94589,8 +94452,8 @@
         "status": "CLOSED",
         "trackers": [
           "PY2FTBI",
-          "F31_PY2REMOVAL",
-          "F31FailsToInstall"
+          "F31FailsToInstall",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1655256"
       },
@@ -94657,7 +94520,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "renderdoc-1.4-4.fc32": {
+      "renderdoc-1.5-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -94880,7 +94743,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "reuse-0.5.0-1.fc32": {
+      "reuse-0.5.2-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -95236,8 +95099,8 @@
         "short_desc": "rpm: Remove (sub)packages from Fedora 32+: python2-rpm",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1761211"
       }
@@ -95500,7 +95363,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "rss2email-3.10-2.20190909git9c2d407.fc32": {
+      "rss2email-3.11-1.20191028gitb4eae44.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -95950,7 +95813,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-samba-2:4.11.1-1.fc32": {
+      "python3-samba-2:4.11.2-0.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -95962,7 +95825,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "python3-samba-dc-2:4.11.1-1.fc32": {
+      "python3-samba-dc-2:4.11.2-0.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -95974,7 +95837,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "python3-samba-test-2:4.11.1-1.fc32": {
+      "python3-samba-test-2:4.11.2-0.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -95985,7 +95848,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "samba-dc-2:4.11.1-1.fc32": {
+      "samba-dc-2:4.11.2-0.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -96002,7 +95865,7 @@
   "samtools": {
     "bugs": {
       "1738176": {
-        "last_change": "2019-10-28 23:08:56",
+        "last_change": "2019-10-29 16:31:41",
         "resolution": "",
         "short_desc": "samtools depends on Python 2",
         "status": "NEW",
@@ -96124,8 +95987,8 @@
         "short_desc": "scapy: Remove (sub)packages from Fedora 32+: python2-scapy",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752156"
       }
@@ -96268,7 +96131,7 @@
   "scribus": {
     "bugs": {
       "1738174": {
-        "last_change": "2019-10-21 00:02:41",
+        "last_change": "2019-10-31 09:12:56",
         "resolution": "",
         "short_desc": "scribus depends on Python 2",
         "status": "NEW",
@@ -96388,7 +96251,7 @@
   "seafile": {
     "bugs": {
       "1739010": {
-        "last_change": "2019-10-24 22:33:34",
+        "last_change": "2019-10-29 15:07:53",
         "resolution": "",
         "short_desc": "seafile depends on Python 2",
         "status": "NEW",
@@ -96928,7 +96791,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -96942,8 +96805,8 @@
         "short_desc": "sip: Remove (sub)packages from Fedora 32+: python2-wx-siplib",
         "status": "NEW",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1752802"
       }
@@ -97994,8 +97857,8 @@
         "short_desc": "subunit: Remove (sub)packages from Fedora 32+: python2-subunit",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1753957"
       }
@@ -100667,7 +100530,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "system-config-printer-1.5.12-1.fc32": {
+      "system-config-printer-1.5.12-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -100676,10 +100539,10 @@
         },
         "py_deps": {
           "/usr/bin/python3": 3,
-          "python3-cairo(x86-64) = 1.18.2-1.fc32": 3
+          "python3-cairo(x86-64) = 1.18.2-2.fc32": 3
         }
       },
-      "system-config-printer-applet-1.5.12-1.fc32": {
+      "system-config-printer-applet-1.5.12-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -100690,7 +100553,7 @@
           "/usr/bin/python3": 3
         }
       },
-      "system-config-printer-libs-1.5.12-1.fc32": {
+      "system-config-printer-libs-1.5.12-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -100702,7 +100565,7 @@
           "python(abi) = 3.8": 3
         }
       },
-      "system-config-printer-udev-1.5.12-1.fc32": {
+      "system-config-printer-udev-1.5.12-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -100844,13 +100707,13 @@
   "systemd-coredump-python": {
     "bugs": {
       "1630953": {
-        "last_change": "2019-08-26 14:38:44",
-        "resolution": "",
+        "last_change": "2019-10-30 10:37:57",
+        "resolution": "RAWHIDE",
         "short_desc": "systemd-coredump-python: Remove python2-systemd-coredump once python2 is removed",
-        "status": "ASSIGNED",
+        "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1630953"
       }
@@ -100858,22 +100721,9 @@
     "build_deps": [
       "python27"
     ],
-    "deps": [
-      "python27"
-    ],
+    "deps": [],
     "rpms": {
-      "python2-systemd-coredump-2-10.fc32": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-systemd-coredump-2-10.fc32": {
+      "python3-systemd-coredump-2-11.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -100885,7 +100735,7 @@
         }
       }
     },
-    "status": "legacy-leaf"
+    "status": "py3-only"
   },
   "systemtap": {
     "build_deps": [],
@@ -101758,8 +101608,7 @@
       "python-iniparse",
       "python-pygments",
       "python-qt5",
-      "python27",
-      "qscintilla"
+      "python27"
     ],
     "rpms": {
       "tortoisehg-5.0.2-2.fc31": {
@@ -101852,7 +101701,7 @@
   "trac": {
     "bugs": {
       "1737930": {
-        "last_change": "2019-10-23 19:42:50",
+        "last_change": "2019-10-29 18:34:16",
         "resolution": "",
         "short_desc": "trac depends on Python 2",
         "status": "ASSIGNED",
@@ -104294,8 +104143,8 @@
         "short_desc": "unbound: Remove (sub)packages from Fedora 31+: python2-unbound",
         "status": "CLOSED",
         "trackers": [
-          "F31_PY2REMOVAL",
-          "PY2REMOVAL"
+          "PY2REMOVAL",
+          "F31_PY2REMOVAL"
         ],
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739663"
       }
@@ -104452,7 +104301,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "upt-0.10.3-1.fc32": {
+      "upt-0.10.3-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -104583,7 +104432,7 @@
           "/usr/bin/python3": 3,
           "python(abi) = 3.8": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       },
       "ursa-major-stage-0.3.1-4.fc32": {
@@ -104730,7 +104579,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "variety-0.8.0-0.5.git3fbf10e.fc32": {
+      "variety-0.8.0-0.6.gite81db6b.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -105080,7 +104929,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "vim-X11-2:8.1.2198-1.fc32": {
+      "vim-X11-2:8.1.2234-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -105091,7 +104940,7 @@
           "libpython3.8.so.1.0()(64bit)": 3
         }
       },
-      "vim-common-2:8.1.2198-1.fc32": {
+      "vim-common-2:8.1.2234-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -105102,7 +104951,7 @@
           "libpython3.8.so.1.0()(64bit)": 3
         }
       },
-      "vim-enhanced-2:8.1.2198-1.fc32": {
+      "vim-enhanced-2:8.1.2234-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -105113,7 +104962,7 @@
           "libpython3.8.so.1.0()(64bit)": 3
         }
       },
-      "vim-minimal-2:8.1.2198-1.fc32": {
+      "vim-minimal-2:8.1.2234-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -105282,7 +105131,7 @@
         "py_deps": {
           "/usr/bin/python3": 3,
           "python3-cairo": 3,
-          "python3-cairo = 1.18.2-1.fc32": 3
+          "python3-cairo = 1.18.2-2.fc32": 3
         }
       }
     },
@@ -106873,7 +106722,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "xpra-3.0-1.fc32": {
+      "xpra-3.0.1-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
