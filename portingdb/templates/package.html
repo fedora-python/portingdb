@@ -135,6 +135,18 @@
                 </div>
                 <br>
             {% endif %}
+            {%- for grp in pkg['groups'].values() -%}
+                {%- if 'exception' in grp and not grp['hidden'] and pkg['name'] in grp['seed_packages'] -%}
+                    <div>
+                        <a href="{{ url_for('group', grp=grp['ident']) }}" title="This package has a FESCo exception for {{ grp['name'] }}">
+                            <i class="fa fa-thumb-tack"></i>
+                        </a>
+                        This package has a <a href="{{ grp['exception'] }}">FESCo exception</a> to stay on Python 2.
+                        See the <a href="{{ url_for('group', grp=grp['ident']) }}">{{ grp['name'] }}</a> group.
+                    </div>
+                    <br>
+                {%- endif -%}
+            {%- endfor -%}
             <div>
                 <img src="https://fedoraproject.org/static/images/favicon.ico">
                 See

@@ -47,6 +47,7 @@
     ) -}}
     {{- ftbfs_badge(pkg) -}}
     {{- orphan_badge(pkg) -}}
+    {{- exception_badge(pkg) -}}
 {%- endmacro %}
 
 {% macro orphan_badge(pkg) -%}
@@ -79,6 +80,16 @@
     <i class="fa fa-{{ icon }}"
        title="Orphaned since {{ change | format_time_ago }},
        {{- "\n" }}{{ change  }} ({{ (now - change).days }} days)."></i>
+{%- endmacro %}
+
+{% macro exception_badge(pkg) -%}
+    {%- for grp in pkg['groups'].values() -%}
+        {%- if 'exception' in grp and not grp['hidden'] and pkg['name'] in grp['seed_packages'] %}
+                <a href="{{ url_for('group', grp=grp['ident']) }}" title="FESCo exception for {{ grp['name'] }}">
+                    <i class="fa fa-thumb-tack"></i>
+                </a>
+        {%- endif -%}
+    {%- endfor -%}
 {%- endmacro %}
 
 {% macro pkglink_icon(pkg) -%}

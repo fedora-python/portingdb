@@ -158,13 +158,15 @@
                             {{ grp.name }}
                         </a>
                         {% if 'exception' in grp %}
-                            <small>(<a href="{{ grp['exception'] }}">
+                            –
+                            <a href="{{ grp['exception'] }}">
                                 {%- if grp.hidden -%}
-                                    exc. request
+                                    <small>exc. request</small>
                                 {%- else -%}
-                                    exc.
+                                    <i class="fa fa-thumb-tack"></i>
+                                    <small>exc.</small>
                                 {%- endif -%}
-                            </a>)</small>
+                            </a>
                         {% endif %}
                         –
                         {% set n = len(grp.seed_packages) + len(grp.untracked_packages) %}
