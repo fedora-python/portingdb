@@ -28,11 +28,6 @@ skf:
 # It's not necessary to manually record new bugs any more; just make sure
 # your bug blocks https://bugzilla.redhat.com/show_bug.cgi?id=1285816
 
-alacarte:
-    status: dropped
-    note: |
-        Recommended replacement: `menulibre` (already supports python3
-        and has fewer dependencies)
 arandr:
     being-ported: true
 archivemail:
@@ -48,15 +43,9 @@ byobu:
         [dperson] Pull accepted upstream (will be in 5.100). Updated the `spec`
         file to fix the she-bang lines on build. Submited it to the maintainer.
         Maintainer will wait on Fedora 24 to change script interpreter.
-certmaster:
-    dead-upstream: true
 comix:
     dead-upstream: true
-drobo-utils:
-    dead-upstream: true
 dwarves:
-    dead-upstream: true
-epydoc:
     dead-upstream: true
 findthatword:
     dead-upstream: true
@@ -66,14 +55,6 @@ gnome-python2:
     status: dropped
     note: |
       Suggested replacement: `pygobject3`
-gnome-python2-extras:
-    status: dropped
-    note: |
-      Suggested replacement: `pygobject3`
-gstreamer-python:
-    status: dropped
-    note: |
-      Replacement: `python-gstreamer1`
 hippo-canvas: &sugar-toolkit
     status: dropped
     note: |
@@ -108,8 +89,6 @@ mailman:
         Mailman 3 with Python 3 support is ready but should be packaged separately.
         More info on the status of the new package can be found in a
         [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1363871).
-marave:
-    dead-upstream: true
 notify-python :
     note: |
         Suggested replacement: `python-notify2`
@@ -137,15 +116,6 @@ pygtk2:
     status: dropped
     note: |
       Suggested replacement: `python-gobject`
-pygtksourceview:
-    status: dropped
-    note: |
-      Sugested replacement: `gtksourceview`
-
-      Note that since
-      [gtksourceview](https://src.fedoraproject.org/rpms/gtksourceview/)
-      uses GObject introspection, it has no own Python code and thus does not
-      show up in PortingDB.
 python27:
     status: dropped
     note: |
@@ -155,14 +125,6 @@ python-backports:
     status: dropped
     note: |
         By definition, the new Python version does not need backports!
-python-backports-functools_lru_cache:
-    status: dropped
-    note: |
-        Included in Python 3.3
-python-backports-ssl_match_hostname:
-    status: dropped
-    note: |
-        Included in Python 3.2
 python-BeautifulSoup:
     status: dropped
     note: |
@@ -182,11 +144,6 @@ python-igor:
         The package is functional under python3, but the executable output
         is  slightly nicer under python2. So it is on py2 on purpose
         according to the maintainer.
-python-ipaddress:
-    status: dropped
-    note: |
-        In Python 3.3+, ipaddress is in the standard library.
-        This is a backport for earlier versions.
 python-inotify:
     status: released
     note: |
@@ -198,19 +155,11 @@ python2-more-itertools:
     status: dropped
     note: |
         Replacement: `python-more-itertools`
-python2-matplotlib:
-    status: dropped
-    note: |
-        Replacement: `python-matplotlib`
 python2-numpy:
     status: dropped
     note: |
         This is the Python 2 version.
         The `numpy` package provides `python3-numpy`.
-python-openid:
-    status: dropped
-    note: |
-      Replacement: `python3-openid`
 python-oslo-config:
     nonblocking: true
     note: |
@@ -219,10 +168,6 @@ python2-pluggy:
     status: dropped
     note: |
         This is the compat package; `python3-pluggy` is pprovided by `python-pluggy`.
-python-progressbar:
-  status: dropped
-  note: |
-    Suggested replacement: `python-progressbar2`
 python-pydns:
   status: dropped
   note: |
@@ -232,11 +177,6 @@ python2-pytest:
   note: |
     This is the Python 2 version.
     The `pytest` package provides `python3-pytest`.
-python-qpid:
-  nonblocking: true
-  note: |
-    Only `qpid-cpp` depends on `python-qpid`, and `python-qpid` depends
-    back on `qpid-cpp`.
 python2-setuptools:
   status: dropped
   note: |
@@ -258,11 +198,6 @@ python2-typing:
         The `typing` module is part of the standard library in Python 3.5+;
         no need for this backport there.
 pyutil: *pyutil-zbase32-cycle
-qpid-cpp:
-  nonblocking: true
-  note: |
-    Only `qpid-cpp` depends on `python-qpid`, and `python-qpid` depends
-    back on `qpid-cpp`.
 sugar-toolkit: *sugar-toolkit
 texlive-base:
     status: idle
