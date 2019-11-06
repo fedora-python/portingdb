@@ -234,28 +234,10 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1735674"
       }
     },
-    "build_deps": [
-      "python2-setuptools",
-      "python27"
-    ],
-    "deps": [
-      "python2-setuptools",
-      "python27"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "python2-Cython-0.29.13-5.fc32": {
-        "almost_leaf": false,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "libpython2.7.so.1.0()(64bit)": 2,
-          "python(abi) = 2.7": 2
-        }
-      },
-      "python3-Cython-0.29.13-5.fc32": {
+      "python3-Cython-0.29.14-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -268,7 +250,7 @@
         }
       }
     },
-    "status": "released"
+    "status": "py3-only"
   },
   "FlightCrew": {
     "bugs": {
@@ -2797,7 +2779,7 @@
       "python27"
     ],
     "rpms": {
-      "python2-audit-3.0-0.14.20190507gitf58ec40.fc32": {
+      "python2-audit-3.0-0.15.20191104git1c2f876.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -2810,7 +2792,7 @@
           "python(abi) = 2.7": 2
         }
       },
-      "python3-audit-3.0-0.14.20190507gitf58ec40.fc32": {
+      "python3-audit-3.0-0.15.20191104git1c2f876.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -2875,36 +2857,22 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1737908"
       }
     },
-    "build_deps": [
-      "python27"
-    ],
-    "deps": [
-      "pygtk2"
-    ],
+    "build_deps": [],
+    "deps": [],
     "rpms": {
-      "autodownloader-0.3.0-20.fc31": {
+      "autodownloader-0.4.0-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
           "build_time": [],
-          "run_time": [
-            "bolzplatz2006",
-            "clonekeen",
-            "quake3",
-            "rigsofrods",
-            "rott",
-            "uqm",
-            "vavoom",
-            "xonotic",
-            "xu4"
-          ]
+          "run_time": []
         },
         "py_deps": {
-          "/usr/bin/python2": 2
+          "/usr/bin/python3": 3
         }
       }
     },
-    "status": "idle"
+    "status": "py3-only"
   },
   "autojump": {
     "bugs": {
@@ -3129,7 +3097,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=555628"
       },
       "1737905": {
-        "last_change": "2019-10-29 12:43:53",
+        "last_change": "2019-11-05 12:23:00",
         "resolution": "",
         "short_desc": "b43-tools depends on Python 2",
         "status": "NEW",
@@ -3821,52 +3789,6 @@
     },
     "status": "py3-only"
   },
-  "bluefish": {
-    "bugs": {
-      "1737907": {
-        "last_change": "2019-09-03 19:57:44",
-        "resolution": "",
-        "short_desc": "bluefish depends on Python 2",
-        "status": "NEW",
-        "trackers": [
-          "F31_PY2REMOVAL"
-        ],
-        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1737907"
-      }
-    },
-    "build_deps": [
-      "python27"
-    ],
-    "deps": [
-      "python27"
-    ],
-    "rpms": {
-      "bluefish-2.2.10-12.fc31": {
-        "almost_leaf": true,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "libpython2.7.so.1.0()(64bit)": 2
-        }
-      },
-      "bluefish-shared-data-2.2.10-12.fc31": {
-        "almost_leaf": true,
-        "legacy_leaf": false,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "/usr/bin/python2": 2,
-          "/usr/bin/python2.7": 2
-        }
-      }
-    },
-    "status": "idle"
-  },
   "blueman": {
     "build_deps": [],
     "deps": [],
@@ -4057,7 +3979,7 @@
         "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1734984"
       },
       "1767503": {
-        "last_change": "2019-11-04 15:13:37",
+        "last_change": "2019-11-05 14:50:31",
         "resolution": "",
         "short_desc": "Boost depends on Python 2",
         "status": "NEW",
@@ -9159,7 +9081,6 @@
       }
     },
     "build_deps": [
-      "Cython",
       "python27"
     ],
     "deps": [],
@@ -11707,7 +11628,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "freecad-1:0.18.3-6.fc32": {
+      "freecad-1:0.18.3-7.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -11944,7 +11865,7 @@
   "freeorion": {
     "bugs": {
       "1738008": {
-        "last_change": "2019-11-01 08:49:34",
+        "last_change": "2019-11-05 14:45:00",
         "resolution": "",
         "short_desc": "freeorion depends on Python 2",
         "status": "ASSIGNED",
@@ -12849,7 +12770,7 @@
       "pygtk2"
     ],
     "rpms": {
-      "gimp-2:2.10.12-3.fc32": {
+      "gimp-2:2.10.14-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -18295,7 +18216,7 @@
   "k3d": {
     "bugs": {
       "1738039": {
-        "last_change": "2019-11-01 08:49:42",
+        "last_change": "2019-11-05 11:50:43",
         "resolution": "",
         "short_desc": "k3d depends on Python 2",
         "status": "NEW",
@@ -21026,7 +20947,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "libratbag-ratbagd-0.10-1.fc32": {
+      "libratbag-ratbagd-0.11-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -33148,7 +33069,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-Pallets-Sphinx-Themes-1.2.2-1.fc32": {
+      "python3-Pallets-Sphinx-Themes-1.2.2-2.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -64452,7 +64373,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python-networkx-doc-2.3-5.fc32": {
+      "python-networkx-doc-2.4-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -64461,7 +64382,7 @@
         },
         "py_deps": {}
       },
-      "python3-networkx-2.3-5.fc32": {
+      "python3-networkx-2.4-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -85569,7 +85490,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "python3-texext-0.6.1-6.fc32": {
+      "python3-texext-0.6.1-7.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -85941,6 +85862,24 @@
     "deps": [],
     "rpms": {
       "python3-timeout-decorator-0.4.1-2.fc32": {
+        "almost_leaf": false,
+        "legacy_leaf": false,
+        "non_python_requirers": {
+          "build_time": [],
+          "run_time": []
+        },
+        "py_deps": {
+          "python(abi) = 3.8": 3
+        }
+      }
+    },
+    "status": "py3-only"
+  },
+  "python-timeunit": {
+    "build_deps": [],
+    "deps": [],
+    "rpms": {
+      "python3-timeunit-1.1.0-1.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -96900,50 +96839,6 @@
     },
     "status": "released"
   },
-  "skf": {
-    "bugs": {
-      "1629762": {
-        "last_change": "2018-09-19 13:56:58",
-        "resolution": "WONTFIX",
-        "short_desc": "skf: Remove (sub)packages from Fedora 30+: python2-skf",
-        "status": "CLOSED",
-        "trackers": [
-          "PY2REMOVAL"
-        ],
-        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1629762"
-      },
-      "1739514": {
-        "last_change": "2019-11-05 04:33:05",
-        "resolution": "RAWHIDE",
-        "short_desc": "skf depends on Python 2",
-        "status": "CLOSED",
-        "trackers": [
-          "F31_PY2REMOVAL"
-        ],
-        "url": "https://bugzilla.redhat.com/show_bug.cgi?id=1739514"
-      }
-    },
-    "build_deps": [
-      "python27"
-    ],
-    "deps": [
-      "python27"
-    ],
-    "rpms": {
-      "python2-skf-2.10.10-1.fc31": {
-        "almost_leaf": true,
-        "legacy_leaf": true,
-        "non_python_requirers": {
-          "build_time": [],
-          "run_time": []
-        },
-        "py_deps": {
-          "python(abi) = 2.7": 2
-        }
-      }
-    },
-    "status": "idle"
-  },
   "skrooge": {
     "build_deps": [],
     "deps": [],
@@ -97892,7 +97787,7 @@
   "sugar": {
     "bugs": {
       "1737929": {
-        "last_change": "2019-11-04 18:41:55",
+        "last_change": "2019-11-05 08:45:41",
         "resolution": "",
         "short_desc": "sugar depends on Python 2",
         "status": "ASSIGNED",
@@ -100982,7 +100877,7 @@
     "build_deps": [],
     "deps": [],
     "rpms": {
-      "texlive-changes-9:svn51705-3.fc32": {
+      "texlive-changes-9:svn51705-4.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -100993,7 +100888,7 @@
           "/usr/bin/python": 3
         }
       },
-      "texlive-python-9:svn27064.0.21-3.fc32": {
+      "texlive-python-9:svn27064.0.21-4.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -101002,7 +100897,7 @@
         },
         "py_deps": {}
       },
-      "texlive-python-doc-9:svn27064.0.21-3.fc32": {
+      "texlive-python-doc-9:svn27064.0.21-4.fc32": {
         "almost_leaf": false,
         "legacy_leaf": false,
         "non_python_requirers": {
@@ -101696,7 +101591,7 @@
   "trac": {
     "bugs": {
       "1737930": {
-        "last_change": "2019-10-29 18:34:16",
+        "last_change": "2019-11-05 21:47:08",
         "resolution": "",
         "short_desc": "trac depends on Python 2",
         "status": "ASSIGNED",
