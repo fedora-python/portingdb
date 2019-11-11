@@ -87,24 +87,29 @@ olpc:
     - sugar-yupana
 trac:
     name: Trac
-    hidden: true
+    exception: https://pagure.io/fesco/issue/2260
     packages:
+    - email2trac
+    - babel
+    - python-genshi
+    - python-jinja2
+    - python-markupsafe
+    - pytz
+    - python2-setuptools
     - trac
     - trac-CGit-plugin
     - trac-accountmanager-plugin
-    - trac-authopenid-plugin
     - trac-batchmodify-plugin
     - trac-blackmagictickettweaks-plugin
     - trac-customfieldadmin-plugin
     - trac-doxygen-plugin
     - trac-git-plugin
     - trac-iniadmin-plugin
-    - trac-mercurial-plugin
+    - trac-mastertickets-plugin
     - trac-monotone-plugin
     - trac-navadd-plugin
     - trac-privateticketsplugin
     - trac-sensitivetickets-plugin
-    - trac-spamfilter-plugin
     - trac-themeengine-plugin
     - trac-tocmacro-plugin
     - trac-tracnav-plugin
@@ -112,6 +117,21 @@ trac:
     - trac-watchlist-plugin
     - trac-workflowadmin-plugin
     - trac-xmlrpc-plugin
+trac-spamfilter-plugin:
+    name: Trac spamfilter plugin
+    exception: https://pagure.io/fesco/issue/2266
+    hidden: true
+    packages:
+    - trac-spamfilter-plugin
+    - python-dns
+    - python-crypto
+    - python-pycryptodomex
+    - python2-typing
+    - python-httplib2
+    - python-oauth2
+    - python-pillow
+    - python-olefile
+    - python2-numpy
 chromium:
     name: Chromium browser
     exception: https://pagure.io/fesco/issue/2214
