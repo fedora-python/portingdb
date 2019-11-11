@@ -6,19 +6,6 @@ gtk2: &devel-only
     note: |
       Only the -devel subpackage depends on Python.
 
-# Maintainer ignores mass removal
-
-python-mecab:
-    status: dropped
-    note: |
-      Maintainer ignores the Mass Python 2 Package Removal change,
-      see [BZ#1627130](https://bugzilla.redhat.com/show_bug.cgi?id=1627130).
-skf:
-    status: dropped
-    note: |
-      Maintainer ignores the Mass Python 2 Package Removal change,
-      see [BZ#1629762](https://bugzilla.redhat.com/show_bug.cgi?id=1629762).
-
 
 # The rest of this file is alphabetized; please keep it that way.
 
@@ -89,9 +76,6 @@ mailman:
         Mailman 3 with Python 3 support is ready but should be packaged separately.
         More info on the status of the new package can be found in a
         [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1363871).
-notify-python :
-    note: |
-        Suggested replacement: `python-notify2`
 nut:
     note: |
         As discussed in a [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1323261),
@@ -134,11 +118,6 @@ python-enum34:
     note: |
       `enum` is part of the Python 3.4 standard library, so this backport
       is not needed.
-python-futures:
-  status: dropped
-  note: |
-    This is a backport of `concurrent.futures`, part of the Python 3.2
-    standard library.
 python-igor:
     note: |
         The package is functional under python3, but the executable output
