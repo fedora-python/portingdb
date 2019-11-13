@@ -16,6 +16,7 @@ olpc:
     hidden: true
     packages:
     - olpc-kbdshim
+    - olpc-netutils
     - olpc-switch-desktop
     - olpc-update
     - olpc-utils
@@ -209,32 +210,14 @@ gnuradio:
     exception: https://pagure.io/fesco/issue/2272
     hidden: true
     packages:
+    - gnuradio
     - gr-air-modes
     - gr-fcdproplus
     - gr-hpsdr
+    - gr-iio
     - gr-iqbal
     - gr-osmosdr
     - gr-rds
-    - python-zmq
-
-    # gr-iio, gnuradio + its immediate dependencies + their runtime deps
-    # (These aren't listed in the exception request at time of writing, but
-    # let's postpone touching them anyway.)
-    - gr-iio
-    - gnuradio
-    - PyQt4
-    - python-cheetah
-    - python-lxml
-    - python-mako
-    - python-markupsafe
-    - python-pyopengl
-    - python2-numpy
-    - python-six
-    - pygtk2
-    - pycairo
-    - pygobject2
-    - wxPython
-
 mercurial:
     name: Mercurial
     exception: https://pagure.io/fesco/issue/2243
