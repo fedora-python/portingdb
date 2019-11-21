@@ -30,8 +30,6 @@ byobu:
         [dperson] Pull accepted upstream (will be in 5.100). Updated the `spec`
         file to fix the she-bang lines on build. Submited it to the maintainer.
         Maintainer will wait on Fedora 24 to change script interpreter.
-comix:
-    dead-upstream: true
 dwarves:
     dead-upstream: true
 findthatword:
@@ -130,10 +128,6 @@ python-inotify:
 python-kerberos:
     note: |
       Suggested replacement: `python-gssapi`
-python2-more-itertools:
-    status: dropped
-    note: |
-        Replacement: `python-more-itertools`
 python2-numpy:
     status: dropped
     note: |
@@ -143,19 +137,6 @@ python-oslo-config:
     nonblocking: true
     note: |
         The main package is ported to Python 3
-python2-pluggy:
-    status: dropped
-    note: |
-        This is the compat package; `python3-pluggy` is pprovided by `python-pluggy`.
-python-pydns:
-  status: dropped
-  note: |
-    Recommended replacement: `python3-py3dns`
-python2-pytest:
-  status: dropped
-  note: |
-    This is the Python 2 version.
-    The `pytest` package provides `python3-pytest`.
 python2-setuptools:
   status: dropped
   note: |
@@ -191,7 +172,3 @@ will-crash:
         it can test that abrt handles both python2 and python3 tracebacks.
 
         So, the RPM requires both /usr/bin/python2 and /usr/bin/python3.
-wxPython:
-    status: dropped
-    note: |
-      Replacement: `python-wxpython4`
