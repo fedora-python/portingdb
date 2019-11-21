@@ -41,6 +41,9 @@ TRACKER_BUGS = {
     1322027: "PYTHON3-UPSTREAM",
     1700324: "F31FailsToInstall",
     1700317: "F31FTBFS",
+    1750909: "F32FailsToInstall",
+    1750908: "F32FTBFS",
+    1708725: "PYTHON2_EOL",
 }
 # Bugzilla statuses that indicate the bug was filed in error
 NOTABUG_STATUSES = {'CLOSED NOTABUG', 'CLOSED WONTFIX', 'CLOSED CANTFIX'}
