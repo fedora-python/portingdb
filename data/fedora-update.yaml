@@ -1,13 +1,4 @@
-
-# These are out of order because they define an alias that is used later in the file
-
-gtk2: &devel-only
-    nonblocking: true
-    note: |
-      Only the -devel subpackage depends on Python.
-
-
-# The rest of this file is alphabetized; please keep it that way.
+# This file is alphabetized; please keep it that way.
 
 # Don't explicitly say "status: released" except in special cases: the status
 # is fetched from Rawhide. (Alas, the update might take some time.)
@@ -15,22 +6,7 @@ gtk2: &devel-only
 # It's not necessary to manually record new bugs any more; just make sure
 # your bug blocks https://bugzilla.redhat.com/show_bug.cgi?id=1285816
 
-arandr:
-    being-ported: true
 archivemail:
-    dead-upstream: true
-boost:
-    nonblocking: true
-    note: |
-        Some components are not ported yet.
-byobu:
-    links:
-        repo: https://github.com/dperson/byobu
-    note: |
-        [dperson] Pull accepted upstream (will be in 5.100). Updated the `spec`
-        file to fix the she-bang lines on build. Submited it to the maintainer.
-        Maintainer will wait on Fedora 24 to change script interpreter.
-dwarves:
     dead-upstream: true
 findthatword:
     dead-upstream: true
@@ -55,14 +31,6 @@ hippo-canvas: &sugar-toolkit
         introspection based gst 1.0 bindings etc.
         There's only a handful of gtk2 based Activities left
         (`repoquery --whatrequires sugar-toolkit`)
-koji:
-    nonblocking: true
-    note: |
-        Lots of the codebase it ported. This includes the Python library.
-        Dependencies that use the library or call koji binaries directly
-        can begin porting.
-libkdtree++:
-    dead-upstream: true
 m2crypto:
     nonblocking: true
     note: |
@@ -74,22 +42,11 @@ mailman:
         Mailman 3 with Python 3 support is ready but should be packaged separately.
         More info on the status of the new package can be found in a
         [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1363871).
-nut:
-    note: |
-        As discussed in a [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1323261),
-        nut is not ready for Python 3.
 postgresql:
     nonblocking: true
     note: |
         Only postgresql-upgrade and postgresql-contrib depend on both Pythons, but this is intentional
         as discussed in a [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1571215).
-pydot:
-    note: |
-      Suggested replacement: `python-pydotplus`
-pygame:
-    nonblocking: true
-    note: |
-        No `python3-pygame-devel` equivalent
 pygobject2:
     status: dropped
     note: |
@@ -107,54 +64,24 @@ python-BeautifulSoup:
     status: dropped
     note: |
         Replacement: `python-beautifulsoup4`
-python-igor:
-    note: |
-        The package is functional under python3, but the executable output
-        is  slightly nicer under python2. So it is on py2 on purpose
-        according to the maintainer.
-python-inotify:
-    status: released
-    note: |
-        `python2-inotify-examples` only contains examples of how `python2-inotify` can be used and does not need to be ported.
-python-kerberos:
-    note: |
-      Suggested replacement: `python-gssapi`
 python2-numpy:
     status: dropped
     note: |
         This is the Python 2 version.
         The `numpy` package provides `python3-numpy`.
-python-oslo-config:
-    nonblocking: true
-    note: |
-        The main package is ported to Python 3
 python2-setuptools:
   status: dropped
   note: |
     This is the Python 2 version.
     The `python-setuptools` package provides `python3-setuptools`.
-python-zbase32: &pyutil-zbase32-cycle
-    nonblocking: true
-    note: |
-      Only `python-zbase32` depends on `pyutil`, and `pyutil` depends back
-      on `python-zbase32`.
 python2-typing:
     status: dropped
     note: |
         The `typing` module is part of the standard library in Python 3.5+;
         no need for this backport there.
-pyutil: *pyutil-zbase32-cycle
 sugar-toolkit: *sugar-toolkit
 texlive-base:
     status: idle
     note: |
         texlive-pythontex depends on both Pythons by design upstream. See discussion
         in the Bugzilla for more details.
-will-crash:
-    status: released  # (exception)
-    note: |
-        will-crash tests that abrt will detect a crash and report properly.
-        It contains a crashing program for both python2 and python3 so that
-        it can test that abrt handles both python2 and python3 tracebacks.
-
-        So, the RPM requires both /usr/bin/python2 and /usr/bin/python3.
