@@ -199,6 +199,9 @@
                             {% for rpm_name, rpm in pc.rpms.items() %}
                                 <li>
                                     {{ rpm_name | format_rpm_name }}
+                                    {% if rpm.get('arch') == 'src' %}
+                                        <span class="fa fa-wrench" title="SRPM"></span>
+                                    {% endif %}
                                     {% if rpm.get('is_misnamed') %}
                                     <span class="naming-badge"
                                           style="background-color: #F0AD4E !important;"

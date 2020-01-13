@@ -96,7 +96,10 @@ def progressbar(seq, text, namegetter=str):
     def printer(i, name):
         pad_len = prev_len - len(name)
         total_len = 20
-        progress = ('=' * (total_len * i // total)).ljust(total_len)
+        if total:
+            progress = ('=' * (total_len * i // total)).ljust(total_len)
+        else:
+            progress = '=' * total_len
         if i == 0:
             r = ''
         else:
@@ -127,12 +130,14 @@ def set_status(result, pkgs, python_versions):
     # name only (this means different arches are grouped into one)
     name_by_version = collections.defaultdict(set)
     pkg_by_version = collections.defaultdict(set)
+    name_by_arch = collections.defaultdict(set)
     for p in pkgs:
+        name_by_arch[p.arch].add(f'{p.name}.{p.arch}')
         for v in python_versions[p]:
-            name_by_version[v].add(p.name)
+            name_by_version[v].add(f'{p.name}.{p.arch}')
             pkg_by_version[v].add(p)
 
-    if name_by_version[2] & name_by_version[3]:
+    if (name_by_version[2] & name_by_version[3]) - name_by_arch['src']:
         # If a package depends on *both* py2 and py3, it's not ported
         result['status'] = 'mispackaged'
         result['note'] = (
@@ -154,9 +159,16 @@ def set_status(result, pkgs, python_versions):
                 result['note'] = (
                     'The Python 3 package is missing binaries available '
                     'in a Python 2 package.\n')
-            elif all(result['rpms'][format_rpm_name(pkg)]['almost_leaf']
-                     for pkg in pkg_by_version[2]):
+            elif all(
+                result['rpms'][format_rpm_name(pkg)]['almost_leaf']
+                or result['rpms'][format_rpm_name(pkg)]['arch'] == 'src'
+                for pkg in pkg_by_version[2]
+            ) and any(
+                result['rpms'][format_rpm_name(pkg)]['arch'] != 'src'
+                for pkg in pkg_by_version[2]
+            ):
                 # Packages with py2 subpackages not required by anything.
+                # (source packages don't count)
                 result['status'] = 'legacy-leaf'
             else:
                 result['status'] = 'released'
@@ -164,10 +176,11 @@ def set_status(result, pkgs, python_versions):
             result['status'] = 'idle'
 
     for pkg in pkg_by_version[2]:
-        is_misnamed = check_naming_policy(pkg, name_by_version)
-        if is_misnamed and pkg.name != 'python-unversioned-command':
-            rpm_name = format_rpm_name(pkg)
-            result['rpms'].get(rpm_name, {})['is_misnamed'] = is_misnamed
+        if pkg.arch != 'src':
+            is_misnamed = check_naming_policy(pkg, name_by_version)
+            if is_misnamed and pkg.name != 'python-unversioned-command':
+                rpm_name = format_rpm_name(pkg)
+                result['rpms'].get(rpm_name, {})['is_misnamed'] = is_misnamed
 
 
 def format_rpm_name(pkg):
@@ -175,7 +188,7 @@ def format_rpm_name(pkg):
         epoch = '{}:'.format(pkg.epoch)
     else:
         epoch = ''
-    return '{pkg.name}-{epoch}{pkg.version}-{pkg.release}'.format(
+    return '{pkg.name}-{epoch}{pkg.version}-{pkg.release}.{pkg.arch}'.format(
         pkg=pkg, epoch=epoch)
 
 
@@ -209,9 +222,6 @@ class Py3QueryCommand(dnf.cli.Command):
         parser.add_argument('--no-bz', dest='fetch_bugzilla', action='store_false',
                             default=True, help=_("Don't get Bugzilla links"))
 
-        parser.add_argument('--qrepo', dest='py3query_repo', action='append',
-                            help=_("Repo(s) to use for the query"))
-
         parser.add_argument('--misnamed', dest='py3query_misnamed', action='store',
                             help=_("YAML file with old misnamed packages"))
 
@@ -222,13 +232,9 @@ class Py3QueryCommand(dnf.cli.Command):
                                    "which repositories"))
 
     def run(self):
-        reponames = self.opts.py3query_repo
-        if not reponames:
-            reponames = ['rawhide']
         self.base_query = self.base.sack.query()
-        self.pkg_query = self.base_query.filter(reponame=list(reponames))
-        source_reponames = [n + '-source' for n in reponames]
-        self.src_query = self.base_query.filter(reponame=source_reponames).filter(arch=['src'])
+        self.pkg_query = self.base_query.filter(arch__neq=['src'])
+        self.src_query = self.base_query.filter(arch=['src'])
 
         # python_versions: {package: set of Python versions}
         python_versions = collections.defaultdict(set)
@@ -237,7 +243,7 @@ class Py3QueryCommand(dnf.cli.Command):
         # dep_versions: {dep name: Python version}
         dep_versions = collections.defaultdict(set)
         for n, seeds in SEED_PACKAGES.items():
-            provides = sorted(self.all_provides(reponames, seeds), key=str)
+            provides = sorted(self.all_provides(seeds), key=str)
 
             # This effectively includes packages that still need
             # Python 3.4 while Rawhide only provides Python 3.5
@@ -245,7 +251,7 @@ class Py3QueryCommand(dnf.cli.Command):
 
             for dep in progressbar(provides, 'Getting py{} requires'.format(n)):
                 dep_versions[str(dep)] = n
-                for pkg in self.whatrequires(dep, self.pkg_query):
+                for pkg in self.whatrequires(dep, self.base_query):
                     python_versions[pkg].add(n)
                     rpm_pydeps[pkg].add(str(dep))
 
@@ -258,10 +264,10 @@ class Py3QueryCommand(dnf.cli.Command):
         }.items():
             for pattern in '{}-*', '*-{}', '*-{}-*':
                 name_glob = pattern.format(name)
-                query = self.pkg_query.filter(name__glob=name_glob)
+                query = self.base_query.filter(name__glob=name_glob)
                 message = 'Getting {} packages'.format(name_glob)
                 for pkg in progressbar(query, message):
-                    if pkg.sourcerpm.startswith('mingw-'):
+                    if pkg.sourcerpm and pkg.sourcerpm.startswith('mingw-'):
                         # Ignore mingw packages
                         continue
                     if pkg not in python_versions:
@@ -382,16 +388,19 @@ class Py3QueryCommand(dnf.cli.Command):
                         'run_time': sorted(get_srpm_names(requirers_of_pkg[p]) - by_srpm_name.keys()),
                     },
                     'almost_leaf': (
-                        # is Python 2 and is not required by anything EXCEPT
+                        # not SRPM and is Python 2 and is not required by anything EXCEPT
                         # sibling subpackages
+                        p.arch != 'src' and
                         2 in python_versions[p] and
                         not get_srpm_names(build_requirers_of_pkg[p] | requirers_of_pkg[p]) - {name}
                     ),
                     'legacy_leaf': (
-                        # is Python 2 and is not required by anything
+                        # not SRPM and is Python 2 and is not required by anything
+                        p.arch != 'src' and
                         2 in python_versions[p] and
                         not get_srpm_names(build_requirers_of_pkg[p] | requirers_of_pkg[p])
                     ),
+                    'arch': p.arch,
                 } for p in pkgs}
             set_status(r, pkgs, python_versions)
 
@@ -476,12 +485,11 @@ class Py3QueryCommand(dnf.cli.Command):
                 json.dump(output, f, indent=2, sort_keys=True)
 
 
-    def all_provides(self, reponames, seeds):
+    def all_provides(self, seeds):
         pkgs = set()
         for seed in seeds:
             query = dnf.subject.Subject(seed, ignore_case=True).get_best_query(
                 self.base.sack, with_provides=False)
-            query = query.filter(reponame=list(reponames))
             pkgs.update(query.run())
         provides = set()
         for pkg in sorted(pkgs):
