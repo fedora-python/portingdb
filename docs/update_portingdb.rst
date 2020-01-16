@@ -40,7 +40,7 @@ The following steps are needed to update pordingdb data:
 
 #. Get the Python 3 porting status using ``py3query`` dnf plugin. Use ``-o`` option to write the output directly to ``fedora.json``::
 
-    $ dnf-3 --repo=rawhide --repo=rawhide-source py3query --refresh --installroot=/tmp/empty-install-root --misnamed=data/misnamed-old.yaml -o data/fedora.json
+    $ dnf-3 --repo=rawhide --repo=rawhide-source py3query --refresh --installroot=/tmp/empty-install-root -o data/fedora.json
 
 #. Compare statuses of packages in the new JSON file::
 
