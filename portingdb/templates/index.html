@@ -330,20 +330,6 @@
                 Individual package pages list the RPM
                 versions this report is based on.
             </div>
-            <h2><a href="{{url_for('namingpolicy') }}">Naming Policy</a></h2>
-            <div>Tracking packages which do not comply with <a href="https://fedoraproject.org/wiki/Packaging:Naming?rd=Packaging:NamingGuidelines#Python_source_package_naming" target="_blank">Python package naming guidelines</a></div>
-            <ul class="list-group">
-                {% for status, count in naming_progress %}
-                <li class="list-group-item">
-                    {% if status.ident != 'name-correct' %}<a href="{{url_for('namingpolicy') }}#{{ status.ident }}">{% endif %}
-                    {{ count }}
-                    {{ naming_status_badge(status) }}
-                    <strong>{{ status.name }}</strong>
-                    {% if status.ident != 'name-correct' %}</a>{% endif %}
-                    <div><small>{{ status.short_description }}</small></div>
-                </li>
-                {% endfor %}
-            </ul>
             {% if 'extra-sidebar' in config %}
                 {{ config['extra-sidebar'] |safe }}
             {% endif %}

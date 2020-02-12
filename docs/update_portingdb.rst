@@ -53,7 +53,6 @@ The following steps are needed to update pordingdb data:
 #. Get historical status and naming policy data and update ``history.csv`` and ``history-naming.csv``::
 
     (venv) $ python -u scripts/get-history.py --update data/history.csv | tee history.csv && mv history.csv data/history.csv
-    (venv) $ python -u scripts/get-history.py -n --update data/history-naming.csv | tee history-naming.csv && mv history-naming.csv data/history-naming.csv
 
 #. Update the maintainer and orphans lists::
 

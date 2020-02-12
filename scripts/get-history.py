@@ -24,7 +24,6 @@ from portingdb.load_data import get_data
 
 
 HISTORY_END_COMMIT = '9c4e924da9ede05b4d8903a622240259dfa0e2e5'
-HISTORY_NAMING_END_COMMIT = 'e88b40f45cde37c6956b8ef088f195766f454c0e'
 
 
 def run(args, **kwargs):
@@ -74,34 +73,9 @@ def get_history_package_numbers(data, commit, date):
     return result
 
 
-def get_history_naming_package_numbers(data, commit, date):
-    """Get number of packages for each naming policy violation.
-    """
-    result = []
-
-    progress = collections.Counter(
-        'Misnamed Subpackage' if package['is_misnamed'] else
-        'Blocked' if package['blocked_requires'] else
-        'Ambiguous Requires' if package['unversioned_requires'] else
-        'OK'
-        for package in data['packages'].values()
-    )
-    for status_name in 'Misnamed Subpackage', 'Ambiguous Requires', 'Blocked':
-        row = {
-            'commit': commit,
-            'date': date,
-            'status': status_name,
-            'num_packages': progress[status_name],
-        }
-        result.append(row)
-    return result
-
-
 @click.command(help=__doc__)
 @click.option('-u', '--update', help='CSV file with existing data')
-@click.option('-n', '--naming', is_flag=True,
-              help='The CSV file provided is for naming history')
-def main(update, naming):
+def main(update):
     excluded = set(BAD_COMMITS)
     tmpdir = tempfile.mkdtemp()
     writer = csv.DictWriter(sys.stdout,
@@ -126,7 +100,7 @@ def main(update, naming):
         prev_data_hash = None
         prev_batch = []
 
-        end_commit = HISTORY_NAMING_END_COMMIT if naming else HISTORY_END_COMMIT
+        end_commit = HISTORY_END_COMMIT
         for commit in reversed(git_history(end=end_commit)):
             date = run(['git', 'log', '-n1', '--pretty=%ci', commit]).strip()
             if prev_date and prev_date > date:
@@ -155,10 +129,7 @@ def main(update, naming):
 
             data = get_data(tmpdata)
 
-            if naming:
-                prev_batch = get_history_naming_package_numbers(data, commit, date)
-            else:
-                prev_batch = get_history_package_numbers(data, commit, date)
+            prev_batch = get_history_package_numbers(data, commit, date)
 
             prev_data_hash = data_hash
         for row in prev_batch:
