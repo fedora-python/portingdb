@@ -40,6 +40,7 @@ TRACKER_BUGS = {
     1750909: "F32FailsToInstall",
     1750908: "F32FTBFS",
     1708725: "PYTHON2_EOL",
+    1803205: "BRPY27",
 }
 # Bugzilla statuses that indicate the bug was filed in error
 NOTABUG_STATUSES = {'CLOSED NOTABUG', 'CLOSED WONTFIX', 'CLOSED CANTFIX'}
