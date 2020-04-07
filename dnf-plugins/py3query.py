@@ -10,6 +10,7 @@ This will give you a file "fedora.json" with information for portingdb.
 
 from __future__ import print_function
 
+import os
 import sys
 import json
 import collections
@@ -22,11 +23,6 @@ import dnf.subject
 from dnfpluginscore import _
 import bugzilla  # python-bugzilla
 import yaml
-
-from taskotron_python_versions.executables import have_binaries
-from taskotron_python_versions.naming_scheme import check_naming_policy, is_unversioned
-from taskotron_python_versions.two_three import NAME_NOTS
-
 
 BUGZILLA_URL = 'bugzilla.redhat.com'
 # Tracker bugs which are used to find all relevant package bugs
@@ -76,6 +72,101 @@ PROVIDES_BLACKLIST = (
     'postscriptdriver(', 'pkgconfig(', 'perl(', 'mvn(', 'mimehandler(',
     'config(', 'bundled(', 'application(', 'appdata(',
 )
+
+VERSION_AGNOSTIC_PACKAGES = (
+    'python-rpm-macros',
+    'python-srpm-macros',
+    'python-sphinx-doc',
+    'python-sphinx-locale',
+    'python-multilib-conf',
+    'python-ldb-devel-common',
+    'python-qt5-rpm-macros',
+    'python-btchip-common',
+    'python-matplotlib-data',
+    'python-matplotlib-data-fonts',
+    'python-cartopy-common',
+    'python-django-bash-completion',
+    'python-jupyter-filesystem',
+    'python-pip-wheel',
+    'python-setuptools-wheel',
+    'python-wheel-wheel',
+    'python-formencode-langpacks',
+    'python-typeshed',
+    'texlive-python',
+    'python-jupyter-filesystem',
+    'python-imgcreate-sysdeps',
+    'dbus-python-devel',
+    'python-basemap-data',
+    'python-guessit-doc',
+    'python-jupyter-client-doc',
+    'python-pymilter-common',
+    'python-pymilter-selinux',
+    'gcc-python-plugin-c-api',
+    'gcc-python-plugin-docs',
+    'python-pyside-devel',
+    'collectd-python',
+)
+
+
+def is_binary(filepath):
+    """Check if the filepath is a binary (executable).
+    Return: (bool) True if it is a binary, False otherwise
+    """
+    return filepath.startswith(('/usr/bin', '/usr/sbin'))
+
+
+def have_binaries(packages):
+    """Check if there are any binaries (executables) in the packages.
+    Note: This function is also being used in portingdb.
+    Return: (bool) True if packages have any binaries, False otherwise
+    """
+    for pkg in packages:
+        for filepath in pkg.files:
+            if is_binary(filepath):
+                return True
+    return False
+
+
+def has_pythonX_package(pkg_name, name_by_version, version):
+    """Given the package name, check if python<version>-<pkg_name>
+    or <pkg_name>-python<version> exists in name_by_version.
+    Return: (bool) True if such package name exists, False otherwise
+    """
+    return (
+        'python{}-{}'.format(version, pkg_name) in name_by_version[version] or
+        '{}-python{}'.format(pkg_name, version) in name_by_version[version])
+
+
+def is_unversioned(name):
+    """Check whether unversioned python prefix is used
+    in the name (e.g. python-foo).
+    Return: (bool) True if used, False otherwise
+    """
+    if (os.path.isabs(name) or  # is an executable
+            os.path.splitext(name)[1] or  # has as extension
+            name.startswith(('python2-', 'python3-'))):  # is versioned
+        return False
+
+    return (
+        name.startswith('python-') or
+        '-python-' in name or
+        name.endswith('-python') or
+        name == 'python')
+
+
+def check_naming_policy(pkg, name_by_version):
+    """Check if the package is correctly named.
+    Return: (bool) True if package name is not correct, False otherwise
+    """
+    # Missing python2- prefix (e.g. foo and python3-foo).
+    missing_prefix = (
+        'python' not in pkg.name and
+        has_pythonX_package(pkg.name, name_by_version, 3) and
+        not has_pythonX_package(pkg.name, name_by_version, 2)
+    )
+    if is_unversioned(pkg.name) or missing_prefix:
+        return True
+    return False
 
 
 class Py3Query(dnf.Plugin):
@@ -313,10 +404,7 @@ class Py3QueryCommand(dnf.cli.Command):
         for pkg in progressbar(sorted(python_versions.keys()), 'Getting requirements'):
             if python_versions[pkg] == {3}:
                 continue
-            if pkg.name in NAME_NOTS:
-                # "NAME_NOTS" are Python-version-agnostic packages,
-                # such as wheels, RPM macros and documentation.
-                # Don't track those as python2 dependencies.
+            if pkg.name in VERSION_AGNOSTIC_PACKAGES:
                 continue
             reqs = set()
             build_reqs = set()
@@ -369,7 +457,7 @@ class Py3QueryCommand(dnf.cli.Command):
                         real_require.endswith('-doc')
                         or python_versions.get(requirement) == {3}
                     )
-                    and real_require not in NAME_NOTS
+                    and real_require not in VERSION_AGNOSTIC_PACKAGES
                     and real_require != 'python-unversioned-command'
                 ):
                     requirement_srpm_name = get_srpm_name(requirement)
