@@ -22,7 +22,6 @@ requires = [
     'click >= 7.0, < 8.0',
     'flask >= 1.0, < 2.0',
     'markdown >= 3.0, < 4.0',
-    'taskotron-python-versions >= 0.1.dev6',
     'plotly >= 3.0, < 4.0',
     'blessings >= 1.7, < 2.0',
     'elsa >= 0.1.5, < 1.0',

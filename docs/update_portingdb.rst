@@ -11,7 +11,6 @@ To use the portingdb update scripts, you will need to install and configure the 
 #. Install system-wide dependencies::
 
     $ sudo dnf install python3-bugzilla python3-libarchive-c
-    $ /usr/bin/python3 -m pip install --user taskotron-python-versions
 
    Note that you cannot use Python virtual environments for this.
 

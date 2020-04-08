@@ -23,10 +23,6 @@ from dnfpluginscore import _
 import bugzilla  # python-bugzilla
 import yaml
 
-from taskotron_python_versions.executables import have_binaries
-from taskotron_python_versions.naming_scheme import check_naming_policy, is_unversioned
-from taskotron_python_versions.two_three import NAME_NOTS
-
 
 BUGZILLA_URL = 'bugzilla.redhat.com'
 # Tracker bugs which are used to find all relevant package bugs
@@ -126,6 +122,17 @@ def progressbar(seq, text, namegetter=str):
     print(file=sys.stderr)
 
 
+def have_binaries(packages):
+    """Check if there are any binaries (executables) in the packages.
+    Return: (bool) True if packages have any binaries, False otherwise
+    """
+    for pkg in packages:
+        for filepath in pkg.files:
+            if filepath.startswith(('/usr/bin', '/usr/sbin')):
+                return True
+    return False
+
+
 def set_status(result, pkgs, python_versions):
     # Look at the Python dependencies of given packages, based on the
     # name only (this means different arches are grouped into one)
@@ -175,13 +182,6 @@ def set_status(result, pkgs, python_versions):
                 result['status'] = 'released'
         else:
             result['status'] = 'idle'
-
-    for pkg in pkg_by_version[2]:
-        if pkg.arch != 'src':
-            is_misnamed = check_naming_policy(pkg, name_by_version)
-            if is_misnamed and pkg.name != 'python-unversioned-command':
-                rpm_name = format_rpm_name(pkg)
-                result['rpms'].get(rpm_name, {})['is_misnamed'] = is_misnamed
 
 
 def format_rpm_name(pkg):
@@ -313,11 +313,6 @@ class Py3QueryCommand(dnf.cli.Command):
         for pkg in progressbar(sorted(python_versions.keys()), 'Getting requirements'):
             if python_versions[pkg] == {3}:
                 continue
-            if pkg.name in NAME_NOTS:
-                # "NAME_NOTS" are Python-version-agnostic packages,
-                # such as wheels, RPM macros and documentation.
-                # Don't track those as python2 dependencies.
-                continue
             reqs = set()
             build_reqs = set()
             provides = set(pkg.provides)
@@ -361,20 +356,6 @@ class Py3QueryCommand(dnf.cli.Command):
                     pass
 
                 requirement = all_provides.get(require)
-
-                if (
-                    is_unversioned(real_require)
-                    and requirement
-                    and not (
-                        real_require.endswith('-doc')
-                        or python_versions.get(requirement) == {3}
-                    )
-                    and real_require not in NAME_NOTS
-                    and real_require != 'python-unversioned-command'
-                ):
-                    requirement_srpm_name = get_srpm_name(requirement)
-                    requirer_srpm_name = get_srpm_name(pkg)
-                    unversioned_requirers[requirement_srpm_name].add(requirer_srpm_name)
 
         # json_output: {srpm name: info}
         json_output = dict()
