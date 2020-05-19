@@ -47,7 +47,7 @@ BUGZILLA_BUG_URL = "https://bugzilla.redhat.com/show_bug.cgi?id={}"
 SEED_PACKAGES = {
     2: [
         'python2-devel', 'python2', 'python2-libs', 'python2-tkinter',
-        'python(abi) = 2.7', '/usr/bin/python2', 'python27',
+        'python(abi) = 2.7', '/usr/bin/python2', 'python27', 'python2.7',
         '/usr/bin/python2.7', 'libpython2.7.so.1.0', 'libpython2.7.so.1.0()(64bit)',
         'pygtk2', 'pygobject2', 'pycairo',
     ],
@@ -274,10 +274,11 @@ class Py3QueryCommand(dnf.cli.Command):
                     if pkg not in python_versions:
                         python_versions[pkg].add(version)
 
-        # add python27 package manually, it doesn't require Python 2, but it is
-        query = self.pkg_query.filter(name='python27')
-        for pkg in query:
-            python_versions[pkg].add(2)
+        # add python2.7 package manually, it doesn't require Python 2, but it is
+        for py2name in 'python27', 'python2.7':
+            query = self.pkg_query.filter(name=py2name)
+            for pkg in query:
+                python_versions[pkg].add(2)
 
         # srpm_names: {package: srpm name}
         # by_srpm_name: {srpm name: set of packages}

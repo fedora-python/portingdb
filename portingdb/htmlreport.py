@@ -174,7 +174,7 @@ def generate_deptrees(packages, keys=('deps', 'build_deps')):
         expanded.add(node.name)
         for child in children:
             child_node = TreeNode(child, parent=node)
-            if child_node.name == 'python27':
+            if child_node.name in ('python27', 'python2.7'):
                 # Everything here depends on Python 2.
                 # Don't show it in the summary.
                 continue
