@@ -389,7 +389,7 @@ def graph_json(grp=None, pkg=None):
     node_indices = {}
     for i, node in enumerate(set(node for pair in link_pairs for node in pair)):
         node_indices[node] = i
-        tier = tiers.get(reps[node])
+        tier = tiers.get(reps[node], 0)
         pkg = packages[node]
         color = pkg['status_obj']['color']
         nodes.append({
