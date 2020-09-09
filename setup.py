@@ -26,6 +26,7 @@ requires = [
     'blessings >= 1.7, < 2.0',
     'elsa >= 0.1.5, < 1.0',
     'networkx >= 2.2, < 3.0',
+    'python-bugzilla >= 2.5, < 3.0',
 ]
 
 tests_require = ['pytest']
