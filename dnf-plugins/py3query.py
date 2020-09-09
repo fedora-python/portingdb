@@ -316,6 +316,8 @@ class Py3QueryCommand(dnf.cli.Command):
         for pkg in progressbar(sorted(python_versions.keys()), 'Getting requirements'):
             if python_versions[pkg] == {3}:
                 continue
+            if pkg.arch == 'src':
+                continue
             reqs = set()
             build_reqs = set()
             provides = set(pkg.provides)
