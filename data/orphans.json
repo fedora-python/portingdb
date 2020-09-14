@@ -3,12 +3,19 @@
         "antlr4-project": [
             "jsonp"
         ],
+        "apache-commons-configuration": [
+            "log4j12"
+        ],
         "apache-commons-dbcp": [],
         "apache-log4j-extras": [
-            "geronimo-parent-poms"
+            "geronimo-parent-poms",
+            "log4j12"
         ],
-        "concurrent-trees": [
-            "sonatype-oss-parent"
+        "apache-rat": [
+            "maven-doxia-sitetools"
+        ],
+        "azureus": [
+            "log4j12"
         ],
         "copr-frontend": [
             "js-html5shiv",
@@ -17,14 +24,17 @@
         "dbus-java": [
             "libmatthew-java"
         ],
+        "dogtag-pki": [
+            "velocity"
+        ],
+        "eclipse-m2e-core": [
+            "velocity"
+        ],
         "elasticdump": [
             "mocha",
             "nodejs-jsonstream"
         ],
         "fedora-icon-theme": [],
-        "forbidden-apis": [
-            "sonatype-oss-parent"
-        ],
         "freight": [],
         "fst": [],
         "geronimo-annotation": [
@@ -32,7 +42,8 @@
         ],
         "geronimo-jcdi-1.1-api": [
             "geronimo-annotation",
-            "geronimo-parent-poms"
+            "geronimo-parent-poms",
+            "jboss-interceptors-1.2-api"
         ],
         "geronimo-osgi-support": [
             "geronimo-parent-poms"
@@ -43,33 +54,18 @@
             "geronimo-parent-poms"
         ],
         "golang-github-mholt-certmagic-0.9": [],
+        "javacc-maven-plugin": [
+            "maven-doxia-sitetools"
+        ],
         "jblas": [
             "sonatype-oss-parent"
         ],
+        "jboss-interceptors-1.2-api": [],
         "jing-trang": [
             "relaxngDatatype"
         ],
-        "jnr-constants": [
-            "sonatype-oss-parent"
-        ],
-        "jnr-enxio": [
-            "sonatype-oss-parent"
-        ],
-        "jnr-netdb": [
-            "sonatype-oss-parent"
-        ],
-        "jnr-posix": [
-            "sonatype-oss-parent"
-        ],
-        "jnr-unixsocket": [
-            "sonatype-oss-parent"
-        ],
-        "jnr-x86asm": [
-            "sonatype-oss-parent"
-        ],
-        "joda-time": [],
-        "jopt-simple": [
-            "sonatype-oss-parent"
+        "joda-time": [
+            "velocity"
         ],
         "js-html5shiv": [
             "nodejs-grunt"
@@ -86,12 +82,6 @@
             "nodejs-grunt"
         ],
         "js-tag-it": [],
-        "jsch": [
-            "sonatype-oss-parent"
-        ],
-        "jsch-agent-proxy": [
-            "sonatype-oss-parent"
-        ],
         "jsonp": [
             "jvnet-parent"
         ],
@@ -99,15 +89,47 @@
         "jvyamlb": [
             "joda-time"
         ],
+        "legendsbrowser": [
+            "velocity"
+        ],
         "libmatthew-java": [],
         "liquibase": [],
+        "log4j12": [],
         "mailman3": [
             "python-zope-configuration"
         ],
         "man-pages-de": [],
         "marble-widget": [],
-        "metadata-extractor2": [
-            "sonatype-oss-parent"
+        "maven-archetype": [
+            "velocity"
+        ],
+        "maven-dependency-plugin": [
+            "maven-doxia-sitetools"
+        ],
+        "maven-doxia-sitetools": [
+            "velocity"
+        ],
+        "maven-invoker-plugin": [
+            "maven-doxia-sitetools"
+        ],
+        "maven-javadoc-plugin": [
+            "maven-doxia-sitetools"
+        ],
+        "maven-plugin-bundle": [
+            "maven-doxia-sitetools"
+        ],
+        "maven-plugin-tools": [
+            "maven-doxia-sitetools",
+            "velocity"
+        ],
+        "maven-remote-resources-plugin": [
+            "velocity"
+        ],
+        "maven-reporting-impl": [
+            "maven-doxia-sitetools"
+        ],
+        "maven-surefire": [
+            "maven-doxia-sitetools"
         ],
         "mocha": [
             "nodejs-jade"
@@ -119,9 +141,6 @@
         "msv": [
             "jvnet-parent",
             "relaxngDatatype"
-        ],
-        "netty-tcnative": [
-            "sonatype-oss-parent"
         ],
         "neurord": [
             "jblas"
@@ -222,9 +241,6 @@
         "nodejs-ansi-yellow": [
             "mocha"
         ],
-        "nodejs-are-we-there-yet": [
-            "nodejs-readable-stream"
-        ],
         "nodejs-argparse": [
             "mocha"
         ],
@@ -310,19 +326,12 @@
         "nodejs-bufferutil": [
             "mocha"
         ],
-        "nodejs-busboy": [
-            "nodejs-dicer",
-            "nodejs-readable-stream"
-        ],
         "nodejs-cache-base": [
             "mocha"
         ],
         "nodejs-call-matcher": [],
         "nodejs-call-me-maybe": [
             "mocha"
-        ],
-        "nodejs-callback-stream": [
-            "nodejs-readable-stream"
         ],
         "nodejs-callsite": [
             "mocha"
@@ -402,7 +411,6 @@
         "nodejs-copy-descriptor": [
             "mocha"
         ],
-        "nodejs-core-util-is": [],
         "nodejs-cross-spawn": [
             "mocha"
         ],
@@ -458,9 +466,6 @@
         "nodejs-detect-file": [
             "mocha"
         ],
-        "nodejs-dicer": [
-            "nodejs-readable-stream"
-        ],
         "nodejs-diff": [
             "mocha"
         ],
@@ -477,14 +482,8 @@
         "nodejs-dotfile-regex": [
             "mocha"
         ],
-        "nodejs-duplexer": [],
         "nodejs-duplexer2": [
-            "mocha",
-            "nodejs-readable-stream"
-        ],
-        "nodejs-duplexify": [
-            "nodejs-end-of-stream",
-            "nodejs-readable-stream"
+            "mocha"
         ],
         "nodejs-ee-first": [
             "mocha"
@@ -495,7 +494,6 @@
         "nodejs-empty-dir": [
             "mocha"
         ],
-        "nodejs-end-of-stream": [],
         "nodejs-error-symbol": [
             "mocha"
         ],
@@ -550,11 +548,7 @@
             "mocha"
         ],
         "nodejs-first-chunk-stream": [
-            "mocha",
-            "nodejs-readable-stream"
-        ],
-        "nodejs-flush-write-stream": [
-            "nodejs-readable-stream"
+            "mocha"
         ],
         "nodejs-for-in": [
             "mocha"
@@ -572,13 +566,9 @@
         "nodejs-fragment-cache": [
             "mocha"
         ],
-        "nodejs-from": [],
         "nodejs-fs-dot-notify": [],
         "nodejs-fs-temp": [
             "mocha"
-        ],
-        "nodejs-fs-write-stream-atomic": [
-            "nodejs-readable-stream"
         ],
         "nodejs-gauge": [],
         "nodejs-github-url-from-username-repo": [
@@ -823,18 +813,11 @@
         "nodejs-mixin-object": [
             "mocha"
         ],
-        "nodejs-mongodb": [
-            "nodejs-readable-stream"
-        ],
         "nodejs-ms": [
             "mocha"
         ],
         "nodejs-multipipe": [
-            "mocha",
-            "nodejs-duplexer2"
-        ],
-        "nodejs-mysql": [
-            "nodejs-readable-stream"
+            "mocha"
         ],
         "nodejs-mz": [
             "mocha"
@@ -873,12 +856,8 @@
             "mocha"
         ],
         "nodejs-option-cache": [],
-        "nodejs-orchestrator": [
-            "nodejs-end-of-stream"
-        ],
         "nodejs-ordered-read-streams": [
-            "mocha",
-            "nodejs-readable-stream"
+            "mocha"
         ],
         "nodejs-os-shim": [
             "mocha"
@@ -888,9 +867,6 @@
         ],
         "nodejs-pad-left": [
             "mocha"
-        ],
-        "nodejs-parallel-transform": [
-            "nodejs-readable-stream"
         ],
         "nodejs-parse-github-repo-url": [
             "mocha"
@@ -955,13 +931,6 @@
         "nodejs-proxy-addr": [
             "mocha"
         ],
-        "nodejs-pump": [
-            "nodejs-end-of-stream"
-        ],
-        "nodejs-pumpify": [
-            "nodejs-duplexify",
-            "nodejs-pump"
-        ],
         "nodejs-qtdatastream": [
             "nodejs-grunt"
         ],
@@ -971,15 +940,9 @@
         "nodejs-randomatic": [
             "mocha"
         ],
-        "nodejs-raw-body": [
-            "nodejs-readable-stream"
-        ],
+        "nodejs-raw-body": [],
         "nodejs-read-file": [
             "mocha"
-        ],
-        "nodejs-readable-stream": [],
-        "nodejs-readdirp": [
-            "nodejs-readable-stream"
         ],
         "nodejs-rechoir": [],
         "nodejs-regex-cache": [
@@ -1059,9 +1022,6 @@
         "nodejs-split-string": [
             "mocha"
         ],
-        "nodejs-split2": [
-            "nodejs-callback-stream"
-        ],
         "nodejs-sprintf-js": [
             "mocha"
         ],
@@ -1071,9 +1031,6 @@
         "nodejs-stream-consume": [
             "mocha"
         ],
-        "nodejs-stream-each": [
-            "nodejs-end-of-stream"
-        ],
         "nodejs-stream-pair": [
             "mocha"
         ],
@@ -1081,8 +1038,7 @@
             "mocha"
         ],
         "nodejs-streamtest": [
-            "mocha",
-            "nodejs-readable-stream"
+            "mocha"
         ],
         "nodejs-strip-bom": [
             "mocha"
@@ -1104,9 +1060,6 @@
         ],
         "nodejs-tap-mocha-reporter": [
             "nodejs-tap-parser"
-        ],
-        "nodejs-tap-out": [
-            "nodejs-readable-stream"
         ],
         "nodejs-tap-parser": [],
         "nodejs-testutil": [
@@ -1180,8 +1133,7 @@
             "mocha"
         ],
         "nodejs-unpipe": [
-            "mocha",
-            "nodejs-readable-stream"
+            "mocha"
         ],
         "nodejs-unset-value": [
             "mocha"
@@ -1225,15 +1177,15 @@
         "openas2": [
             "sonatype-oss-parent"
         ],
-        "options": [
-            "sonatype-oss-parent"
+        "pki-core": [
+            "velocity"
         ],
         "plexus-ant-factory": [
             "plexus-component-factories-pom"
         ],
         "plexus-component-factories-pom": [],
-        "py4j": [
-            "sonatype-oss-parent"
+        "plexus-velocity": [
+            "velocity"
         ],
         "python-jose": [],
         "python-kaptan": [],
@@ -1250,18 +1202,9 @@
         "qrcode-generator": [],
         "relaxngDatatype": [],
         "relaxngcc": [],
-        "rhino": [
-            "sonatype-oss-parent"
-        ],
         "rmic-maven-plugin": [],
-        "ruby-ldap": [],
         "rubygem-delayed_job": [],
         "rubygem-delayed_job_active_record": [],
-        "rubygem-elasticsearch": [
-            "rubygem-elasticsearch-api"
-        ],
-        "rubygem-elasticsearch-api": [],
-        "rubygem-fast_gettext": [],
         "rubygem-jgrep": [],
         "rubygem-org-ruby": [
             "rubygem-rubypants"
@@ -1275,17 +1218,13 @@
         "simple-jndi": [
             "apache-commons-dbcp"
         ],
+        "snakeyaml": [
+            "velocity"
+        ],
         "sonatype-oss-parent": [],
         "umlgraph": [],
-        "unboundid-ldapsdk": [],
-        "unison213": [],
-        "unison227": [],
-        "unison240": [],
-        "yecht": [
-            "sonatype-oss-parent"
-        ],
-        "yydebug": [
-            "sonatype-oss-parent"
+        "velocity": [
+            "log4j12"
         ]
     },
     "status_change": {
@@ -1296,6 +1235,7 @@
         "fst": "2020-08-03T19:03:33",
         "geronimo-parent-poms": "2020-08-17T15:05:09",
         "golang-github-mholt-certmagic-0.9": "2020-08-24T20:32:38",
+        "jboss-interceptors-1.2-api": "2020-09-13T13:32:51",
         "joda-time": "2020-08-14T15:24:43",
         "js-jquery-iframe-transport": "2020-08-04T23:51:14",
         "js-jquery-knob": "2020-08-04T23:52:49",
@@ -1304,6 +1244,7 @@
         "jvnet-parent": "2020-08-22T17:54:05",
         "libmatthew-java": "2020-08-04T15:09:36",
         "liquibase": "2020-08-04T17:14:43",
+        "log4j12": "2020-09-13T13:31:56",
         "man-pages-de": "2020-08-03T14:49:06",
         "marble-widget": "2020-08-26T18:22:14",
         "mozilla-iot-gateway-addon-node": "2020-08-03T21:31:03",
@@ -1315,19 +1256,14 @@
         "nodejs-bufferutil": "2020-09-02T05:34:00",
         "nodejs-cache-base": "2020-09-02T05:34:01",
         "nodejs-call-matcher": "2020-09-02T05:34:02",
-        "nodejs-core-util-is": "2020-07-31T05:52:25",
         "nodejs-cross-spawn": "2020-09-02T05:34:03",
         "nodejs-cross-spawn-async": "2020-09-02T05:34:04",
         "nodejs-css-stringify": "2020-08-21T05:25:03",
         "nodejs-css-tree": "2020-08-21T05:25:08",
         "nodejs-doctrine": "2020-09-02T05:34:05",
-        "nodejs-duplexer": "2020-07-31T05:56:14",
-        "nodejs-duplexify": "2020-07-31T05:56:33",
-        "nodejs-end-of-stream": "2020-07-31T05:57:09",
         "nodejs-espower-location-detector": "2020-08-21T05:25:13",
         "nodejs-esrecurse": "2020-09-02T05:34:06",
         "nodejs-faucet": "2020-09-02T05:34:07",
-        "nodejs-from": "2020-07-31T05:50:34",
         "nodejs-fs-dot-notify": "2020-09-02T05:34:08",
         "nodejs-gauge": "2020-09-02T05:34:09",
         "nodejs-global-prefix": "2020-09-02T05:34:10",
@@ -1341,7 +1277,6 @@
         "nodejs-nopt": "2020-09-08T06:40:53",
         "nodejs-option-cache": "2020-09-02T05:34:18",
         "nodejs-raw-body": "2020-09-02T05:34:19",
-        "nodejs-readable-stream": "2020-07-31T06:01:24",
         "nodejs-rechoir": "2020-09-02T05:34:20",
         "nodejs-require-yaml": "2020-09-02T05:34:21",
         "nodejs-rfile": "2020-09-02T05:34:22",
@@ -1362,12 +1297,8 @@
         "relaxngDatatype": "2020-08-26T08:32:49",
         "relaxngcc": "2020-08-26T08:32:29",
         "rmic-maven-plugin": "2020-08-14T15:25:02",
-        "ruby-ldap": "2020-07-28T10:41:34",
         "rubygem-delayed_job": "2020-08-20T18:21:42",
         "rubygem-delayed_job_active_record": "2020-08-20T18:22:54",
-        "rubygem-elasticsearch": "2020-07-29T06:59:33",
-        "rubygem-elasticsearch-api": "2020-07-29T07:08:11",
-        "rubygem-fast_gettext": "2020-07-29T13:35:43",
         "rubygem-jgrep": "2020-09-02T08:27:22",
         "rubygem-org-ruby": "2020-08-18T07:32:16",
         "rubygem-paint": "2020-09-02T08:29:30",
@@ -1377,10 +1308,6 @@
         "rubygem-wikicloth": "2020-08-07T08:07:57",
         "rubygem-wirb": "2020-09-02T08:47:25",
         "sonatype-oss-parent": "2020-08-22T09:08:25",
-        "umlgraph": "2020-09-05T11:01:20",
-        "unboundid-ldapsdk": "2020-07-29T07:37:51",
-        "unison213": "2020-07-30T17:58:21",
-        "unison227": "2020-07-30T17:57:49",
-        "unison240": "2020-07-30T17:58:05"
+        "umlgraph": "2020-09-05T11:01:20"
     }
 }
