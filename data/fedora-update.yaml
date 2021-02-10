@@ -6,33 +6,10 @@
 # It's not necessary to manually record new bugs any more; just make sure
 # your bug blocks https://bugzilla.redhat.com/show_bug.cgi?id=1285816
 
-glue-validator:
-    dead-upstream: true
-gnome-python2:
-    status: dropped
-    note: |
-      Suggested replacement: `pygobject3`
-hippo-canvas: &sugar-toolkit
-    status: dropped
-    note: |
-        From the maintainer, on
-        [BZ#1737929](https://bugzilla.redhat.com/show_bug.cgi?id=1737929#c7):
-
-        We're looking to deprecate `hippo-canvas` *\[and `sugar-toolkit`\]*,
-        it was used in the old
-        gtk2 *\[Sugar\]* Activities, there's a few more to migrate to the gtk3.
-
-        There's overall been a multi year effort to move to python3 including
-        moving from gstreamer 0.10 python bindings to py3 friendly
-        introspection based gst 1.0 bindings etc.
-        There's only a handful of gtk2 based Activities left
-        (`repoquery --whatrequires sugar-toolkit`)
 m2crypto:
     nonblocking: true
     note: |
       Possible replacement: `python-cryptography` (or Python standard library).
-magicor:
-    dead-upstream: true
 mailman:
     note: |
         Mailman 3 with Python 3 support is ready but should be packaged separately.
@@ -51,11 +28,6 @@ pygtk2:
     status: dropped
     note: |
       Suggested replacement: `python-gobject`
-python27:
-    status: dropped
-    note: |
-      This is the Python 2.7 package.
-      Please port to Python 3.
 python2.7:
     status: dropped
     note: |
@@ -73,23 +45,8 @@ python2-dns:
     status: dropped
     note: |
         Backwards compatibility package for `python-dns`.
-python2-numpy:
-    status: dropped
-    note: |
-        This is the Python 2 version.
-        The `numpy` package provides `python3-numpy`.
-python2-pillow:
-    status: dropped
-    note: |
-        Backwards compatibility package for `python-pillow`
 python2-setuptools:
   status: dropped
   note: |
     This is the Python 2 version.
     The `python-setuptools` package provides `python3-setuptools`.
-python2-typing:
-    status: dropped
-    note: |
-        The `typing` module is part of the standard library in Python 3.5+;
-        no need for this backport there.
-sugar-toolkit: *sugar-toolkit
