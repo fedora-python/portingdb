@@ -68,7 +68,7 @@ The following steps are needed to update pordingdb data:
 
    For changes marked ♥, award badges: add new entries to `data/badges.txt`.
 
-   Find responsible people at https://src.fedoraproject.org/rpms/python-FOO/commits/master
+   Find responsible people at https://src.fedoraproject.org/rpms/python-FOO/commits/rawhide
 
 #. Commit changes::
 
