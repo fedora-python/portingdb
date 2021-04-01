@@ -475,6 +475,11 @@ def howto():
 
     by_status = group_by_status(packages.values())
 
+    if by_status['mispackaged']:
+         random_mispackaged = random.choice(by_status['mispackaged'])
+    else:
+         random_mispackaged = None
+
     return render_template(
         'howto.html',
         breadcrumbs=(
@@ -486,7 +491,7 @@ def howto():
         mispackaged=len(by_status['mispackaged']),
         by_status=by_status,
         statuses=statuses,
-        random_mispackaged=random.choice(by_status['mispackaged']),
+        random_mispackaged=None,
         random_idle=random.choice(by_status['idle']),
     )
 

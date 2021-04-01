@@ -22,6 +22,7 @@
             </ul>
         </div>
 
+        {% if random_mispackaged %}
         <h2 id="package-it">Package it</h2>
         <p>
             There are currently <a href="{{ url_for('hello', _anchor='mispackaged') }}">{{ mispackaged }} packages</a> that are Python 3–ready upstream (that we know of), but not quite yet Python 3–ready in Fedora. These are labeled as "mispackaged" in PortingDB.
@@ -30,6 +31,7 @@
         </p><p>
             Now open the package in PortingDB (e.g. {{ pkglink(random_mispackaged) }}): The {{ status_badge(statuses['mispackaged']) }} in the sidebar indicates that indeed we are dealing with a mispackaged package.
         </p>
+        {% endif %}
         <h3>What's What</h3>
         <p>
             On the package page in PortingDB, look down the sidebar for the headline <i>RPMs</i>. There you will see all the RPM (sub)packages contained in this package. Sometimes there's just the base package, sometimes it has several subpackages. What we want to know is if there is a (sub)package for Python 3. If there is only a Python 2 (sub)package, then we know that this package needs to be ported.
