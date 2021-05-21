@@ -155,11 +155,6 @@ chromium:
     packages:
     - chromium
     - python-psutil
-postgresql:
-    name: PostgreSQL database
-    exception: https://pagure.io/fesco/issue/2217
-    packages:
-    - postgresql
 pypy:
     # (2020-02) pypy is not ported, it is just that currently, all the builds
     # were done with pypy. But when bootstrapping, they are done with python2.
@@ -178,26 +173,12 @@ mozjs68:
     exception: https://pagure.io/fesco/issue/2264
     packages:
     - mozjs68
-offlineimap:
-    name: offlineimap
-    exception: https://pagure.io/fesco/issue/2274
-    packages:
-    - offlineimap
-    - python-docutils
-    - python-six
-    - python2-setuptools
 nfstest:
     name: NFStest
     exception: https://pagure.io/fesco/issue/2275
     packages:
     - NFStest
     - python2-setuptools
-mailman:
-    name: Mailman 2
-    exception: https://pagure.io/fesco/issue/2312
-    packages:
-    - mailman
-    - python2-dns
 seamonkey:
     name: SeaMonkey
     exception: https://pagure.io/fesco/issue/2348

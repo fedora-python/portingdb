@@ -6,16 +6,6 @@
 # It's not necessary to manually record new bugs any more; just make sure
 # your bug blocks https://bugzilla.redhat.com/show_bug.cgi?id=1285816
 
-mailman:
-    note: |
-        Mailman 3 with Python 3 support is ready but should be packaged separately.
-        More info on the status of the new package can be found in a
-        [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1363871).
-postgresql:
-    nonblocking: true
-    note: |
-        Only postgresql-upgrade and postgresql-contrib depend on both Pythons, but this is intentional
-        as discussed in a [Fedora bug](https://bugzilla.redhat.com/show_bug.cgi?id=1571215).
 pygobject2:
     status: dropped
     note: |
@@ -33,10 +23,6 @@ python2-cairo:
     status: dropped
     note: |
         Backwards compatibility package for `pycairo`.
-python2-dns:
-    status: dropped
-    note: |
-        Backwards compatibility package for `python-dns`.
 python2-setuptools:
   status: dropped
   note: |
