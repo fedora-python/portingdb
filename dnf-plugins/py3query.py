@@ -28,15 +28,11 @@ BUGZILLA_URL = 'bugzilla.redhat.com'
 # Tracker bugs which are used to find all relevant package bugs
 TRACKER_BUGS = {
     1698500: "F31_PY2REMOVAL",
-    1625773: "PY2REMOVAL",
-    1690439: "PY2FTBI",
-    1285816: "PYTHON3",
     1700324: "F31FailsToInstall",
-    1700317: "F31FTBFS",
-    1750909: "F32FailsToInstall",
-    1750908: "F32FTBFS",
     1708725: "PYTHON2_EOL",
     1803205: "BRPY27",
+    1927309: "F35FTBFS",
+    1927313: "F35FailsToInstall",
 }
 # Bugzilla statuses that indicate the bug was filed in error
 NOTABUG_STATUSES = {'CLOSED NOTABUG', 'CLOSED WONTFIX', 'CLOSED CANTFIX'}
