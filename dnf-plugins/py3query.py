@@ -199,6 +199,13 @@ def get_srpm_names(pkgs):
     return {get_srpm_name(pkg) for pkg in pkgs}
 
 
+def chunks(sequence, size=1000):
+    """Yield chunks of given size (1000) from a sequence until exhausted.
+    The last chunk might be smaller."""
+    for start in range(0, len(sequence), size):
+        yield sequence[start:start + size]
+
+
 class Py3QueryCommand(dnf.cli.Command):
 
     """The util command there is extending the dnf command line."""
@@ -409,12 +416,17 @@ class Py3QueryCommand(dnf.cli.Command):
             include_fields = ['id', 'depends_on', 'blocks', 'component',
                               'status', 'resolution', 'last_change_time',
                               'short_desc']
+            if len(TRACKER_BUGS) >= 1000:
+                raise NotImplementedError('Too many trackers')
             trackers = bz.getbugs(TRACKER_BUGS,
                                   include_fields=include_fields)
             all_ids = set(b for t in trackers for b in t.depends_on)
 
             next(bar)
-            bugs = bz.getbugs(all_ids, include_fields=include_fields)
+
+            bugs = []
+            for chunk in chunks(list(all_ids)):
+                bugs += bz.getbugs(chunk, include_fields=include_fields)
             bar.close()
 
             def bug_namegetter(bug):
