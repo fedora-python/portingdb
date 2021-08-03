@@ -1,0 +1,25 @@
+name: Main
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install . elsa
+    - name: Freeze HTML
+      run: |
+        python elsasite.py freeze -v
+    - if: ${{ github.ref == 'refs/heads/master' }}
+      name: Deploy
+      run: |
+         python elsasite.py deploy --no-freeze --push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
