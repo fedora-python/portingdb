@@ -19,14 +19,14 @@ class PyTest(TestCommand):
 
 requires = [
     'PyYAML >= 3.11, < 5.0',
-    'click >= 7.0, < 8.0',
-    'flask >= 1.0, < 2.0',
+    'click >= 8.0, < 9.0',
+    'flask >= 2.0, < 3.0',
     'markdown >= 3.0, < 4.0',
-    'plotly >= 3.0, < 4.0',
+    'plotly >= 5.0, < 6.0',
     'blessings >= 1.7, < 2.0',
     'elsa >= 0.1.5, < 1.0',
     'networkx >= 2.2, < 3.0',
-    'python-bugzilla >= 2.5, < 3.0',
+    'python-bugzilla >= 3.0, < 4.0',
 ]
 
 tests_require = ['pytest']
