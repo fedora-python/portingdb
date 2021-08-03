@@ -320,6 +320,10 @@ def graph_json(grp=None, pkg=None):
         for pkg_name, pkg_dict in packages.items()
         for attr in ('dependents', 'build_dependents')
         for dep_name in pkg_dict[attr]
+        if not all ([
+            pkg_dict['status'] == 'py3-only',
+            packages[dep_name]['status'] == 'py3-only',
+        ])
     ]
 
     # Find "tiers" of packages: if the Python 2 dropping was done by removing
