@@ -70,6 +70,7 @@ PROVIDES_BLACKLIST = (
     'postscriptdriver(', 'pkgconfig(', 'perl(', 'mvn(', 'mimehandler(',
     'config(', 'bundled(', 'application(', 'appdata(',
 )
+BUGZILLA_PAGE_SIZE = 1000
 
 
 class Py3Query(dnf.Plugin):
@@ -406,8 +407,8 @@ class Py3QueryCommand(dnf.cli.Command):
 
         # add Bugzilla links
         if self.opts.fetch_bugzilla:
-            bar = iter(progressbar(['connecting', 'tracker', 'individual'],
-                                   'Getting bugs'))
+            bar = iter(progressbar(['connecting', 'tracker'],
+                                   'Getting bug list'))
 
             next(bar)
             bz = bugzilla.RHBugzilla(BUGZILLA_URL)
@@ -422,12 +423,15 @@ class Py3QueryCommand(dnf.cli.Command):
                                   include_fields=include_fields)
             all_ids = set(b for t in trackers for b in t.depends_on)
 
-            next(bar)
+            bar.close()
 
             bugs = []
-            for chunk in chunks(list(all_ids)):
+            for chunk in progressbar(
+                list(chunks(sorted(all_ids), BUGZILLA_PAGE_SIZE)),
+                'Getting bugs',
+                namegetter=lambda ids:f'{min(ids)}-{max(ids)}',
+            ):
                 bugs += bz.getbugs(chunk, include_fields=include_fields)
-            bar.close()
 
             def bug_namegetter(bug):
                 return '{bug.id} {bug.status} {bug.component}'.format(bug=bug)
