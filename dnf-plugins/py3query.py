@@ -63,6 +63,10 @@ SEED_PACKAGES = {
         'libpython3.8.so.1.0()(64bit)',
         'python(abi) = 3.9', '/usr/bin/python3.9', 'libpython3.9.so.1.0',
         'libpython3.9.so.1.0()(64bit)',
+        'python(abi) = 3.10', '/usr/bin/python3.10', 'libpython3.10.so.1.0',
+        'libpython3.10.so.1.0()(64bit)',
+        'python(abi) = 3.11', '/usr/bin/python3.11', 'libpython3.11.so.1.0',
+        'libpython3.11.so.1.0()(64bit)',
     ]
 }
 
