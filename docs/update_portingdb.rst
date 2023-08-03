@@ -8,21 +8,11 @@ To use the portingdb update scripts, you will need to install and configure the 
 
 #. Ensure that you run Fedora 28 or higher.
 
-#. Install system-wide dependencies::
+#. Install system-wide dependencies and rawhide repo definitions::
 
-    $ sudo dnf install python3-bugzilla python3-libarchive-c
+    $ sudo dnf install python3-bugzilla python3-libarchive-c fedora-repos-rawhide
 
    Note that you cannot use Python virtual environments for this.
-
-#. Put ``py3query.py`` in DNF plugin directory::
-    
-    $ sudo cp dnf-plugins/py3query.py /usr/lib/pythonX.Y/site-packages/dnf-plugins/
-
-   Note: replace ``pythonX.Y`` with the Python version of your system.
-
-#. Install the rawhide repo definitions::
-    
-    $ sudo dnf install fedora-repos-rawhide
 
 #. Install portingdb into your virtualenv::
 
@@ -39,7 +29,7 @@ The following steps are needed to update pordingdb data:
 
 #. Get the Python 3 porting status using ``py3query`` dnf plugin. Use ``-o`` option to write the output directly to ``fedora.json``::
 
-    $ dnf-3 --repo=rawhide --repo=rawhide-source py3query --refresh --installroot=/tmp/empty-install-root -o data/fedora.json
+    $ dnf-3 --setopt=pluginpath=dnf-plugins/ --repo=rawhide --repo=rawhide-source py3query --refresh --installroot=/tmp/empty-install-root -o data/fedora.json
 
 #. Compare statuses of packages in the new JSON file::
 
