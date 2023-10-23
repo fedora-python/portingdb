@@ -1,0 +1,264 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <title>nanopb – Python 2 Dropping Database </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="icon" type="image/svg+xml" href="/status/mispackaged.svg?40d48fd1-c732-445b-ba19-234383b53826">
+        
+        <link rel="stylesheet" href="/static/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/style.css">
+        <style>
+            
+            
+
+            
+        </style>
+    </head>
+    <body>
+        
+            <nav>
+                <div class="container">
+                    <ol class="breadcrumb">
+                        
+                            
+                                <li>
+                                    <a href="/">Python 2 Dropping Database</a>
+                                </li>
+                            
+                        
+                            
+                                <li class="active">nanopb</li>
+                            
+                        
+                    </ol>
+                </div>
+            </nav>
+        
+        
+    <div class="container">
+        <div class="col-md-12">
+            <h1>Package nanopb </h1>
+            <div style="border-left: 4px solid #5bc0de; padding-left: 4px; ">
+                <p>This package has a packaging problem, which should be described in the
+notes.
+Check where the problem is coming from, and work with the maintainer
+to correct it.</p>
+<p>If this is a false positive, file a portingdb bug.</p>
+            </div>
+            <br>
+            
+            <div>
+                <img src="https://fedoraproject.org/static/images/favicon.ico">
+                See
+                <a href="https://src.fedoraproject.org/rpms/nanopb/">
+                    nanopb</a>
+                in the Fedora Pagure, or go directly to the corresponding
+                <a href="https://src.fedoraproject.org/rpms/nanopb/blob/rawhide/f/nanopb.spec">spec file</a>.
+            </div>
+        </div>
+        <div class="col-md-3">
+                
+                    <div>
+                        <h3>Bugs</h3>
+                        <ul class="pkg-link-list fa-ul">
+                            
+                                <li>
+                                    
+    <i class="iconlink fa fa-bug fa-li iconlink-bug-NEW
+    
+    "
+    title="nanopb-python3 depends on /usr/bin/python2 (NEW; updated 2023-08-16)">
+    </i>
+
+                                    
+    <a href="https://bugzilla.redhat.com/show_bug.cgi?id=2228109">#2228109 nanopb-python3 depends on /usr/bin/python2</a>
+    
+        <small>
+            (for <a href="https://bugzilla.redhat.com/show_bug.cgi?id=PYTHON2_EOL"
+                >PYTHON2_EOL</a>)
+        </small>
+    
+
+                                    <div>
+                                        <small>
+                                            NEW
+                                            
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <small>
+                                            Updated
+                                            <span title="2023-08-16 08:06:22">
+                                                2023-08-16
+                                            </span>
+                                        </small>
+                                    </div>
+                                </li>
+                            
+                        </ul>
+                    </div>
+                
+                
+                
+                    
+                        <div>
+                            <h3>Note</h3>
+                            <p>A single package depends on both Python 2 and Python 3.
+It should be split into a python2 and python3 subpackages to prevent it from always dragging the py2 dependency in.</p>
+                        </div>
+                    
+                    
+                        <div>
+                            <h3>RPMs</h3>
+                            <ul class="rpm-list">
+                            
+                                <li>
+                                    <span class="rpm-name">nanopb</span>-0.4.7-3.fc39.src
+                                    
+                                        <span class="fa fa-wrench" title="SRPM"></span>
+                                    
+                                    
+                                    
+    
+
+                                    <ul class="fa-ul">
+                                        
+                                            <li>
+                                                
+                                                    <span class="fa fa-li">✔</span>
+                                                
+                                                python3-devel
+                                                
+                                            </li>
+                                        
+                                            <li>
+                                                
+                                                    <span class="fa fa-li">✔</span>
+                                                
+                                                python3-devel = 3.12.0-2.fc40
+                                                
+                                            </li>
+                                        
+                                    </ul>
+                                </li>
+                            
+                                <li>
+                                    <span class="rpm-name">nanopb-python3</span>-0.4.7-3.fc39.x86_64
+                                    
+                                    
+                                    
+    
+    <span class="badge"
+          style="background-color: #444 !important;
+                 color: #fd3;"
+          title="The RPM is not required by other packages in Fedora"><i class="fa fa-leaf"></i></span>
+    
+
+                                    <ul class="fa-ul">
+                                        
+                                            <li>
+                                                
+                                                    <span class="fa fa-li">×</span>
+                                                
+                                                /usr/bin/python2
+                                                
+                                            </li>
+                                        
+                                            <li>
+                                                
+                                                    <span class="fa fa-li">✔</span>
+                                                
+                                                /usr/bin/python3
+                                                
+                                            </li>
+                                        
+                                            <li>
+                                                
+                                                    <span class="fa fa-li">✔</span>
+                                                
+                                                python(abi) = 3.12
+                                                
+                                            </li>
+                                        
+                                    </ul>
+                                </li>
+                            
+                            </ul>
+                        </div>
+                    
+                    
+                    
+                
+            
+            
+                <h3>Maintainers</h3>
+                <ul>
+                    
+                        <li>
+                            
+        <a href="/maintainer/topazus/">topazus</a>
+    
+    (5)
+    <a href="https://src.fedoraproject.org/user/topazus">
+        <i class="fa fa-th-list"></i>
+    </a>
+                        </li>
+                    
+                </ul>
+            
+        </div>
+        
+    </div>
+
+        
+    </body>
+</html>
