@@ -43,10 +43,9 @@ The following steps are needed to update pordingdb data:
 
     (venv) $ python -u scripts/get-history.py --update data/history.csv | tee history.csv && mv history.csv data/history.csv
 
-#. Update the maintainer and orphans lists::
+#. Update the maintainer lists::
 
     $ wget https://src.fedoraproject.org/extras/pagure_owner_alias.json -O data/pagure_owner_alias.json
-    $ wget https://churchyard.fedorapeople.org/orphans.json -O data/orphans.json
 
 #. You can check how portingdb looks with the new data:
 
@@ -62,7 +61,7 @@ The following steps are needed to update pordingdb data:
 
 #. Commit changes::
 
-    (venv) $ git commit -am 'Update history, badges, maintainers, orphans'
+    (venv) $ git commit -am 'Update history, badges, maintainers'
 
 #. Push to a fork and create a PR. Put the jsondiff in the PR message; this command will put it in your clipboard (at least on X11)::
 
