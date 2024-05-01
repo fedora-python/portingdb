@@ -330,10 +330,3 @@ def load_from_directories(data, directories):
                if names:
                     nonpy_requirers.setdefault(kind, set()).update(names)
         package['non_python_requirers'] = nonpy_requirers
-
-    orphans = data_from_file(directories, 'orphans')
-    status_change = orphans['status_change']
-    for name, isodt in status_change.items():
-        if name in packages:
-            last_change = datetime.datetime.fromisoformat(isodt)
-            packages[name]['last_repo_metadata_change'] = last_change
