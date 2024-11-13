@@ -1,0 +1,253 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <title>Graph – Python 2 Dropping Database</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="icon" type="image/svg+xml" href="
+        /piechart.svg?64b7185a-4e05-42df-8f83-a98c1bd90e07
+    ">
+        
+        <link rel="stylesheet" href="/static/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/style.css">
+        <style>
+            
+    
+            
+
+            
+    .node {
+    stroke: #fff;
+    stroke-width: 1.5px;
+    }
+
+    .link {
+    stroke: #000;
+    stroke-opacity: 0.1;
+    }
+
+    .marker {
+    fill: #000;
+    fill-opacity: 0.1;
+    }
+
+    .d3-tip {
+    line-height: 1;
+    padding: 3px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+    font-family: sans-serif;
+    }
+
+        </style>
+    </head>
+    <body>
+        
+            <nav>
+                <div class="container">
+                    <ol class="breadcrumb">
+                        
+                            
+                                <li>
+                                    <a href="/">Python 2 Dropping Database</a>
+                                </li>
+                            
+                        
+                            
+                                <li class="active">Graph</li>
+                            
+                        
+                    </ol>
+                </div>
+            </nav>
+        
+        
+<div class="container">
+    <div class="col-12">
+        <h1>A Graph</h1>
+        <p>
+            Here is a graph showing dependency relationships for
+            packages in Fedora Rawhide that need Python 2 in some way.
+            Brighter colors roughly mean the package can be removed sooner.
+            Hover over a package to see its name; click it to open its portingdb summary.
+        </p>
+        <p>
+            The graph shows both run-time and build-time dependencies.
+        </p>
+        <p>
+            Large graphs are quite CPU-hungry. Sorry for that!
+        </p>
+    </div>
+</div>
+<center>
+    <div id="graph-goes-here"></div>
+</center>
+
+<script src="/static/d3.v3.min.js"></script>
+<script src="/static/d3.tip.v0.6.3.js"></script>
+<script>
+
+var width = 1200,
+    height = 900;
+
+var force = d3.layout.force()
+    .size([width, height]);
+
+var svg = d3.select("#graph-goes-here").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json(
+    
+        "/graph/portingdb.json"
+    
+    , function(error, graph) {
+  if (error) throw error;
+
+  function distance(tier) {
+      return height/(tier+2)/2;
+  }
+
+  var centernode = {x: width/2, y: height/2, fixed: true};
+  graph.nodes.forEach(function(n, i) {
+    graph.links.push({'source': centernode, 'target': n});
+    n.x = width/2 + Math.cos(i) * distance(n.tier)*2;
+    n.y = height/2 + Math.sin(i) * distance(n.tier)*2;
+  });
+  graph.nodes.push(centernode);
+
+  force
+      .charge(-600 / Math.pow(graph.nodes.length, 0.3))
+      .linkStrength(function(l) {
+        return (l.source == centernode) ? 1 :
+            1/(Math.abs(l.source.tier - l.target.tier)+5);
+        })
+      .linkDistance(function(l) {
+        return (l.source == centernode) ?
+            distance(l.target.tier) :
+            Math.max(Math.abs(distance(l.source.tier) - distance(l.target.tier)), 15);
+        })
+      .gravity(0.1)
+      .nodes(graph.nodes)
+      .links(graph.links);
+
+svg.append("svg:defs").selectAll("marker")
+    .data(["end"])      // Different link/path types can be defined here
+  .enter().append("svg:marker")    // This section adds in the arrows
+    .attr("id", String)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+    .attr("class", "marker")
+  .append("svg:path")
+    .attr("d", "M0,-5L10,0L0,5");
+
+  var link = svg.selectAll(".link")
+      .data(graph.links.filter(function(l){return l.source != centernode}))
+    .enter().append("line")
+      .attr("class", "link")
+      .attr("marker-end", "url(#end)")
+      .attr("stroke-opacity", function(l) { return l.source == centernode ? 0 : 1 })
+      .style("stroke-width", 1);
+
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+        return `<i class="pkgstatus-icon" style="background-color:${d.status_color}">&nbsp;</i> ${d.name}`;
+      })
+
+  var node = svg.selectAll(".node")
+      .data(graph.nodes.filter(function(l){return l != centernode}))
+    .enter().append("svg:a")
+      .attr("xlink:href", function(d) { return `/pkg/${d.name}/`; })
+    .append("circle")
+      .attr("class", "node")
+      .attr("r", 5 )
+      .style("fill", function(d) { return d.color; })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+      .call(force.drag);
+
+    svg.call(tip);
+
+    var total_requirements = 0;
+    var total_requirers = 0;
+    graph.nodes.forEach(function(o, i) {
+        total_requirements += o.num_requirements;
+        total_requirers += o.num_requirers;
+    });
+    var avg_requirements = total_requirements / graph.nodes.length;
+    var avg_requirers = total_requirers / graph.nodes.length;
+
+  force.on("tick", function(e) {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+
+    });
+
+  force.start();
+});
+
+</script>
+
+        
+    </body>
+</html>

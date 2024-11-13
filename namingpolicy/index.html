@@ -1,0 +1,232 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <title>Naming Policy – Python 2 Dropping Database</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="icon" type="image/svg+xml" href="/namingpolicy/piechart.svg?76b8f0f9-84b4-46c9-a27a-4cc0f822c6e3">
+        
+        <link rel="stylesheet" href="/static/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/style.css">
+        <style>
+            
+            
+
+            
+        </style>
+    </head>
+    <body>
+        
+            <nav>
+                <div class="container">
+                    <ol class="breadcrumb">
+                        
+                            
+                                <li>
+                                    <a href="/">Python 2 Dropping Database</a>
+                                </li>
+                            
+                        
+                            
+                                <li class="active">Naming Policy</li>
+                            
+                        
+                    </ol>
+                </div>
+            </nav>
+        
+        
+
+<div class="container">
+    <div class="col-md-12">
+        <h1>Naming Policy Violations</h1>
+    </div>
+    <div class="col-md-12">
+        <p>
+            This is a dashboard to track various naming scheme violations in Python packages.
+        </p>
+        <p>
+            Specifically, this tracks the use of “unversioned” <code>python</code>
+            in all package names, Provides, Requires, etc.
+            It should be replaced by "versioned” variants <code>python2</code>
+            or <code>python3</code>.
+        </p>
+        <p>
+            We encourage to follow the new guidelines to avoid a range of issues
+            when upstream support for Python 2 ends and <code>python</code>
+            means Python 3 in Fedora.
+        </p>
+    </div>
+    <div class="col-md-9">
+        <h3 id="name-misnamed">
+            Misnamed subpackage (0)
+        </h3>
+        <span
+        class="naming-badge"
+        style="background-color: #F0AD4E !important;"
+        title="Misnamed package"
+    ></span>
+        The naming scheme of (at least) one of the binary RPMs
+        does not comply with the naming policy. Please refer to the
+        <a href="https://python-rpm-porting.readthedocs.io/en/latest/naming-scheme.html">
+        Python RPM Porting Guide</a> for more information and instructions on
+        the changes needed.
+        <ul class="simple-pkg-list">
+            
+        </ul>
+
+        <h3>
+            Ambiguous Requires
+            (0)
+        </h3>
+        Some (Build)Requires use “unversioned” <code>python</code>.
+
+        <h4 id="require-misnamed">Unblocked</h4>
+        <span
+        class="naming-badge"
+        style="background-color: #8c6699 !important;"
+        title="Ambiguous Requires"
+    ></span>
+        For 0 Python packages, explicitly versioned
+        names (e.g. <code>python2-foo</code>) are available and should be used.
+        <ul class="simple-pkg-list" style="column-width: 10em;">
+            
+        </ul>
+
+        <h4 id="require-blocked">Blocked</h4>
+        <span
+        class="naming-badge"
+        style="background-color: #a65959 !important;"
+        title="Ambiguous Requires (blocked)"
+    ></span>
+        For 0 Python packages, explicitly versioned
+        names (e.g. <code>python2-foo</code>) may not be available.
+        These packages are waiting for some misnamed packages to be renamed.
+        <ul class="simple-pkg-list">
+            
+        </ul>
+
+        <h4 id="require-misnamed-non-python">
+            Non-Python Packages
+        </h4>
+        <div>
+            There are also 0 non-Python packages which
+            are not tracked in Python Porting Database, but depend on Python
+            packages and use the unversioned naming scheme in run-time or
+            build-time requirements.
+        </div>
+
+        <table class="table table-striped table-condensed table-hovered">
+            <tr>
+                <th>Package</th>
+                <th>Links</th>
+            </tr>
+            
+        </table>
+    </div>
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span
+        class="naming-badge"
+        style="background-color: #F0AD4E !important;"
+        title="Misnamed package"
+    ></span>
+                <a href="#name-misnamed">
+                    0
+                    <strong>Misnamed subpackage</strong>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <span
+        class="naming-badge"
+        style="background-color: #8c6699 !important;"
+        title="Ambiguous Requires"
+    ></span>
+                <a href="#require-misnamed">
+                    0
+                    <strong>Unblocked</strong>
+                    Ambiguous Requires
+                </a>
+            </li>
+            <li class="list-group-item">
+                <span
+        class="naming-badge"
+        style="background-color: #a65959 !important;"
+        title="Ambiguous Requires (blocked)"
+    ></span>
+                <a href="#require-blocked">
+                    0
+                    <strong>Blocked</strong>
+                    Ambiguous Requires
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#require-misnamed-non-python">
+                    0
+                    <strong>Non-Python</strong>
+                    Ambiguous Requires
+                </a>
+            </li>
+        </ul>
+        <h3>Visualizations</h3>
+        <div>
+            You may also see a
+            <a href="/namingpolicy/history/">graph of the progress history</a>
+            for the naming policy violations.
+        </div>
+    </div>
+</div>
+
+
+        
+    </body>
+</html>
